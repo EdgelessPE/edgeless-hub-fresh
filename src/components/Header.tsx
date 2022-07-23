@@ -1,7 +1,8 @@
-import { Layout } from '@arco-design/web-react';
-import React from 'react';
+import { Input, Layout, Popover } from '@arco-design/web-react';
+import React, { useState } from 'react';
 import { IconArrowLeft, IconDownload, IconSearch } from '@arco-design/web-react/icon';
 import { BrowserHistory } from 'history';
+import { DownloadPopoverCard, DownloadTitle } from '@/components/DownloadPopoverCard';
 
 interface Prop {
   history: BrowserHistory;
@@ -18,7 +19,20 @@ const IconStyle: React.CSSProperties = {
   cursor: 'pointer'
 };
 
+
 export const Header = ({ history, title }: Prop) => {
+  const [showSearch, setShowSearch] = useState(false);
+  const [searchText, setSearchText] = useState('');
+
+  const ToTasks = () => history.push('/tasks');
+  const toggleInput = () => setShowSearch(prev => !prev);
+  const onInput = (v: string) => setSearchText(v);
+  const onSearch = () => {
+    console.log(searchText);
+    setSearchText('');
+    setShowSearch(false);
+  };
+
   return (
     <ArcoHeader style={{
       display: 'flex',
@@ -46,11 +60,29 @@ export const Header = ({ history, title }: Prop) => {
         />
         {title}
       </div>
-      <IconSearch
-        style={IconStyle}
-        onClick={() => console.log(history.location)}
-      />
-      <IconDownload style={IconStyle} />
+
+      {showSearch ?
+        <Input.Search
+          value={searchText}
+          allowClear
+          placeholder='搜索插件'
+          onBlur={toggleInput}
+          onChange={onInput}
+          onSearch={onSearch}
+        ></Input.Search>
+        :
+        <IconSearch
+          style={IconStyle}
+          onClick={toggleInput}
+        />
+      }
+
+      <Popover title={DownloadTitle} content={DownloadPopoverCard()}>
+        <IconDownload
+          style={IconStyle}
+          onClick={ToTasks}
+        />
+      </Popover>
     </ArcoHeader>
   );
 };

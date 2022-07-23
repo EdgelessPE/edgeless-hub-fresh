@@ -2,9 +2,8 @@ import React, { useState } from 'react';
 import { Layout, Menu, Breadcrumb, Button, Message } from '@arco-design/web-react';
 import '@arco-design/web-react/dist/css/arco.css';
 import { IconHome, IconCalendar, IconCaretRight, IconCaretLeft } from '@arco-design/web-react/icon';
+import { SiderMenu } from '@/components/SiderMenu';
 
-const MenuItem = Menu.Item;
-const SubMenu = Menu.SubMenu;
 const Sider = Layout.Sider;
 const Header = Layout.Header;
 const Footer = Layout.Footer;
@@ -23,68 +22,18 @@ const App: React.FC = () => {
         collapsed={collapsed}
         onCollapse={handleCollapsed}
         collapsible
-        trigger={collapsed ? <IconCaretRight /> : <IconCaretLeft />}
+        trigger={null}
         breakpoint='xl'
       >
-        <div className='logo'>Edgeless</div>
-        <Menu
-          defaultOpenKeys={['1']}
-          defaultSelectedKeys={['0_3']}
-          onClickMenuItem={(key) =>
-            Message.info({
-              content: `You select ${key}`,
-              showIcon: true
-            })
-          }
-          style={{ width: '100%' }}
-        >
-          <MenuItem key='0_1' disabled>
-            <IconHome />
-            Menu 1
-          </MenuItem>
-          <MenuItem key='0_2'>
-            <IconCalendar />
-            Menu 2
-          </MenuItem>
-          <MenuItem key='0_3'>
-            <IconCalendar />
-            Menu 3
-          </MenuItem>
-          <SubMenu
-            key='1'
-            title={
-              <span>
-                  <IconCalendar />
-                  Navigation 1
-                </span>
-            }
-          >
-            <MenuItem key='1_1'>Menu 1</MenuItem>
-            <MenuItem key='1_2'>Menu 2</MenuItem>
-            <SubMenu key='2' title='Navigation 2'>
-              <MenuItem key='2_1'>Menu 1</MenuItem>
-              <MenuItem key='2_2'>Menu 2</MenuItem>
-            </SubMenu>
-            <SubMenu key='3' title='Navigation 3'>
-              <MenuItem key='3_1'>Menu 1</MenuItem>
-              <MenuItem key='3_2'>Menu 2</MenuItem>
-              <MenuItem key='3_3'>Menu 3</MenuItem>
-            </SubMenu>
-          </SubMenu>
-          <SubMenu
-            key='4'
-            title={
-              <span>
-                  <IconCalendar />
-                  Navigation 4
-                </span>
-            }
-          >
-            <MenuItem key='4_1'>Menu 1</MenuItem>
-            <MenuItem key='4_2'>Menu 2</MenuItem>
-            <MenuItem key='4_3'>Menu 3</MenuItem>
-          </SubMenu>
-        </Menu>
+        <div className='logo' onClick={handleCollapsed}>
+          <img alt='E' src='/favicon.ico' style={{
+            width: '32px',
+            height: '32px',
+            marginLeft: collapsed ? '0' : '15px'
+          }} />
+          <span style={{ display: collapsed ? 'none' : 'inline-block' }}>Edgeless</span>
+        </div>
+        <SiderMenu />
       </Sider>
       <Layout>
         <Header style={{ paddingLeft: 20 }}>Header</Header>

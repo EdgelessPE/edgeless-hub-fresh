@@ -11,11 +11,6 @@ body {
 .app .arco-layout-sider .logo {
   height: 32px;
   margin: 12px 8px;
-  background: rgba(255, 255, 255, 0.2);
-}
-
-.app .arco-layout-sider-light .logo {
-  background: var(--color-fill-2);
 }
 
 .app .arco-layout-footer,
@@ -31,7 +26,7 @@ body {
 
 .app .arco-layout-footer {
   color: var(--color-text-2);
-  height: 48px;
+  height: 68px;
   line-height: 48px;
   font-weight: 400;
   font-size: 14px;
@@ -52,4 +47,14 @@ body {
 
 .app .arco-layout-header .trigger {
   margin-left: 20px;
+}
+
+.logo {
+  cursor: pointer;
+}
+
+.logo span {
+  font-size: large;
+  margin-left: 15px;
+  transform: translateY(-9px);
 }

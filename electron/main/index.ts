@@ -1,6 +1,7 @@
 import { app, BrowserWindow, shell, ipcMain } from 'electron'
 import { release } from 'os'
-import { join } from 'path'
+import { join } from 'path';
+import installExtension, { REACT_DEVELOPER_TOOLS } from 'electron-devtools-installer';
 
 if (release().startsWith('6.1')) app.disableHardwareAcceleration()
 
@@ -35,10 +36,10 @@ async function createWindow() {
       contextIsolation: false
     }
   })
-  win.removeMenu();
 
   if (app.isPackaged) {
     await win.loadFile(indexHtml);
+    win.removeMenu();
   } else {
     await win.loadURL(url);
     win.webContents.openDevTools();
@@ -54,7 +55,11 @@ async function createWindow() {
   })
 }
 
-app.whenReady().then(createWindow)
+app.whenReady().then(async () => {
+  const extName = await installExtension(REACT_DEVELOPER_TOOLS);
+  console.log(`Added Extension:  ${extName}`);
+  await createWindow();
+});
 
 app.on('window-all-closed', () => {
   win = null

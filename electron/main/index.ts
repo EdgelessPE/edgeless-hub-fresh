@@ -2,6 +2,7 @@ import { app, BrowserWindow, shell } from 'electron';
 import { release } from 'os';
 import { join } from 'path';
 import installExtension, { REACT_DEVELOPER_TOOLS } from 'electron-devtools-installer';
+import bridge from './bridge';
 
 if (release().startsWith('6.1')) app.disableHardwareAcceleration();
 
@@ -60,6 +61,7 @@ app.whenReady().then(async () => {
   const extName = await installExtension(REACT_DEVELOPER_TOOLS);
   console.log(`Added Extension:  ${extName}`);
   await createWindow();
+  bridge();
 });
 
 app.on('window-all-closed', () => {

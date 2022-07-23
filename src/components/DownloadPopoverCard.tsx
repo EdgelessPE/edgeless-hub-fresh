@@ -1,8 +1,14 @@
 import React from 'react';
+import bridge from '@/bridge';
+
+async function hello() {
+  const rep = await bridge('hello');
+  console.log(rep);
+}
 
 const DownloadPopoverCard = () => {
   return (
-    <div>114514</div>
+    <button onClick={hello}>114514</button>
   );
 };
 

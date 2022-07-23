@@ -30,9 +30,9 @@ const App: React.FC = () => {
           <img alt='E' src='/favicon.ico' style={{
             width: '32px',
             height: '32px',
-            marginLeft: collapsed ? '0' : '15px'
+            marginLeft: collapsed ? '0' : '12px'
           }} />
-          <span style={{ display: collapsed ? 'none' : 'inline-block' }}>Edgeless</span>
+          <span style={{ display: collapsed ? 'none' : 'inline-block' }}>Edgeless Hub</span>
         </div>
         <SiderMenu history={myHistory} />
       </Sider>

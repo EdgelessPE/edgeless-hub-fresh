@@ -1,7 +1,14 @@
 import { Menu } from '@arco-design/web-react';
-import { IconCalendar, IconHome } from '@arco-design/web-react/icon';
+import {
+  IconApps,
+  IconArrowUp,
+  IconCalendar,
+  IconExperiment,
+  IconHome, IconList,
+  IconMobile, IconSettings,
+  IconThunderbolt, IconTool
+} from '@arco-design/web-react/icon';
 import React, { useState } from 'react';
-import { useHref } from 'react-router-dom';
 import type { History } from 'history';
 
 const MenuItem = Menu.Item;
@@ -38,14 +45,14 @@ export const SiderMenu = ({ history }: Prop) => {
   const [openKeys, setOpenKeys] = useState(initStatus.sub);
   return (
     <Menu
-      onClickMenuItem={(key) => {
-        if (key == 'home') key = '';
-        history.push('/' + key);
-        setSelectedKeys([key]);
-      }
-      }
       style={{ width: '100%' }}
       selectedKeys={selectedKeys}
+      onClickMenuItem={(key) => {
+        setSelectedKeys([key]);
+        if (key == 'home') key = '';
+        history.push('/' + key);
+      }
+      }
       openKeys={openKeys}
       onClickSubMenu={(_, openKeys) => {
         setOpenKeys(openKeys);
@@ -56,25 +63,50 @@ export const SiderMenu = ({ history }: Prop) => {
         <IconHome />
         首页
       </MenuItem>
-      <SubMenu key='produce' title='制作'>
-        <MenuItem key='produce/burn'>写入</MenuItem>
-        <MenuItem key='produce/update'>升级</MenuItem>
-        <MenuItem key='produce/alpha'>内测</MenuItem>
+      <SubMenu
+        key='produce'
+        title={
+          <span className='sider-title'>
+            <IconMobile style={{ marginRight: '12px' }} /> 制作
+          </span>
+        }>
+        <MenuItem key='produce/burn'>
+          <IconThunderbolt />
+          写入
+        </MenuItem>
+        <MenuItem key='produce/update'>
+          <IconArrowUp />
+          升级
+        </MenuItem>
+        <MenuItem key='produce/alpha'>
+          <IconExperiment />
+          内测
+        </MenuItem>
+      </SubMenu>
+      <SubMenu
+        key='plugin'
+        title={
+          <span>
+            <IconApps style={{ marginRight: '12px' }} /> 插件
+          </span>
+        }>
+        <MenuItem key='plugin/category'>
+          分类
+        </MenuItem>
+        <MenuItem key='plugin/detail'>
+          详情
+        </MenuItem>
       </SubMenu>
       <MenuItem key='config'>
-        <IconCalendar />
+        <IconTool />
         配置
       </MenuItem>
-      <SubMenu key='plugin' title='插件'>
-        <MenuItem key='plugin/category'>分类</MenuItem>
-        <MenuItem key='plugin/detail'>详情</MenuItem>
-      </SubMenu>
       <MenuItem key='tasks'>
-        <IconCalendar />
+        <IconList />
         任务
       </MenuItem>
       <MenuItem key='settings'>
-        <IconCalendar />
+        <IconSettings />
         设置
       </MenuItem>
     </Menu>

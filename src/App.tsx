@@ -1,22 +1,22 @@
 import React, { useState } from 'react';
 import { Layout } from '@arco-design/web-react';
+import { Routes } from 'react-router-dom';
+import { SafetyCertificateOutlined } from '@ant-design/icons';
 import '@arco-design/web-react/dist/css/arco.css';
-import { SiderMenu } from '@/components/SiderMenu';
-import { BrowserRouter, Route, Router, Routes } from 'react-router-dom';
+
 import { routers } from '@/router/router';
-import { IconHome, IconCalendar, IconCaretRight, IconCaretLeft } from '@arco-design/web-react/icon';
-import { HistoryRouter } from '@/router/HistoryRouter';
 import { myHistory } from '@/router/history';
+
+import { SiderMenu } from '@/components/SiderMenu';
+import { HistoryRouter } from '@/router/HistoryRouter';
+import { Logo } from '@/components/Logo';
+import { Header } from '@/components/Header';
 
 const Sider = Layout.Sider;
 const Content = Layout.Content;
 
 const App: React.FC = () => {
   const [collapsed, setCollapsed] = useState(false);
-
-  const handleCollapsed = () => {
-    setCollapsed(prev => !prev);
-  };
 
   return (
     <Layout className='app'>
@@ -26,23 +26,24 @@ const App: React.FC = () => {
         trigger={null}
         breakpoint='xl'
       >
-        <div className='logo' onClick={handleCollapsed}>
-          <img alt='E' src='/favicon.ico' style={{
-            width: '32px',
-            height: '32px',
-            marginLeft: collapsed ? '0' : '12px'
-          }} />
-          <span style={{ display: collapsed ? 'none' : 'inline-block' }}>Edgeless Hub</span>
-        </div>
+        <Logo collapsed={collapsed} setCollapsed={setCollapsed} />
         <SiderMenu history={myHistory} />
       </Sider>
-      <Content style={{ margin: '24px' }}>
-        <HistoryRouter history={myHistory}>
-          <Routes>
-            {routers}
-          </Routes>
-        </HistoryRouter>
-      </Content>
+      <Layout>
+        <Header title={
+          <>
+            <SafetyCertificateOutlined />
+            安全急救
+          </>
+        } history={myHistory} />
+        <Content style={{ margin: '24px' }}>
+          <HistoryRouter history={myHistory}>
+            <Routes>
+              {routers}
+            </Routes>
+          </HistoryRouter>
+        </Content>
+      </Layout>
     </Layout>
   )
 }

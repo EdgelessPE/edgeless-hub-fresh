@@ -2,11 +2,13 @@ import { Menu } from '@arco-design/web-react';
 import {
   IconApps,
   IconArrowUp,
-  IconCalendar,
   IconExperiment,
-  IconHome, IconList,
-  IconMobile, IconSettings,
-  IconThunderbolt, IconTool
+  IconHome,
+  IconList,
+  IconMobile,
+  IconSettings,
+  IconThunderbolt,
+  IconTool
 } from '@arco-design/web-react/icon';
 import React, { useState } from 'react';
 import type { History } from 'history';
@@ -43,6 +45,14 @@ export const SiderMenu = ({ history }: Prop) => {
   const initStatus = getCurrentOpenStatus();
   const [selectedKeys, setSelectedKeys] = useState(initStatus.keys);
   const [openKeys, setOpenKeys] = useState(initStatus.sub);
+
+  //监听路由变化以更新侧边栏状态
+  history.listen(() => {
+    const status = getCurrentOpenStatus();
+    setSelectedKeys(status.keys);
+    setOpenKeys(status.sub);
+  });
+
   return (
     <Menu
       style={{ width: '100%' }}

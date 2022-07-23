@@ -2,15 +2,18 @@ import { Menu } from '@arco-design/web-react';
 import { IconCalendar, IconHome } from '@arco-design/web-react/icon';
 import React, { useState } from 'react';
 import { useHref } from 'react-router-dom';
+import type { History } from 'history';
 
 const MenuItem = Menu.Item;
 const SubMenu = Menu.SubMenu;
 
+interface Prop {
+  history: History;
+}
+
 function getCurrentOpenStatus() {
-  console.log(window.location);
   let s = window.location.pathname.split('/');
   s = s.filter(key => key != '');
-  console.log(s);
   if (s.length == 2) {
     return {
       sub: [s[0]],
@@ -29,18 +32,15 @@ function getCurrentOpenStatus() {
   }
 }
 
-export const SiderMenu = () => {
+export const SiderMenu = ({ history }: Prop) => {
   const initStatus = getCurrentOpenStatus();
-  console.log(initStatus);
-  const [selectedKeys, setSelectedKeys] = useState<string[]>(initStatus.keys);
-  const [openKeys, setOpenKeys] = useState<string[]>(initStatus.sub);
+  const [selectedKeys, setSelectedKeys] = useState(initStatus.keys);
+  const [openKeys, setOpenKeys] = useState(initStatus.sub);
   return (
     <Menu
-      defaultOpenKeys={['1']}
-      defaultSelectedKeys={['0_3']}
       onClickMenuItem={(key) => {
         if (key == 'home') key = '';
-        window.location.href = '/' + key;
+        history.push('/' + key);
         setSelectedKeys([key]);
       }
       }

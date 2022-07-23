@@ -5,6 +5,8 @@ import { SiderMenu } from '@/components/SiderMenu';
 import { BrowserRouter, Route, Router, Routes } from 'react-router-dom';
 import { routers } from '@/router/router';
 import { IconHome, IconCalendar, IconCaretRight, IconCaretLeft } from '@arco-design/web-react/icon';
+import { HistoryRouter } from '@/router/HistoryRouter';
+import { myHistory } from '@/router/history';
 
 const Sider = Layout.Sider;
 const Content = Layout.Content;
@@ -32,14 +34,14 @@ const App: React.FC = () => {
           }} />
           <span style={{ display: collapsed ? 'none' : 'inline-block' }}>Edgeless</span>
         </div>
-        <SiderMenu />
+        <SiderMenu history={myHistory} />
       </Sider>
       <Content style={{ margin: '24px' }}>
-        <BrowserRouter>
+        <HistoryRouter history={myHistory}>
           <Routes>
             {routers}
           </Routes>
-        </BrowserRouter>
+        </HistoryRouter>
       </Content>
     </Layout>
   )

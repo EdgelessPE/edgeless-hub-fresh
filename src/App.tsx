@@ -1,71 +1,104 @@
-import React, { useState } from 'react'
-import electron from '/electron.png'
-import react from '/react.svg'
-import vite from '/vite.svg'
-import styles from 'styles/app.module.scss'
+import React, { useState } from 'react';
+import { Layout, Menu, Breadcrumb, Button, Message } from '@arco-design/web-react';
+import '@arco-design/web-react/dist/css/arco.css';
+import { IconHome, IconCalendar, IconCaretRight, IconCaretLeft } from '@arco-design/web-react/icon';
+
+const MenuItem = Menu.Item;
+const SubMenu = Menu.SubMenu;
+const Sider = Layout.Sider;
+const Header = Layout.Header;
+const Footer = Layout.Footer;
+const Content = Layout.Content;
 
 const App: React.FC = () => {
-  const [count, setCount] = useState(0)
+  const [collapsed, setCollapsed] = useState(false);
+
+  const handleCollapsed = () => {
+    setCollapsed(prev => !prev);
+  };
 
   return (
-    <div className={styles.app}>
-      <header className={styles.appHeader}>
-        <div className={styles.logos}>
-          <div className={styles.imgBox}>
-            <img
-              src={electron}
-              style={{ height: '24vw' }}
-              className={styles.appLogo}
-              alt="electron"
-            />
-          </div>
-          <div className={styles.imgBox}>
-            <img src={vite} style={{ height: '19vw' }} alt="vite" />
-          </div>
-          <div className={styles.imgBox}>
-            <img
-              src={react}
-              style={{ maxWidth: '100%' }}
-              className={styles.appLogo}
-              alt="logo"
-            />
-          </div>
-        </div>
-        <p>Hello Electron + Vite + React!</p>
-        <p>
-          <button onClick={() => setCount((count) => count + 1)}>
-            count is: {count}
-          </button>
-        </p>
-        <p>
-          Edit <code>App.tsx</code> and save to test HMR updates.
-        </p>
-        <div>
-          <a
-            className={styles.appLink}
-            href="https://reactjs.org"
-            target="_blank"
-            rel="noopener noreferrer"
+    <Layout className='app'>
+      <Sider
+        collapsed={collapsed}
+        onCollapse={handleCollapsed}
+        collapsible
+        trigger={collapsed ? <IconCaretRight /> : <IconCaretLeft />}
+        breakpoint='xl'
+      >
+        <div className='logo'>Edgeless</div>
+        <Menu
+          defaultOpenKeys={['1']}
+          defaultSelectedKeys={['0_3']}
+          onClickMenuItem={(key) =>
+            Message.info({
+              content: `You select ${key}`,
+              showIcon: true
+            })
+          }
+          style={{ width: '100%' }}
+        >
+          <MenuItem key='0_1' disabled>
+            <IconHome />
+            Menu 1
+          </MenuItem>
+          <MenuItem key='0_2'>
+            <IconCalendar />
+            Menu 2
+          </MenuItem>
+          <MenuItem key='0_3'>
+            <IconCalendar />
+            Menu 3
+          </MenuItem>
+          <SubMenu
+            key='1'
+            title={
+              <span>
+                  <IconCalendar />
+                  Navigation 1
+                </span>
+            }
           >
-            Learn React
-          </a>
-          {' | '}
-          <a
-            className={styles.appLink}
-            href="https://vitejs.dev/guide/features.html"
-            target="_blank"
-            rel="noopener noreferrer"
+            <MenuItem key='1_1'>Menu 1</MenuItem>
+            <MenuItem key='1_2'>Menu 2</MenuItem>
+            <SubMenu key='2' title='Navigation 2'>
+              <MenuItem key='2_1'>Menu 1</MenuItem>
+              <MenuItem key='2_2'>Menu 2</MenuItem>
+            </SubMenu>
+            <SubMenu key='3' title='Navigation 3'>
+              <MenuItem key='3_1'>Menu 1</MenuItem>
+              <MenuItem key='3_2'>Menu 2</MenuItem>
+              <MenuItem key='3_3'>Menu 3</MenuItem>
+            </SubMenu>
+          </SubMenu>
+          <SubMenu
+            key='4'
+            title={
+              <span>
+                  <IconCalendar />
+                  Navigation 4
+                </span>
+            }
           >
-            Vite Docs
-          </a>
-          <div className={styles.staticPublic}>
-            Place static files into the{' '}
-            <code>/public</code> folder
-            <img style={{ width: 77 }} src="./node.png" />
-          </div>
-        </div>
-      </header>
-    </div>
+            <MenuItem key='4_1'>Menu 1</MenuItem>
+            <MenuItem key='4_2'>Menu 2</MenuItem>
+            <MenuItem key='4_3'>Menu 3</MenuItem>
+          </SubMenu>
+        </Menu>
+      </Sider>
+      <Layout>
+        <Header style={{ paddingLeft: 20 }}>Header</Header>
+        <Layout style={{ padding: '0 24px' }}>
+          <Breadcrumb style={{ margin: '16px 0' }}>
+            <Breadcrumb.Item>Home</Breadcrumb.Item>
+            <Breadcrumb.Item>List</Breadcrumb.Item>
+            <Breadcrumb.Item>App</Breadcrumb.Item>
+          </Breadcrumb>
+          <Content>Content</Content>
+          <Footer>Footer</Footer>
+        </Layout>
+      </Layout>
+    </Layout>
   )
 }
 

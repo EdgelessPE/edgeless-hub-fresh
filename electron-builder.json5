@@ -2,36 +2,42 @@
  * @see https://www.electron.build/configuration/configuration
  */
 {
-  appId: "YourAppID",
-  productName: "YourAppName",
+  appId: "top.edgeless.hub",
+  productName: "Edgeless Hub",
   copyright: "Copyright © 2022 ${author}",
   asar: true,
   directories: {
     output: "release/${version}",
-    buildResources: "electron/resources",
+    buildResources: "electron/resources"
   },
-  files: ["dist"],
+  files: [
+    "dist"
+  ],
   win: {
+    "icon": "./public/favicon.ico",
+    "requestedExecutionLevel": "highestAvailable",
     target: [
       {
         target: "nsis",
-        arch: ["x64"],
-      },
+        arch: [
+          "x64"
+        ]
+      }
     ],
-    artifactName: "${productName}-Windows-${version}-Setup.${ext}",
+    artifactName: "${productName}-Windows-${version}-Setup.${ext}"
   },
   nsis: {
     oneClick: false,
     perMachine: false,
     allowToChangeInstallationDirectory: true,
-    deleteAppDataOnUninstall: false,
+    deleteAppDataOnUninstall: false
   },
   mac: {
     target: ["dmg"],
-    artifactName: "${productName}-Mac-${version}-Installer.${ext}",
+    artifactName: "${productName}-Mac-${version}-Installer.${ext}"
   },
   linux: {
     target: ["AppImage"],
-    artifactName: "${productName}-Linux-${version}.${ext}",
-  },
+    artifactName: "${productName}-Linux-${version}.${ext}"
+  }
 }

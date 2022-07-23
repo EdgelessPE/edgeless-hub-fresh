@@ -1,15 +1,15 @@
-import { app, BrowserWindow, shell, ipcMain } from 'electron'
-import { release } from 'os'
+import { app, BrowserWindow, shell } from 'electron';
+import { release } from 'os';
 import { join } from 'path';
 import installExtension, { REACT_DEVELOPER_TOOLS } from 'electron-devtools-installer';
 
-if (release().startsWith('6.1')) app.disableHardwareAcceleration()
+if (release().startsWith('6.1')) app.disableHardwareAcceleration();
 
-if (process.platform === 'win32') app.setAppUserModelId(app.getName())
+if (process.platform === 'win32') app.setAppUserModelId(app.getName());
 
 if (!app.requestSingleInstanceLock()) {
-  app.quit()
-  process.exit(0)
+  app.quit();
+  process.exit(0);
 }
 
 process.env['ELECTRON_DISABLE_SECURITY_WARNINGS'] = 'true'
@@ -29,7 +29,7 @@ async function createWindow() {
     title: 'Launching...',
     width: 1400,
     height: 800,
-    icon: join(ROOT_PATH.public, 'favicon.svg'),
+    icon: join(ROOT_PATH.public, 'favicon.ico'),
     webPreferences: {
       preload,
       nodeIntegration: true,
@@ -39,7 +39,8 @@ async function createWindow() {
 
   if (app.isPackaged) {
     await win.loadFile(indexHtml);
-    win.removeMenu();
+    win.webContents.openDevTools();
+    // win.removeMenu();
   } else {
     await win.loadURL(url);
     win.webContents.openDevTools();

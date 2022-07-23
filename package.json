@@ -1,0 +1,33 @@
+{
+  "name": "edgeless-hub-fresh",
+  "version": "3.0.0",
+  "description": "Fresh Edgeless Hub",
+  "author": "Cno <dsyourshy@qq.com>",
+  "license": "MPL-2.0",
+  "main": "dist/electron/main/index.js",
+  "scripts": {
+    "dev": "vite",
+    "build": "tsc && vite build && electron-builder"
+  },
+  "engines": {
+    "node": ">=14.17.0"
+  },
+  "dependencies": {},
+  "devDependencies": {
+    "@types/react": "^18.0.15",
+    "@types/react-dom": "^18.0.6",
+    "@vitejs/plugin-react": "^2.0.0",
+    "electron": "^19.0.9",
+    "electron-builder": "^23.1.0",
+    "react": "^18.2.0",
+    "react-dom": "^18.2.0",
+    "sass": "^1.53.0",
+    "typescript": "^4.7.4",
+    "vite": "^3.0.2",
+    "vite-plugin-electron": "^0.8.1"
+  },
+  "env": {
+    "VITE_DEV_SERVER_HOST": "127.0.0.1",
+    "VITE_DEV_SERVER_PORT": 3090
+  }
+}

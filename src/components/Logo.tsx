@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 
 // import edgeless from '../../public/favicon.png'
 
@@ -8,7 +8,13 @@ interface Prop {
 }
 
 export const Logo = ({ collapsed, setCollapsed }: Prop) => {
+  const [displayText, setDisplayText] = useState(true);
   const handleClick = () => {
+    if (collapsed) {
+      setTimeout(() => setDisplayText(prev => !prev), 150);
+    } else {
+      setDisplayText(prev => !prev);
+    }
     setCollapsed(prev => !prev);
   };
   return (
@@ -18,7 +24,9 @@ export const Logo = ({ collapsed, setCollapsed }: Prop) => {
         height: '32px',
         marginLeft: collapsed ? '0' : '12px'
       }} />
-      <span style={{ display: collapsed ? 'none' : 'inline-block' }}>Edgeless Hub</span>
+      <span style={{
+        display: displayText ? 'inline-block' : 'none'
+      }}>Edgeless Hub</span>
     </div>
   );
 };

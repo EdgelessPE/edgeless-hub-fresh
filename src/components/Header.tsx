@@ -1,4 +1,4 @@
-import { Input, Layout, PageHeader, Popover } from '@arco-design/web-react';
+import { Button, Input, Layout, PageHeader, Popover } from '@arco-design/web-react';
 import React, { useState } from 'react';
 import { IconArrowLeft, IconDownload, IconSearch } from '@arco-design/web-react/icon';
 import { BrowserHistory } from 'history';
@@ -70,7 +70,9 @@ export const Header = ({ history }: Prop) => {
         style={{ display: title == null ? 'none' : 'flex' }}
         className='header__title'
       >
-        <IconArrowLeft className='header__title__back-button' onClick={history.back} />
+        <Button type='text'>
+          <IconArrowLeft className='header__title__back-button' onClick={history.back} />
+        </Button>
         {title}
       </div>
 
@@ -85,17 +87,21 @@ export const Header = ({ history }: Prop) => {
           className='header__searchbar'
         ></Input.Search>
         :
-        <IconSearch
-          className='header__button'
-          onClick={toggleInput}
-        />
+        <Button type='text'>
+          <IconSearch
+            className='header__button'
+            onClick={toggleInput}
+          />
+        </Button>
       }
 
       <Popover title={DownloadTitle} content={DownloadPopoverCard()}>
-        <IconDownload
-          className='header__button'
-          onClick={ToTasks}
-        />
+        <Button type='text'>
+          <IconDownload
+            className='header__button'
+            onClick={ToTasks}
+          />
+        </Button>
       </Popover>
     </ArcoHeader>
   );

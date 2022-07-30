@@ -53,6 +53,7 @@ export const Header = ({ history }: Prop) => {
   const [showSearch, setShowSearch] = useState(false);
   const [searchText, setSearchText] = useState('');
   const [title, setTitle] = useState<JSX.Element | string | null>(null);
+  const [displayBack, setDisplayBack] = useState(false);
 
   const ToTasks = () => history.push('/tasks');
   const toggleInput = () => setShowSearch(prev => !prev);
@@ -63,11 +64,14 @@ export const Header = ({ history }: Prop) => {
     setShowSearch(false);
   };
 
-  //路由发生变化时配置Header
   useEffect(() => {
+    //路由发生变化时配置Header
     history.listen(() => {
+      setDisplayBack(true);
       renderHeader(setTitle);
     });
+    //首屏渲染一次
+    renderHeader(setTitle);
   }, []);
 
   return (
@@ -76,8 +80,9 @@ export const Header = ({ history }: Prop) => {
         style={{ display: title == null ? 'none' : 'flex' }}
         className='header__title'
       >
-        <Button type='text' onClick={history.back}>
-          <IconArrowLeft className='header__title__back-button' />
+        <Button type='text' onClick={history.back} disabled={!displayBack}
+                style={{ cursor: displayBack ? 'pointer' : 'auto' }}>
+          <IconArrowLeft className='header__title__back-button' style={{ color: displayBack ? '#108ee9' : 'gray' }} />
         </Button>
         {title}
       </div>

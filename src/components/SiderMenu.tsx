@@ -1,5 +1,5 @@
 import { Menu } from '@arco-design/web-react';
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { BrowserHistory } from 'history';
 import { siderNodes } from '@/constants';
 
@@ -13,7 +13,7 @@ interface Prop {
 export interface SiderNode {
   path: string;
   title: string;
-  icon: JSX.Element;
+  icon?: JSX.Element;
   children?: SiderNode[];
 }
 
@@ -48,10 +48,17 @@ function renderSiderMenu(input: SiderNode[]): JSX.Element[] {
 }
 
 function getCurrentOpenStatus() {
-  const s = window.location.pathname
+  let s = decodeURI(window.location.pathname)
     .split('/')
     .filter(key => key != '');
-  if (s.length >= 2) {
+  if (s.length == 4) {
+    //说明是detail页面，定位至分类
+    s[1] = 'category';
+    return {
+      sub: [s[0]],
+      keys: [s.slice(0, 3).join('/')]
+    };
+  } else if (s.length >= 2) {
     return {
       sub: [s[0]],
       keys: [s.join('/')]
@@ -75,11 +82,14 @@ export const SiderMenu = ({ history }: Prop) => {
   const [openKeys, setOpenKeys] = useState(initStatus.sub);
 
   //监听路由变化以更新侧边栏状态
-  history.listen(() => {
-    const status = getCurrentOpenStatus();
-    setSelectedKeys(status.keys);
-    setOpenKeys(status.sub);
-  });
+  useEffect(() => {
+    history.listen(() => {
+      const status = getCurrentOpenStatus();
+      // console.log(status);
+      setSelectedKeys(status.keys);
+      setOpenKeys(status.sub);
+    });
+  }, []);
 
   return (
     <Menu

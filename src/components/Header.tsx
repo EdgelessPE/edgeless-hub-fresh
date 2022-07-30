@@ -1,5 +1,5 @@
 import { Button, Input, Layout, PageHeader, Popover } from '@arco-design/web-react';
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { IconArrowLeft, IconDownload, IconSearch } from '@arco-design/web-react/icon';
 import { BrowserHistory } from 'history';
 import { DownloadPopoverCard, DownloadTitle } from '@/components/DownloadPopoverCard';
@@ -13,12 +13,13 @@ interface Prop {
 const ArcoHeader = Layout.Header;
 
 function renderHeader(setTitle: React.Dispatch<React.SetStateAction<string | JSX.Element | null>>) {
-  const s = window.location.pathname
+  const s = decodeURI(window.location.pathname)
     .split('/')
     .filter(key => key != '');
   // 渲染
-  if (s[0] == 'plugin' && s[1] == 'category') {
-    setTitle(renderHeaderCategory(decodeURI(s[2])));
+  if (s[0] == 'plugin') {
+    if (s[1] == 'category') setTitle(renderHeaderCategory(s[2]));
+    else if (s[1] == 'detail') setTitle(s[3]);
   } else {
     //尝试匹配为侧边栏标题
     const m = iconTitleMapSider[s.join('/')];
@@ -27,13 +28,16 @@ function renderHeader(setTitle: React.Dispatch<React.SetStateAction<string | JSX
         <PageHeader
           title={(
             <div className='flex-container--center'>
-              <span className='header__title__icon'>
+              {
+                m.icon && <span
+                  className='header__title__icon'
+                >
                 {m.icon}
               </span>
+              }
               <span className='header__title__text'>
                 {m.title}
               </span>
-
             </div>
           )}
         />
@@ -60,9 +64,11 @@ export const Header = ({ history }: Prop) => {
   };
 
   //路由发生变化时配置Header
-  history.listen(() => {
-    renderHeader(setTitle);
-  });
+  useEffect(() => {
+    history.listen(() => {
+      renderHeader(setTitle);
+    });
+  }, []);
 
   return (
     <ArcoHeader className='header'>
@@ -90,7 +96,6 @@ export const Header = ({ history }: Prop) => {
         <Button type='text' onClick={toggleInput}>
           <IconSearch
             className='header__button'
-
           />
         </Button>
       }

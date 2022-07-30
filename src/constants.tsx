@@ -73,13 +73,17 @@ const siderNodes: SiderNode[] = [
     children: [
       {
         path: 'plugin/category/浏览器',
-        title: '分类',
-        icon: <></>
+        title: '浏览器',
+        icon: <ChromeOutlined />
       },
       {
-        path: 'plugin/detail/114514',
-        title: '详情',
-        icon: <></>
+        path: 'plugin/category/安全急救',
+        title: '安全急救',
+        icon: <SafetyCertificateOutlined />
+      },
+      {
+        path: 'plugin/detail/浏览器/114514',
+        title: '详情114514'
       }
     ]
   },
@@ -127,12 +131,12 @@ const iconMapCategory: StringKVMap<JSX.Element> = {
 };
 
 function getTitleMapSider(nodes: SiderNode[]): StringKVMap<{
-  icon: JSX.Element,
-  title: string
+  title: string,
+  icon?: JSX.Element,
 }> {
   let map: StringKVMap<{
-    icon: JSX.Element,
-    title: string
+    title: string,
+    icon?: JSX.Element,
   }> = {};
   for (let node of nodes) {
     map[node.path == 'home' ? '' : node.path] = {

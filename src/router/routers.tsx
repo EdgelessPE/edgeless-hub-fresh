@@ -17,7 +17,7 @@ const routerList: {
   'produce/burn': <Burn />,
   'produce/update': <Update />,
   'produce/alpha': <Alpha />,
-  'plugin/detail/:id': <Detail />,
+  'plugin/detail/:category/:id': <Detail />,
   'config': <Config />,
   'plugin/category/:category': <Category />,
   'tasks': <Tasks />,

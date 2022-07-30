@@ -70,8 +70,8 @@ export const Header = ({ history }: Prop) => {
         style={{ display: title == null ? 'none' : 'flex' }}
         className='header__title'
       >
-        <Button type='text'>
-          <IconArrowLeft className='header__title__back-button' onClick={history.back} />
+        <Button type='text' onClick={history.back}>
+          <IconArrowLeft className='header__title__back-button' />
         </Button>
         {title}
       </div>
@@ -87,19 +87,19 @@ export const Header = ({ history }: Prop) => {
           className='header__searchbar'
         ></Input.Search>
         :
-        <Button type='text'>
+        <Button type='text' onClick={toggleInput}>
           <IconSearch
             className='header__button'
-            onClick={toggleInput}
+
           />
         </Button>
       }
 
       <Popover title={DownloadTitle} content={DownloadPopoverCard()}>
-        <Button type='text'>
+        <Button type='text'
+                onClick={ToTasks}>
           <IconDownload
             className='header__button'
-            onClick={ToTasks}
           />
         </Button>
       </Popover>

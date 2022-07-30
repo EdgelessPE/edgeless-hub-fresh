@@ -5,9 +5,11 @@ function getIconByCategory(category: string): JSX.Element {
   const icon = iconMapCategory[category];
   if (icon == null) return <></>;
   else {
-    return <span style={{ marginRight: '6px' }}>
+    return (
+      <span className='header__title__icon'>
       {icon}
-    </span>;
+    </span>
+    );
   }
 }
 
@@ -17,7 +19,9 @@ export function renderHeaderCategory(category: string): JSX.Element {
       title={(
         <div className='flex-container--center'>
           {getIconByCategory(category)}
-          {category}
+          <span className='header__title__text'>
+            {category}
+          </span>
         </div>
       )}
       subTitle={`共9个插件包`}

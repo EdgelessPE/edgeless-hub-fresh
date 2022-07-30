@@ -27,10 +27,13 @@ function renderHeader(setTitle: React.Dispatch<React.SetStateAction<string | JSX
         <PageHeader
           title={(
             <div className='flex-container--center'>
-              <span style={{ marginRight: '6px' }}>
+              <span className='header__title__icon'>
                 {m.icon}
               </span>
-              {m.title}
+              <span className='header__title__text'>
+                {m.title}
+              </span>
+
             </div>
           )}
         />
@@ -79,6 +82,7 @@ export const Header = ({ history }: Prop) => {
           onBlur={toggleInput}
           onChange={onInput}
           onSearch={onSearch}
+          className='header__searchbar'
         ></Input.Search>
         :
         <IconSearch

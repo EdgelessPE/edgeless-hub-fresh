@@ -53,5 +53,21 @@
       flex: 40px 0 0;
       cursor: pointer;
     }
+
+    &__icon {
+      margin-right: 6px;
+      width: 20px;
+      height: 20px;
+      display: flex;
+      align-items: center;
+    }
+
+    &__text {
+      transform: translateY(-1px);
+    }
+  }
+
+  &__searchbar {
+    max-width: 243px;
   }
 }

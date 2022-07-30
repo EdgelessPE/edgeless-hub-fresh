@@ -151,7 +151,6 @@ function getTitleMapSider(nodes: SiderNode[]): StringKVMap<{
 }
 
 const iconTitleMapSider = getTitleMapSider(siderNodes);
-console.log(iconTitleMapSider);
 
 export {
   siderNodes,

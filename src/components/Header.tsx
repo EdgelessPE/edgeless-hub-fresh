@@ -12,14 +12,6 @@ interface Prop {
 
 const ArcoHeader = Layout.Header;
 
-const IconStyle: React.CSSProperties = {
-  width: '20px',
-  height: '20px',
-  flex: '40px 0 0',
-  color: '#108ee9',
-  cursor: 'pointer'
-};
-
 function renderHeader(setTitle: React.Dispatch<React.SetStateAction<string | JSX.Element | null>>) {
   const s = window.location.pathname
     .split('/')
@@ -34,7 +26,7 @@ function renderHeader(setTitle: React.Dispatch<React.SetStateAction<string | JSX
       setTitle((
         <PageHeader
           title={(
-            <div>
+            <div className='flex-container--center'>
               <span style={{ marginRight: '6px' }}>
                 {m.icon}
               </span>
@@ -70,30 +62,12 @@ export const Header = ({ history }: Prop) => {
   });
 
   return (
-    <ArcoHeader style={{
-      display: 'flex',
-      alignItems: 'center',
-      justifyContent: 'flex-end',
-      padding: '0 20px'
-    }}>
-      <div style={{
-        flex: '600px 0 0',
-        display: title == null ? 'none' : 'flex',
-        alignItems: 'center',
-        justifyContent: 'flex-start',
-        marginRight: 'auto',
-        fontSize: '18px',
-        color: '#0f2942',
-        fontWeight: 'bold'
-      }}>
-        <IconArrowLeft style={{
-          width: '20px',
-          height: '20px',
-          color: '#108ee9',
-          flex: '40px 0 0',
-          cursor: 'pointer'
-        }} onClick={history.back}
-        />
+    <ArcoHeader className='header'>
+      <div
+        style={{ display: title == null ? 'none' : 'flex' }}
+        className='header__title'
+      >
+        <IconArrowLeft className='header__title__back-button' onClick={history.back} />
         {title}
       </div>
 
@@ -108,14 +82,14 @@ export const Header = ({ history }: Prop) => {
         ></Input.Search>
         :
         <IconSearch
-          style={IconStyle}
+          className='header__button'
           onClick={toggleInput}
         />
       }
 
       <Popover title={DownloadTitle} content={DownloadPopoverCard()}>
         <IconDownload
-          style={IconStyle}
+          className='header__button'
           onClick={ToTasks}
         />
       </Popover>

@@ -27,7 +27,7 @@ function renderSiderMenu(input: SiderNode[]): JSX.Element[] {
         <SubMenu
           key={node.path}
           title={
-            <span className='sider-title'>
+            <span className='sider__title'>
               {node.icon}
               {node.title}
             </span>

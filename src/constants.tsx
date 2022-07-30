@@ -1,13 +1,13 @@
 import {
   IconApps,
-  IconArrowRise,
+  IconArrowUp,
+  IconEdit,
   IconExperiment,
+  IconFire,
   IconHome,
   IconList,
-  IconMobile,
   IconSettings,
-  IconThunderbolt,
-  IconTool
+  IconThunderbolt
 } from '@arco-design/web-react/icon';
 import React from 'react';
 import { SiderNode } from '@/components/SiderMenu';
@@ -47,17 +47,17 @@ const siderNodes: SiderNode[] = [
   {
     path: 'produce',
     title: '制作',
-    icon: <IconMobile />,
+    icon: <IconThunderbolt />,
     children: [
       {
         path: 'produce/burn',
         title: '写入',
-        icon: <IconThunderbolt />
+        icon: <IconFire />
       },
       {
         path: 'produce/update',
         title: '升级',
-        icon: <IconArrowRise />
+        icon: <IconArrowUp />
       },
       {
         path: 'produce/alpha',
@@ -86,7 +86,7 @@ const siderNodes: SiderNode[] = [
   {
     path: 'config',
     title: '配置',
-    icon: <IconTool />
+    icon: <IconEdit />
   },
   {
     path: 'tasks',

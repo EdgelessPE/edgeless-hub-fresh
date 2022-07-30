@@ -1,9 +1,8 @@
 import React from 'react';
 import ReactDOM from 'react-dom/client';
 import App from './App';
-import 'styles/index.css';
-import { myHistory } from '@/router/history';
-import { HistoryRouter } from '@/router/HistoryRouter';
+import 'styles/layout.css';
+import 'styles/index.scss';
 
 ReactDOM.createRoot(document.getElementById('root')!).render(
   <App />

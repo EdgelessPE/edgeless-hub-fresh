@@ -15,7 +15,7 @@ export function renderHeaderCategory(category: string): JSX.Element {
   return (
     <PageHeader
       title={(
-        <div>
+        <div className='flex-container--center'>
           {getIconByCategory(category)}
           {category}
         </div>

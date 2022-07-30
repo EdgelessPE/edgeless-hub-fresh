@@ -1,32 +1,60 @@
 import { Menu } from '@arco-design/web-react';
-import {
-  IconApps,
-  IconArrowUp,
-  IconExperiment,
-  IconHome,
-  IconList,
-  IconMobile,
-  IconSettings,
-  IconThunderbolt,
-  IconTool
-} from '@arco-design/web-react/icon';
 import React, { useState } from 'react';
-import type { History } from 'history';
+import { BrowserHistory } from 'history';
+import { siderNodes } from '@/constants';
 
 const MenuItem = Menu.Item;
 const SubMenu = Menu.SubMenu;
 
 interface Prop {
-  history: History;
+  history: BrowserHistory;
+}
+
+export interface SiderNode {
+  path: string;
+  title: string;
+  icon: JSX.Element;
+  children?: SiderNode[];
+}
+
+
+function renderSiderMenu(input: SiderNode[]): JSX.Element[] {
+  let result: JSX.Element[] = [];
+  for (let node of input) {
+    if (node.children != null) {
+      let children = renderSiderMenu(node.children);
+      result.push((
+        <SubMenu
+          key={node.path}
+          title={
+            <span className='sider-title'>
+              {node.icon}
+              {node.title}
+            </span>
+          }>
+          {children}
+        </SubMenu>
+      ));
+    } else {
+      result.push((
+        <MenuItem key={node.path}>
+          {node.icon}
+          {node.title}
+        </MenuItem>
+      ));
+    }
+  }
+  return result;
 }
 
 function getCurrentOpenStatus() {
-  let s = window.location.pathname.split('/');
-  s = s.filter(key => key != '');
-  if (s.length == 2) {
+  const s = window.location.pathname
+    .split('/')
+    .filter(key => key != '');
+  if (s.length >= 2) {
     return {
       sub: [s[0]],
-      keys: [s[0] + '/' + s[1]]
+      keys: [s.join('/')]
     };
   } else if (s.length == 1) {
     return {
@@ -69,56 +97,7 @@ export const SiderMenu = ({ history }: Prop) => {
       }
       }
     >
-      <MenuItem key='home'>
-        <IconHome />
-        首页
-      </MenuItem>
-      <SubMenu
-        key='produce'
-        title={
-          <span className='sider-title'>
-            <IconMobile style={{ marginRight: '12px' }} /> 制作
-          </span>
-        }>
-        <MenuItem key='produce/burn'>
-          <IconThunderbolt />
-          写入
-        </MenuItem>
-        <MenuItem key='produce/update'>
-          <IconArrowUp />
-          升级
-        </MenuItem>
-        <MenuItem key='produce/alpha'>
-          <IconExperiment />
-          内测
-        </MenuItem>
-      </SubMenu>
-      <SubMenu
-        key='plugin'
-        title={
-          <span>
-            <IconApps style={{ marginRight: '12px' }} /> 插件
-          </span>
-        }>
-        <MenuItem key='plugin/category'>
-          分类
-        </MenuItem>
-        <MenuItem key='plugin/detail'>
-          详情
-        </MenuItem>
-      </SubMenu>
-      <MenuItem key='config'>
-        <IconTool />
-        配置
-      </MenuItem>
-      <MenuItem key='tasks'>
-        <IconList />
-        任务
-      </MenuItem>
-      <MenuItem key='settings'>
-        <IconSettings />
-        设置
-      </MenuItem>
+      {renderSiderMenu(siderNodes)}
     </Menu>
   );
 };

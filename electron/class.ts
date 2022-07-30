@@ -9,7 +9,12 @@ interface BridgeReply {
   payload: any
 }
 
+interface StringKVMap<T> {
+  [key: string]: T;
+}
+
 export {
   BridgeRequest,
-  BridgeReply
+  BridgeReply,
+  StringKVMap
 };

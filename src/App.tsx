@@ -1,10 +1,9 @@
 import React, { useState } from 'react';
 import { Layout } from '@arco-design/web-react';
 import { Routes } from 'react-router-dom';
-import { SafetyCertificateOutlined } from '@ant-design/icons';
 import '@arco-design/web-react/dist/css/arco.css';
 
-import { routers } from '@/router/router';
+import { getRouterNodes } from '@/router/routers';
 import { myHistory } from '@/router/history';
 
 import { SiderMenu } from '@/components/SiderMenu';
@@ -30,16 +29,11 @@ const App: React.FC = () => {
         <SiderMenu history={myHistory} />
       </Sider>
       <Layout>
-        <Header title={
-          <>
-            <SafetyCertificateOutlined />
-            安全急救
-          </>
-        } history={myHistory} />
+        <Header history={myHistory} />
         <Content style={{ margin: '24px' }}>
           <HistoryRouter history={myHistory}>
             <Routes>
-              {routers}
+              {getRouterNodes()}
             </Routes>
           </HistoryRouter>
         </Content>

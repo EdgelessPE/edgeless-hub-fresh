@@ -1,12 +1,13 @@
-import { Input, Layout, Popover } from '@arco-design/web-react';
+import { Input, Layout, PageHeader, Popover } from '@arco-design/web-react';
 import React, { useState } from 'react';
 import { IconArrowLeft, IconDownload, IconSearch } from '@arco-design/web-react/icon';
 import { BrowserHistory } from 'history';
 import { DownloadPopoverCard, DownloadTitle } from '@/components/DownloadPopoverCard';
+import { renderHeaderCategory } from '@/render/headerCategory';
+import { iconTitleMapSider } from '@/constants';
 
 interface Prop {
   history: BrowserHistory;
-  title?: React.ReactElement | string;
 }
 
 const ArcoHeader = Layout.Header;
@@ -19,10 +20,40 @@ const IconStyle: React.CSSProperties = {
   cursor: 'pointer'
 };
 
+function renderHeader(setTitle: React.Dispatch<React.SetStateAction<string | JSX.Element | null>>) {
+  const s = window.location.pathname
+    .split('/')
+    .filter(key => key != '');
+  // 渲染
+  if (s[0] == 'plugin' && s[1] == 'category') {
+    setTitle(renderHeaderCategory(decodeURI(s[2])));
+  } else {
+    //尝试匹配为侧边栏标题
+    const m = iconTitleMapSider[s.join('/')];
+    if (m != null) {
+      setTitle((
+        <PageHeader
+          title={(
+            <div>
+              <span style={{ marginRight: '6px' }}>
+                {m.icon}
+              </span>
+              {m.title}
+            </div>
+          )}
+        />
+      ));
+    } else {
+      setTitle(null);
+    }
+  }
+}
 
-export const Header = ({ history, title }: Prop) => {
+
+export const Header = ({ history }: Prop) => {
   const [showSearch, setShowSearch] = useState(false);
   const [searchText, setSearchText] = useState('');
+  const [title, setTitle] = useState<JSX.Element | string | null>(null);
 
   const ToTasks = () => history.push('/tasks');
   const toggleInput = () => setShowSearch(prev => !prev);
@@ -33,6 +64,11 @@ export const Header = ({ history, title }: Prop) => {
     setShowSearch(false);
   };
 
+  //路由发生变化时配置Header
+  history.listen(() => {
+    renderHeader(setTitle);
+  });
+
   return (
     <ArcoHeader style={{
       display: 'flex',
@@ -42,7 +78,7 @@ export const Header = ({ history, title }: Prop) => {
     }}>
       <div style={{
         flex: '600px 0 0',
-        display: 'flex',
+        display: title == null ? 'none' : 'flex',
         alignItems: 'center',
         justifyContent: 'flex-start',
         marginRight: 'auto',

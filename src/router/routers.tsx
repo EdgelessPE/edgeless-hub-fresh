@@ -17,14 +17,14 @@ const routerList: {
   'produce/burn': <Burn />,
   'produce/update': <Update />,
   'produce/alpha': <Alpha />,
-  'plugin/detail': <Detail />,
+  'plugin/detail/:id': <Detail />,
   'config': <Config />,
-  'plugin/category': <Category />,
+  'plugin/category/:category': <Category />,
   'tasks': <Tasks />,
   'settings': <Settings />
 };
 
-function getRouterNodes() {
+export function getRouterNodes() {
   let nodes: JSX.Element[] = [];
   for (let path in routerList) {
     nodes.push(
@@ -34,4 +34,3 @@ function getRouterNodes() {
   return nodes;
 }
 
-export const routers = getRouterNodes();

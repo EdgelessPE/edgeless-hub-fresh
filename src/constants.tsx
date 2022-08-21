@@ -97,11 +97,6 @@ const siderNodes: SiderNode[] = [
     title: '任务',
     icon: <IconList />
   },
-  {
-    path: 'settings',
-    title: '设置',
-    icon: <IconSettings />
-  }
 ];
 
 const iconMapCategory: StringKVMap<JSX.Element> = {

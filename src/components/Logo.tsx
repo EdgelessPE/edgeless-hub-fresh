@@ -5,10 +5,12 @@ import React, { useState } from 'react';
 interface Prop {
   collapsed: boolean;
   setCollapsed: React.Dispatch<React.SetStateAction<boolean>>;
+
+  displayText: boolean;
+  setDisplayText: React.Dispatch<React.SetStateAction<boolean>>;
 }
 
-export const Logo = ({ collapsed, setCollapsed }: Prop) => {
-  const [displayText, setDisplayText] = useState(true);
+export const Logo = ({ collapsed, setCollapsed ,displayText,setDisplayText}: Prop) => {
   const handleClick = () => {
     if (collapsed) {
       setTimeout(() => setDisplayText(prev => !prev), 150);

@@ -1,24 +1,24 @@
 import React, {useEffect, useState} from 'react';
 import {Button, Layout} from '@arco-design/web-react';
-import { Routes } from 'react-router-dom';
+import {Routes} from 'react-router-dom';
 import '@arco-design/web-react/dist/css/arco.css';
 
-import { getRouterNodes } from '@/router/routers';
-import { myHistory } from '@/router/history';
+import {getRouterNodes} from '@/router/routers';
+import {myHistory} from '@/router/history';
 
-import { SiderMenu } from '@/components/SiderMenu';
-import { HistoryRouter } from '@/router/HistoryRouter';
-import { Logo } from '@/components/Logo';
-import { Header } from '@/components/Header';
+import {SiderMenu} from '@/components/SiderMenu';
+import {HistoryRouter} from '@/router/HistoryRouter';
+import {Logo} from '@/components/Logo';
+import {Header} from '@/components/Header';
 import {IconSettings} from "@arco-design/web-react/icon";
 import {BrowserHistory} from "history";
 
 const Sider = Layout.Sider;
 const Content = Layout.Content;
 
-function useSettingButton(showText:boolean,history:BrowserHistory) {
-  const [selected,setSelected]=useState(false)
-  const getSelected=()=>{
+function useSettingButton(showText: boolean, history: BrowserHistory) {
+  const [selected, setSelected] = useState(false)
+  const getSelected = () => {
     let s = decodeURI(window.location.pathname)
       .split('/')
       .filter(key => key != '');
@@ -36,9 +36,9 @@ function useSettingButton(showText:boolean,history:BrowserHistory) {
     history.push("/settings")
   }
   return (
-    <Button type="text" onClick={gotoSetting} style={selected?undefined:{color:"gray"}}>
-      <IconSettings />
-      {showText&&"设置"}
+    <Button type="text" onClick={gotoSetting} style={selected ? undefined : {color: "var(--color-text-2)"}}>
+      <IconSettings/>
+      {showText && "设置"}
     </Button>
   )
 }

@@ -1,10 +1,10 @@
-import { Button, Input, Layout, PageHeader, Popover } from '@arco-design/web-react';
-import React, { useEffect, useState } from 'react';
-import { IconArrowLeft, IconDownload, IconSearch } from '@arco-design/web-react/icon';
-import { BrowserHistory } from 'history';
-import { DownloadPopoverCard, DownloadTitle } from '@/components/DownloadPopoverCard';
-import { renderHeaderCategory } from '@/render/headerCategory';
-import { iconTitleMapSider } from '@/constants';
+import {Button, Input, Layout, PageHeader, Popover} from '@arco-design/web-react';
+import React, {useEffect, useState} from 'react';
+import {IconArrowLeft, IconDownload, IconSearch, IconSettings} from '@arco-design/web-react/icon';
+import {BrowserHistory} from 'history';
+import {DownloadPopoverCard, DownloadTitle} from '@/components/DownloadPopoverCard';
+import {renderHeaderCategory} from '@/render/headerCategory';
+import {iconTitleMapSider} from '@/constants';
 
 interface Prop {
   history: BrowserHistory;
@@ -22,6 +22,10 @@ function renderHeader(setTitle: React.Dispatch<React.SetStateAction<string | JSX
     else if (s[1] == 'detail') setTitle(s[3]);
   } else {
     //尝试匹配为侧边栏标题
+    iconTitleMapSider["settings"] = {
+      title: "设置",
+      icon: <IconSettings/>
+    }
     const m = iconTitleMapSider[s.join('/')];
     if (m != null) {
       setTitle((

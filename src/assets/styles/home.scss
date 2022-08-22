@@ -1,0 +1,30 @@
+.home__ {
+  &bg-container {
+    height: 100%;
+    display: grid;
+    grid:
+      "welcome welcome" 10%
+      "status plugins-management" 10%
+      "status plugins-recommendation" 80% /
+      60% 40%;
+  }
+
+  &welcome {
+    grid-area: welcome;
+  }
+
+  &status {
+    grid-area: status;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  &plugins-management {
+    grid-area: plugins-management;
+  }
+
+  &plugins-recommendation {
+    grid-area: plugins-recommendation;
+  }
+}

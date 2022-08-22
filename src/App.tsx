@@ -47,6 +47,15 @@ const App: React.FC = () => {
   const [collapsed, setCollapsed] = useState(false);
   const [displayText, setDisplayText] = useState(true);
 
+  const handleLogoClick = () => {
+    if (collapsed) {
+      setTimeout(() => setDisplayText(prev => !prev), 150);
+    } else {
+      setDisplayText(prev => !prev);
+    }
+    setCollapsed(prev => !prev);
+  };
+
   return (
     <Layout className='app'>
       <Sider
@@ -55,7 +64,7 @@ const App: React.FC = () => {
         trigger={useSettingButton(displayText,myHistory)}
         breakpoint='xl'
       >
-        <Logo collapsed={collapsed} setCollapsed={setCollapsed} displayText={displayText} setDisplayText={setDisplayText} />
+        <Logo displayText={displayText} onClick={handleLogoClick} />
         <SiderMenu history={myHistory} />
       </Sider>
       <Layout>

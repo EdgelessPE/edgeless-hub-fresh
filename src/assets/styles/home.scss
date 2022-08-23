@@ -1,6 +1,12 @@
+.home {
+  overflow: hidden auto;
+  height: 100%;
+  margin-right: -16px;
+  padding-right: 16px;
+}
+
 .home__ {
   &bg-container {
-    height: 80%;
     display: grid;
     margin-right: 16px;
     grid:

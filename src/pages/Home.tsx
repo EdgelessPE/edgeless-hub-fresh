@@ -5,25 +5,26 @@ import {IconRefresh} from "@arco-design/web-react/icon";
 import {useState} from "react";
 import {myHistory} from "@/router/history";
 
-const pluginsRecommendation = new Array(4).fill({
+const pluginsRecommendation = new Array(5).fill({
   title: '腾讯会议',
   description: '1.1.4.0 By Cno（Bot）',
   link: '/settings'
 });
 
 export const Home = () => {
-  const [displayNotice, setDisplayNotice] = useState(true)
+  const [displayNotice, setDisplayNotice] = useState(false)
   return (
-    <div style={{overflow: "hidden auto", height: "100%"}}>
+    <div className="home">
+
       {displayNotice && (
         <Space direction='vertical' className="home__notice-container">
-          <Alert
-            type='info'
-            title='请尽快升级至新版本 Edgeless Hub'
-            content='1.1.4 版本修复了 Ventoy 启动盘制作后提升找不到盘符的问题'
-            closable
-            closeElement={<a>我知道了</a>}
-          />
+          {/*<Alert*/}
+          {/*  type='info'*/}
+          {/*  title='请尽快升级至新版本 Edgeless Hub'*/}
+          {/*  content='1.1.4 版本修复了 Ventoy 启动盘制作后提升找不到盘符的问题'*/}
+          {/*  closable*/}
+          {/*  closeElement={<a>我知道了</a>}*/}
+          {/*/>*/}
           <Alert
             type='info'
             content='1.1.4 版本现已可用👌🏻'
@@ -33,7 +34,12 @@ export const Home = () => {
         </Space>
       )}
 
-      <div className="home__bg-container">
+      <div
+        className="home__bg-container"
+        style={{
+          height: displayNotice ? "80%" : "100%"
+        }}
+      >
         <h2 className="home__welcome">🛏夜深了，卡诺记得早睡早起哦！</h2>
         <div className="home__status">
           <Avatar size={128} className="home__status__avatar">
@@ -61,17 +67,20 @@ export const Home = () => {
             wrapperClassName="home__plugins-recommendation__list"
             bordered={false}
             dataSource={pluginsRecommendation}
-            render={(item, index) => (
-              <List.Item
-                key={index}
-                actions={[<Button onClick={() => myHistory.push(item.link)}>查看</Button>]}
-              >
-                <List.Item.Meta
-                  title={item.title}
-                  description={item.description}
-                />
-              </List.Item>
-            )}
+            render={(item, index) => {
+              if (displayNotice && index > 3) return
+              return (
+                <List.Item
+                  key={index}
+                  actions={[<Button onClick={() => myHistory.push(item.link)}>查看</Button>]}
+                >
+                  <List.Item.Meta
+                    title={item.title}
+                    description={item.description}
+                  />
+                </List.Item>
+              )
+            }}
           />
           <Button type="text">
             <IconRefresh/>

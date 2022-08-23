@@ -2,29 +2,62 @@
   &bg-container {
     height: 100%;
     display: grid;
+    margin-right: 16px;
     grid:
-      "welcome welcome" 10%
-      "status plugins-management" 10%
-      "status plugins-recommendation" 80% /
-      60% 40%;
+      "welcome plugins-management" 10%
+      "status plugins-recommendation" 90% /
+      70% 30%;
+  }
+
+  &notice-container {
+    width: 100%;
+    margin: 0 16px 16px 0;
   }
 
   &welcome {
+    margin: 4px 24px;
     grid-area: welcome;
+    justify-self: flex-start;
   }
 
   &status {
     grid-area: status;
     display: flex;
+    flex-direction: column;
     align-items: center;
     justify-content: center;
+
+    &__avatar {
+      color: rgb(var(--arcoblue-6));
+      background-color: rgba(0, 0, 0, 0);
+    }
+
+    &__h2 {
+      margin: 8px;
+    }
+
+    &__button {
+      margin-top: 16px;
+    }
   }
 
   &plugins-management {
     grid-area: plugins-management;
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
   }
 
   &plugins-recommendation {
     grid-area: plugins-recommendation;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    justify-content: flex-start;
+
+    &__list {
+      width: 100%;
+    }
   }
 }

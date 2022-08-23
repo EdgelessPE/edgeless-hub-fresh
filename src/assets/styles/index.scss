@@ -76,3 +76,12 @@
 .arco-menu-item-inner .anticon {
   margin-right: 16px;
 }
+
+.layout {
+  overflow: hidden;
+
+  &__content {
+    margin: 16px;
+    height: calc(100% - 90px);
+  }
+}

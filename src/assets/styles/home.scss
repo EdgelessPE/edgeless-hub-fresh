@@ -1,6 +1,6 @@
 .home__ {
   &bg-container {
-    height: 100%;
+    height: 80%;
     display: grid;
     margin-right: 16px;
     grid:
@@ -58,6 +58,7 @@
 
     &__list {
       width: 100%;
+      overflow: hidden auto;
     }
   }
 }

@@ -14,7 +14,7 @@ const pluginsRecommendation = new Array(4).fill({
 export const Home = () => {
   const [displayNotice, setDisplayNotice] = useState(true)
   return (
-    <div>
+    <div style={{overflow: "hidden auto", height: "100%"}}>
       {displayNotice && (
         <Space direction='vertical' className="home__notice-container">
           <Alert
@@ -60,7 +60,6 @@ export const Home = () => {
           <List
             wrapperClassName="home__plugins-recommendation__list"
             bordered={false}
-            size="large"
             dataSource={pluginsRecommendation}
             render={(item, index) => (
               <List.Item

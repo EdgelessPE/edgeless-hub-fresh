@@ -1,24 +1,24 @@
 import React, {useEffect, useState} from 'react';
 import {Button, Layout} from '@arco-design/web-react';
-import { Routes } from 'react-router-dom';
+import {Routes} from 'react-router-dom';
 import '@arco-design/web-react/dist/css/arco.css';
 
-import { getRouterNodes } from '@/router/routers';
-import { myHistory } from '@/router/history';
+import {getRouterNodes} from '@/router/routers';
+import {myHistory} from '@/router/history';
 
-import { SiderMenu } from '@/components/SiderMenu';
-import { HistoryRouter } from '@/router/HistoryRouter';
-import { Logo } from '@/components/Logo';
-import { Header } from '@/components/Header';
+import {SiderMenu} from '@/components/SiderMenu';
+import {HistoryRouter} from '@/router/HistoryRouter';
+import {Logo} from '@/components/Logo';
+import {Header} from '@/components/Header';
 import {IconSettings} from "@arco-design/web-react/icon";
 import {BrowserHistory} from "history";
 
 const Sider = Layout.Sider;
 const Content = Layout.Content;
 
-function useSettingButton(showText:boolean,history:BrowserHistory) {
-  const [selected,setSelected]=useState(false)
-  const getSelected=()=>{
+function useSettingButton(showText: boolean, history: BrowserHistory) {
+  const [selected, setSelected] = useState(false)
+  const getSelected = () => {
     let s = decodeURI(window.location.pathname)
       .split('/')
       .filter(key => key != '');
@@ -61,15 +61,15 @@ const App: React.FC = () => {
       <Sider
         collapsed={collapsed}
         collapsible
-        trigger={useSettingButton(displayText,myHistory)}
+        trigger={useSettingButton(displayText, myHistory)}
         breakpoint='xl'
       >
-        <Logo displayText={displayText} onClick={handleLogoClick} />
-        <SiderMenu history={myHistory} />
+        <Logo displayText={displayText} onClick={handleLogoClick}/>
+        <SiderMenu history={myHistory}/>
       </Sider>
-      <Layout>
-        <Header history={myHistory} />
-        <Content style={{ margin: '24px' }}>
+      <Layout className="layout">
+        <Header history={myHistory}/>
+        <Content className="layout__content">
           <HistoryRouter history={myHistory}>
             <Routes>
               {getRouterNodes()}

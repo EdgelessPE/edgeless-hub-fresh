@@ -1,0 +1,19 @@
+.settings__ {
+  &container {
+    width: 100%;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    align-items: flex-start;
+  }
+
+  &avatar {
+    color: #108ee9;
+    background-color: rgba(0, 0, 0, 0);
+  }
+
+  &meta {
+    text-align: start;
+  }
+}

@@ -1,27 +1,28 @@
 import {StringKVMap} from '../electron/class';
 import {Err, Ok, Result} from "ts-results";
-// import electronLog from "electron-log"
 import {ParsedFullName} from "@/class";
-
-// electronLog.transports.file.resolvePath=()=>path.join(process.cwd(),"log")
+import bridge from "@/bridge";
 
 function log(text: string) {
   const s = text.split(":")
   if (s.length > 1) {
     switch (s[0]) {
       case "Info":
-        // electronLog.info(text)
         console.log(text)
+        bridge("log", "Info", text)
         break
       case "Warning":
+        bridge("log", "Warning", text)
         // electronLog.warn(text)
         console.warn(text)
         break
       case "Error":
+        bridge("log", "Error", text)
         // electronLog.error(text)
         console.error(text)
         break
       default:
+        bridge("log", "Info", text)
         // electronLog.info(text)
         console.log(text)
         break

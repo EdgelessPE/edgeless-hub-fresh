@@ -280,7 +280,7 @@ export const Category = () => {
       "hash": "f565ae9a781c913d231df250b1112e05758fc20bce2c9cc3cdd29c234ac47e0a"
     },
     {
-      "name": "DOSBOX_0.74.3.0_undefined（bot）.7z",
+      "name": "DOSBOX0.74.3.0_undefined（bot）.7z",
       "size": 2004191,
       "timestamp": 1644916416,
       "hash": "e6ee8c2e47932179d488f01951b884a296bcd27c923b77a651c3a49a547a0944"

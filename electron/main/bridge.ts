@@ -1,13 +1,12 @@
-import { ipcMain } from 'electron';
-import { BridgeReply, BridgeRequest } from '../class';
+import {ipcMain} from 'electron';
+import {BridgeReply, BridgeRequest} from '../class';
+import log from "./log";
 
 const registry: { [name: string]: (...args: any) => any } = {
-  'hello': () => {
-    return 'hello from main';
-  }
+  'log': log
 };
 
-export default function() {
+export default function () {
   //创建调用地图
   const callMap = new Map<string, (...args: any) => any>();
   for (let key in registry) {

@@ -85,3 +85,11 @@
     height: calc(100% - 90px);
   }
 }
+
+.icon-button {
+  width: 78px;
+  padding: 0 4px;
+  display: flex;
+  align-items: center;
+  justify-content: space-around;
+}

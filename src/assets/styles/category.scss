@@ -1,0 +1,27 @@
+.category__ {
+  &container {
+    height: 100%;
+    padding: 16px;
+    overflow: auto;
+    display: grid;
+    grid-template-columns: repeat(auto-fill, 220px);
+    gap: 16px;
+    justify-content: center;
+  }
+
+  &card {
+    width: 220px;
+    text-align: start;
+
+    &__title__ci {
+      color: rgb(114, 193, 64);
+    }
+
+    &__title__bot-link {
+      color: #108ee9;
+      cursor: pointer;
+    }
+
+
+  }
+}

@@ -11,7 +11,7 @@ interface SettingItem {
   actions: React.ReactElement[]
 }
 
-function useSettingItems(items: SettingItem[]): React.ReactElement[] {
+function renderSettingItems(items: SettingItem[]): React.ReactElement[] {
   let result: React.ReactElement[] = []
   for (let item of items) {
     result.push((
@@ -70,7 +70,7 @@ export const Settings = () => {
   return (
     <div className="settings__container">
       <List wrapperStyle={{width: "100%"}}>
-        {useSettingItems(settingItems)}
+        {renderSettingItems(settingItems)}
       </List>
     </div>
   );

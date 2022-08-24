@@ -14,7 +14,7 @@ function getInstallingText(percentage: number) {
 
 function renderProgress(key: string, status: "normal" | "error", percentage: number, formatText: (p: number) => string): React.ReactElement {
   return (
-    <div className="plugin-button__progress-container">
+    <div key={key} className="plugin-button__progress-container">
       <Progress key={key} size="mini" status={status} percent={percentage}
                 formatText={formatText}/>
     </div>
@@ -79,7 +79,7 @@ function getPluginTaskStatus(info: ParsedFullName, category: string): TaskStatus
 
 const PluginSmartButton = (info: ParsedFullName, category: string) => {
   const status = getPluginTaskStatus(info, category)
-  return renderButton(status, info.name)
+  return renderButton(status, info.name + "_button")
 }
 
 export default PluginSmartButton

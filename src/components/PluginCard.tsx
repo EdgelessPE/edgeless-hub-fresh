@@ -15,11 +15,11 @@ interface Prop {
 function renderTitle(title: string, ci: boolean): React.ReactElement {
   return (
     <>
-      <Tooltip key="title-tooltip" content={title}>
+      <Tooltip key={title + "_tooltip-title"} content={title}>
         <b>{title + " "}</b>
       </Tooltip>
       {ci && (
-        <Tooltip key="ci-tooltip" content={
+        <Tooltip key={title + "_tooltip-ci"} content={
           <>此插件包由 <a className="category__card__title__bot-link">Edgeless Bot</a> 自动构建</>
         }>
           <CiCircleOutlined className="category__card__title__ci"/>
@@ -51,7 +51,6 @@ const PluginCard = ({data, category, showCategory = false}: Prop) => {
 
   return (
     <Card
-      key={nameInfo.name}
       className="category__card"
       style={showCategory ? {height: "180px"} : {height: "160px"}}
       title={renderTitle(nameInfo.name, nameInfo.isBot)}

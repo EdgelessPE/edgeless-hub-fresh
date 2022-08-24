@@ -5,6 +5,7 @@ import React from "react";
 import {PluginData} from "@/class";
 import {formatSize, log, parsePluginName} from "@/utils";
 import PluginSmartButton from "@/components/PluginSmartButton";
+import {myHistory} from "@/router/history";
 
 interface Prop {
   data: PluginData;
@@ -12,11 +13,12 @@ interface Prop {
   showCategory?: boolean;
 }
 
-function renderTitle(title: string, ci: boolean): React.ReactElement {
+function renderTitle(title: string, ci: boolean, category: string, fullName: string): React.ReactElement {
   return (
     <>
       <Tooltip key={title + "_tooltip-title"} content={title}>
-        <b>{title + " "}</b>
+        <b style={{cursor: "pointer"}}
+           onClick={() => myHistory.push(`/plugin/detail/${category}/${fullName}`)}>{title + " "}</b>
       </Tooltip>
       {ci && (
         <Tooltip key={title + "_tooltip-ci"} content={
@@ -53,7 +55,7 @@ const PluginCard = ({data, category, showCategory = false}: Prop) => {
     <Card
       className="category__card"
       style={showCategory ? {height: "180px"} : {height: "160px"}}
-      title={renderTitle(nameInfo.name, nameInfo.isBot)}
+      title={renderTitle(nameInfo.name, nameInfo.isBot, category, data.name)}
       extra={[PluginSmartButton(nameInfo, category)]}
       hoverable
     >

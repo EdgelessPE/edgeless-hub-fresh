@@ -7,12 +7,7 @@ interface Prop {
   addColon?: boolean;
 }
 
-export const NaiveDescription = ({
-                                   kvMap,
-                                   keyWidth,
-                                   rowHeight,
-                                   addColon,
-                                 }: Prop) => {
+export const NaiveDescription = ({kvMap, keyWidth, rowHeight, addColon}: Prop) => {
   const [reactiveItems, setReactiveItems] = useState<React.ReactNode[]>([]);
   useEffect(() => {
     let elements: React.ReactNode[] = [];

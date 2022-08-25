@@ -1,7 +1,7 @@
-import { app, BrowserWindow, shell } from 'electron';
-import { release } from 'os';
-import { join } from 'path';
-import installExtension, { REACT_DEVELOPER_TOOLS } from 'electron-devtools-installer';
+import {app, BrowserWindow, shell} from 'electron';
+import {release} from 'os';
+import {join} from 'path';
+import installExtension, {REACT_DEVELOPER_TOOLS} from 'electron-devtools-installer';
 import bridge from './bridge';
 
 if (release().startsWith('6.1')) app.disableHardwareAcceleration();
@@ -34,7 +34,8 @@ async function createWindow() {
     webPreferences: {
       preload,
       nodeIntegration: true,
-      contextIsolation: false
+      contextIsolation: false,
+      webviewTag: true,
     }
   })
 

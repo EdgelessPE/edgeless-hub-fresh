@@ -6,12 +6,10 @@ import {
   IconFire,
   IconHome,
   IconList,
-  IconSettings,
   IconThunderbolt
 } from '@arco-design/web-react/icon';
 import React from 'react';
-import { SiderNode } from '@/components/SiderMenu';
-import { StringKVMap } from '../electron/class';
+import {SiderNode} from '@/components/layout/SiderMenu';
 import {
   ApiOutlined,
   BookOutlined,
@@ -82,8 +80,8 @@ const siderNodes: SiderNode[] = [
         icon: <SafetyCertificateOutlined />
       },
       {
-        path: 'plugin/detail/浏览器/114514',
-        title: '详情114514'
+        path: 'plugin/detail/实用工具/Smap_0.1.11.0_undefined（bot）.7z',
+        title: '详情'
       }
     ]
   },
@@ -99,37 +97,37 @@ const siderNodes: SiderNode[] = [
   },
 ];
 
-const iconMapCategory: StringKVMap<JSX.Element> = {
-  '精选插件': <TrophyOutlined />,
-  '实用工具': <ToolOutlined />,
-  '开发辅助': <BugOutlined />,
-  '配置检测': <DashboardOutlined />,
-  '资源管理': <FolderOpenOutlined />,
-  '办公编辑': <BookOutlined />,
-  '输入法': <ItalicOutlined />,
-  '集成开发': <CodeOutlined />,
-  '录屏看图': <CameraOutlined />,
-  '磁盘数据': <SaveOutlined />,
-  '安全急救': <SafetyCertificateOutlined />,
-  '网课会议': <WhatsAppOutlined />,
-  '即时通讯': <WechatOutlined />,
-  '安装备份': <HourglassOutlined />,
-  '游戏娱乐': <GiftOutlined />,
-  '运行环境': <BuildOutlined />,
-  '压缩镜像': <FileZipOutlined />,
-  '美化增强': <SkinOutlined />,
-  '驱动管理': <ControlOutlined />,
-  '下载上传': <GlobalOutlined />,
+const iconMapCategory: Record<string, JSX.Element> = {
+  '精选插件': <TrophyOutlined/>,
+  '实用工具': <ToolOutlined/>,
+  '开发辅助': <BugOutlined/>,
+  '配置检测': <DashboardOutlined/>,
+  '资源管理': <FolderOpenOutlined/>,
+  '办公编辑': <BookOutlined/>,
+  '输入法': <ItalicOutlined/>,
+  '集成开发': <CodeOutlined/>,
+  '录屏看图': <CameraOutlined/>,
+  '磁盘数据': <SaveOutlined/>,
+  '安全急救': <SafetyCertificateOutlined/>,
+  '网课会议': <WhatsAppOutlined/>,
+  '即时通讯': <WechatOutlined/>,
+  '安装备份': <HourglassOutlined/>,
+  '游戏娱乐': <GiftOutlined/>,
+  '运行环境': <BuildOutlined/>,
+  '压缩镜像': <FileZipOutlined/>,
+  '美化增强': <SkinOutlined/>,
+  '驱动管理': <ControlOutlined/>,
+  '下载上传': <GlobalOutlined/>,
   '浏览器': <ChromeOutlined />,
   '影音播放': <CustomerServiceOutlined />,
   '远程连接': <ApiOutlined />
 };
 
-function getTitleMapSider(nodes: SiderNode[]): StringKVMap<{
+function getTitleMapSider(nodes: SiderNode[]): Record<string, {
   title: string,
   icon?: JSX.Element,
 }> {
-  let map: StringKVMap<{
+  let map: Record<string, {
     title: string,
     icon?: JSX.Element,
   }> = {};

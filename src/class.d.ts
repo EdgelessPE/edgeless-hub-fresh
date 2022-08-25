@@ -13,13 +13,8 @@ interface Hello {
     path:string,
   }[],
   plugins?:{
-    tree:Record<string, {
-      name:string,
-      size:number,
-      timestamp:number,
-      hash:string,
-    }>,
-    path:string,
+    tree: Record<string, PluginData>,
+    path: string,
   },
   iso?:FileNode,
   alpha?:{
@@ -53,20 +48,45 @@ interface Hello {
       lower_than:string,
       repeat_after:string,
     }[],
-    packages:{
-      update:string,
-      extended_update:string,
-      full:string,
+    packages: {
+      update: string,
+      extended_update: string,
+      full: string,
     }
   }
 }
 
 interface FileNode {
-  version:string,
-  file_name:string,
-  url:string,
+  version: string,
+  file_name: string,
+  url: string,
+}
+
+interface PluginData {
+  name: string,
+  size: number,
+  timestamp: number,
+  hash: string,
+}
+
+interface ParsedFullName {
+  name: string,
+  version: string,
+  author: string,
+  isBot: boolean,
+  ext: string
+}
+
+type TaskStatus = {
+  state: "Available" | "Downloading" | "Pending" | "Installing" | "Installed" | "Upgradable",
+  versionLocal: string,
+  versionOnline: string,
+  percentage?: number
 }
 
 export {
-  Hello
+  Hello,
+  PluginData,
+  TaskStatus,
+  ParsedFullName
 }

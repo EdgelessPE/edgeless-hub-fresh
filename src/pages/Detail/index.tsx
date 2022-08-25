@@ -1,0 +1,88 @@
+import {useParams} from "react-router-dom";
+import "./index.scss"
+import {Badge, Divider, PageHeader, Popover, Statistic, Tag} from "@arco-design/web-react";
+import {PluginData} from "@/class";
+import {formatSize, formatTimestamp, parsePluginName} from "@/utils";
+import {PluginSmartButton} from "@/components/organisms/PluginSmartButton";
+import React from "react";
+import {Webview} from "@/components/organisms/Webview";
+
+function getPluginData(category: string, fullName: string): PluginData {
+  return {
+    "name": fullName,
+    "size": 1782050,
+    "timestamp": 1658958154,
+    "hash": "1049c47cf533499749b26425befe9149d0f0b4e33dd36f8b420771b127101c94"
+  }
+}
+
+function renderSizeBadge(size: number): React.ReactElement {
+  const orangeAlertLimit = 1024 * 1024 * 80 //80MB
+  const redAlertLimit = orangeAlertLimit * 3 //240MB
+
+  if (size > redAlertLimit) return <Badge dot dotStyle={{width: 10, height: 10}} color="red"/>
+  else if (size > orangeAlertLimit) return <Badge dot dotStyle={{width: 10, height: 10}} color="orange"/>
+  else return <Badge dot dotStyle={{width: 10, height: 10}} color="green"/>
+}
+
+export const Detail = () => {
+  const {category, fullName} = useParams() as { category: string, fullName: string }
+  const data = getPluginData(category, fullName)
+  const parsedRes = parsePluginName(data.name)
+  if (parsedRes.err) {
+    return <></>
+  }
+  const parsed = parsedRes.val
+  const size = formatSize(data.size)
+  return (
+    <div className="detail__container">
+      <PageHeader
+        className="detail__header"
+        title={parsed.name}
+        subTitle={parsed.isBot && <Tag color="green">自动构建</Tag>}
+        extra={<PluginSmartButton info={parsed} category={category}/>}
+      />
+      <div className="detail__divider">
+        <Divider style={{margin: "0"}}/>
+      </div>
+
+      <div className="detail__description">
+        <Statistic
+          title="版本号"
+          value={parsed.version}
+        />
+        <Popover
+          title={
+            <Tag color="#00b42a">贡献排名 1</Tag>
+          }
+          position="bottom"
+          content={
+            <div className="detail__badge-wall">
+              <Tag className="detail__badge" color="green">自动构建任务作者</Tag>
+              <Tag className="detail__badge" color="red">Edgeless官方人员</Tag>
+            </div>
+          }
+        >
+          <div>
+            <Statistic
+              title="作者"
+              value={parsed.author}
+            />
+          </div>
+        </Popover>
+        <Statistic
+          title="更新时间"
+          value={formatTimestamp(data.timestamp)}
+        />
+        <Statistic
+          title="大小"
+          value={size.num}
+          suffix={size.unit}
+          prefix={renderSizeBadge(data.size)}
+        />
+      </div>
+
+      <Webview url={"https://www.bing.com/search?q=" + parsed.name} className="detail__webview"/>
+    </div>
+  );
+};

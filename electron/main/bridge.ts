@@ -1,13 +1,12 @@
-import { ipcMain } from 'electron';
-import { BridgeReply, BridgeRequest } from '../class';
+import {ipcMain} from 'electron';
+import {BridgeReply, BridgeRequest} from '../class';
+import log from "./log";
 
 const registry: { [name: string]: (...args: any) => any } = {
-  'hello': () => {
-    return 'hello from main';
-  }
+  'log': log
 };
 
-export default function() {
+export default function () {
   //创建调用地图
   const callMap = new Map<string, (...args: any) => any>();
   for (let key in registry) {
@@ -18,7 +17,12 @@ export default function() {
   ipcMain.on('bridge', async (event, req: BridgeRequest) => {
     let entry = callMap.get(req.functionName);
     if (entry == null) {
-      console.log(`Error:Function ${req.functionName} unregistered!`);
+      const reply = `Error:Function "${req.functionName}" unregistered!`
+      console.log(reply);
+      event.reply('bridge-reply', {
+        id: req.id,
+        payload: reply
+      });
     } else {
       const payload = await entry(...req.args),
         reply: BridgeReply = {

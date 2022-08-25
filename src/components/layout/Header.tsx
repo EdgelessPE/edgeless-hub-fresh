@@ -1,8 +1,8 @@
-import {Button, Input, Layout, PageHeader, Popover} from '@arco-design/web-react';
+import {Button, Input, Layout, PageHeader} from '@arco-design/web-react';
 import React, {useEffect, useState} from 'react';
-import {IconArrowLeft, IconDownload, IconSearch, IconSettings} from '@arco-design/web-react/icon';
+import {IconArrowLeft, IconSearch, IconSettings} from '@arco-design/web-react/icon';
 import {BrowserHistory} from 'history';
-import {DownloadPopoverCard, DownloadTitle} from '@/components/DownloadPopoverCard';
+import {DownloadPopoverCard} from '@/components/layout/DownloadPopoverCard';
 import {renderHeaderCategory} from '@/render/headerCategory';
 import {iconTitleMapSider} from '@/constants';
 
@@ -19,7 +19,7 @@ function renderHeader(setTitle: React.Dispatch<React.SetStateAction<string | JSX
   // 渲染
   if (s[0] == 'plugin') {
     if (s[1] == 'category') setTitle(renderHeaderCategory(s[2]));
-    else if (s[1] == 'detail') setTitle(s[3]);
+    else if (s[1] == 'detail') setTitle("插件详情");
   } else {
     //尝试匹配为侧边栏标题
     iconTitleMapSider["settings"] = {
@@ -59,7 +59,6 @@ export const Header = ({ history }: Prop) => {
   const [title, setTitle] = useState<JSX.Element | string | null>(null);
   const [displayBack, setDisplayBack] = useState(false);
 
-  const ToTasks = () => history.push('/tasks');
   const toggleInput = () => setShowSearch(prev => !prev);
   const onInput = (v: string) => setSearchText(v);
   const onSearch = () => {
@@ -108,15 +107,7 @@ export const Header = ({ history }: Prop) => {
           />
         </Button>
       }
-
-      <Popover title={DownloadTitle} content={DownloadPopoverCard()}>
-        <Button type='text'
-                onClick={ToTasks}>
-          <IconDownload
-            className='header__button'
-          />
-        </Button>
-      </Popover>
+      <DownloadPopoverCard/>
     </ArcoHeader>
   );
 };

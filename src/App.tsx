@@ -6,10 +6,10 @@ import '@arco-design/web-react/dist/css/arco.css';
 import {getRouterNodes} from '@/router/routers';
 import {myHistory} from '@/router/history';
 
-import {SiderMenu} from '@/components/SiderMenu';
+import {SiderMenu} from '@/components/layout/SiderMenu';
 import {HistoryRouter} from '@/router/HistoryRouter';
-import {Logo} from '@/components/Logo';
-import {Header} from '@/components/Header';
+import {Logo} from '@/components/layout/Logo';
+import {Header} from '@/components/layout/Header';
 import {IconSettings} from "@arco-design/web-react/icon";
 import {BrowserHistory} from "history";
 
@@ -36,7 +36,7 @@ function useSettingButton(showText: boolean, history: BrowserHistory) {
     history.push("/settings")
   }
   return (
-    <Button type="text" onClick={gotoSetting} style={selected ? undefined : {color: "var(--color-text-2)"}}>
+    <Button type="text" onClick={gotoSetting} style={selected ? undefined : {color: "gray"}}>
       <IconSettings/>
       {showText && "设置"}
     </Button>
@@ -47,20 +47,29 @@ const App: React.FC = () => {
   const [collapsed, setCollapsed] = useState(false);
   const [displayText, setDisplayText] = useState(true);
 
+  const handleLogoClick = () => {
+    if (collapsed) {
+      setTimeout(() => setDisplayText(prev => !prev), 150);
+    } else {
+      setDisplayText(prev => !prev);
+    }
+    setCollapsed(prev => !prev);
+  };
+
   return (
     <Layout className='app'>
       <Sider
         collapsed={collapsed}
         collapsible
-        trigger={useSettingButton(displayText,myHistory)}
+        trigger={useSettingButton(displayText, myHistory)}
         breakpoint='xl'
       >
-        <Logo collapsed={collapsed} setCollapsed={setCollapsed} displayText={displayText} setDisplayText={setDisplayText} />
-        <SiderMenu history={myHistory} />
+        <Logo displayText={displayText} onClick={handleLogoClick}/>
+        <SiderMenu history={myHistory}/>
       </Sider>
-      <Layout>
-        <Header history={myHistory} />
-        <Content style={{ margin: '24px' }}>
+      <Layout className="layout">
+        <Header history={myHistory}/>
+        <Content className="layout__content">
           <HistoryRouter history={myHistory}>
             <Routes>
               {getRouterNodes()}

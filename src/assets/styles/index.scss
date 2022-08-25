@@ -28,7 +28,7 @@
   align-items: center;
   justify-content: flex-end;
   padding: 0 20px;
-  box-shadow: 0 2px 5px 0 rgb(0 0 0 / 8%);
+  box-shadow: 0 2px 5px 0 rgba(0, 0, 0, 0.08);
 
   &__button {
     width: 20px;
@@ -75,4 +75,29 @@
 
 .arco-menu-item-inner .anticon {
   margin-right: 16px;
+}
+
+.layout {
+  overflow: hidden;
+
+  &__content {
+    margin: 16px;
+    height: calc(100% - 90px);
+  }
+}
+
+.icon-button {
+  width: 78px;
+  padding: 0 4px;
+  display: flex;
+  align-items: center;
+  justify-content: space-around;
+}
+
+.plugin-button__progress-container {
+  width: 78px;
+  padding: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }

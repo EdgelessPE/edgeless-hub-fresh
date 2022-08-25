@@ -1,6 +1,6 @@
 import {ParsedFullName, TaskStatus} from "@/class";
 import React from "react";
-import ButtonWithIcon from "@/components/atoms/ButtonWithIcon";
+import {ButtonWithIcon} from "@/components/atoms/ButtonWithIcon";
 import {ArrowUpOutlined, CheckOutlined, CloudDownloadOutlined, LoadingOutlined} from "@ant-design/icons";
 import {Progress} from "@arco-design/web-react";
 
@@ -77,9 +77,8 @@ function getPluginTaskStatus(info: ParsedFullName, category: string): TaskStatus
   }
 }
 
-const PluginSmartButton = (info: ParsedFullName, category: string) => {
+export const PluginSmartButton = ({info, category}: { info: ParsedFullName, category: string }) => {
   const status = getPluginTaskStatus(info, category)
   return renderButton(status, info.name + "_button")
 }
 
-export default PluginSmartButton

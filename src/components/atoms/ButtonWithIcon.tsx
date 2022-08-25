@@ -1,12 +1,14 @@
 import React from "react";
 import {Button, ButtonProps} from "@arco-design/web-react";
 
-function ButtonWithIcon({
-                          icon,
-                          text,
-                          props,
-                          style
-                        }: { icon: React.ReactElement, text: string, props?: ButtonProps, style?: React.CSSProperties }): React.ReactElement {
+interface Props {
+  icon: React.ReactElement,
+  text: string,
+  props?: ButtonProps,
+  style?: React.CSSProperties
+}
+
+export const ButtonWithIcon = ({icon, text, props, style}: Props): React.ReactElement => {
   return (
     <Button className="icon-button" type="text" {...props} style={style}>
       {icon}
@@ -14,5 +16,3 @@ function ButtonWithIcon({
     </Button>
   )
 }
-
-export default ButtonWithIcon

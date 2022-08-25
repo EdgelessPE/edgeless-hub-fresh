@@ -1,8 +1,8 @@
-import {Button, Input, Layout, PageHeader, Popover} from '@arco-design/web-react';
+import {Button, Input, Layout, PageHeader} from '@arco-design/web-react';
 import React, {useEffect, useState} from 'react';
-import {IconArrowLeft, IconDownload, IconSearch, IconSettings} from '@arco-design/web-react/icon';
+import {IconArrowLeft, IconSearch, IconSettings} from '@arco-design/web-react/icon';
 import {BrowserHistory} from 'history';
-import {DownloadPopoverCard, DownloadTitle} from '@/components/layout/DownloadPopoverCard';
+import {DownloadPopoverCard} from '@/components/layout/DownloadPopoverCard';
 import {renderHeaderCategory} from '@/render/headerCategory';
 import {iconTitleMapSider} from '@/constants';
 
@@ -59,7 +59,6 @@ export const Header = ({ history }: Prop) => {
   const [title, setTitle] = useState<JSX.Element | string | null>(null);
   const [displayBack, setDisplayBack] = useState(false);
 
-  const ToTasks = () => history.push('/tasks');
   const toggleInput = () => setShowSearch(prev => !prev);
   const onInput = (v: string) => setSearchText(v);
   const onSearch = () => {
@@ -108,15 +107,7 @@ export const Header = ({ history }: Prop) => {
           />
         </Button>
       }
-
-      <Popover title={DownloadTitle} content={DownloadPopoverCard()}>
-        <Button type='text'
-                onClick={ToTasks}>
-          <IconDownload
-            className='header__button'
-          />
-        </Button>
-      </Popover>
+      <DownloadPopoverCard/>
     </ArcoHeader>
   );
 };

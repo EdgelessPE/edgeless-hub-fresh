@@ -4,7 +4,7 @@ import {NaiveDescription} from "@/components/molecules/NaiveDescription";
 import React from "react";
 import {PluginData} from "@/class";
 import {formatSize, log, parsePluginName} from "@/utils";
-import PluginSmartButton from "@/components/organisms/PluginSmartButton";
+import {PluginSmartButton} from "@/components/organisms/PluginSmartButton";
 import {myHistory} from "@/router/history";
 
 interface Prop {
@@ -56,7 +56,7 @@ const PluginCard = ({data, category, showCategory = false}: Prop) => {
       className="category__card"
       style={showCategory ? {height: "180px"} : {height: "160px"}}
       title={renderTitle(nameInfo.name, nameInfo.isBot, category, data.name)}
-      extra={[PluginSmartButton(nameInfo, category)]}
+      extra={[<PluginSmartButton key="action" info={nameInfo} category={category}/>]}
       hoverable
     >
       <NaiveDescription kvMap={description} keyWidth="81px" rowHeight="10px" addColon={true}/>

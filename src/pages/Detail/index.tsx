@@ -52,20 +52,19 @@ export const Detail = () => {
           value={parsed.version}
         />
         <Popover
-          title={
-            <Tag color="#00b42a">贡献排名 1</Tag>
-          }
+          title={<b>打包者徽章</b>}
           position="bottom"
           content={
             <div className="detail__badge-wall">
-              <Tag className="detail__badge" color="green">自动构建任务作者</Tag>
+              <Tag color="#00b42a">贡献排名 1</Tag>
               <Tag className="detail__badge" color="red">Edgeless官方人员</Tag>
+              <Tag className="detail__badge" color="green">自动构建任务作者</Tag>
             </div>
           }
         >
           <div>
             <Statistic
-              title="作者"
+              title="打包者"
               value={parsed.author}
             />
           </div>

@@ -40,7 +40,7 @@ export const Home = () => {
           height: displayNotice ? "80%" : "100%"
         }}
       >
-        <h2 className="home__welcome">🛏夜深了，卡诺记得早睡早起哦！</h2>
+        <h2 className="home__welcome">🛏️夜深了，卡诺记得早睡早起哦！</h2>
         <div className="home__status">
           <Avatar size={128} className="home__status__avatar">
             <SmileTwoTone/>

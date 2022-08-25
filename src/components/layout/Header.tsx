@@ -2,7 +2,7 @@ import {Button, Input, Layout, PageHeader, Popover} from '@arco-design/web-react
 import React, {useEffect, useState} from 'react';
 import {IconArrowLeft, IconDownload, IconSearch, IconSettings} from '@arco-design/web-react/icon';
 import {BrowserHistory} from 'history';
-import {DownloadPopoverCard, DownloadTitle} from '@/components/DownloadPopoverCard';
+import {DownloadPopoverCard, DownloadTitle} from '@/components/layout/DownloadPopoverCard';
 import {renderHeaderCategory} from '@/render/headerCategory';
 import {iconTitleMapSider} from '@/constants';
 

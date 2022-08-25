@@ -1,5 +1,5 @@
-import 'styles/category.scss'
-import PluginCard from "@/components/PluginCard";
+import './index.scss'
+import PluginCard from "@/pages/Category/PluginCard";
 import {PluginData} from "@/class";
 import React from "react";
 

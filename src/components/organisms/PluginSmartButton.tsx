@@ -1,6 +1,6 @@
 import {ParsedFullName, TaskStatus} from "@/class";
 import React from "react";
-import ButtonWithIcon from "@/components/ButtonWithIcon";
+import ButtonWithIcon from "@/components/atoms/ButtonWithIcon";
 import {ArrowUpOutlined, CheckOutlined, CloudDownloadOutlined, LoadingOutlined} from "@ant-design/icons";
 import {Progress} from "@arco-design/web-react";
 

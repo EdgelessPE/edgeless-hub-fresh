@@ -6,10 +6,10 @@ import '@arco-design/web-react/dist/css/arco.css';
 import {getRouterNodes} from '@/router/routers';
 import {myHistory} from '@/router/history';
 
-import {SiderMenu} from '@/components/SiderMenu';
+import {SiderMenu} from '@/components/layout/SiderMenu';
 import {HistoryRouter} from '@/router/HistoryRouter';
-import {Logo} from '@/components/Logo';
-import {Header} from '@/components/Header';
+import {Logo} from '@/components/layout/Logo';
+import {Header} from '@/components/layout/Header';
 import {IconSettings} from "@arco-design/web-react/icon";
 import {BrowserHistory} from "history";
 

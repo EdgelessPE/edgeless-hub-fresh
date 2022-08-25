@@ -6,12 +6,11 @@ import {
   IconFire,
   IconHome,
   IconList,
-  IconSettings,
   IconThunderbolt
 } from '@arco-design/web-react/icon';
 import React from 'react';
-import { SiderNode } from '@/components/SiderMenu';
-import { StringKVMap } from '../electron/class';
+import {SiderNode} from '@/components/layout/SiderMenu';
+import {StringKVMap} from '../electron/class';
 import {
   ApiOutlined,
   BookOutlined,

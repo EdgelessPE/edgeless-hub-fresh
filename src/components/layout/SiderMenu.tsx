@@ -1,7 +1,7 @@
-import { Menu } from '@arco-design/web-react';
-import React, { useEffect, useState } from 'react';
-import { BrowserHistory } from 'history';
-import { siderNodes } from '@/constants';
+import {Menu} from '@arco-design/web-react';
+import React, {useEffect, useState} from 'react';
+import {BrowserHistory} from 'history';
+import {siderNodes} from '@/constants';
 
 const MenuItem = Menu.Item;
 const SubMenu = Menu.SubMenu;

@@ -1,10 +1,10 @@
 import {Card, Tooltip} from "@arco-design/web-react";
 import {CiCircleOutlined} from "@ant-design/icons";
-import {NaiveDescription} from "@/components/NaiveDescription";
+import {NaiveDescription} from "@/components/molecules/NaiveDescription";
 import React from "react";
 import {PluginData} from "@/class";
 import {formatSize, log, parsePluginName} from "@/utils";
-import PluginSmartButton from "@/components/PluginSmartButton";
+import PluginSmartButton from "@/components/organisms/PluginSmartButton";
 import {myHistory} from "@/router/history";
 
 interface Prop {

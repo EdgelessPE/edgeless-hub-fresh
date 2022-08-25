@@ -13,6 +13,8 @@
   }
 
   &description {
+    width: calc(100% - 32px);
+    margin: 16px;
     display: flex;
     align-items: flex-start;
     justify-content: space-between;
@@ -22,5 +24,14 @@
     display: flex;
     flex-direction: column;
     align-items: flex-start;
+  }
+
+  &badge {
+    margin: 6px 0 0 0;
+  }
+
+  &divider {
+    width: calc(100% - 32px);
+    margin: 12px;
   }
 }

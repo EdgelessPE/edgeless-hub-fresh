@@ -5,6 +5,7 @@ import {PluginData} from "@/class";
 import {formatSize, formatTimestamp, parsePluginName} from "@/utils";
 import {PluginSmartButton} from "@/components/organisms/PluginSmartButton";
 import React from "react";
+import {Webview} from "@/components/organisms/Webview";
 
 function getPluginData(category: string, fullName: string): PluginData {
   return {
@@ -80,6 +81,8 @@ export const Detail = () => {
           prefix={renderSizeBadge(data.size)}
         />
       </div>
+
+      <Webview url={"https://www.bing.com/search?q=" + parsed.name} className="detail__webview"/>
     </div>
   );
 };

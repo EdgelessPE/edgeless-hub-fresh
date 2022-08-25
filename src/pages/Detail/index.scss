@@ -17,7 +17,7 @@
     margin: 16px;
     display: flex;
     align-items: flex-start;
-    justify-content: space-between;
+    justify-content: space-around;
   }
 
   &badge-wall {
@@ -33,5 +33,11 @@
   &divider {
     width: calc(100% - 32px);
     margin: 12px;
+  }
+
+  &webview {
+    margin: 0 16px;
+    width: calc(100% - 32px);
+    height: calc(100% - 120px);
   }
 }

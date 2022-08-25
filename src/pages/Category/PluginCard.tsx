@@ -40,7 +40,7 @@ const PluginCard = ({data, category, showCategory = false}: Prop) => {
   let description: any = {
     "版本号": nameInfo.version,
     "打包者": nameInfo.author,
-    "大小": formatSize(data.size)
+    "大小": formatSize(data.size).toString()
   }
 
   if (showCategory) {

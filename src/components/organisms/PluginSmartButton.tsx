@@ -70,7 +70,7 @@ function getPluginTaskStatus(info: ParsedFullName, category: string): TaskStatus
   }
   count++
   return {
-    state,
+    state: "Available",
     versionLocal: "0.0.0",
     versionOnline: info.version,
     percentage: parseFloat((Math.random() * 100).toFixed(2))

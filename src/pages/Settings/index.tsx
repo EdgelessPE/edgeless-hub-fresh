@@ -1,6 +1,6 @@
 import {Avatar, Button, List, Radio} from "@arco-design/web-react";
 import "./index.scss"
-import {DeliveredProcedureOutlined, SkinOutlined} from "@ant-design/icons";
+import {DeliveredProcedureOutlined, SearchOutlined, SkinOutlined} from "@ant-design/icons";
 import React, {useState} from "react";
 import {getCurrentTheme, setCurrentTheme} from "@/services/theme";
 
@@ -45,6 +45,8 @@ export const Settings = () => {
     setTheme(val)
   }
 
+  const [searchEngine, setSearchEngine] = useState("bing")
+
   const settingItems: SettingItem[] = [
     {
       avatar: <SkinOutlined/>,
@@ -63,6 +65,18 @@ export const Settings = () => {
       description: "D:\\Download\\HubCache",
       actions: [
         <Button>查看</Button>
+      ]
+    },
+    {
+      avatar: <SearchOutlined/>,
+      title: "搜索引擎",
+      description: "插件详情页面自动搜索功能的引擎提供方",
+      actions: [
+        <Radio.Group type="button" value={searchEngine} onChange={setSearchEngine}>
+          <Radio value="baidu">百度</Radio>
+          <Radio value="bing">必应</Radio>
+          <Radio value="google">谷歌</Radio>
+        </Radio.Group>
       ]
     }
   ]

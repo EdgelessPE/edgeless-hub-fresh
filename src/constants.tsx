@@ -10,7 +10,6 @@ import {
 } from '@arco-design/web-react/icon';
 import React from 'react';
 import {SiderNode} from '@/components/layout/SiderMenu';
-import {StringKVMap} from '../electron/class';
 import {
   ApiOutlined,
   BookOutlined,
@@ -98,17 +97,17 @@ const siderNodes: SiderNode[] = [
   },
 ];
 
-const iconMapCategory: StringKVMap<JSX.Element> = {
-  '精选插件': <TrophyOutlined />,
-  '实用工具': <ToolOutlined />,
-  '开发辅助': <BugOutlined />,
-  '配置检测': <DashboardOutlined />,
-  '资源管理': <FolderOpenOutlined />,
-  '办公编辑': <BookOutlined />,
-  '输入法': <ItalicOutlined />,
-  '集成开发': <CodeOutlined />,
-  '录屏看图': <CameraOutlined />,
-  '磁盘数据': <SaveOutlined />,
+const iconMapCategory: Record<string, JSX.Element> = {
+  '精选插件': <TrophyOutlined/>,
+  '实用工具': <ToolOutlined/>,
+  '开发辅助': <BugOutlined/>,
+  '配置检测': <DashboardOutlined/>,
+  '资源管理': <FolderOpenOutlined/>,
+  '办公编辑': <BookOutlined/>,
+  '输入法': <ItalicOutlined/>,
+  '集成开发': <CodeOutlined/>,
+  '录屏看图': <CameraOutlined/>,
+  '磁盘数据': <SaveOutlined/>,
   '安全急救': <SafetyCertificateOutlined />,
   '网课会议': <WhatsAppOutlined />,
   '即时通讯': <WechatOutlined />,
@@ -124,11 +123,11 @@ const iconMapCategory: StringKVMap<JSX.Element> = {
   '远程连接': <ApiOutlined />
 };
 
-function getTitleMapSider(nodes: SiderNode[]): StringKVMap<{
+function getTitleMapSider(nodes: SiderNode[]): Record<string, {
   title: string,
   icon?: JSX.Element,
 }> {
-  let map: StringKVMap<{
+  let map: Record<string, {
     title: string,
     icon?: JSX.Element,
   }> = {};

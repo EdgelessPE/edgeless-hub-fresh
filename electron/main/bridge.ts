@@ -17,7 +17,12 @@ export default function () {
   ipcMain.on('bridge', async (event, req: BridgeRequest) => {
     let entry = callMap.get(req.functionName);
     if (entry == null) {
-      console.log(`Error:Function ${req.functionName} unregistered!`);
+      const reply = `Error:Function "${req.functionName}" unregistered!`
+      console.log(reply);
+      event.reply('bridge-reply', {
+        id: req.id,
+        payload: reply
+      });
     } else {
       const payload = await entry(...req.args),
         reply: BridgeReply = {

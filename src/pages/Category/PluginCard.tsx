@@ -3,7 +3,7 @@ import {CiCircleOutlined} from "@ant-design/icons";
 import {NaiveDescription} from "@/components/molecules/NaiveDescription";
 import React from "react";
 import {PluginData} from "@/class";
-import {formatSize, log, parsePluginName} from "@/utils";
+import {formatSize, parsePluginName} from "@/utils";
 import {PluginSmartButton} from "@/components/organisms/PluginSmartButton";
 import {myHistory} from "@/router/history";
 
@@ -34,7 +34,6 @@ function renderTitle(title: string, ci: boolean, category: string, fullName: str
 const PluginCard = ({data, category, showCategory = false}: Prop) => {
   const nameInfoRes = parsePluginName(data.name)
   if (nameInfoRes.err) {
-    log(nameInfoRes.val)
     return <></>
   }
   const nameInfo = nameInfoRes.unwrap()

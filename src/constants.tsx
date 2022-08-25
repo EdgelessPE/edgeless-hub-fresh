@@ -80,8 +80,8 @@ const siderNodes: SiderNode[] = [
         icon: <SafetyCertificateOutlined />
       },
       {
-        path: 'plugin/detail/浏览器/114514',
-        title: '详情114514'
+        path: 'plugin/detail/实用工具/Smap_0.1.11.0_undefined（bot）.7z',
+        title: '详情'
       }
     ]
   },

@@ -37,7 +37,11 @@ function parsePluginName(fullName: string): Result<ParsedFullName, string> {
   const ext = fullName.slice(indexOfDot + 1)
 
   const s2 = fullName.slice(0, indexOfDot).split("_")
-  if (s2.length != 3) return new Err(`Error:Can't parse plugin name : ${fullName}`)
+  if (s2.length != 3) {
+    const msg = `Error:Can't parse plugin name : ${fullName}`
+    log(msg)
+    return new Err(msg)
+  }
 
   let author = s2[2], isBot = false
   if (author.endsWith("（bot）")) {

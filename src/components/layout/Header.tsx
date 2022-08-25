@@ -5,6 +5,7 @@ import {BrowserHistory} from 'history';
 import {DownloadPopoverCard} from '@/components/layout/DownloadPopoverCard';
 import {renderHeaderCategory} from '@/render/headerCategory';
 import {iconTitleMapSider} from '@/constants';
+import {parsePluginName} from "@/utils";
 
 interface Prop {
   history: BrowserHistory;
@@ -19,7 +20,7 @@ function renderHeader(setTitle: React.Dispatch<React.SetStateAction<string | JSX
   // 渲染
   if (s[0] == 'plugin') {
     if (s[1] == 'category') setTitle(renderHeaderCategory(s[2]));
-    else if (s[1] == 'detail') setTitle(s[3]);
+    else if (s[1] == 'detail') setTitle(parsePluginName(s[3]).unwrapOr({name: s[3]}).name);
   } else {
     //尝试匹配为侧边栏标题
     iconTitleMapSider["settings"] = {

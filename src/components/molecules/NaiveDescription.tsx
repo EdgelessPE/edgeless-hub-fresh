@@ -5,9 +5,10 @@ interface Prop {
   keyWidth: string;
   rowHeight: string;
   addColon?: boolean;
+  style?: React.CSSProperties;
 }
 
-export const NaiveDescription = ({kvMap, keyWidth, rowHeight, addColon}: Prop) => {
+export const NaiveDescription = ({kvMap, keyWidth, rowHeight, addColon, style}: Prop) => {
   const [reactiveItems, setReactiveItems] = useState<React.ReactNode[]>([]);
   useEffect(() => {
     let elements: React.ReactNode[] = [];
@@ -29,7 +30,7 @@ export const NaiveDescription = ({kvMap, keyWidth, rowHeight, addColon}: Prop) =
     setReactiveItems(elements);
   }, [kvMap]);
   return (
-    <table style={{margin: "auto"}}>
+    <table style={style}>
       <tbody>{reactiveItems}</tbody>
     </table>
   );

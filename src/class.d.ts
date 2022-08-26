@@ -81,7 +81,7 @@ type TaskStatus = {
   state: "Available" | "Downloading" | "Pending" | "Installing" | "Installed" | "Upgradable",
   versionLocal: string,
   versionOnline: string,
-  percentage?: number
+  percentage?: number //0-100
 }
 
 export {

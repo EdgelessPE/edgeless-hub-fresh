@@ -58,7 +58,7 @@ const PluginCard = ({data, category, showCategory = false}: Prop) => {
       extra={[<PluginSmartButton key="action" info={nameInfo} category={category}/>]}
       hoverable
     >
-      <NaiveDescription kvMap={description} keyWidth="81px" rowHeight="10px" addColon={true}/>
+      <NaiveDescription kvMap={description} keyWidth="81px" rowHeight="10px" addColon={true} style={{margin: "auto"}}/>
     </Card>
   )
 }

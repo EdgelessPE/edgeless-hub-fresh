@@ -1,9 +1,9 @@
 import './index.scss'
 import PluginCard from "@/pages/Category/PluginCard";
-import {PluginData} from "@/class";
+import {PluginDataOnline} from "@/class";
 import React from "react";
 
-function renderPluginCards(plugins: PluginData[], category: string, showCategory: boolean) {
+function renderPluginCards(plugins: PluginDataOnline[], category: string, showCategory: boolean) {
   let result: React.ReactElement[] = []
   for (let plugin of plugins) {
     result.push((
@@ -14,7 +14,7 @@ function renderPluginCards(plugins: PluginData[], category: string, showCategory
 }
 
 export const Category = () => {
-  const plugins: PluginData[] = [
+  const plugins: PluginDataOnline[] = [
     {
       "name": "Smap_0.1.11.0_undefined（bot）.7z",
       "size": 1782050,

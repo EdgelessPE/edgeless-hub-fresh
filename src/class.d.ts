@@ -13,7 +13,7 @@ interface Hello {
     path:string,
   }[],
   plugins?:{
-    tree: Record<string, PluginData>,
+    tree: Record<string, PluginDataOnline>,
     path: string,
   },
   iso?:FileNode,
@@ -62,11 +62,19 @@ interface FileNode {
   url: string,
 }
 
-interface PluginData {
+interface PluginDataOnline {
   name: string,
   size: number,
   timestamp: number,
   hash: string,
+}
+
+interface PluginDataLocal {
+  name: string,
+  size: number,
+  timestamp: number,
+  path: string,
+  attr?: string[] //插件包属性，例如对于被禁用的 LocalBoost 插件包 *.7zfl 其值为 ["f","l"]
 }
 
 interface ParsedFullName {
@@ -79,14 +87,13 @@ interface ParsedFullName {
 
 type TaskStatus = {
   state: "Available" | "Downloading" | "Pending" | "Installing" | "Installed" | "Upgradable",
-  versionLocal: string,
-  versionOnline: string,
   percentage?: number //0-100
 }
 
 export {
   Hello,
-  PluginData,
+  PluginDataOnline,
+  PluginDataLocal,
   TaskStatus,
   ParsedFullName
 }

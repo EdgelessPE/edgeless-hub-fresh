@@ -1,14 +1,11 @@
-import {PluginData, TaskStatus} from "@/class";
+import {PluginDataOnline, TaskStatus} from "@/class";
 import {formatSize, parsePluginName} from "@/utils";
 import {Progress} from "@arco-design/web-react";
-import {NaiveDescription} from "@/components/molecules/NaiveDescription";
-import {ButtonWithIcon} from "@/components/atoms/ButtonWithIcon";
-import {ArrowUpOutlined, StopOutlined} from "@ant-design/icons";
 import React from "react";
 
 interface Props {
-  data: PluginData
-  status: TaskStatus
+  data: PluginDataOnline
+  status: TaskStatus & { state: "Downloading" | "Installing" | "Pending" }
   id: string
 }
 
@@ -20,9 +17,7 @@ interface LastNode {
 let lastMap = new Map<string, LastNode>()
 
 export const DownloadCard = ({data, status, id}: Props) => {
-  if (status.percentage == null) return <></>
-  if (status.state == "Available") return <></>
-  if (status.state == "Pending") status.percentage = 0
+  if (status.state == "Pending" || status.percentage == null) status.percentage = 0
 
   const parsed = parsePluginName(data.name).unwrap()
 
@@ -58,10 +53,14 @@ export const DownloadCard = ({data, status, id}: Props) => {
       break
   }
 
-  const progressComponent = (
-    <>
-      <h3 className="tasks__download-card__title">{parsed.name}</h3>
-      <div>{formatSize(data.size * status.percentage / 100) + " / " + formatSize(data.size) + ` - ${formatSize(speed)}/s`}</div>
+  return (
+    <div id={id} className="tasks__card__container">
+      <h3 className="tasks__card__title">{parsed.name}</h3>
+      {status.state != "Pending" ?
+        <div>{formatSize(data.size * status.percentage / 100) + " / " + formatSize(data.size) + ` - ${formatSize(speed)}/s`}</div>
+        :
+        <div>{formatSize(data.size).toString()}</div>
+      }
       <Progress
         percent={status.percentage}
         color={color}
@@ -74,45 +73,12 @@ export const DownloadCard = ({data, status, id}: Props) => {
             case "Installing":
               return `安装中 ${percent}%`
             case "Pending":
-              return "等待中 0%"
+              return "等待中..."
             default:
               return `${percent}%`
           }
         }}
-      /></>
-  )
-
-  const installedComponent = (
-    <>
-      <div className="tasks__download-card__header">
-        <h3 className="tasks__download-card__header__title">{parsed.name}</h3>
-        <ButtonWithIcon icon={<StopOutlined/>} text="禁用"/>
-      </div>
-      <NaiveDescription kvMap={{
-        "版本号": status.versionLocal,
-        "占用": formatSize(data.size).toString()
-      }} keyWidth="64px" rowHeight="24px" addColon style={{textAlign: "start"}}/>
-    </>
-  )
-
-  const updateComponent = (
-    <>
-      <div className="tasks__download-card__header">
-        <h3 className="tasks__download-card__header__title">{parsed.name}</h3>
-        <ButtonWithIcon icon={<ArrowUpOutlined/>} text="更新"/>
-      </div>
-      <NaiveDescription kvMap={{
-        "可更新": status.versionLocal + " -> " + status.versionOnline,
-        "需占用": formatSize(data.size).toString()
-      }} keyWidth="64px" rowHeight="24px" addColon style={{textAlign: "start"}}/>
-    </>
-  )
-
-  return (
-    <div id={id} className="tasks__download-card__container">
-      {(status.state == "Downloading" || status.state == "Installing" || status.state == "Pending") && progressComponent}
-      {status.state == "Installed" && installedComponent}
-      {status.state == "Upgradable" && updateComponent}
+      />
     </div>
   )
 }

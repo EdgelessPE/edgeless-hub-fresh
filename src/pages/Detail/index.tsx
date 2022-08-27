@@ -1,13 +1,13 @@
 import {useParams} from "react-router-dom";
 import "./index.scss"
 import {Badge, Divider, PageHeader, Popover, Statistic, Tag} from "@arco-design/web-react";
-import {PluginData} from "@/class";
+import {PluginDataOnline} from "@/class";
 import {formatSize, formatTimestamp, parsePluginName} from "@/utils";
 import {PluginSmartButton} from "@/components/organisms/PluginSmartButton";
 import React from "react";
 import {Webview} from "@/components/organisms/Webview";
 
-function getPluginData(category: string, fullName: string): PluginData {
+function getPluginData(category: string, fullName: string): PluginDataOnline {
   return {
     "name": fullName,
     "size": 1782050,

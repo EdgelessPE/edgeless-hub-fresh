@@ -2,13 +2,13 @@ import {Card, Tooltip} from "@arco-design/web-react";
 import {CiCircleOutlined} from "@ant-design/icons";
 import {NaiveDescription} from "@/components/molecules/NaiveDescription";
 import React from "react";
-import {PluginData} from "@/class";
+import {PluginDataOnline} from "@/class";
 import {formatSize, parsePluginName} from "@/utils";
 import {PluginSmartButton} from "@/components/organisms/PluginSmartButton";
 import {myHistory} from "@/router/history";
 
 interface Prop {
-  data: PluginData;
+  data: PluginDataOnline;
   category: string;
   showCategory?: boolean;
 }

@@ -1,13 +1,15 @@
 import "./index.scss"
 import {DownloadCard} from "@/pages/Tasks/DownloadCard";
 import {useEffect, useState} from "react";
+import {InstalledCard} from "@/pages/Tasks/InstalledCard";
+import {UpdateCard} from "@/pages/Tasks/UpdateCard";
 
 export const Tasks = () => {
   const [p, setP] = useState(0)
   useEffect(() => {
     setInterval(() => {
       setP(prev => Math.min(prev + 5, 100))
-    }, 3000)
+    }, 1000)
   }, [])
   return (
     <div className="tasks__container">
@@ -22,8 +24,6 @@ export const Tasks = () => {
         }}
         status={{
           state: "Downloading",
-          versionLocal: "0.0.0",
-          versionOnline: "1.1.4",
           percentage: p
         }}
       />
@@ -37,8 +37,6 @@ export const Tasks = () => {
         }}
         status={{
           state: "Downloading",
-          versionLocal: "0.0.0",
-          versionOnline: "1.1.4",
           percentage: 57
         }}
       />
@@ -52,8 +50,6 @@ export const Tasks = () => {
         }}
         status={{
           state: "Installing",
-          versionLocal: "0.0.0",
-          versionOnline: "1.1.4",
           percentage: 96
         }}
       />
@@ -67,40 +63,26 @@ export const Tasks = () => {
         }}
         status={{
           state: "Pending",
-          versionLocal: "0.0.0",
-          versionOnline: "1.1.4",
           percentage: 96
         }}
       />
-      <DownloadCard
-        id="4"
-        data={{
-          "name": "DuplicateFilesFinder_0.8.0.0_undefined（bot）.7z",
-          "size": 1016385,
-          "timestamp": 1644908838,
-          "hash": "1c45af1ae01dc140ed15240518945b32d9af8d5a3fa533a323334ef821525956"
-        }}
-        status={{
-          state: "Upgradable",
-          versionLocal: "0.0.0",
-          versionOnline: "1.1.4",
-          percentage: 96
-        }}
-      />
-      <DownloadCard
-        id="5"
-        data={{
-          "name": "John_20210929.1.0_undefined.7z",
-          "size": 28701235,
-          "timestamp": 1633269606,
-          "hash": "bb4f2354615b14794338f2c6b80c49db14be0e8aa3e9e487e6a3050d85d793e6"
-        }}
-        status={{
-          state: "Installed",
-          versionLocal: "0.0.0",
-          versionOnline: "1.1.4",
-          percentage: 96
-        }}
+      <InstalledCard local={{
+        "name": "DuplicateFilesFinder_0.8.0.0_undefined（bot）.7z",
+        "size": 1016385,
+        "timestamp": 1644908838,
+        "path": "1c45af1ae01dc140ed15240518945b32d9af8d5a3fa533a323334ef821525956"
+      }}/>
+      <UpdateCard online={{
+        "name": "John_20220929.1.0_undefined.7z",
+        "size": 128711237,
+        "timestamp": 1633269606,
+        "hash": "bb4f2354615b14794338f2c6b80c49db14be0e8aa3e9e487e6a3050d85d793e6"
+      }} local={{
+        "name": "John_20210929.1.0_undefined.7z",
+        "size": 228701236,
+        "timestamp": 1633269606,
+        "path": "bb4f2354615b14794338f2c6b80c49db14be0e8aa3e9e487e6a3050d85d793e6"
+      }}
       />
     </div>
   );

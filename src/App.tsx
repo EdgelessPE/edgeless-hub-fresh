@@ -36,9 +36,9 @@ function useSettingButton(showText: boolean, history: BrowserHistory) {
     history.push("/settings")
   }
   return (
-    <Button type="text" onClick={gotoSetting} style={selected?undefined:{color:"gray"}}>
-      <IconSettings />
-      {showText&&"设置"}
+    <Button type="text" onClick={gotoSetting} style={selected ? undefined : {color: "gray"}}>
+      <IconSettings/>
+      {showText && "设置"}
     </Button>
   )
 }

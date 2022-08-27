@@ -1,0 +1,22 @@
+.config__ {
+  &container {
+    width: 100%;
+    height: 100%;
+
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    align-items: flex-start;
+  }
+
+  &list-wrapper {
+    width: 100%;
+    margin-right: -16px;
+    padding-right: 16px;
+    overflow: hidden auto;
+  }
+
+  &meta {
+    text-align: start;
+  }
+}

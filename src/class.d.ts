@@ -48,9 +48,9 @@ interface Hello {
       lower_than:string,
       repeat_after:string,
     }[],
-    packages:{
-      update:string,
-      extended_update:string,
+    packages: {
+      update: string,
+      extended_update: string,
       full: string,
     }
   }

@@ -1,4 +1,4 @@
-import React from "react";
+import React, {useEffect} from "react";
 
 interface Props {
   url: string
@@ -7,6 +7,15 @@ interface Props {
 }
 
 export const Webview = ({url, style, className}: Props) => {
+  useEffect(() => {
+    const webview = document.getElementById("webview") as any
+    webview.addEventListener("did-stop-loading", () => {
+      webview
+        .executeJavaScript("document.addEventListener('click', e => {e.preventDefault()})")
+        .catch(() => {
+        })
+    })
+  }, [])
   return (
     <webview id="webview" src={url} style={style} className={className}/>
   )

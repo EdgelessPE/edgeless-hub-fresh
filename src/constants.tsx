@@ -149,8 +149,21 @@ function getTitleMapSider(nodes: SiderNode[]): Record<string, {
 
 const iconTitleMapSider = getTitleMapSider(siderNodes);
 
+const sizeAlertConstants = {
+  single: {
+    orange: 1024 * 1024 * 80, //80MB
+    red: 1024 * 1024 * 80 * 3 //240MB
+  },
+  all: {
+    green: 1024 * 1024 * 50, //50MB
+    orange: 1024 * 1024 * 200, //200MB
+    red: 1024 * 1024 * 500 //500MB
+  }
+}
+
 export {
   siderNodes,
   iconMapCategory,
-  iconTitleMapSider
+  iconTitleMapSider,
+  sizeAlertConstants
 };

@@ -3,10 +3,7 @@ import {Tabs} from "@arco-design/web-react";
 import {TabRunning, TabRunningProps} from "@/pages/Tasks/TabRunning";
 import {TabUpgradable, TabUpgradableProps} from "@/pages/Tasks/TabUpgradable";
 import {TabInstalled, TabInstalledProps} from "@/pages/Tasks/TabInstalled";
-import {ButtonWithIcon} from "@/components/atoms/ButtonWithIcon";
-import {ArrowUpOutlined} from "@ant-design/icons";
 import React, {useEffect, useState} from "react";
-import {formatSize} from "@/utils";
 
 export const Tasks = () => {
   const [p, setP] = useState(0)
@@ -116,11 +113,29 @@ export const Tasks = () => {
         "size": 30376491,
         "timestamp": 1639226532,
         "path": "a97e9ce0d244772ed74af0f12cb1fb77475a15608cb5ff84331d452e823fa82e"
-      }
+      },
+      {
+        "name": "Ueli_8.22.1.0_Cno（bot）.7z",
+        "size": 77608457,
+        "timestamp": 1657656751,
+        "path": "b1b27579f0c77dbaaecad9d74d2a9423040b92854416faf4edf7d12d6ad04089",
+        attr: ["f"]
+      },
+      {
+        "name": "Windows 登录解锁工具_1.5.0.0_Cno.7z",
+        "size": 242462,
+        "timestamp": 1648646313,
+        "path": "a46f96ac0523e7ca53977c485a59cefee9c5893b905e659bb523e2906840288f",
+        attr: ["f", "l"]
+      },
+      {
+        "name": "Edgeless密码管家_1.1.0.0_Cno.7z",
+        "size": 54524,
+        "timestamp": 1610208801,
+        "path": "7615498febabf4070262c730ea11ea52f917dce66e410e8a4b5bc2fe07754a9c",
+        attr: ["l"]
+      },
     ]
-  let upgradableTotalSize = upgradable.reduce((prev, cur) => {
-    return prev + cur.online.size
-  }, 0)
 
   return (
     <div className="tasks__container">
@@ -129,9 +144,7 @@ export const Tasks = () => {
           <TabRunning array={running}/>
         </Tabs.TabPane>
         <Tabs.TabPane key="2" title={`可更新（${upgradable.length}）`}>
-          <ButtonWithIcon icon={<ArrowUpOutlined/>} text={`全部更新（${formatSize(upgradableTotalSize)}）`}
-                          props={{type: "primary", size: "large"}} style={{width: "196px", margin: "0 0 16px 5px"}}/>
-          <TabUpgradable array={upgradable}/>
+          <TabUpgradable array={upgradable} onUpgradeAll={() => console.log("Upgrade all")}/>
         </Tabs.TabPane>
         <Tabs.TabPane key="3" title={`已安装（${installed.length}）`}>
           <TabInstalled array={installed}/>

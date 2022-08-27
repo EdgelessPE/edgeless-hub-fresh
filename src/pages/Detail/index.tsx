@@ -1,11 +1,12 @@
 import {useParams} from "react-router-dom";
 import "./index.scss"
-import {Badge, Divider, PageHeader, Popover, Statistic, Tag} from "@arco-design/web-react";
+import {Divider, PageHeader, Popover, Statistic, Tag} from "@arco-design/web-react";
 import {PluginDataOnline} from "@/class";
 import {formatSize, formatTimestamp, parsePluginName} from "@/utils";
 import {PluginSmartButton} from "@/components/organisms/PluginSmartButton";
 import React from "react";
 import {Webview} from "@/components/organisms/Webview";
+import {SizeAlert} from "@/components/molecules/SizeAlert";
 
 function getPluginData(category: string, fullName: string): PluginDataOnline {
   return {
@@ -14,15 +15,6 @@ function getPluginData(category: string, fullName: string): PluginDataOnline {
     "timestamp": 1658958154,
     "hash": "1049c47cf533499749b26425befe9149d0f0b4e33dd36f8b420771b127101c94"
   }
-}
-
-function renderSizeBadge(size: number): React.ReactElement {
-  const orangeAlertLimit = 1024 * 1024 * 80 //80MB
-  const redAlertLimit = orangeAlertLimit * 3 //240MB
-
-  if (size > redAlertLimit) return <Badge dot dotStyle={{width: 10, height: 10}} color="red"/>
-  else if (size > orangeAlertLimit) return <Badge dot dotStyle={{width: 10, height: 10}} color="orange"/>
-  else return <Badge dot dotStyle={{width: 10, height: 10}} color="green"/>
 }
 
 export const Detail = () => {
@@ -77,7 +69,7 @@ export const Detail = () => {
           title="大小"
           value={size.num}
           suffix={size.unit}
-          prefix={renderSizeBadge(data.size)}
+          prefix={<SizeAlert size={data.size}/>}
         />
       </div>
 

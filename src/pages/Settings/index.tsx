@@ -84,6 +84,7 @@ export const Settings = () => {
   return (
     <div className="settings__container">
       <List wrapperStyle={{width: "100%"}}>
+        {/*TODO:设置壁纸*/}
         {renderSettingItems(settingItems)}
       </List>
     </div>

@@ -18,7 +18,7 @@
       height: 100px;
       width: calc(100% - 42px);
 
-      margin: 4px;
+      margin: 6px 4px;
       padding: 16px;
 
       border: 1px solid rgb(229, 230, 235);
@@ -39,11 +39,21 @@
 
       &__title {
         margin: 0 0 14px 0;
+        display: flex;
+        align-items: center;
       }
     }
 
     &title {
       margin: 0 0 14px 0;
     }
+  }
+
+  &header-tip {
+    text-align: start;
+    margin: 0 6px;
+
+    display: flex;
+    align-items: center;
   }
 }

@@ -9,8 +9,9 @@ interface Props {
 }
 
 export const ButtonWithIcon = ({icon, text, props, style}: Props): React.ReactElement => {
+  const type = props?.type ?? "text"
   return (
-    <Button className="icon-button" type="text" {...props} style={style}>
+    <Button className="icon-button" type={type} {...props} style={style}>
       {icon}
       {text}
     </Button>

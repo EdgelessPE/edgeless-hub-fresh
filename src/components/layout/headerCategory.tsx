@@ -1,5 +1,5 @@
-import { PageHeader } from '@arco-design/web-react';
-import { iconMapCategory } from '@/constants';
+import {PageHeader} from '@arco-design/web-react';
+import {iconMapCategory} from '@/constants';
 
 function getIconByCategory(category: string): JSX.Element {
   const icon = iconMapCategory[category];

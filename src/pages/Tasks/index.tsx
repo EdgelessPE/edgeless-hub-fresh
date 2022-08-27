@@ -1,89 +1,142 @@
 import "./index.scss"
-import {DownloadCard} from "@/pages/Tasks/DownloadCard";
-import {useEffect, useState} from "react";
-import {InstalledCard} from "@/pages/Tasks/InstalledCard";
-import {UpdateCard} from "@/pages/Tasks/UpdateCard";
+import {Tabs} from "@arco-design/web-react";
+import {TabRunning, TabRunningProps} from "@/pages/Tasks/TabRunning";
+import {TabUpgradable, TabUpgradableProps} from "@/pages/Tasks/TabUpgradable";
+import {TabInstalled, TabInstalledProps} from "@/pages/Tasks/TabInstalled";
+import {ButtonWithIcon} from "@/components/atoms/ButtonWithIcon";
+import {ArrowUpOutlined} from "@ant-design/icons";
+import React, {useEffect, useState} from "react";
+import {formatSize} from "@/utils";
 
 export const Tasks = () => {
   const [p, setP] = useState(0)
   useEffect(() => {
     setInterval(() => {
-      setP(prev => Math.min(prev + 5, 100))
+      setP(prev => Math.min(prev + 1, 100))
     }, 1000)
   }, [])
-  return (
-    <div className="tasks__container">
 
-      <DownloadCard
-        id="0"
-        data={{
+  const running: TabRunningProps['array'] = [
+      {
+        data: {
           "name": "WiseCare365_6.1.3.598_Horatio Shaw.7z",
           "size": 751460400,
           "timestamp": 1638634984,
           "hash": "d4826848c7b88d3ed9acdcb5c04770e6675a4b411b15b559856e826fe1e8e886"
-        }}
-        status={{
+        },
+        status: {
           state: "Downloading",
           percentage: p
-        }}
-      />
-      <DownloadCard
-        id="1"
-        data={{
+        }
+      },
+      {
+        data: {
           "name": "DuplicateFilesFinder_0.8.0.0_undefined（bot）.7z",
           "size": 1016385,
           "timestamp": 1644908838,
           "hash": "1c45af1ae01dc140ed15240518945b32d9af8d5a3fa533a323334ef821525956"
-        }}
-        status={{
+        },
+        status: {
           state: "Downloading",
           percentage: 57
-        }}
-      />
-      <DownloadCard
-        id="2"
-        data={{
+        }
+      },
+      {
+        data: {
           "name": "Windows超级管理器_9.42.0.0_Cno.7z",
           "size": 9886180,
           "timestamp": 1655914683,
           "hash": "329332376ca5f08e75924b13abfb3c42f2974e261efee0b326df9cdace16fadd"
-        }}
-        status={{
+        },
+        status: {
           state: "Installing",
           percentage: 96
-        }}
-      />
-      <DownloadCard
-        id="3"
-        data={{
+        }
+      },
+      {
+        data: {
           "name": "TrafficMonitor_1.83.0.0_undefined（bot）.7z",
           "size": 940188,
           "timestamp": 1649481048,
           "hash": "87f9b885e3796d0c014baa6077ad9a69fc0e99ed9678ffe99961bbee957ed14f"
-        }}
-        status={{
+        },
+        status: {
           state: "Pending",
           percentage: 96
-        }}
-      />
-      <InstalledCard local={{
-        "name": "DuplicateFilesFinder_0.8.0.0_undefined（bot）.7z",
-        "size": 1016385,
-        "timestamp": 1644908838,
-        "path": "1c45af1ae01dc140ed15240518945b32d9af8d5a3fa533a323334ef821525956"
-      }}/>
-      <UpdateCard online={{
-        "name": "John_20220929.1.0_undefined.7z",
-        "size": 128711237,
-        "timestamp": 1633269606,
-        "hash": "bb4f2354615b14794338f2c6b80c49db14be0e8aa3e9e487e6a3050d85d793e6"
-      }} local={{
-        "name": "John_20210929.1.0_undefined.7z",
-        "size": 228701236,
-        "timestamp": 1633269606,
-        "path": "bb4f2354615b14794338f2c6b80c49db14be0e8aa3e9e487e6a3050d85d793e6"
-      }}
-      />
+        }
+      }
+    ],
+    upgradable: TabUpgradableProps['array'] = [
+      {
+        online: {
+          "name": "John_20220929.1.0_undefined.7z",
+          "size": 198711237,
+          "timestamp": 1633269606,
+          "hash": "bb4f2354615b14794338f2c6b80c49db14be0e8aa3e9e487e6a3050d85d793e6"
+        },
+        local: {
+          "name": "John_20210929.1.0_undefined.7z",
+          "size": 128701236,
+          "timestamp": 1633269606,
+          "path": "bb4f2354615b14794338f2c6b80c49db14be0e8aa3e9e487e6a3050d85d793e6"
+        }
+      },
+      {
+        online: {
+          "name": "爱思助手_7.98.53.02_泉水叮咚.7z",
+          "size": 351331566,
+          "timestamp": 1649150122,
+          "hash": "036e1a824fed20730b07b59de7d368183e11594d57bc62c8a0ea53c87781e95b"
+        },
+        local: {
+          "name": "爱思助手_7.98.54.02_泉水叮咚.7z",
+          "size": 351331566,
+          "timestamp": 1649150122,
+          "path": "036e1a824fed20730b07b59de7d368183e11594d57bc62c8a0ea53c87781e95b"
+        }
+      },
+      {
+        online: {
+          "name": "微PE工具包_2.1.0.0_Cno.7z",
+          "size": 14978651,
+          "timestamp": 1592385317,
+          "hash": "8007cfed1fe5355ceaf3f1ada59bd4c8a78f53fb76663eb56663310ceeaf081e"
+        },
+        local: {
+          "name": "微PE工具包_2.1.0.1_Cno.7z",
+          "size": 24978651,
+          "timestamp": 1592385317,
+          "path": "8007cfed1fe5355ceaf3f1ada59bd4c8a78f53fb76663eb56663310ceeaf081e"
+        }
+      }
+    ],
+    installed: TabInstalledProps['array'] = [
+      {
+        "name": "软媒魔方_6.2.5.0_NewbieXvwu.7z",
+        "size": 30376491,
+        "timestamp": 1639226532,
+        "path": "a97e9ce0d244772ed74af0f12cb1fb77475a15608cb5ff84331d452e823fa82e"
+      }
+    ]
+  let upgradableTotalSize = upgradable.reduce((prev, cur) => {
+    return prev + cur.online.size
+  }, 0)
+
+  return (
+    <div className="tasks__container">
+      <Tabs defaultActiveTab="1" style={{width: "100%"}}>
+        <Tabs.TabPane key="1" title={`进行中（${running.length}）`}>
+          <TabRunning array={running}/>
+        </Tabs.TabPane>
+        <Tabs.TabPane key="2" title={`可更新（${upgradable.length}）`}>
+          <ButtonWithIcon icon={<ArrowUpOutlined/>} text={`全部更新（${formatSize(upgradableTotalSize)}）`}
+                          props={{type: "primary", size: "large"}} style={{width: "196px", margin: "0 0 16px 5px"}}/>
+          <TabUpgradable array={upgradable}/>
+        </Tabs.TabPane>
+        <Tabs.TabPane key="3" title={`已安装（${installed.length}）`}>
+          <TabInstalled array={installed}/>
+        </Tabs.TabPane>
+      </Tabs>
     </div>
   );
 };

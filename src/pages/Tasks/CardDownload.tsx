@@ -6,7 +6,6 @@ import React from "react";
 interface Props {
   data: PluginDataOnline
   status: TaskStatus & { state: "Downloading" | "Installing" | "Pending" }
-  id: string
 }
 
 interface LastNode {
@@ -16,10 +15,10 @@ interface LastNode {
 
 let lastMap = new Map<string, LastNode>()
 
-export const DownloadCard = ({data, status, id}: Props) => {
+export const CardDownload = ({data, status}: Props) => {
   if (status.state == "Pending" || status.percentage == null) status.percentage = 0
 
-  const parsed = parsePluginName(data.name).unwrap()
+  const parsed = parsePluginName(data.name).unwrap(), id = data.name
 
   //生成速度信息
   const now = Date.now()
@@ -54,7 +53,7 @@ export const DownloadCard = ({data, status, id}: Props) => {
   }
 
   return (
-    <div id={id} className="tasks__card__container">
+    <div key={id} className="tasks__card__container">
       <h3 className="tasks__card__title">{parsed.name}</h3>
       {status.state != "Pending" ?
         <div>{formatSize(data.size * status.percentage / 100) + " / " + formatSize(data.size) + ` - ${formatSize(speed)}/s`}</div>

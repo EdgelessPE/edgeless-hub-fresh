@@ -3,8 +3,9 @@ import React, {useEffect, useState} from 'react';
 import {IconArrowLeft, IconSearch, IconSettings} from '@arco-design/web-react/icon';
 import {BrowserHistory} from 'history';
 import {DownloadPopoverCard} from '@/components/layout/DownloadPopoverCard';
-import {renderHeaderCategory} from '@/render/headerCategory';
+import {renderHeaderCategory} from '@/components/layout/headerCategory';
 import {iconTitleMapSider} from '@/constants';
+import {DownloadSpeedBadge} from "@/components/organisms/DownloadSpeedBadge";
 
 interface Prop {
   history: BrowserHistory;
@@ -19,7 +20,9 @@ function renderHeader(setTitle: React.Dispatch<React.SetStateAction<string | JSX
   // 渲染
   if (s[0] == 'plugin') {
     if (s[1] == 'category') setTitle(renderHeaderCategory(s[2]));
-    else if (s[1] == 'detail') setTitle("插件详情");
+    else if (s[1] == 'detail') setTitle((
+      <PageHeader title="插件详情"/>
+    ));
   } else {
     //尝试匹配为侧边栏标题
     iconTitleMapSider["settings"] = {
@@ -44,6 +47,7 @@ function renderHeader(setTitle: React.Dispatch<React.SetStateAction<string | JSX
               </span>
             </div>
           )}
+          subTitle={m.title == "任务" ? <DownloadSpeedBadge/> : undefined}
         />
       ));
     } else {

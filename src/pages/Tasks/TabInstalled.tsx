@@ -4,6 +4,7 @@ import React from "react";
 import {formatSize} from "@/utils";
 import {sizeAlertConstants} from "@/constants";
 import {Tag} from "@arco-design/web-react";
+import {isDisabled, isLocalBoost} from "@/pages/Tasks/utils";
 
 export interface TabInstalledProps {
   array: PluginDataLocal[]
@@ -17,8 +18,8 @@ export const TabInstalled = ({array}: TabInstalledProps) => {
 
   //启动速度提示
   const totalSize = array.reduce((prev, cur) => {
-      const disabled = cur.attr?.includes("f") ?? false,
-        localboost = cur.attr?.includes("l") ?? false
+      const disabled = isDisabled(cur),
+        localboost = isLocalBoost(cur)
       if (disabled || localboost) return prev
       else return prev + cur.size
     }, 0),
@@ -30,8 +31,8 @@ export const TabInstalled = ({array}: TabInstalledProps) => {
   else bootSpeedAlert = <Tag>一般</Tag>
 
   return (
-    <div>
-      <div className="tasks__header-tip">
+    <div className="tasks__tab-content">
+      <div className="tasks__header">
         {"已启用 " + formatSize(totalSize).toString()}
         <span style={{marginLeft: "16px"}}>预估启动速度</span>
         <div style={{display: "inline-block", marginLeft: "4px"}}>{bootSpeedAlert}</div>

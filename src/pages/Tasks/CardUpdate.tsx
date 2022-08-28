@@ -1,11 +1,10 @@
 import {PluginDataLocal, PluginDataOnline} from "@/class";
-import {ButtonWithIcon} from "@/components/atoms/ButtonWithIcon";
-import {ArrowUpOutlined} from "@ant-design/icons";
 import {NaiveDescription} from "@/components/molecules/NaiveDescription";
 import {formatSize, parsePluginName} from "@/utils";
 import React from "react";
-import {Tag} from "@arco-design/web-react";
+import {Dropdown, Menu, Tag} from "@arco-design/web-react";
 import {IconCaretDown, IconCaretUp, IconMinusCircle} from "@arco-design/web-react/icon";
+import {isDisabled, isLocalBoost} from "@/pages/Tasks/utils";
 
 interface Props {
   online: PluginDataOnline
@@ -14,7 +13,9 @@ interface Props {
 
 export const CardUpdate = ({local, online}: Props) => {
   const parsedOnline = parsePluginName(online.name).unwrap(),
-    parsedLocal = parsePluginName(local.name).unwrap()
+    parsedLocal = parsePluginName(local.name).unwrap(),
+    disabled = isDisabled(local),
+    localboost = isLocalBoost(local)
 
   let sizeBadge: React.ReactElement
   const sizeChange = online.size - local.size
@@ -26,16 +27,45 @@ export const CardUpdate = ({local, online}: Props) => {
     sizeBadge = <Tag size="small" icon={<IconMinusCircle/>}>0B</Tag>
   }
 
+  let descriptions: Record<string, string | React.ReactElement> = {
+    "可更新": parsedLocal.version + " -> " + parsedOnline.version,
+    "占用": <div>{formatSize(local.size).toString() + " -> " + formatSize(online.size).toString()} {sizeBadge}</div>
+  }
+  if (localboost) {
+    descriptions['属性'] = <Tag color="cyan">LocalBoost</Tag>
+  }
+
   return (
-    <div className="tasks__card__container">
+    <div className="tasks__card__container" style={descriptions.hasOwnProperty("属性") ? {height: "120px"} : undefined}>
       <div className="tasks__card__header">
-        <h3 className="tasks__card__header__title">{parsedLocal.name}</h3>
-        <ButtonWithIcon icon={<ArrowUpOutlined/>} text="更新" props={{type: "primary"}}/>
+        <h3 className="tasks__card__header__title">
+          <span style={disabled ? {
+            marginRight: "4px",
+            color: "gray",
+            textDecoration: "line-through"
+          } : {marginRight: "4px"}}>{parsedLocal.name}</span>
+        </h3>
+
+        <Dropdown.Button
+          type={disabled ? "secondary" : "primary"}
+          droplist={
+            <Menu>
+              <Menu.Item key="10">
+                {disabled ? "启用" : "禁用"}
+              </Menu.Item>
+              <Menu.Item key="localboost">
+                {localboost ? "取消 LocalBoost 启动" : "应用 LocalBoost 启动"}
+              </Menu.Item>
+              <Menu.Item key="delete">
+                删除
+              </Menu.Item>
+            </Menu>
+          }
+        >
+          更新
+        </Dropdown.Button>
       </div>
-      <NaiveDescription kvMap={{
-        "可更新": parsedLocal.version + " -> " + parsedOnline.version,
-        "占用": <div>{formatSize(local.size).toString() + " -> " + formatSize(online.size).toString()} {sizeBadge}</div>
-      }} keyWidth="64px" rowHeight="24px" addColon style={{textAlign: "start"}}/>
+      <NaiveDescription kvMap={descriptions} keyWidth="64px" rowHeight="24px" addColon style={{textAlign: "start"}}/>
     </div>
   )
 }

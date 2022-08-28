@@ -21,7 +21,7 @@ export const TabRunning = ({array}: TabRunningProps) => {
     ))
   }
   return (
-    <div>
+    <div className="tasks__tab-content">
       {result}
     </div>
   )

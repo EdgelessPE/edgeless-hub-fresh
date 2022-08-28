@@ -61,7 +61,19 @@ export const Tasks = () => {
           state: "Pending",
           percentage: 96
         }
-      }
+      },
+      {
+        data: {
+          "name": "二维码识别PC版_1.0_System3206.7z",
+          "size": 1835863,
+          "timestamp": 1658923858,
+          "hash": "04d0a3a7fe13bd22f675557c8df3bd950d02e4200f8f08a969738aff251ef064"
+        },
+        status: {
+          state: "Downloading",
+          percentage: 57
+        }
+      },
     ],
     upgradable: TabUpgradableProps['array'] = [
       {
@@ -75,7 +87,8 @@ export const Tasks = () => {
           "name": "John_20210929.1.0_undefined.7z",
           "size": 128701236,
           "timestamp": 1633269606,
-          "path": "bb4f2354615b14794338f2c6b80c49db14be0e8aa3e9e487e6a3050d85d793e6"
+          "path": "bb4f2354615b14794338f2c6b80c49db14be0e8aa3e9e487e6a3050d85d793e6",
+          attr: ["f"]
         }
       },
       {
@@ -89,8 +102,23 @@ export const Tasks = () => {
           "name": "爱思助手_7.98.54.02_泉水叮咚.7z",
           "size": 351331566,
           "timestamp": 1649150122,
-          "path": "036e1a824fed20730b07b59de7d368183e11594d57bc62c8a0ea53c87781e95b"
+          "path": "036e1a824fed20730b07b59de7d368183e11594d57bc62c8a0ea53c87781e95b",
+          attr: ["l"]
         }
+      },
+      {
+        online: {
+          "name": "Edgeless密码管家_1.1.0.0_Cno.7z",
+          "size": 54524,
+          "timestamp": 1610208801,
+          "hash": "7615498febabf4070262c730ea11ea52f917dce66e410e8a4b5bc2fe07754a9c"
+        },
+        local: {
+          "name": "Edgeless密码管家_1.1.0.0_Cno.7z",
+          "size": 54524,
+          "timestamp": 1610208801,
+          "path": "7615498febabf4070262c730ea11ea52f917dce66e410e8a4b5bc2fe07754a9c"
+        },
       },
       {
         online: {
@@ -139,12 +167,12 @@ export const Tasks = () => {
 
   return (
     <div className="tasks__container">
-      <Tabs defaultActiveTab="1" style={{width: "100%"}}>
+      <Tabs defaultActiveTab="1" className="tasks__tabs">
         <Tabs.TabPane key="1" title={`进行中（${running.length}）`}>
           <TabRunning array={running}/>
         </Tabs.TabPane>
         <Tabs.TabPane key="2" title={`可更新（${upgradable.length}）`}>
-          <TabUpgradable array={upgradable} onUpgradeAll={() => console.log("Upgrade all")}/>
+          <TabUpgradable array={upgradable} onUpgradeAll={list => console.log(list)}/>
         </Tabs.TabPane>
         <Tabs.TabPane key="3" title={`已安装（${installed.length}）`}>
           <TabInstalled array={installed}/>

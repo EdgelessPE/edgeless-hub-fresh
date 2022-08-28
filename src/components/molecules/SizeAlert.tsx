@@ -4,12 +4,16 @@ import {sizeAlertConstants} from "@/constants";
 
 interface Props {
   size: number
+  disable?: boolean
 }
 
-export const SizeAlert = ({size}: Props) => {
+const dotStyle = {width: 10, height: 10}
+
+export const SizeAlert = ({size, disable}: Props) => {
   const {orange, red} = sizeAlertConstants.single
 
-  if (size > red) return <Badge dot dotStyle={{width: 10, height: 10}} color="red"/>
-  else if (size > orange) return <Badge dot dotStyle={{width: 10, height: 10}} color="orange"/>
-  else return <Badge dot dotStyle={{width: 10, height: 10}} color="green"/>
+  if (disable) return <></>
+  if (size > red) return <Badge dot dotStyle={dotStyle} color="red"/>
+  else if (size > orange) return <Badge dot dotStyle={dotStyle} color="orange"/>
+  else return <Badge dot dotStyle={dotStyle} color="green"/>
 }

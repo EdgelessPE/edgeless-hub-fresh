@@ -1,9 +1,11 @@
-import {Input, List, Select, Switch, Tooltip} from "@arco-design/web-react";
-import React, {useState} from "react";
+import {Button, Empty, Input, List, Select, Switch, Tooltip} from "@arco-design/web-react";
+import React, {useEffect, useState} from "react";
 import preferenceItems from "./preferenceItems.json"
 import resolutions from "./resolutions.json"
 import "./index.scss"
 import {IconInfoCircle} from "@arco-design/web-react/icon";
+import bridge from "@/bridge";
+import {Result} from "ts-results";
 
 interface ConfigItem {
   title: string,
@@ -80,6 +82,7 @@ function renderResolutionOptions(): React.ReactElement[] {
 
 export const Config = () => {
   const [resolution, setResolution] = useState("auto")
+  const [wallpaperPreview, setWallpaperPreview] = useState(<Empty/>)
   const configItems: ConfigItem[] = [
     {
       title: "浏览器首页",
@@ -104,9 +107,29 @@ export const Config = () => {
       ]
     },
   ]
+
+  //获取当前壁纸url
+  useEffect(() => {
+    bridge("getLocalImageSrc", "D:\\360Downloads\\2056038.jpg")
+      .then((wallPaperUrlRes: Result<string, string>) => {
+        if (wallPaperUrlRes.ok) setWallpaperPreview(<img src={wallPaperUrlRes.val}
+                                                         className="config__wallpaper-preview"/>)
+      })
+  }, [])
+
   return (
     <div className="config__container">
       <List wrapperClassName="config__list-wrapper">
+
+        <List.Item key="wallpaper" actions={[<Button key="change">更换</Button>]}>
+          <List.Item.Meta
+            title="壁纸"
+            description="自定义桌面壁纸"
+            className="config__meta"
+          />
+          {wallpaperPreview}
+        </List.Item>
+
         {renderConfigItems(configItems)}
         {renderPreferenceItems()}
       </List>

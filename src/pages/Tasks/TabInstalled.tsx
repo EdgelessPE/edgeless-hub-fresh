@@ -1,20 +1,43 @@
 import {CardInstalled} from "@/pages/Tasks/CardInstalled";
 import {PluginDataLocal} from "@/class";
-import React from "react";
+import React, {useEffect, useState} from "react";
 import {formatSize} from "@/utils";
 import {sizeAlertConstants} from "@/constants";
-import {Tag} from "@arco-design/web-react";
-import {isDisabled, isLocalBoost} from "@/pages/Tasks/utils";
+import {Checkbox, Select, Tag} from "@arco-design/web-react";
+import {calcStatusWeight, isDisabled, isLocalBoost} from "@/pages/Tasks/utils";
 
 export interface TabInstalledProps {
   array: PluginDataLocal[]
 }
 
+
+const sortMethodMap: Record<string, (a: PluginDataLocal, b: PluginDataLocal) => number> = {
+  name: (a, b) => a.name.localeCompare(b.name),
+  status: (a, b) => {
+    const x = calcStatusWeight(a),
+      y = calcStatusWeight(b)
+    if (x - y != 0) return x - y
+    else return a.name.localeCompare(b.name)
+  },
+  size: (a, b) => b.size - a.size
+}
+
 export const TabInstalled = ({array}: TabInstalledProps) => {
-  let result: React.ReactElement[] = []
-  for (let node of array) {
-    result.push(<CardInstalled key={node.name} local={node}/>)
+  const [sortBy, setSortBy] = useState("name")
+  const [nodes, setNodes] = useState<React.ReactElement[]>([])
+  const [ignoreDisabled, setIgnoreDisabled] = useState(false)
+
+  //排序函数
+  const reSort = (method: string) => {
+    setSortBy(method)
+    let res = []
+    for (let node of array.sort(sortMethodMap[method])) {
+      if (!ignoreDisabled || !isDisabled(node)) res.push(<CardInstalled key={node.name} local={node}/>)
+    }
+    setNodes(res)
   }
+  useEffect(() => reSort(sortBy), [ignoreDisabled])
+
 
   //启动速度提示
   const totalSize = array.reduce((prev, cur) => {
@@ -33,11 +56,26 @@ export const TabInstalled = ({array}: TabInstalledProps) => {
   return (
     <div className="tasks__tab-content">
       <div className="tasks__header">
-        {"已启用 " + formatSize(totalSize).toString()}
+        {"启动需加载 " + formatSize(totalSize).toString()}
         <span style={{marginLeft: "16px"}}>预估启动速度</span>
         <div style={{display: "inline-block", marginLeft: "4px"}}>{bootSpeedAlert}</div>
+
+        <Checkbox value={ignoreDisabled} onChange={setIgnoreDisabled}
+                  style={{margin: "0 10px 0 auto"}}>忽略已禁用</Checkbox>
+        <span style={{margin: "0 8px 0 16px"}}>排序方式</span>
+        <Select size="small" style={{width: "96px", marginRight: "11px"}} value={sortBy} onChange={reSort}>
+          <Select.Option key="name" value="name">
+            名称
+          </Select.Option>
+          <Select.Option key="status" value="status">
+            状态
+          </Select.Option>
+          <Select.Option key="size" value="size">
+            大小
+          </Select.Option>
+        </Select>
       </div>
-      {result}
+      {nodes}
     </div>
   )
 }

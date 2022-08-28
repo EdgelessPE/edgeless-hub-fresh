@@ -5,7 +5,7 @@ import {ButtonWithIcon} from "@/components/atoms/ButtonWithIcon";
 import {ArrowUpOutlined} from "@ant-design/icons";
 import {formatSize} from "@/utils";
 import {Checkbox} from "@arco-design/web-react";
-import {isDisabled} from "@/pages/Tasks/utils";
+import {calcStatusWeight, isDisabled} from "@/pages/Tasks/utils";
 
 export interface TabUpgradableProps {
   array: {
@@ -22,7 +22,12 @@ export const TabUpgradable = ({array, onUpgradeAll}: TabUpgradableProps) => {
   const [ignoreDisabled, setIgnoreDisabled] = useState(false)
 
   let result: React.ReactElement[] = []
-  for (let node of array) {
+  for (let node of array.sort((a, b) => {
+    const x = calcStatusWeight(a.local),
+      y = calcStatusWeight(b.local)
+    if (x - y != 0) return x - y
+    else return a.local.name.localeCompare(b.local.name)
+  })) {
     if (!ignoreDisabled || !isDisabled(node.local)) result.push((
       <CardUpdate key={node.local.name} online={node.online} local={node.local}/>
     ))
@@ -44,7 +49,8 @@ export const TabUpgradable = ({array, onUpgradeAll}: TabUpgradableProps) => {
         <ButtonWithIcon icon={<ArrowUpOutlined/>} text={`全部更新（${formatSize(upgradableTotalSize)}）`}
                         props={{type: "primary", size: "large", onClick: onClickUpgradeAll}}
                         style={{width: "196px", marginRight: "12px"}}/>
-        <Checkbox value={ignoreDisabled} onChange={setIgnoreDisabled}>忽略已禁用</Checkbox>
+        <Checkbox value={ignoreDisabled} onChange={setIgnoreDisabled}
+                  style={{margin: "0 10px 0 auto"}}>忽略已禁用</Checkbox>
       </div>
       {result}
     </div>

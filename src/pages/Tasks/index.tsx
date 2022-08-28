@@ -137,7 +137,7 @@ export const Tasks = () => {
     ],
     installed: TabInstalledProps['array'] = [
       {
-        "name": "软媒魔方_6.2.5.0_NewbieXvwu.7z",
+        "name": "Z软媒魔方_6.2.5.0_NewbieXvwu.7z",
         "size": 30376491,
         "timestamp": 1639226532,
         "path": "a97e9ce0d244772ed74af0f12cb1fb77475a15608cb5ff84331d452e823fa82e"

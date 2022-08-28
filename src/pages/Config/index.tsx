@@ -3,7 +3,7 @@ import React, {useEffect, useState} from "react";
 import preferenceItems from "./preferenceItems.json"
 import resolutions from "./resolutions.json"
 import "./index.scss"
-import {IconInfoCircle} from "@arco-design/web-react/icon";
+import {IconEyeInvisible, IconInfoCircle} from "@arco-design/web-react/icon";
 import bridge from "@/bridge";
 import {Result} from "ts-results";
 
@@ -82,7 +82,8 @@ function renderResolutionOptions(): React.ReactElement[] {
 
 export const Config = () => {
   const [resolution, setResolution] = useState("auto")
-  const [wallpaperPreview, setWallpaperPreview] = useState(<Empty/>)
+  const [wallpaperPreview, setWallpaperPreview] = useState(<Empty description="无法预览壁纸"
+                                                                  icon={<IconEyeInvisible/>}/>)
   const configItems: ConfigItem[] = [
     {
       title: "浏览器首页",

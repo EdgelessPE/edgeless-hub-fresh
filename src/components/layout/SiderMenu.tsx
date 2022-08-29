@@ -15,12 +15,14 @@ export interface SiderNode {
   title: string;
   icon?: JSX.Element;
   children?: SiderNode[];
+  hide?: boolean;
 }
 
 
 function renderSiderMenu(input: SiderNode[]): JSX.Element[] {
   let result: JSX.Element[] = [];
   for (let node of input) {
+    if (node.hide) continue
     if (node.children != null) {
       let children = renderSiderMenu(node.children);
       result.push((

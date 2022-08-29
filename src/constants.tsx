@@ -6,6 +6,8 @@ import {
   IconFire,
   IconHome,
   IconList,
+  IconSearch,
+  IconSettings,
   IconThunderbolt
 } from '@arco-design/web-react/icon';
 import React from 'react';
@@ -88,13 +90,25 @@ const siderNodes: SiderNode[] = [
   {
     path: 'config',
     title: '配置',
-    icon: <IconEdit />
+    icon: <IconEdit/>
   },
   {
     path: 'tasks',
     title: '任务',
-    icon: <IconList />
+    icon: <IconList/>
   },
+  {
+    path: 'settings',
+    title: "设置",
+    icon: <IconSettings/>,
+    hide: true
+  },
+  {
+    path: 'search',
+    title: "搜索",
+    icon: <IconSearch/>,
+    hide: true
+  }
 ];
 
 const iconMapCategory: Record<string, JSX.Element> = {

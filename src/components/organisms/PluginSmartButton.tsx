@@ -21,6 +21,9 @@ function renderProgress(key: string, status: "normal" | "error", percentage: num
   )
 }
 
+//TODO:无法下载的情况：
+// 1、fs为只读，在启动盘嗅探时进行读写测试
+// 2、超过3天没有检测到启动盘
 function renderButton(status: TaskStatus, key: string): React.ReactElement {
   const disabledButtonProps = {disabled: true}
   const disabledButtonStyle = {color: "gray", cursor: "initial"}

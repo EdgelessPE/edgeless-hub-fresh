@@ -9,6 +9,7 @@ import {Detail} from '@/pages/Detail';
 import {Settings} from '@/pages/Settings';
 import {Tasks} from '@/pages/Tasks';
 import {Update} from '@/pages/Update';
+import {Search} from "@/pages/Search";
 
 const routerList: {
   [path: string]: JSX.Element
@@ -21,7 +22,8 @@ const routerList: {
   'config': <Config/>,
   'plugin/category/:category': <Category/>,
   'tasks': <Tasks/>,
-  'settings': <Settings/>
+  'settings': <Settings/>,
+  'search': <Search/>,
 };
 
 export function getRouterNodes() {

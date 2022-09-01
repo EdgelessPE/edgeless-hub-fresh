@@ -1,5 +1,5 @@
 import {Button, Space} from "@arco-design/web-react";
-import {IconFire} from "@arco-design/web-react/icon";
+import {IconFire, IconThunderbolt} from "@arco-design/web-react/icon";
 import React from "react";
 import {TabProps} from "./class"
 
@@ -14,7 +14,7 @@ export const TabStart = ({next}: TabProps) => {
           <p>如果你插入了一个 Ventoy 启动盘，则可无损部署 Edgeless</p>
         </div>
       </Space>
-      <Button type="primary" onClick={() => next()}>立即开始</Button>
+      <Button type="primary" size="large" onClick={() => next()}><IconThunderbolt/>立即开始</Button>
     </div>
   )
 }

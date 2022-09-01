@@ -1,8 +1,9 @@
 import './index.scss'
 import React, {useState} from "react";
-import {Button, Steps} from "@arco-design/web-react";
+import {Alert, Button, Steps} from "@arco-design/web-react";
 import {TabStart} from "@/pages/Burn/TabStart";
 import {State, StateInfo} from "./class";
+import {myHistory} from "@/router/history";
 
 const STATE_FLOW: StateInfo[] = [
   {state: "Start", step: 0},
@@ -48,7 +49,7 @@ export const Burn = () => {
     setCurrentState((prev: StateInfo) => getNextState(prev))
   }
 
-  const thrown = currentState.state == "Thrown"
+  const thrown = currentState.state == "Thrown", existEdgeless = false
 
   const renderTab = (): React.ReactElement => {
     if (currentState.state == "Start") return <TabStart next={next}/>
@@ -58,6 +59,8 @@ export const Burn = () => {
 
   return (
     <div className="burn__container">
+      {existEdgeless && <Alert content="已检测到 Edgeless 启动盘，你是否想访问升级页面？" closable closeElement="前往"
+                               onClose={() => myHistory.push("/produce/update")}/>}
       <Steps current={currentState.step} className="burn__steps">
         <Steps.Step title="准备文件" status={(thrown || currentState.step == 0) ? "wait" : undefined}/>
         <Steps.Step title="写入 Ventoy" status={thrown ? "wait" : undefined}/>

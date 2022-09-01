@@ -8,7 +8,7 @@ export const EmptyInsertUDisk = () => {
         <UsbOutlined/>
       </div>
     } description={
-      <h2>请插入 Edgeless 启动盘</h2>
+      <h2>插入 Edgeless 启动盘以继续</h2>
     }/>
   )
 }

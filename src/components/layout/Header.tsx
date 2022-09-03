@@ -17,6 +17,13 @@ function renderHeader(setTitle: React.Dispatch<React.SetStateAction<string | JSX
   const s = decodeURI(window.location.pathname)
     .split('/')
     .filter(key => key != '');
+  const renderSubTitle = (title: string) => {
+    if (title == "任务" || title == "写入" || title == "升级" || title == "内测") {
+      return <DownloadSpeedBadge/>
+    }
+
+    return undefined
+  }
   // 渲染
   if (s[0] == 'plugin') {
     if (s[1] == 'category') setTitle(renderHeaderCategory(s[2]));
@@ -43,7 +50,7 @@ function renderHeader(setTitle: React.Dispatch<React.SetStateAction<string | JSX
               </span>
             </div>
           )}
-          subTitle={m.title == "任务" ? <DownloadSpeedBadge/> : undefined}
+          subTitle={renderSubTitle(m.title)}
         />
       ));
     } else {

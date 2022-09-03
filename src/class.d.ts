@@ -3,10 +3,10 @@ interface Hello {
   description:string,
   protocol:string,
   property:{
-    native_server:boolean,
-    upload_bandwidth:number,
-    sync_interval:0,
-    official_maintained:boolean,
+    domestic_server: boolean,
+    upload_bandwidth: number,
+    sync_interval: 0,
+    official_maintained: boolean,
   },
   services:{
     name:string,

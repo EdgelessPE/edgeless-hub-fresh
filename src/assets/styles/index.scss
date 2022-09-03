@@ -9,6 +9,16 @@
     color: var(--color-text-2);
   }
 
+  &__container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+
+  &__mirror {
+    color: var(--color-neutral-6);
+    margin: 4px 0;
+  }
 }
 
 .sider {

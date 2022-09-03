@@ -4,6 +4,7 @@ import {Alert, Button, Steps} from "@arco-design/web-react";
 import {TabStart} from "@/pages/Burn/TabStart";
 import {State, StateInfo} from "./class";
 import {myHistory} from "@/router/history";
+import {TabDownloading} from "@/pages/Burn/TabDownloading";
 
 const STATE_FLOW: StateInfo[] = [
   {state: "Start", step: 0},
@@ -52,7 +53,13 @@ export const Burn = () => {
   const thrown = currentState.state == "Thrown", existEdgeless = false
 
   const renderTab = (): React.ReactElement => {
-    if (currentState.state == "Start") return <TabStart next={next}/>
+    switch (currentState.state) {
+      case "Start":
+        return <TabStart next={next}/>
+      case "Downloading":
+        return <TabDownloading next={next}/>
+    }
+
 
     return <p>未知状态{currentState.state} <Button onClick={() => next("Start")}>返回</Button></p>
   }

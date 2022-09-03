@@ -110,3 +110,25 @@
 
   color: rgb(var(--arcoblue-4));
 }
+
+.naive-progress-bar__ {
+  &container {
+    width: 100%;
+    display: flex;
+    align-items: center;
+  }
+
+  &text {
+    flex: 170px 0 0;
+  }
+
+  &bar {
+    flex: auto 1 1;
+    margin-left: 16px;
+  }
+
+  &progress {
+    flex: 200px 1 1;
+    margin-left: 16px;
+  }
+}

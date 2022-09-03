@@ -23,7 +23,7 @@ export const NaiveProgressBar = ({info}: NaiveProgressBarProps) => {
         showText={false}
       ></Progress>
       <small className="naive-progress-bar__progress">
-        {formatSize(info.totalSize * info.percent / 100) + " / " + formatSize(info.totalSize)}
+        {formatSize(info.totalSize * info.percent / 100) + " / " + formatSize(info.totalSize) + " - " + info.percent + "%"}
       </small>
     </div>
   )

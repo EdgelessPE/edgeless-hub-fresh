@@ -3,6 +3,7 @@ import {Space} from "@arco-design/web-react";
 import {TabProps} from "@/pages/Burn/class";
 import {useState} from "react";
 import {NaiveProgressBar, NaiveProgressBarTask} from "@/components/molecules/NaiveProgressBar";
+import {formatSize} from "@/utils";
 
 export const TabDownloading = ({next}: TabProps) => {
   const emptyTask: NaiveProgressBarTask = {
@@ -25,13 +26,14 @@ export const TabDownloading = ({next}: TabProps) => {
       totalSize: 2868 * 1024,
       fileName: "ventoy_wimboot.img"
     });
+  const totalSize = formatSize(taskImage.totalSize + taskVentoy.totalSize + taskVentoyPlugin.totalSize)
 
   return (
     <div className="burn__tab-inner__container">
       <IconCloudDownload className="burn__tab-inner__icon"/>
       <div>
         <h1>我们需要下载一些必要的依赖文件</h1>
-        <p>请保持网络连接稳定且可靠</p>
+        <p>{`共计 ${totalSize}，请保持网络连接稳定且可靠`}</p>
       </div>
       <Space direction="vertical" style={{width: "80%"}}>
         <NaiveProgressBar info={taskImage}/>

@@ -50,7 +50,7 @@ export const TabUpgradable = ({array, onUpgradeAll}: TabUpgradableProps) => {
                         props={{type: "primary", size: "large", onClick: onClickUpgradeAll}}
                         style={{width: "196px", marginRight: "12px"}}/>
         <Checkbox value={ignoreDisabled} onChange={setIgnoreDisabled}
-                  style={{margin: "0 10px 0 auto"}}>忽略已禁用</Checkbox>
+                  style={{margin: "0 12px 0 auto"}}>忽略已禁用</Checkbox>
       </div>
       {result}
     </div>

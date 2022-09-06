@@ -2,9 +2,12 @@ import './index.scss'
 import React, {useState} from "react";
 import {Alert, Button, Steps} from "@arco-design/web-react";
 import {TabStart} from "@/pages/Burn/TabStart";
-import {State, StateInfo} from "./class";
+import {State, StateInfo, TabProps} from "./class";
 import {myHistory} from "@/router/history";
 import {TabDownloading} from "@/pages/Burn/TabDownloading";
+import {TabUnzipping} from "@/pages/Burn/TabUnzipping";
+import {TabWaitingForVentoy} from "@/pages/Burn/TabWaitingForVentoy";
+import {log} from "@/utils";
 
 const STATE_FLOW: StateInfo[] = [
   {state: "Start", step: 0},
@@ -33,13 +36,14 @@ function getNextState(current: StateInfo, allowBranch = false): StateInfo {
 }
 
 export const Burn = () => {
-  const [currentState, setCurrentState] = useState<StateInfo>({state: "Start", step: 0})
+  const [currentState, setCurrentState] = useState<StateInfo>({state: "WaitingForVentoy", step: 2})
 
   const next = (state?: State) => {
     if (state != null) {
       for (let node of STATE_FLOW) {
         if (node.state == state) {
           setCurrentState(node)
+          log(`Info:Switch to given state ${state}`)
           return
         }
       }
@@ -47,17 +51,28 @@ export const Burn = () => {
       setCurrentState({state: "Thrown", step: 4})
       return
     }
-    setCurrentState((prev: StateInfo) => getNextState(prev))
+    setCurrentState((prev: StateInfo) => {
+      const ns = getNextState(prev);
+      log(`Info:Switch to next state ${ns.state}`)
+      return ns
+    })
   }
 
   const thrown = currentState.state == "Thrown", existEdgeless = false
 
+  const tabProps: TabProps = {
+    next
+  }
   const renderTab = (): React.ReactElement => {
     switch (currentState.state) {
       case "Start":
-        return <TabStart next={next}/>
+        return <TabStart {...tabProps}/>
       case "Downloading":
-        return <TabDownloading next={next}/>
+        return <TabDownloading {...tabProps}/>
+      case "Unzipping":
+        return <TabUnzipping {...tabProps}/>
+      case "WaitingForVentoy":
+        return <TabWaitingForVentoy {...tabProps}/>
     }
 
 

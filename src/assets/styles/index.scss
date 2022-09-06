@@ -112,13 +112,20 @@
   justify-content: center;
 }
 
-.empty-icon {
-  width: 120px;
-  height: 120px;
-  font-size: 120px;
-  display: inline-flex;
+.empty__ {
+  &icon {
+    width: 120px;
+    height: 120px;
+    font-size: 120px;
+    display: inline-flex;
 
-  color: rgb(var(--arcoblue-4));
+    color: rgb(var(--arcoblue-3));
+  }
+
+  &tip {
+    color: var(--color-neutral-4);
+    font-size: large;
+  }
 }
 
 .naive-progress-bar__ {

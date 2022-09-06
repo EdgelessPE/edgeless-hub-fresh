@@ -32,16 +32,23 @@ function renderHeader(setTitle: React.Dispatch<React.SetStateAction<string | JSX
   if (s[0] == 'plugin') {
     if (s[1] == 'category') {
       const category = s[2]
-      setTitle(<PageHeaderWithIcon
-        title={category}
-        icon={iconMapCategory[category]}
-        subTitle={`共9个插件包`}
-      />);
+      setTitle(
+        <PageHeaderWithIcon
+          title={category}
+          icon={iconMapCategory[category]}
+          subTitle={`共9个插件包`}
+        />
+      );
     } else if (s[1] == 'detail') setTitle((
       <PageHeaderWithIcon title="插件详情"/>
     ));
   } else if (s[0] == "search") {
-    setTitle((<PageHeaderWithIcon title="搜索" icon={<IconSearch/>} subTitle={`找到14个相关结果`}/>))
+    setTitle((
+      <PageHeaderWithIcon
+        title="搜索"
+        icon={<IconSearch/>}
+        subTitle={`找到14个相关结果`}/>
+    ))
   } else {
     //尝试匹配为侧边栏标题
     const m = iconTitleMapSider[s.join('/')];
@@ -72,7 +79,7 @@ export const Header = ({ history }: Prop) => {
     setSearchText('');
     setShowSearch(false);
 
-    history.push(`/search/${searchText}`)
+    if (searchText != "") history.push(`/search/${searchText}`)
   };
 
   useEffect(() => {

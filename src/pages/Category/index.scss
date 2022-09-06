@@ -14,7 +14,11 @@
     text-align: start;
 
     &__title__ci {
-      color: rgb(114, 193, 64);
+      color: rgb(var(--green-6));
+    }
+
+    &__tip__ci {
+      color: rgb(var(--green-3));
     }
 
     &__title__bot-link {

@@ -1,4 +1,4 @@
-import {Card, Tooltip} from "@arco-design/web-react";
+import {Card, Space, Tooltip} from "@arco-design/web-react";
 import {CiCircleOutlined} from "@ant-design/icons";
 import {NaiveDescription} from "@/components/molecules/NaiveDescription";
 import React from "react";
@@ -16,7 +16,12 @@ interface Prop {
 function renderTitle(title: string, ci: boolean, category: string, fullName: string): React.ReactElement {
   return (
     <>
-      <Tooltip key={title + "_tooltip-title"} content={title}>
+      <Tooltip key={title + "_tooltip-title"} content={
+        <Space>
+          <span>{title}</span>
+          {ci && <CiCircleOutlined className="category__card__tip__ci"/>}
+        </Space>
+      }>
         <b style={{cursor: "pointer"}}
            onClick={() => myHistory.push(`/plugin/detail/${category}/${fullName}`)}>{title + " "}</b>
       </Tooltip>

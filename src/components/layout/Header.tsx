@@ -1,17 +1,15 @@
-import {Button, Input, Layout, PageHeader} from '@arco-design/web-react';
+import {Button, Input, Layout} from '@arco-design/web-react';
 import React, {useEffect, useState} from 'react';
 import {IconArrowLeft, IconSearch} from '@arco-design/web-react/icon';
 import {BrowserHistory} from 'history';
 import {DownloadPopoverCard} from '@/components/layout/DownloadPopoverCard';
-import {renderHeaderCategory} from '@/components/layout/headerCategory';
-import {iconTitleMapSider} from '@/constants';
+import {iconMapCategory, iconTitleMapSider} from '@/constants';
 import {DownloadSpeedBadge} from "@/components/organisms/DownloadSpeedBadge";
+import {PageHeaderWithIcon} from "@/components/molecules/PageHeaderWithIcon";
 
 interface Prop {
   history: BrowserHistory;
 }
-
-const ArcoHeader = Layout.Header;
 
 function renderHeader(setTitle: React.Dispatch<React.SetStateAction<string | JSX.Element | null>>) {
   const s = decodeURI(window.location.pathname)
@@ -21,35 +19,37 @@ function renderHeader(setTitle: React.Dispatch<React.SetStateAction<string | JSX
     if (title == "任务" || title == "写入" || title == "升级" || title == "内测") {
       return <DownloadSpeedBadge/>
     }
+    if (title == "配置") {
+      return `当前参考版本：Beta 4.1.0`
+    }
+    if (title == "搜索") {
+      return `找到14个相关内容`
+    }
 
     return undefined
   }
   // 渲染
   if (s[0] == 'plugin') {
-    if (s[1] == 'category') setTitle(renderHeaderCategory(s[2]));
-    else if (s[1] == 'detail') setTitle((
-      <PageHeader title="插件详情"/>
+    if (s[1] == 'category') {
+      const category = s[2]
+      setTitle(<PageHeaderWithIcon
+        title={category}
+        icon={iconMapCategory[category]}
+        subTitle={`共9个插件包`}
+      />);
+    } else if (s[1] == 'detail') setTitle((
+      <PageHeaderWithIcon title="插件详情"/>
     ));
+  } else if (s[0] == "search") {
+    setTitle((<PageHeaderWithIcon title="搜索" icon={<IconSearch/>} subTitle={`找到14个相关结果`}/>))
   } else {
     //尝试匹配为侧边栏标题
     const m = iconTitleMapSider[s.join('/')];
     if (m != null) {
       setTitle((
-        <PageHeader
-          title={(
-            <div className='flex-container--center'>
-              {
-                m.icon && <span
-                  className='header__title__icon'
-                >
-                {m.icon}
-              </span>
-              }
-              <span className='header__title__text'>
-                {m.title}
-              </span>
-            </div>
-          )}
+        <PageHeaderWithIcon
+          title={m.title}
+          icon={m.icon}
           subTitle={renderSubTitle(m.title)}
         />
       ));
@@ -69,9 +69,10 @@ export const Header = ({ history }: Prop) => {
   const toggleInput = () => setShowSearch(prev => !prev);
   const onInput = (v: string) => setSearchText(v);
   const onSearch = () => {
-    console.log(searchText);
     setSearchText('');
     setShowSearch(false);
+
+    history.push(`/search/${searchText}`)
   };
 
   useEffect(() => {
@@ -85,14 +86,14 @@ export const Header = ({ history }: Prop) => {
   }, []);
 
   return (
-    <ArcoHeader className='header'>
+    <Layout.Header className='header'>
       <div
-        style={{ display: title == null ? 'none' : 'flex' }}
+        style={{display: title == null ? 'none' : 'flex'}}
         className='header__title'
       >
         <Button type='text' onClick={history.back} disabled={!displayBack}
-                style={{ cursor: displayBack ? 'pointer' : 'auto' }}>
-          <IconArrowLeft className='header__title__back-button' style={{ color: displayBack ? '#108ee9' : 'gray' }} />
+                style={{cursor: displayBack ? 'pointer' : 'auto'}}>
+          <IconArrowLeft className='header__title__back-button' style={{color: displayBack ? '#108ee9' : 'gray'}}/>
         </Button>
         {title}
       </div>
@@ -115,6 +116,6 @@ export const Header = ({ history }: Prop) => {
         </Button>
       }
       <DownloadPopoverCard/>
-    </ArcoHeader>
+    </Layout.Header>
   );
 };

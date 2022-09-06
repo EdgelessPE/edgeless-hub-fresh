@@ -23,7 +23,7 @@ const routerList: {
   'plugin/category/:category': <Category/>,
   'tasks': <Tasks/>,
   'settings': <Settings/>,
-  'search': <Search/>,
+  'search/:query': <Search/>,
 };
 
 export function getRouterNodes() {

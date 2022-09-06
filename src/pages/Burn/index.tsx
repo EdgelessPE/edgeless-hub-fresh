@@ -8,6 +8,7 @@ import {TabDownloading} from "@/pages/Burn/TabDownloading";
 import {TabUnzipping} from "@/pages/Burn/TabUnzipping";
 import {TabWaitingForVentoy} from "@/pages/Burn/TabWaitingForVentoy";
 import {log} from "@/utils";
+import {TabWaitingForSelect} from "@/pages/Burn/TabWaitingForSelect";
 
 const STATE_FLOW: StateInfo[] = [
   {state: "Start", step: 0},
@@ -47,7 +48,7 @@ export const Burn = () => {
           return
         }
       }
-      console.error(`Fatal:Unknown next state ${state}`)
+      log(`Error:Fatal:Unknown next state ${state}`)
       setCurrentState({state: "Thrown", step: 4})
       return
     }
@@ -73,6 +74,8 @@ export const Burn = () => {
         return <TabUnzipping {...tabProps}/>
       case "WaitingForVentoy":
         return <TabWaitingForVentoy {...tabProps}/>
+      case "WaitingForSelect":
+        return <TabWaitingForSelect {...tabProps}/>
     }
 
 

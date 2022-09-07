@@ -67,22 +67,64 @@ interface PluginDataOnline {
   size: number,
   timestamp: number,
   hash: string,
+  url: string,
 }
 
 interface PluginDataLocal {
   name: string,
   size: number,
   timestamp: number,
+  hash?: string,
   path: string,
   attr?: string[] //插件包属性，例如对于被禁用的 LocalBoost 插件包 *.7zfl 其值为 ["f","l"]
 }
 
-interface ParsedFullName {
+interface KernelOnline {
+  name: string,
+  size: number,
+  timestamp: number,
+  hash: string,
+  url: string,
+}
+
+interface KernelLocal {
+  name: string,
+  size: number,
+  timestamp: number,
+  hash?: string,
+  path: string,
+}
+
+interface VentoyOnline {
+  name: string,
+  size: number,
+  timestamp: number,
+  hash: string,
+  url: string,
+}
+
+interface VentoyLocal {
+  version: string
+  secureBoot: boolean
+}
+
+interface PluginParsedFullName {
   name: string,
   version: string,
   author: string,
   isBot: boolean,
   ext: string
+}
+
+interface KernelParsedFullName {
+  version: string
+  channel: "Beta" | "Alpha"
+  ext: "iso" | "wim"
+}
+
+interface VentoyParsedFullName {
+  version: string
+  platform: "Windows" | "Linux"
 }
 
 type TaskStatus = {
@@ -92,8 +134,14 @@ type TaskStatus = {
 
 export {
   Hello,
+  TaskStatus,
   PluginDataOnline,
   PluginDataLocal,
-  TaskStatus,
-  ParsedFullName
+  PluginParsedFullName,
+  KernelOnline,
+  KernelLocal,
+  KernelParsedFullName,
+  VentoyOnline,
+  VentoyLocal,
+  VentoyParsedFullName
 }

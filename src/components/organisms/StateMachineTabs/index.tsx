@@ -3,6 +3,8 @@ import {Props, StateInfo, StateMachineNode, TabProps} from "./class";
 import {Button, Steps} from "@arco-design/web-react";
 import {log} from "@/utils";
 
+export const sharedState = new Map<string, any>() //TODO:检查是否存在变量共用污染
+
 function getNextState<State extends string>(states: StateInfo<State>[], current: StateMachineNode<State>, allowBranch = false): StateMachineNode<State> {
   for (let i = 0; i < states.length - 2; i++) {
     const node = states[i]
@@ -46,7 +48,8 @@ export function StateMachineTabs<State extends string>({states, steps, initialSt
   }
 
   const tabProps: TabProps<State> = {
-    next
+    next,
+    sharedState
   }
   const renderTab = () => {
     for (let node of states) {

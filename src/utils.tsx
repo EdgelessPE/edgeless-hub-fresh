@@ -1,5 +1,5 @@
 import {Err, Ok, Result} from "ts-results";
-import {ParsedFullName} from "@/class";
+import {PluginParsedFullName} from "@/class";
 import bridge from "@/bridge";
 
 function log(text: string) {
@@ -32,7 +32,7 @@ function log(text: string) {
   }
 }
 
-function parsePluginName(fullName: string): Result<ParsedFullName, string> {
+function parsePluginName(fullName: string): Result<PluginParsedFullName, string> {
   let indexOfDot = fullName.lastIndexOf(".")
   const ext = fullName.slice(indexOfDot + 1)
 

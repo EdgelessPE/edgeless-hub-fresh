@@ -1,4 +1,4 @@
-import {ParsedFullName, TaskStatus} from "@/class";
+import {PluginParsedFullName, TaskStatus} from "@/class";
 import React from "react";
 import {ButtonWithIcon} from "@/components/atoms/ButtonWithIcon";
 import {ArrowUpOutlined, CheckOutlined, CloudDownloadOutlined, LoadingOutlined} from "@ant-design/icons";
@@ -49,7 +49,7 @@ function renderButton(status: TaskStatus, key: string): React.ReactElement {
 
 let count = 0
 
-function getPluginTaskStatus(info: ParsedFullName, category: string): TaskStatus {
+function getPluginTaskStatus(info: PluginParsedFullName, category: string): TaskStatus {
   let state: TaskStatus['state']
   switch (count % 6) {
     case 0:
@@ -78,7 +78,7 @@ function getPluginTaskStatus(info: ParsedFullName, category: string): TaskStatus
   }
 }
 
-export const PluginSmartButton = ({info, category}: { info: ParsedFullName, category: string }) => {
+export const PluginSmartButton = ({info, category}: { info: PluginParsedFullName, category: string }) => {
   const status = getPluginTaskStatus(info, category)
   return renderButton(status, info.name + "_button")
 }

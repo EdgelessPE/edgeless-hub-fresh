@@ -51,7 +51,10 @@ export function StateMachineTabs<State extends string>({states, steps, initialSt
   const renderTab = () => {
     for (let node of states) {
       if (currentState.state == node.state) {
-        return node.tabContent(tabProps)
+        return React.createElement(
+          node.tabContent,
+          tabProps
+        )
       }
     }
     return <p>未知状态{currentState.state} <Button onClick={() => next(states[0].state)}>返回</Button></p>
@@ -64,7 +67,7 @@ export function StateMachineTabs<State extends string>({states, steps, initialSt
         {steps.map((title, index) => {
           const stepStatue = (thrown || currentState.step == 0) ? "wait" : undefined
           return (
-            <Steps.Step title={title} status={stepStatue}/>
+            <Steps.Step key={title} title={title} status={stepStatue}/>
           )
         })}
         {thrown && <Steps.Step title="错误" status="error"/>}

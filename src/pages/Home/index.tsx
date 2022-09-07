@@ -42,7 +42,7 @@ export const Home = () => {
       >
         <h2 className="home__welcome">🛏️夜深了，卡诺记得早睡早起哦！</h2>
         <div className="home__status">
-          <Avatar size={128} className="home__status__avatar">
+          <Avatar size={180} className="home__status__avatar">
             <SmileTwoTone/>
           </Avatar>
           <h2 className="home__status__h2">您已拥有最新版本的 Edgeless Beta</h2>
@@ -50,7 +50,7 @@ export const Home = () => {
             <Tag bordered color="green">Beta</Tag>
             <Tag bordered color="blue">4.1.0</Tag>
           </Space>
-          <p>整点新鲜插件？</p>
+          <p>去整点新鲜插件？</p>
           <div className="home__status__button">
             <Button>随便看看</Button>
           </div>

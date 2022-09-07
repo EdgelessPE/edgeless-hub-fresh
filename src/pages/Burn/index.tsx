@@ -41,7 +41,7 @@ function getNextState(current: StateInfo, allowBranch = false): StateInfo {
 }
 
 export const Burn = () => {
-  const [currentState, setCurrentState] = useState<StateInfo>({state: "Thrown", step: 4})
+  const [currentState, setCurrentState] = useState<StateInfo>({state: "Start", step: 0})
 
   const next = (state?: State) => {
     if (state != null) {

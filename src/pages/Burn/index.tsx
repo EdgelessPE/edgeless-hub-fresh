@@ -9,26 +9,30 @@ import {TabUnzipping} from "@/pages/Burn/TabUnzipping";
 import {TabWaitingForVentoy} from "@/pages/Burn/TabWaitingForVentoy";
 import {log} from "@/utils";
 import {TabWaitingForSelect} from "@/pages/Burn/TabWaitingForSelect";
+import {TabWriting} from "@/pages/Burn/TabWriting";
+import {TabValidating} from "@/pages/Burn/TabValidating";
+import {TabFinish} from "@/pages/Burn/TabFinish";
+import {TabThrown} from "@/pages/Burn/TabThrown";
 
 const STATE_FLOW: StateInfo[] = [
   {state: "Start", step: 0},
   {state: "Downloading", step: 1},
   {state: "Unzipping", step: 1},
   {state: "WaitingForVentoy", step: 2},
-  {state: "WaitingForSelect", step: 2, branch: true},
+  {state: "WaitingForSelect", step: 2, isBranch: true},
   {state: "Writing", step: 3},
-  {state: "Verifying", step: 3},
+  {state: "Validating", step: 3},
   {state: "Finish", step: 4},
-  {state: "Thrown", step: 4, branch: true},
+  {state: "Thrown", step: 4, isBranch: true},
 ]
 
 function getNextState(current: StateInfo, allowBranch = false): StateInfo {
   for (let i = 0; i < STATE_FLOW.length - 2; i++) {
     const node = STATE_FLOW[i]
-    if (!allowBranch && node.branch) continue
+    if (!allowBranch && node.isBranch) continue
     if (node.state == current.state) {
       const nextNode = STATE_FLOW[i + 1]
-      if (nextNode.branch) return getNextState(nextNode, true)
+      if (nextNode.isBranch) return getNextState(nextNode, true)
       else return nextNode
     }
   }
@@ -37,7 +41,7 @@ function getNextState(current: StateInfo, allowBranch = false): StateInfo {
 }
 
 export const Burn = () => {
-  const [currentState, setCurrentState] = useState<StateInfo>({state: "Start", step: 0})
+  const [currentState, setCurrentState] = useState<StateInfo>({state: "Thrown", step: 4})
 
   const next = (state?: State) => {
     if (state != null) {
@@ -76,6 +80,14 @@ export const Burn = () => {
         return <TabWaitingForVentoy {...tabProps}/>
       case "WaitingForSelect":
         return <TabWaitingForSelect {...tabProps}/>
+      case "Writing":
+        return <TabWriting {...tabProps}/>
+      case "Validating":
+        return <TabValidating {...tabProps}/>
+      case "Finish":
+        return <TabFinish/>
+      case "Thrown":
+        return <TabThrown {...tabProps}/>
     }
 
 

@@ -1,5 +1,5 @@
 import {Dropdown, Menu, Message, Modal, Space} from "@arco-design/web-react";
-import {IconFire, IconThunderbolt} from "@arco-design/web-react/icon";
+import {IconDelete, IconFire, IconQuestionCircle, IconThunderbolt} from "@arco-design/web-react/icon";
 import React from "react";
 import {TabProps} from "./class"
 
@@ -33,10 +33,10 @@ export const TabStart = ({next}: TabProps) => {
         droplist={
           <Menu>
             <Menu.Item key="cache" onClick={confirmCleanCache}>
-              清理缓存
+              <IconDelete/>清理缓存
             </Menu.Item>
             <Menu.Item key="issue">
-              遇到问题？
+              <IconQuestionCircle/>遇到问题
             </Menu.Item>
           </Menu>
         }

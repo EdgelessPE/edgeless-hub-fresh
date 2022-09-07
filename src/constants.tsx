@@ -175,9 +175,21 @@ const sizeAlertConstants = {
   }
 }
 
+const colorfulProgressBar = {
+  blue: {
+    "0%": "#4f9af8",
+    "100%": "#5bc7fa"
+  },
+  red: {
+    "0%": "#e24f48",
+    "100%": "#ef8432"
+  }
+}
+
 export {
   siderNodes,
   iconMapCategory,
   iconTitleMapSider,
-  sizeAlertConstants
+  sizeAlertConstants,
+  colorfulProgressBar
 };

@@ -14,7 +14,7 @@ export const TabDownloading = ({next}: TabProps) => {
   const [taskImage, setTaskImage] = useState({
       percent: 14,
       totalSize: 809 * 1024 * 1024,
-      fileName: "Edgeless_Beta_4.1.0.iso"
+      fileName: "Edgeless_Beta_4.1.0.iso",
     }),
     [taskVentoy, setTaskVentoy] = useState({
       percent: 45,
@@ -36,9 +36,9 @@ export const TabDownloading = ({next}: TabProps) => {
         <p>{`共计 ${totalSize}，请保持网络连接稳定且可靠`}</p>
       </div>
       <Space direction="vertical" style={{width: "80%"}}>
-        <NaiveProgressBar info={taskImage}/>
-        <NaiveProgressBar info={taskVentoy}/>
-        <NaiveProgressBar info={taskVentoyPlugin}/>
+        <NaiveProgressBar info={taskImage} colorful="blue"/>
+        <NaiveProgressBar info={taskVentoy} colorful="blue"/>
+        <NaiveProgressBar info={taskVentoyPlugin} colorful="blue"/>
       </Space>
     </div>
   )

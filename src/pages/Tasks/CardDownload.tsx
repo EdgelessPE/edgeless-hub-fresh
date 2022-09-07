@@ -2,6 +2,7 @@ import {PluginDataOnline, TaskStatus} from "@/class";
 import {formatSize, parsePluginName} from "@/utils";
 import {Progress} from "@arco-design/web-react";
 import React from "react";
+import {colorfulProgressBar} from "@/constants";
 
 interface Props {
   data: PluginDataOnline
@@ -36,16 +37,10 @@ export const CardDownload = ({data, status}: Props) => {
   let color: string | { [p: string]: string }
   switch (status.state) {
     case "Downloading":
-      color = {
-        "0%": "#4f9af8",
-        "100%": "#5bc7fa"
-      }
+      color = colorfulProgressBar.blue
       break
     case "Installing":
-      color = {
-        "0%": "#e24f48",
-        "100%": "#ef8432"
-      }
+      color = colorfulProgressBar.red
       break
     default:
       color = "#C9CDD4"

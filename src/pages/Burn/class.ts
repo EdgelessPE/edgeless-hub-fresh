@@ -1,9 +1,18 @@
-type State="Start"| "Downloading"|"Unzipping" | "WaitingForVentoy"|"WaitingForSelect" | "Writing"|"Verifying" |"Finish"|"Thrown"
+type State =
+  "Start"
+  | "Downloading"
+  | "Unzipping"
+  | "WaitingForVentoy"
+  | "WaitingForSelect"
+  | "Writing"
+  | "Validating"
+  | "Finish"
+  | "Thrown"
 
 interface StateInfo {
   state:State,
   step:number,
-  branch?:boolean
+  isBranch?: boolean
 }
 
 interface TabProps {

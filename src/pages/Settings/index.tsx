@@ -51,11 +51,11 @@ export const Settings = () => {
     {
       avatar: <SkinOutlined/>,
       title: "主题",
-      description: "切换白昼模式与夜间模式",
+      description: "切换白昼模式与黑夜模式",
       actions: [
         <Radio.Group type="button" value={theme} onChange={toggleTheme}>
           <Radio value={true}>白昼</Radio>
-          <Radio value={false}>夜间</Radio>
+          <Radio value={false}>黑夜</Radio>
         </Radio.Group>
       ]
     },
@@ -64,7 +64,10 @@ export const Settings = () => {
       title: "缓存目录（114 MB）",
       description: "D:\\Download\\HubCache",
       actions: [
-        <Button>查看</Button>
+        <Button.Group>
+          <Button>查看</Button>
+          <Button>清理</Button>
+        </Button.Group>
       ]
     },
     {

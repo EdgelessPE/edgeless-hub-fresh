@@ -1,18 +1,18 @@
 import './index.scss'
 import React, {useState} from "react";
 import {Alert, Button, Steps} from "@arco-design/web-react";
-import {TabStart} from "@/pages/Burn/TabStart";
+import {TabStart} from "./TabStart";
 import {State, StateInfo, TabProps} from "./class";
 import {myHistory} from "@/router/history";
-import {TabDownloading} from "@/pages/Burn/TabDownloading";
-import {TabUnzipping} from "@/pages/Burn/TabUnzipping";
-import {TabWaitingForVentoy} from "@/pages/Burn/TabWaitingForVentoy";
 import {log} from "@/utils";
-import {TabWaitingForSelect} from "@/pages/Burn/TabWaitingForSelect";
-import {TabWriting} from "@/pages/Burn/TabWriting";
-import {TabValidating} from "@/pages/Burn/TabValidating";
-import {TabFinish} from "@/pages/Burn/TabFinish";
-import {TabThrown} from "@/pages/Burn/TabThrown";
+import {TabDownloading} from "./TabDownloading";
+import {TabUnzipping} from "./TabUnzipping";
+import {TabWaitingForVentoy} from "./TabWaitingForVentoy";
+import {TabWaitingForSelect} from "./TabWaitingForSelect";
+import {TabWriting} from "./TabWriting";
+import {TabValidating} from "./TabValidating";
+import {TabFinish} from "./TabFinish";
+import {TabThrown} from "./TabThrown";
 
 const STATE_FLOW: StateInfo[] = [
   {state: "Start", step: 0},

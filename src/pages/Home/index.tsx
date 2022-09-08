@@ -45,7 +45,7 @@ export const Home = () => {
           <Avatar size={180} className="home__status__avatar">
             <SmileTwoTone/>
           </Avatar>
-          <h2 className="home__status__h2">您已拥有最新版本的 Edgeless Beta</h2>
+          <h2 className="home__status__h2">你已拥有最新版本的 Edgeless Beta</h2>
           <Space>
             <Tag bordered color="green">Beta</Tag>
             <Tag bordered color="blue">4.1.0</Tag>

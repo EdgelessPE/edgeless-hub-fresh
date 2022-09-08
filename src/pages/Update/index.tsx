@@ -1,11 +1,17 @@
 import {StateInfo} from "@/components/organisms/StateMachineTabs/class";
-import {TabChecking} from "@/pages/Update/TabChecking";
-import {State} from "./class"
-import {TabThrown} from "@/pages/Update/TabThrown";
 import {StateMachineTabs} from "@/components/organisms/StateMachineTabs";
-import {TabEmpty} from "@/pages/Update/TabEmpty";
-import {TabStart} from "@/pages/Update/TabStart";
-import {TabLatest} from "@/pages/Update/TabLatest";
+import {State} from "./class"
+import {TabChecking} from "./TabChecking";
+import {TabThrown} from "./TabThrown";
+import {TabEmpty} from "./TabEmpty";
+import {TabStart} from "./TabStart";
+import {TabLatest} from "./TabLatest";
+import {TabDownloading} from "./TabDownloading";
+import {TabUnzipping} from "@/pages/Update/TabUnzipping";
+import {TabWaitingForVentoy} from "@/pages/Update/TabWaitingForVentoy";
+import {TabWaitingForSelect} from "@/pages/Update/TabWaitingForSelect";
+import {TabWriting} from "@/pages/Update/TabWriting";
+import {TabValidating} from "@/pages/Update/TabValidating";
 
 
 const states: StateInfo<State>[] = [
@@ -30,6 +36,42 @@ const states: StateInfo<State>[] = [
     state: "Start",
     step: 0,
     tabContent: TabStart
+  },
+  {
+    state: "Downloading",
+    step: 1,
+    tabContent: TabDownloading
+  },
+  {
+    state: "Unzipping",
+    step: 1,
+    tabContent: TabUnzipping
+  },
+  {
+    state: "WaitingForVentoy",
+    step: 2,
+    tabContent: TabWaitingForVentoy
+  },
+  {
+    state: "WaitingForSelect",
+    step: 2,
+    tabContent: TabWaitingForSelect,
+    isBranch: true
+  },
+  {
+    state: "Writing",
+    step: 3,
+    tabContent: TabWriting
+  },
+  {
+    state: "Validating",
+    step: 3,
+    tabContent: TabValidating
+  },
+  {
+    state: "Finish",
+    step: 4,
+    tabContent: TabLatest
   },
   {
     state: "Thrown",

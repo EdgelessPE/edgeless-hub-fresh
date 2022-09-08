@@ -38,7 +38,7 @@
   },
   {
     "title": "禁用智能虚拟光驱",
-    "description": "如果您安装ISO镜像时遇到问题请禁用此选项",
+    "description": "如果你安装ISO镜像时遇到问题请禁用此选项",
     "information": "禁用之后资源管理器将会接管.iso文件的关联",
     "higherThan": "3.0.6",
     "folderName": "DisableSmartISO"
@@ -67,15 +67,15 @@
   },
   {
     "title": "使用微PE同款的盘符整理方案",
-    "description": "如果您认为盘符整理不尽如人意可以尝试此选项",
-    "information": "Edgeless自带的盘符整理程序与victor888大神发布的最新版本保持同步，至少为2019年及之后发布的版本；而此开关调用的盘符整理程序为victor888大神于2013-09-25发布的版本，因此如果您启用了此开关但是没有看到显著的效果属于正常现象",
+    "description": "如果你认为盘符整理不尽如人意可以尝试此选项",
+    "information": "Edgeless自带的盘符整理程序与victor888大神发布的最新版本保持同步，至少为2019年及之后发布的版本；而此开关调用的盘符整理程序为victor888大神于2013-09-25发布的版本，因此如果你启用了此开关但是没有看到显著的效果属于正常现象",
     "higherThan": "3.0.5",
     "folderName": "OrderDrvAnotherWay"
   },
   {
     "title": "禁用开机启动画面",
-    "description": "关闭LoadScreen，您会看到Edgeless的启动过程",
-    "information": "虽然此选项能够让您尽快看到桌面，但在此期间不建议您执行操作",
+    "description": "关闭LoadScreen，你会看到Edgeless的启动过程",
+    "information": "虽然此选项能够让你尽快看到桌面，但在此期间不建议你执行操作",
     "higherThan": "3.1.0",
     "folderName": "DisableLoadScreen"
   },

@@ -11,17 +11,17 @@ export const TabDownloading = ({next}: TabProps) => {
     totalSize: 0,
     fileName: "等待中..."
   }
-  const [taskImage, setTaskImage] = useState({
+  const [taskImage, setTaskImage] = useState<NaiveProgressBarTask>({
       percent: 14,
       totalSize: 809 * 1024 * 1024,
       fileName: "Edgeless_Beta_4.1.0.iso",
     }),
-    [taskVentoy, setTaskVentoy] = useState({
+    [taskVentoy, setTaskVentoy] = useState<NaiveProgressBarTask>({
       percent: 45,
       totalSize: 15597 * 1024,
       fileName: "ventoy-1.0.79-windows.zip"
     }),
-    [taskVentoyPlugin, setTaskVentoyPlugin] = useState({
+    [taskVentoyPlugin, setTaskVentoyPlugin] = useState<NaiveProgressBarTask>({
       percent: 90,
       totalSize: 2868 * 1024,
       fileName: "ventoy_wimboot.img"

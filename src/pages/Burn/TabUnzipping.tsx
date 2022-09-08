@@ -1,16 +1,17 @@
 import {IconArchive} from "@arco-design/web-react/icon";
-import {TabProps} from "@/pages/Burn/class";
-import {Spin} from "@arco-design/web-react";
+import {BurnTabProps} from "@/pages/Burn/class";
+import {Button, Spin} from "@arco-design/web-react";
 
-export const TabUnzipping = ({next}: TabProps) => {
+export const TabUnzipping = ({next, sharedState}: BurnTabProps) => {
   return (
-    <div className="burn__tab-inner__container">
-      <IconArchive className="burn__tab-inner__icon"/>
+    <div className="smt__container">
+      <IconArchive className="smt__icon"/>
       <div>
         <h1>正在生成 Edgeless 依赖文件</h1>
         <p>处理进度：1 / 3</p>
       </div>
       <Spin size={40}/>
+      <Button onClick={() => next()}>next</Button>
     </div>
   )
 }

@@ -1,9 +1,9 @@
 import {Dropdown, Menu, Message, Modal, Space} from "@arco-design/web-react";
 import {IconDelete, IconFire, IconQuestionCircle, IconThunderbolt} from "@arco-design/web-react/icon";
 import React from "react";
-import {TabProps} from "./class"
+import {BurnTabProps} from "./class"
 
-export const TabStart = ({next}: TabProps) => {
+export const TabStart = ({next, sharedState}: BurnTabProps) => {
   const confirmCleanCache = () => {
     Modal.confirm({
       title: "清理缓存后需要重新下载依赖文件。如果你确实遇到了制作错误请点击“确认删除”，然后尝试重新制作。",
@@ -16,8 +16,8 @@ export const TabStart = ({next}: TabProps) => {
     })
   }
   return (
-    <div className="burn__tab-inner__container">
-      <IconFire className="burn__tab-inner__icon"/>
+    <div className="smt__container">
+      <IconFire className="smt__icon"/>
       <Space direction="vertical">
         <h1>准备好拥有属于自己的 Edgeless 启动盘了吗？</h1>
         <div>

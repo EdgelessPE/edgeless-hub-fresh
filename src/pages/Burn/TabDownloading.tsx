@@ -1,11 +1,11 @@
 import {IconCloudDownload} from "@arco-design/web-react/icon";
-import {Space} from "@arco-design/web-react";
-import {TabProps} from "@/pages/Burn/class";
+import {Button, Space} from "@arco-design/web-react";
+import {BurnTabProps} from "@/pages/Burn/class";
 import {useState} from "react";
 import {NaiveProgressBar, NaiveProgressBarTask} from "@/components/molecules/NaiveProgressBar";
 import {formatSize} from "@/utils";
 
-export const TabDownloading = ({next}: TabProps) => {
+export const TabDownloading = ({next, sharedState}: BurnTabProps) => {
   const emptyTask: NaiveProgressBarTask = {
     percent: 0,
     totalSize: 0,
@@ -29,8 +29,8 @@ export const TabDownloading = ({next}: TabProps) => {
   const totalSize = formatSize(taskImage.totalSize + taskVentoy.totalSize + taskVentoyPlugin.totalSize)
 
   return (
-    <div className="burn__tab-inner__container">
-      <IconCloudDownload className="burn__tab-inner__icon"/>
+    <div className="smt__container">
+      <IconCloudDownload className="smt__icon"/>
       <div>
         <h1>我们需要下载一些必要的依赖文件</h1>
         <p>{`共计 ${totalSize}，请保持网络连接稳定且可靠`}</p>
@@ -40,6 +40,7 @@ export const TabDownloading = ({next}: TabProps) => {
         <NaiveProgressBar info={taskVentoy} colorful="blue"/>
         <NaiveProgressBar info={taskVentoyPlugin} colorful="blue"/>
       </Space>
+      <Button onClick={() => next()}>next</Button>
     </div>
   )
 }

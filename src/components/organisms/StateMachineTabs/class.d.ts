@@ -15,7 +15,8 @@ interface StateMachineNode<State extends string> {
 interface Props<State extends string> {
   states: StateInfo<State>[],
   steps: string[], //对应states中从1开始的step，不包含隐藏的错误tab
-  initialState: StateMachineNode<State>
+  initialState: StateMachineNode<State>,
+  alertContent?: React.ReactElement
 }
 
 interface TabProps<State extends string> {

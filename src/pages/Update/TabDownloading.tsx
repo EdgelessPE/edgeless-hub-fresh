@@ -32,8 +32,8 @@ export const TabDownloading = ({next, sharedState}: UpdateTabProps) => {
     else return prev
   }, 0))
   return (
-    <div className="burn__tab-inner__container">
-      <IconCloudDownload className="burn__tab-inner__icon"/>
+    <div className="smt__container">
+      <IconCloudDownload className="smt__icon"/>
       <div>
         <h1>我们需要下载一些必要的依赖文件</h1>
         <p>{`共计 ${totalSize}，请保持网络连接稳定且可靠`}</p>

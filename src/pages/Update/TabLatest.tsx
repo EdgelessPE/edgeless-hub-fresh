@@ -2,8 +2,8 @@ import {IconCheckCircle} from "@arco-design/web-react/icon";
 
 export const TabLatest = () => {
   return (
-    <div className="burn__tab-inner__container">
-      <IconCheckCircle className="burn__tab-inner__icon"/>
+    <div className="smt__container">
+      <IconCheckCircle className="smt__icon"/>
       <div>
         <h1>你已拥有最新版的 Edgeless Beta</h1>
         <p>加入 Edgeless Alpha 内测计划以获取内测版本</p>

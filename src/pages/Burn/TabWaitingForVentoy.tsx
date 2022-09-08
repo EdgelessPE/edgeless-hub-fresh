@@ -1,4 +1,4 @@
-import {TabProps} from "@/pages/Burn/class";
+import {BurnTabProps} from "@/pages/Burn/class";
 import {IconBulb} from "@arco-design/web-react/icon";
 import {Button, Popconfirm, Space, Spin} from "@arco-design/web-react";
 import React from "react";
@@ -8,10 +8,10 @@ function launchVentoy() {
   log("Info:Launch ventoy")
 }
 
-export const TabWaitingForVentoy = ({next}: TabProps) => {
+export const TabWaitingForVentoy = ({next, sharedState}: BurnTabProps) => {
   return (
-    <div className="burn__tab-inner__container">
-      <IconBulb className="burn__tab-inner__icon"/>
+    <div className="smt__container">
+      <IconBulb className="smt__icon"/>
       <div>
         <h1>请手动操作 Ventoy 安装程序，将 Ventoy 安装至你的 U 盘</h1>
         <p>通常无需更改其他配置，直接点击“安装”即可</p>

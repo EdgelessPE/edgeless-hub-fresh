@@ -11,8 +11,8 @@ export const TabWriting = ({next, sharedState}: UpdateTabProps) => {
     writtenSize: 700 * 1024 * 1024,
   })
   return (
-    <div className="burn__tab-inner__container">
-      <DeploymentUnitOutlined className="burn__tab-inner__icon"/>
+    <div className="smt__container">
+      <DeploymentUnitOutlined className="smt__icon"/>
       <div>
         <h1>正在更新 E 盘中的 Edgeless 依赖文件</h1>
         <p>稍安勿躁，新的启动盘很快就好</p>

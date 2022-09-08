@@ -6,8 +6,8 @@ export const TabStart = ({next, sharedState}: UpdateTabProps) => {
   const updateKernel: UpdateKernel | null = sharedState.get("update_kernel"),
     updateVentoy: UpdateVentoy | null = sharedState.get("update_ventoy")
   return (
-    <div className="burn__tab-inner__container">
-      <FireOutlined className="burn__tab-inner__icon"/>
+    <div className="smt__container">
+      <FireOutlined className="smt__icon"/>
       <div>
         <h1>有可用的更新</h1>
         <p>{updateKernel?.online ? `Edgeless 内核：${updateKernel.local.name} -> ${updateKernel.online.name}` : ""}</p>

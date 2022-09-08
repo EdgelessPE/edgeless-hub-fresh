@@ -1,3 +1,5 @@
+import {TabProps} from "@/components/organisms/StateMachineTabs/class";
+
 type State =
   "Start"
   | "Downloading"
@@ -15,12 +17,10 @@ interface StateInfo {
   isBranch?: boolean
 }
 
-interface TabProps {
-  next:(state?:State)=>void
-}
+type BurnTabProps = TabProps<State>
 
 export type {
   State,
   StateInfo,
-  TabProps,
+  BurnTabProps,
 }

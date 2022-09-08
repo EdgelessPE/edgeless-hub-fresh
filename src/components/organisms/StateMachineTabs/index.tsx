@@ -2,6 +2,7 @@ import React, {useState} from "react";
 import {Props, StateInfo, StateMachineNode, TabProps} from "./class";
 import {Button, Steps} from "@arco-design/web-react";
 import {log} from "@/utils";
+import "./index.scss"
 
 export const sharedState = new Map<string, any>() //TODO:检查是否存在变量共用污染
 
@@ -22,7 +23,7 @@ function getNextState<State extends string>(states: StateInfo<State>[], current:
   return {state: current.state, step: current.step}
 }
 
-export function StateMachineTabs<State extends string>({states, steps, initialState}: Props<State>) {
+export function StateMachineTabs<State extends string>({states, steps, initialState, alertContent}: Props<State>) {
   const [currentState, setCurrentState] = useState(initialState)
 
   const next = (state?: State) => {
@@ -66,6 +67,7 @@ export function StateMachineTabs<State extends string>({states, steps, initialSt
   const thrown = currentState.state == "Thrown"
   return (
     <div className="burn__container">
+      {alertContent ?? <></>}
       <Steps current={currentState.step} className="burn__steps">
         {steps.map((title, index) => {
           const stepStatue = (thrown || currentState.step == 0) ? "wait" : undefined

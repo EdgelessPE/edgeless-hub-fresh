@@ -17,8 +17,8 @@ export const TabChecking = ({next, sharedState}: UpdateTabProps) => {
     path: ""
   }
   return (
-    <div className="burn__tab-inner__container">
-      <CloudSyncOutlined className="burn__tab-inner__icon"/>
+    <div className="smt__container">
+      <CloudSyncOutlined className="smt__icon"/>
       <h1>正在检查可用更新</h1>
       <Spin size={40}/>
       <Button onClick={() => {

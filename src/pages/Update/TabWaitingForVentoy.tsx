@@ -10,8 +10,8 @@ function launchVentoy() {
 
 export const TabWaitingForVentoy = ({next, sharedState}: UpdateTabProps) => {
   return (
-    <div className="burn__tab-inner__container">
-      <IconBulb className="burn__tab-inner__icon"/>
+    <div className="smt__container">
+      <IconBulb className="smt__icon"/>
       <div>
         <h1>请手动操作 Ventoy 安装程序以更新你 U 盘中的 Ventoy</h1>
         <p>通常无需更改其他配置，直接点击“升级”即可</p>

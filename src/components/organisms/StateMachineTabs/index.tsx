@@ -64,11 +64,12 @@ export function StateMachineTabs<State extends string>({states, steps, initialSt
     return <p>未知状态{currentState.state} <Button onClick={() => next(states[0].state)}>返回</Button></p>
   }
 
-  const thrown = currentState.state == "Thrown"
+  const thrown = currentState.state == "Thrown",
+    showTabsHeader = currentState.step >= 0
   return (
-    <div className="burn__container">
+    <div className="smt">
       {alertContent ?? <></>}
-      {currentState.step >= 0 && <Steps current={currentState.step} className="burn__steps">
+      {showTabsHeader && <Steps current={currentState.step} className="smt__steps">
         {steps.map((title, index) => {
           const stepStatue = (thrown || currentState.step == 0) ? "wait" : undefined
           return (
@@ -78,7 +79,7 @@ export function StateMachineTabs<State extends string>({states, steps, initialSt
         {thrown && <Steps.Step title="错误" status="error"/>}
       </Steps>}
 
-      <div className="burn__tab-view">
+      <div className={`smt__tab-view--with${showTabsHeader ? "" : "out"}-header`}>
         {renderTab()}
       </div>
     </div>

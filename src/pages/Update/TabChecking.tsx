@@ -26,7 +26,7 @@ export const TabChecking = ({next, sharedState}: UpdateTabProps) => {
           online: kernelOnline,
           local: kernelLocal
         })
-        next("Empty")
+        next()
       }}>下一步</Button>
     </div>
   )

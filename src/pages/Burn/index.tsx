@@ -1,4 +1,3 @@
-import './index.scss'
 import React from "react";
 import {Alert} from "@arco-design/web-react";
 import {TabStart} from "./TabStart";

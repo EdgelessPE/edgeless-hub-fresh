@@ -17,18 +17,18 @@ import {TabValidating} from "./TabValidating";
 const states: StateInfo<State>[] = [
   {
     state: "Checking",
-    step: 0,
+    step: -1,
     tabContent: TabChecking
   },
   {
     state: "Empty",
-    step: 0,
+    step: -1,
     tabContent: TabEmpty,
     isBranch: true
   },
   {
     state: "Latest",
-    step: 0,
+    step: -1,
     tabContent: TabLatest,
     isBranch: true
   },
@@ -90,7 +90,7 @@ export const Update = () => {
     <StateMachineTabs
       states={states}
       steps={steps}
-      initialState={{state: "Checking", step: 0}}
+      initialState={{state: "Checking", step: -1}}
     />
   );
 };

@@ -2,9 +2,9 @@ import React from "react";
 
 interface StateInfo<State extends string> {
   state: State,
-  step: number,
+  step: number, //从1开始，0表示不激活任何step tab，-1表示隐藏step tabs
+  tabContent: (props: TabProps<State>) => React.ReactElement,
   isBranch?: boolean,
-  tabContent: (props: TabProps<State>) => React.ReactElement
 }
 
 interface StateMachineNode<State extends string> {

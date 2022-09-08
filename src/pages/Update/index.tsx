@@ -7,11 +7,11 @@ import {TabEmpty} from "./TabEmpty";
 import {TabStart} from "./TabStart";
 import {TabLatest} from "./TabLatest";
 import {TabDownloading} from "./TabDownloading";
-import {TabUnzipping} from "@/pages/Update/TabUnzipping";
-import {TabWaitingForVentoy} from "@/pages/Update/TabWaitingForVentoy";
-import {TabWaitingForSelect} from "@/pages/Update/TabWaitingForSelect";
-import {TabWriting} from "@/pages/Update/TabWriting";
-import {TabValidating} from "@/pages/Update/TabValidating";
+import {TabUnzipping} from "./TabUnzipping";
+import {TabWaitingForVentoy} from "./TabWaitingForVentoy";
+import {TabWaitingForSelect} from "./TabWaitingForSelect";
+import {TabWriting} from "./TabWriting";
+import {TabValidating} from "./TabValidating";
 
 
 const states: StateInfo<State>[] = [

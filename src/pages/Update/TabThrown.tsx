@@ -1,7 +1,7 @@
 import {IconCloseCircle} from "@arco-design/web-react/icon";
 import {Button, Space} from "@arco-design/web-react";
 import {reportIssue} from "@/pages/Burn/utils";
-import {UpdateTabProps} from "@/pages/Update/class";
+import {UpdateTabProps} from "./class";
 
 export const TabThrown = ({next, sharedState}: UpdateTabProps) => {
   const thrownMessage = sharedState.get("thrownMessage") ?? "无错误信息"

@@ -14,7 +14,6 @@ export const Logo = ({displayText, onClick}: Prop) => {
         <img alt='E' src={'https://home.edgeless.top/favicon.ico'} style={{
           width: '32px',
           height: '32px',
-          marginLeft: displayText ? '12px' : '0'
         }}/>
         <span style={{
           display: displayText ? 'inline-block' : 'none'

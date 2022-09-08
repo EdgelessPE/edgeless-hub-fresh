@@ -76,7 +76,7 @@ interface PluginDataLocal {
   timestamp: number,
   hash?: string,
   path: string,
-  attr?: string[] //插件包属性，例如对于被禁用的 LocalBoost 插件包 *.7zfl 其值为 ["f","l"]
+  attr?: Set<string> //插件包属性，例如对于被禁用的 LocalBoost 插件包 *.7zfl 其值为 ["f","l"]
 }
 
 interface KernelOnline {

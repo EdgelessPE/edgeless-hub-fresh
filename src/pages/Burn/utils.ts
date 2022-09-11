@@ -1,7 +1,5 @@
 function reportIssue() {
-  console.log("Report issue")
+  console.log("Report issue");
 }
 
-export {
-  reportIssue
-}
+export { reportIssue };

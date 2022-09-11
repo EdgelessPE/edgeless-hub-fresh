@@ -1,7 +1,7 @@
-import {TabProps} from "@/components/organisms/StateMachineTabs/class";
+import { TabProps } from "@/components/organisms/StateMachineTabs/class";
 
 type State =
-  "Start"
+  | "Start"
   | "Downloading"
   | "Unzipping"
   | "WaitingForVentoy"
@@ -9,18 +9,14 @@ type State =
   | "Writing"
   | "Validating"
   | "Finish"
-  | "Thrown"
+  | "Thrown";
 
 interface StateInfo {
-  state:State,
-  step:number,
-  isBranch?: boolean
+  state: State;
+  step: number;
+  isBranch?: boolean;
 }
 
-type BurnTabProps = TabProps<State>
+type BurnTabProps = TabProps<State>;
 
-export type {
-  State,
-  StateInfo,
-  BurnTabProps,
-}
+export type { State, StateInfo, BurnTabProps };

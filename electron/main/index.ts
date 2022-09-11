@@ -1,43 +1,45 @@
-import {app, BrowserWindow, shell} from 'electron';
-import {release} from 'os';
-import {join} from 'path';
-import installExtension, {REACT_DEVELOPER_TOOLS} from 'electron-devtools-installer';
-import bridge from './bridge';
+import { app, BrowserWindow, shell } from "electron";
+import { release } from "os";
+import { join } from "path";
+import installExtension, {
+  REACT_DEVELOPER_TOOLS,
+} from "electron-devtools-installer";
+import bridge from "./bridge";
 
-if (release().startsWith('6.1')) app.disableHardwareAcceleration();
+if (release().startsWith("6.1")) app.disableHardwareAcceleration();
 
-if (process.platform === 'win32') app.setAppUserModelId(app.getName());
+if (process.platform === "win32") app.setAppUserModelId(app.getName());
 
 if (!app.requestSingleInstanceLock()) {
   app.quit();
   process.exit(0);
 }
 
-process.env['ELECTRON_DISABLE_SECURITY_WARNINGS'] = 'true'
+process.env["ELECTRON_DISABLE_SECURITY_WARNINGS"] = "true";
 
 export const ROOT_PATH = {
-  dist: join(__dirname, '../..'),
-  public: join(__dirname, app.isPackaged ? '../..' : '../../../public'),
-}
+  dist: join(__dirname, "../.."),
+  public: join(__dirname, app.isPackaged ? "../.." : "../../../public"),
+};
 
-let win: BrowserWindow | null = null
-const preload = join(__dirname, '../preload/index.js')
-const url = `http://${process.env['VITE_DEV_SERVER_HOST']}:${process.env['VITE_DEV_SERVER_PORT']}`
-const indexHtml = join(ROOT_PATH.dist, 'index.html')
+let win: BrowserWindow | null = null;
+const preload = join(__dirname, "../preload/index.js");
+const url = `http://${process.env["VITE_DEV_SERVER_HOST"]}:${process.env["VITE_DEV_SERVER_PORT"]}`;
+const indexHtml = join(ROOT_PATH.dist, "index.html");
 
 async function createWindow() {
   win = new BrowserWindow({
-    title: 'Launching...',
+    title: "Launching...",
     width: 1400,
     height: 800,
-    icon: join(ROOT_PATH.public, 'favicon.ico'),
+    icon: join(ROOT_PATH.public, "favicon.ico"),
     webPreferences: {
       preload,
       nodeIntegration: true,
       contextIsolation: false,
       webviewTag: true,
-    }
-  })
+    },
+  });
 
   if (app.isPackaged) {
     await win.loadFile(indexHtml);
@@ -48,14 +50,14 @@ async function createWindow() {
     win.webContents.openDevTools();
   }
 
-  win.webContents.on('did-finish-load', () => {
-    win?.webContents.send('main-process-message', new Date().toLocaleString())
-  })
+  win.webContents.on("did-finish-load", () => {
+    win?.webContents.send("main-process-message", new Date().toLocaleString());
+  });
 
   win.webContents.setWindowOpenHandler(({ url }) => {
-    if (url.startsWith('https:')) shell.openExternal(url)
-    return { action: 'deny' }
-  })
+    if (url.startsWith("https:")) shell.openExternal(url);
+    return { action: "deny" };
+  });
 }
 
 app.whenReady().then(async () => {
@@ -65,20 +67,20 @@ app.whenReady().then(async () => {
   bridge();
 });
 
-app.on('window-all-closed', () => {
-  win = null
-  if (process.platform !== 'darwin') app.quit()
-})
+app.on("window-all-closed", () => {
+  win = null;
+  if (process.platform !== "darwin") app.quit();
+});
 
-app.on('second-instance', () => {
+app.on("second-instance", () => {
   if (win) {
     // Focus on the main window if the user tried to open another
-    if (win.isMinimized()) win.restore()
-    win.focus()
+    if (win.isMinimized()) win.restore();
+    win.focus();
   }
-})
+});
 
-app.on('activate', async () => {
+app.on("activate", async () => {
   const allWindows = BrowserWindow.getAllWindows();
   if (allWindows.length) {
     allWindows[0].focus();

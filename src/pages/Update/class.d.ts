@@ -1,7 +1,13 @@
-import {TabProps} from "@/components/organisms/StateMachineTabs/class";
-import {KernelLocal, KernelOnline, VentoyLocal, VentoyOnline} from "@/classes";
+import { TabProps } from "@/components/organisms/StateMachineTabs/class";
+import {
+  KernelLocal,
+  KernelOnline,
+  VentoyLocal,
+  VentoyOnline,
+} from "@/classes";
 
-type State = "Checking"
+type State =
+  | "Checking"
   | "Empty"
   | "Latest"
   | "Start"
@@ -12,23 +18,18 @@ type State = "Checking"
   | "Writing"
   | "Validating"
   | "Finish"
-  | "Thrown"
+  | "Thrown";
 
-type UpdateTabProps = TabProps<State>
+type UpdateTabProps = TabProps<State>;
 
 interface UpdateKernel {
-  local: KernelLocal,
-  online?: KernelOnline
+  local: KernelLocal;
+  online?: KernelOnline;
 }
 
 interface UpdateVentoy {
-  local: VentoyLocal,
-  online?: VentoyOnline
+  local: VentoyLocal;
+  online?: VentoyOnline;
 }
 
-export {
-  State,
-  UpdateTabProps,
-  UpdateKernel,
-  UpdateVentoy
-}
+export { State, UpdateTabProps, UpdateKernel, UpdateVentoy };

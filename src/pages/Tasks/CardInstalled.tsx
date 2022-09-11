@@ -1,36 +1,54 @@
-import {NaiveDescription} from "@/components/molecules/NaiveDescription";
-import {formatSize, parsePackageName} from "@/utils";
+import { NaiveDescription } from "@/components/molecules/NaiveDescription";
+import { formatSize, parsePackageName } from "@/utils";
 import React from "react";
-import {Dropdown, Menu, Tag} from "@arco-design/web-react";
-import {SizeAlert} from "@/components/molecules/SizeAlert";
-import {isDisabled, isLocalBoost} from "@/pages/Tasks/utils";
-import {FileNodePackageLocal} from "@/classes/local";
+import { Dropdown, Menu, Tag } from "@arco-design/web-react";
+import { SizeAlert } from "@/components/molecules/SizeAlert";
+import { isDisabled, isLocalBoost } from "@/pages/Tasks/utils";
+import { FileNodePackageLocal } from "@/classes/local";
 
 interface Props {
-  local: FileNodePackageLocal
+  local: FileNodePackageLocal;
 }
 
-export const CardInstalled = ({local}: Props) => {
-  const parsed = parsePackageName(local.name).unwrap()
+export const CardInstalled = ({ local }: Props) => {
+  const parsed = parsePackageName(local.name).unwrap();
   const disabled = isDisabled(local),
-    localboost = isLocalBoost(local)
+    localboost = isLocalBoost(local);
 
   let descriptions: Record<string, string | React.ReactElement> = {
-    "版本号": parsed.version,
-    "占用": <div><SizeAlert size={local.size} disable={disabled}/> {formatSize(local.size).toString()}</div>,
-  }
+    版本号: parsed.version,
+    占用: (
+      <div>
+        <SizeAlert size={local.size} disable={disabled} />{" "}
+        {formatSize(local.size).toString()}
+      </div>
+    ),
+  };
   if (localboost) {
-    descriptions['属性'] = <Tag color="cyan">LocalBoost</Tag>
+    descriptions["属性"] = <Tag color="cyan">LocalBoost</Tag>;
   }
   return (
-    <div className="tasks__card__container" style={descriptions.hasOwnProperty("属性") ? {height: "120px"} : undefined}>
+    <div
+      className="tasks__card__container"
+      style={
+        descriptions.hasOwnProperty("属性") ? { height: "120px" } : undefined
+      }
+    >
       <div className="tasks__card__header">
         <h3 className="tasks__card__header__title">
-          <span style={disabled ? {
-            marginRight: "4px",
-            color: "gray",
-            textDecoration: "line-through"
-          } : {marginRight: "4px"}}>{parsed.name}</span>
+          <span
+            style={
+              disabled
+                ? {
+                    marginRight: "4px",
+                    color: "gray",
+                    textDecoration: "line-through",
+                  }
+                : { marginRight: "4px" }
+            }
+          >
+            {parsed.name}
+          </span>
         </h3>
         <Dropdown.Button
           type={disabled ? "secondary" : "outline"}
@@ -39,16 +57,20 @@ export const CardInstalled = ({local}: Props) => {
               <Menu.Item key="localboost">
                 {localboost ? "取消 LocalBoost 启动" : "应用 LocalBoost 启动"}
               </Menu.Item>
-              <Menu.Item key="delete">
-                删除
-              </Menu.Item>
+              <Menu.Item key="delete">删除</Menu.Item>
             </Menu>
           }
         >
           {disabled ? "启用" : "禁用"}
         </Dropdown.Button>
       </div>
-      <NaiveDescription kvMap={descriptions} keyWidth="64px" rowHeight="24px" addColon style={{textAlign: "start"}}/>
+      <NaiveDescription
+        kvMap={descriptions}
+        keyWidth="64px"
+        rowHeight="24px"
+        addColon
+        style={{ textAlign: "start" }}
+      />
     </div>
-  )
-}
+  );
+};

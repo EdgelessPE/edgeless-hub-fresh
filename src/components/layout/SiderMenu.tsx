@@ -1,7 +1,7 @@
-import {Menu} from '@arco-design/web-react';
-import React, {useEffect, useState} from 'react';
-import {BrowserHistory} from 'history';
-import {siderNodes} from '@/constants';
+import { Menu } from "@arco-design/web-react";
+import React, { useEffect, useState } from "react";
+import { BrowserHistory } from "history";
+import { siderNodes } from "@/constants";
 
 const MenuItem = Menu.Item;
 const SubMenu = Menu.SubMenu;
@@ -18,32 +18,32 @@ export interface SiderNode {
   hide?: boolean;
 }
 
-
 function renderSiderMenu(input: SiderNode[]): JSX.Element[] {
   let result: JSX.Element[] = [];
   for (let node of input) {
-    if (node.hide) continue
+    if (node.hide) continue;
     if (node.children != null) {
       let children = renderSiderMenu(node.children);
-      result.push((
+      result.push(
         <SubMenu
           key={node.path}
           title={
-            <span className='sider__title'>
+            <span className="sider__title">
               {node.icon}
               {node.title}
             </span>
-          }>
+          }
+        >
           {children}
         </SubMenu>
-      ));
+      );
     } else {
-      result.push((
+      result.push(
         <MenuItem key={node.path}>
           {node.icon}
           {node.title}
         </MenuItem>
-      ));
+      );
     }
   }
   return result;
@@ -51,29 +51,29 @@ function renderSiderMenu(input: SiderNode[]): JSX.Element[] {
 
 function getCurrentOpenStatus() {
   let s = decodeURI(window.location.pathname)
-    .split('/')
-    .filter(key => key != '');
+    .split("/")
+    .filter((key) => key != "");
   if (s.length == 4) {
     //说明是detail页面，定位至分类
-    s[1] = 'category';
+    s[1] = "category";
     return {
       sub: [s[0]],
-      keys: [s.slice(0, 3).join('/')]
+      keys: [s.slice(0, 3).join("/")],
     };
   } else if (s.length >= 2) {
     return {
       sub: [s[0]],
-      keys: [s.join('/')]
+      keys: [s.join("/")],
     };
   } else if (s.length == 1) {
     return {
       sub: [],
-      keys: s
+      keys: s,
     };
   } else {
     return {
       sub: [],
-      keys: ['home']
+      keys: ["home"],
     };
   }
 }
@@ -95,19 +95,17 @@ export const SiderMenu = ({ history }: Prop) => {
 
   return (
     <Menu
-      style={{ width: '100%' }}
+      style={{ width: "100%" }}
       selectedKeys={selectedKeys}
       onClickMenuItem={(key) => {
         setSelectedKeys([key]);
-        if (key == 'home') key = '';
-        history.push('/' + key);
-      }
-      }
+        if (key == "home") key = "";
+        history.push("/" + key);
+      }}
       openKeys={openKeys}
       onClickSubMenu={(_, openKeys) => {
         setOpenKeys(openKeys);
-      }
-      }
+      }}
     >
       {renderSiderMenu(siderNodes)}
     </Menu>

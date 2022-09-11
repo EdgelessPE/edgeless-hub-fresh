@@ -1,15 +1,12 @@
 interface BridgeRequest {
-  id: number,
-  functionName: string,
-  args: any
+  id: number;
+  functionName: string;
+  args: any;
 }
 
 interface BridgeReply {
-  id: number,
-  payload: any
+  id: number;
+  payload: any;
 }
 
-export {
-  BridgeRequest,
-  BridgeReply,
-};
+export { BridgeRequest, BridgeReply };

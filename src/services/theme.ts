@@ -1,14 +1,11 @@
-let currentTheme = true
+let currentTheme = true;
 
 function getCurrentTheme() {
-  return currentTheme
+  return currentTheme;
 }
 
 function setCurrentTheme(val: boolean) {
-  currentTheme = val
+  currentTheme = val;
 }
 
-export {
-  getCurrentTheme,
-  setCurrentTheme
-}
+export { getCurrentTheme, setCurrentTheme };

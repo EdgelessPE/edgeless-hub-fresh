@@ -1,23 +1,29 @@
-import {Dropdown, Menu, Message, Modal, Space} from "@arco-design/web-react";
-import {IconDelete, IconFire, IconQuestionCircle, IconThunderbolt} from "@arco-design/web-react/icon";
+import { Dropdown, Menu, Message, Modal, Space } from "@arco-design/web-react";
+import {
+  IconDelete,
+  IconFire,
+  IconQuestionCircle,
+  IconThunderbolt,
+} from "@arco-design/web-react/icon";
 import React from "react";
-import {BurnTabProps} from "./class"
+import { BurnTabProps } from "./class";
 
-export const TabStart = ({next, sharedState}: BurnTabProps) => {
+export const TabStart = ({ next, sharedState }: BurnTabProps) => {
   const confirmCleanCache = () => {
     Modal.confirm({
-      title: "清理缓存后需要重新下载依赖文件。如果你确实遇到了制作错误请点击“确认删除”，然后尝试重新制作。",
+      title:
+        "清理缓存后需要重新下载依赖文件。如果你确实遇到了制作错误请点击“确认删除”，然后尝试重新制作。",
       okText: "确认删除",
       onOk: async () => {
         Message.info({
           content: "下载缓存已清理",
         });
-      }
-    })
-  }
+      },
+    });
+  };
   return (
     <div className="smt__container">
-      <IconFire className="smt__icon"/>
+      <IconFire className="smt__icon" />
       <Space direction="vertical">
         <h1>准备好拥有属于自己的 Edgeless 启动盘了吗？</h1>
         <div>
@@ -33,17 +39,19 @@ export const TabStart = ({next, sharedState}: BurnTabProps) => {
         droplist={
           <Menu>
             <Menu.Item key="cache" onClick={confirmCleanCache}>
-              <IconDelete/>清理缓存
+              <IconDelete />
+              清理缓存
             </Menu.Item>
             <Menu.Item key="issue">
-              <IconQuestionCircle/>遇到问题
+              <IconQuestionCircle />
+              遇到问题
             </Menu.Item>
           </Menu>
         }
       >
-        <IconThunderbolt/>
+        <IconThunderbolt />
         立即开始
       </Dropdown.Button>
     </div>
-  )
-}
+  );
+};

@@ -1,31 +1,37 @@
 interface Integrity {
-  method: "sha256" | "blake3"
-  value: string
+  method: "sha256" | "blake3";
+  value: string;
 }
 
 interface PluginParsedFullName {
-  name: string,
-  version: string,
-  author: string,
-  isBot: boolean,
-  ext: string
+  name: string;
+  version: string;
+  author: string;
+  isBot: boolean;
+  ext: string;
 }
 
 interface KernelParsedFullName {
-  version: string
-  channel: "Beta" | "Alpha"
-  ext: "iso" | "wim"
+  version: string;
+  channel: "Beta" | "Alpha";
+  ext: "iso" | "wim";
 }
 
 interface VentoyParsedFullName {
-  version: string
-  platform: "Windows" | "Linux"
+  version: string;
+  platform: "Windows" | "Linux";
 }
 
 type TaskStatus = {
-  state: "Available" | "Downloading" | "Pending" | "Installing" | "Installed" | "Upgradable",
-  percentage?: number //0-100
-}
+  state:
+    | "Available"
+    | "Downloading"
+    | "Pending"
+    | "Installing"
+    | "Installed"
+    | "Upgradable";
+  percentage?: number; //0-100
+};
 
 export {
   Integrity,
@@ -33,4 +39,4 @@ export {
   KernelParsedFullName,
   VentoyParsedFullName,
   TaskStatus,
-}
+};

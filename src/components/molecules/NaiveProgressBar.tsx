@@ -1,23 +1,23 @@
-import {Progress} from "@arco-design/web-react";
-import {formatSize} from "@/utils";
+import { Progress } from "@arco-design/web-react";
+import { formatSize } from "@/utils";
 import React from "react";
-import {colorfulProgressBar} from "@/constants";
+import { colorfulProgressBar } from "@/constants";
 
 export interface NaiveProgressBarTask {
-  percent: number
-  totalSize: number
-  fileName: string
+  percent: number;
+  totalSize: number;
+  fileName: string;
 }
 
 interface NaiveProgressBarProps {
-  info: NaiveProgressBarTask
-  colorful?: keyof typeof colorfulProgressBar
+  info: NaiveProgressBarTask;
+  colorful?: keyof typeof colorfulProgressBar;
 }
 
-export const NaiveProgressBar = ({info, colorful}: NaiveProgressBarProps) => {
-  let color: Record<string, string> | undefined = undefined
+export const NaiveProgressBar = ({ info, colorful }: NaiveProgressBarProps) => {
+  let color: Record<string, string> | undefined = undefined;
   if (colorful) {
-    color = colorfulProgressBar[colorful]
+    color = colorfulProgressBar[colorful];
   }
   return (
     <div className="naive-progress-bar__container">
@@ -30,8 +30,13 @@ export const NaiveProgressBar = ({info, colorful}: NaiveProgressBarProps) => {
         color={color}
       ></Progress>
       <small className="naive-progress-bar__progress">
-        {formatSize(info.totalSize * info.percent / 100) + " / " + formatSize(info.totalSize) + " - " + info.percent + "%"}
+        {formatSize((info.totalSize * info.percent) / 100) +
+          " / " +
+          formatSize(info.totalSize) +
+          " - " +
+          info.percent +
+          "%"}
       </small>
     </div>
-  )
-}
+  );
+};

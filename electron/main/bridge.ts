@@ -1,7 +1,7 @@
-import {ipcMain} from 'electron';
-import {BridgeReply, BridgeRequest} from '../class';
+import { ipcMain } from "electron";
+import { BridgeReply, BridgeRequest } from "../class";
 import log from "./log";
-import {getLocalImageSrc} from "./utils";
+import { getLocalImageSrc } from "./utils";
 
 const registry: { [name: string]: (...args: any) => any } = {
   log,
@@ -16,22 +16,22 @@ export default function () {
   }
 
   //监听桥事件
-  ipcMain.on('bridge', async (event, req: BridgeRequest) => {
+  ipcMain.on("bridge", async (event, req: BridgeRequest) => {
     let entry = callMap.get(req.functionName);
     if (entry == null) {
-      const reply = `Error:Function "${req.functionName}" unregistered!`
+      const reply = `Error:Function "${req.functionName}" unregistered!`;
       console.log(reply);
-      event.reply('bridge-reply', {
+      event.reply("bridge-reply", {
         id: req.id,
-        payload: reply
+        payload: reply,
       });
     } else {
       const payload = await entry(...req.args),
         reply: BridgeReply = {
           id: req.id,
-          payload
+          payload,
         };
-      event.reply('bridge-reply', reply);
+      event.reply("bridge-reply", reply);
     }
   });
 }

@@ -1,7 +1,3 @@
-function getConfig() {
+function getConfig() {}
 
-}
-
-export {
-  getConfig
-}
+export { getConfig };

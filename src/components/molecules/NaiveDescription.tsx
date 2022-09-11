@@ -1,4 +1,4 @@
-import React, {useEffect, useState} from 'react';
+import React, { useEffect, useState } from "react";
 
 interface Prop {
   kvMap: Record<string, string | React.ReactNode>;
@@ -8,7 +8,13 @@ interface Prop {
   style?: React.CSSProperties;
 }
 
-export const NaiveDescription = ({kvMap, keyWidth, rowHeight, addColon, style}: Prop) => {
+export const NaiveDescription = ({
+  kvMap,
+  keyWidth,
+  rowHeight,
+  addColon,
+  style,
+}: Prop) => {
   const [reactiveItems, setReactiveItems] = useState<React.ReactNode[]>([]);
   useEffect(() => {
     let elements: React.ReactNode[] = [];
@@ -19,12 +25,10 @@ export const NaiveDescription = ({kvMap, keyWidth, rowHeight, addColon, style}: 
         <tr key={key}>
           <td width={keyWidth} height={rowHeight} key={key}>
             {key}
-            {addColon && '：'}
+            {addColon && "："}
           </td>
-          <td key={tdCount++}>
-            {content}
-          </td>
-        </tr>,
+          <td key={tdCount++}>{content}</td>
+        </tr>
       );
     }
     setReactiveItems(elements);

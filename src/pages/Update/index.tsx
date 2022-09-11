@@ -1,96 +1,91 @@
-import {StateInfo} from "@/components/organisms/StateMachineTabs/class";
-import {StateMachineTabs} from "@/components/organisms/StateMachineTabs";
-import {State} from "./class"
-import {TabChecking} from "./TabChecking";
-import {TabThrown} from "./TabThrown";
-import {TabEmpty} from "./TabEmpty";
-import {TabStart} from "./TabStart";
-import {TabLatest} from "./TabLatest";
-import {TabDownloading} from "./TabDownloading";
-import {TabUnzipping} from "./TabUnzipping";
-import {TabWaitingForVentoy} from "./TabWaitingForVentoy";
-import {TabWaitingForSelect} from "./TabWaitingForSelect";
-import {TabWriting} from "./TabWriting";
-import {TabValidating} from "./TabValidating";
-
+import { StateInfo } from "@/components/organisms/StateMachineTabs/class";
+import { StateMachineTabs } from "@/components/organisms/StateMachineTabs";
+import { State } from "./class";
+import { TabChecking } from "./TabChecking";
+import { TabThrown } from "./TabThrown";
+import { TabEmpty } from "./TabEmpty";
+import { TabStart } from "./TabStart";
+import { TabLatest } from "./TabLatest";
+import { TabDownloading } from "./TabDownloading";
+import { TabUnzipping } from "./TabUnzipping";
+import { TabWaitingForVentoy } from "./TabWaitingForVentoy";
+import { TabWaitingForSelect } from "./TabWaitingForSelect";
+import { TabWriting } from "./TabWriting";
+import { TabValidating } from "./TabValidating";
 
 const states: StateInfo<State>[] = [
   {
     state: "Checking",
     step: -1,
-    tabContent: TabChecking
+    tabContent: TabChecking,
   },
   {
     state: "Empty",
     step: -1,
     tabContent: TabEmpty,
-    isBranch: true
+    isBranch: true,
   },
   {
     state: "Latest",
     step: -1,
     tabContent: TabLatest,
-    isBranch: true
+    isBranch: true,
   },
   {
     state: "Start",
     step: 0,
-    tabContent: TabStart
+    tabContent: TabStart,
   },
   {
     state: "Downloading",
     step: 1,
-    tabContent: TabDownloading
+    tabContent: TabDownloading,
   },
   {
     state: "Unzipping",
     step: 1,
-    tabContent: TabUnzipping
+    tabContent: TabUnzipping,
   },
   {
     state: "WaitingForVentoy",
     step: 2,
-    tabContent: TabWaitingForVentoy
+    tabContent: TabWaitingForVentoy,
   },
   {
     state: "WaitingForSelect",
     step: 2,
     tabContent: TabWaitingForSelect,
-    isBranch: true
+    isBranch: true,
   },
   {
     state: "Writing",
     step: 3,
-    tabContent: TabWriting
+    tabContent: TabWriting,
   },
   {
     state: "Validating",
     step: 3,
-    tabContent: TabValidating
+    tabContent: TabValidating,
   },
   {
     state: "Finish",
     step: 4,
-    tabContent: TabLatest
+    tabContent: TabLatest,
   },
   {
     state: "Thrown",
     step: 4,
-    tabContent: TabThrown
-  }
-]
-const steps = [
-  "准备文件",
-  "更新 Ventoy",
-  "更新 Edgeless"
-]
+    tabContent: TabThrown,
+  },
+];
+const steps = ["准备文件", "更新 Ventoy", "更新 Edgeless"];
 
 export const Update = () => {
   return (
     <StateMachineTabs
       states={states}
       steps={steps}
-      initialState={{state: "Checking", step: -1}}
+      initialState={{ state: "Checking", step: -1 }}
     />
   );
 };

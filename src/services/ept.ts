@@ -1,27 +1,17 @@
-function setCurrentMirror() {
+function setCurrentMirror() {}
 
-}
+function getCurrentMirror() {}
 
-function getCurrentMirror() {
+function addCurrentMirror() {}
 
-}
+function fetchHello() {}
 
-function addCurrentMirror() {
-
-}
-
-function fetchHello() {
-
-}
-
-function fetchAlpha() {
-
-}
+function fetchAlpha() {}
 
 export {
   setCurrentMirror,
   getCurrentMirror,
   addCurrentMirror,
   fetchAlpha,
-  fetchHello
-}
+  fetchHello,
+};

@@ -1,30 +1,26 @@
-import {Integrity} from "@/classes";
+import { Integrity } from "@/classes";
 
 interface FileNodePackageLocal {
-  name: string,
-  size: number,
-  timestamp: number,
-  integrity?: Integrity,
+  name: string;
+  size: number;
+  timestamp: number;
+  integrity?: Integrity;
 
-  path: string,
-  flags?: Set<string> //插件包属性，例如对于被禁用的 LocalBoost 插件包 *.7zfl 其值为 ["f","l"]
+  path: string;
+  flags?: Set<string>; //插件包属性，例如对于被禁用的 LocalBoost 插件包 *.7zfl 其值为 ["f","l"]
 }
 
 interface FileNodeLocal {
-  name: string,
-  version: string
-  path: string,
-  size: number,
-  timestamp: number,
+  name: string;
+  version: string;
+  path: string;
+  size: number;
+  timestamp: number;
 }
 
 interface VentoyLocal {
-  version: string
-  secureBoot: boolean
+  version: string;
+  secureBoot: boolean;
 }
 
-export {
-  FileNodePackageLocal,
-  FileNodeLocal,
-  VentoyLocal,
-}
+export { FileNodePackageLocal, FileNodeLocal, VentoyLocal };

@@ -14,8 +14,8 @@
     "dist"
   ],
   win: {
-    "icon": "./public/favicon.ico",
-    "requestedExecutionLevel": "highestAvailable",
+    icon: "./public/favicon.ico",
+    requestedExecutionLevel: "highestAvailable",
     target: [
       {
         target: "nsis",
@@ -33,11 +33,15 @@
     deleteAppDataOnUninstall: false
   },
   mac: {
-    target: ["dmg"],
+    target: [
+      "dmg"
+    ],
     artifactName: "${productName}-Mac-${version}-Installer.${ext}"
   },
   linux: {
-    target: ["AppImage"],
+    target: [
+      "AppImage"
+    ],
     artifactName: "${productName}-Linux-${version}.${ext}"
   }
 }

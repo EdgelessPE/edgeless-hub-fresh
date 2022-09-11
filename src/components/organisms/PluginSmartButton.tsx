@@ -1,4 +1,4 @@
-import {PluginParsedFullName, TaskStatus} from "@/class";
+import {PluginParsedFullName, TaskStatus} from "@/classes";
 import React from "react";
 import {ButtonWithIcon} from "@/components/atoms/ButtonWithIcon";
 import {ArrowUpOutlined, CheckOutlined, CloudDownloadOutlined, LoadingOutlined} from "@ant-design/icons";

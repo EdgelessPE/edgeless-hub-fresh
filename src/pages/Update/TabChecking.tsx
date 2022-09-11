@@ -1,17 +1,18 @@
 import {CloudSyncOutlined} from "@ant-design/icons";
 import {Button, Spin} from "@arco-design/web-react";
 import {UpdateTabProps} from "./class";
-import {KernelLocal, KernelOnline} from "@/class";
+import {FileNodeLocal} from "@/classes/local";
 
 export const TabChecking = ({next, sharedState}: UpdateTabProps) => {
-  const kernelOnline: KernelOnline = {
+  const kernelOnline: FileNodeLocal = {
     name: "Edgeless_Beta_4.1.0.iso",
+    version: "4.1.0",
     size: 816 * 1024 * 1024,
     timestamp: 0,
-    hash: "",
-    url: ""
-  }, kernelLocal: KernelLocal = {
+    path: ""
+  }, kernelLocal: FileNodeLocal = {
     name: "Edgeless_Beta_3.2.0.wim",
+    version: "3.2.0",
     size: 816 * 1024 * 1024,
     timestamp: 0,
     path: ""

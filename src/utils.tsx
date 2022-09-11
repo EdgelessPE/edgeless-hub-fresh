@@ -1,5 +1,5 @@
 import {Err, Ok, Result} from "ts-results";
-import {PluginParsedFullName} from "@/class";
+import {PluginParsedFullName} from "@/classes";
 import bridge from "@/bridge";
 
 function log(text: string) {
@@ -32,7 +32,7 @@ function log(text: string) {
   }
 }
 
-function parsePluginName(fullName: string): Result<PluginParsedFullName, string> {
+function parsePackageName(fullName: string): Result<PluginParsedFullName, string> {
   let indexOfDot = fullName.lastIndexOf(".")
   const ext = fullName.slice(indexOfDot + 1)
 
@@ -56,6 +56,10 @@ function parsePluginName(fullName: string): Result<PluginParsedFullName, string>
     isBot,
     ext
   })
+}
+
+function parsePackageUrl(urlRoot: string, category: string, name: string) {
+  return `${urlRoot}/${category}/${name}`
 }
 
 class Size {
@@ -98,7 +102,8 @@ function formatTimestamp(timestamp: number): string {
 }
 
 export {
-  parsePluginName,
+  parsePackageName,
+  parsePackageUrl,
   log,
   formatSize,
   formatTimestamp,

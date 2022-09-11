@@ -2,13 +2,13 @@ import {Card, Space, Tooltip} from "@arco-design/web-react";
 import {CiCircleOutlined} from "@ant-design/icons";
 import {NaiveDescription} from "@/components/molecules/NaiveDescription";
 import React from "react";
-import {PluginDataOnline} from "@/class";
-import {formatSize, parsePluginName} from "@/utils";
+import {formatSize, parsePackageName} from "@/utils";
 import {PluginSmartButton} from "@/components/organisms/PluginSmartButton";
 import {myHistory} from "@/router/history";
+import {FileNodePackageOnline} from "@/classes/online";
 
 interface Prop {
-  data: PluginDataOnline;
+  data: FileNodePackageOnline;
   category: string;
   showCategory?: boolean;
 }
@@ -37,7 +37,7 @@ function renderTitle(title: string, ci: boolean, category: string, fullName: str
 }
 
 const PluginCard = ({data, category, showCategory = false}: Prop) => {
-  const nameInfoRes = parsePluginName(data.name)
+  const nameInfoRes = parsePackageName(data.name)
   if (nameInfoRes.err) {
     return <></>
   }

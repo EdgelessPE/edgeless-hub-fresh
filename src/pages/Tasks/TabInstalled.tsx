@@ -1,17 +1,17 @@
 import {CardInstalled} from "@/pages/Tasks/CardInstalled";
-import {PluginDataLocal} from "@/class";
 import React, {useEffect, useState} from "react";
 import {formatSize} from "@/utils";
 import {sizeAlertConstants} from "@/constants";
 import {Checkbox, Select, Tag} from "@arco-design/web-react";
 import {calcStatusWeight, isDisabled, isLocalBoost} from "@/pages/Tasks/utils";
+import {FileNodePackageLocal} from "@/classes/local";
 
 export interface TabInstalledProps {
-  array: PluginDataLocal[]
+  array: FileNodePackageLocal[]
 }
 
 
-const sortMethodMap: Record<string, (a: PluginDataLocal, b: PluginDataLocal) => number> = {
+const sortMethodMap: Record<string, (a: FileNodePackageLocal, b: FileNodePackageLocal) => number> = {
   name: (a, b) => a.name.localeCompare(b.name),
   status: (a, b) => {
     const x = calcStatusWeight(a),

@@ -19,7 +19,6 @@ export const Tasks = () => {
           "name": "WiseCare365_6.1.3.598_Horatio Shaw.7z",
           "size": 751460400,
           "timestamp": 1638634984,
-          "hash": "d4826848c7b88d3ed9acdcb5c04770e6675a4b411b15b559856e826fe1e8e886"
         },
         status: {
           state: "Downloading",
@@ -31,7 +30,6 @@ export const Tasks = () => {
           "name": "DuplicateFilesFinder_0.8.0.0_undefined（bot）.7z",
           "size": 1016385,
           "timestamp": 1644908838,
-          "hash": "1c45af1ae01dc140ed15240518945b32d9af8d5a3fa533a323334ef821525956"
         },
         status: {
           state: "Downloading",
@@ -43,7 +41,6 @@ export const Tasks = () => {
           "name": "Windows超级管理器_9.42.0.0_Cno.7z",
           "size": 9886180,
           "timestamp": 1655914683,
-          "hash": "329332376ca5f08e75924b13abfb3c42f2974e261efee0b326df9cdace16fadd"
         },
         status: {
           state: "Installing",
@@ -55,7 +52,6 @@ export const Tasks = () => {
           "name": "TrafficMonitor_1.83.0.0_undefined（bot）.7z",
           "size": 940188,
           "timestamp": 1649481048,
-          "hash": "87f9b885e3796d0c014baa6077ad9a69fc0e99ed9678ffe99961bbee957ed14f"
         },
         status: {
           state: "Pending",
@@ -67,7 +63,6 @@ export const Tasks = () => {
           "name": "二维码识别PC版_1.0_System3206.7z",
           "size": 1835863,
           "timestamp": 1658923858,
-          "hash": "04d0a3a7fe13bd22f675557c8df3bd950d02e4200f8f08a969738aff251ef064"
         },
         status: {
           state: "Downloading",
@@ -81,14 +76,13 @@ export const Tasks = () => {
           "name": "John_20220929.1.0_undefined.7z",
           "size": 198711237,
           "timestamp": 1633269606,
-          "hash": "bb4f2354615b14794338f2c6b80c49db14be0e8aa3e9e487e6a3050d85d793e6"
         },
         local: {
           "name": "John_20210929.1.0_undefined.7z",
           "size": 128701236,
           "timestamp": 1633269606,
           "path": "bb4f2354615b14794338f2c6b80c49db14be0e8aa3e9e487e6a3050d85d793e6",
-          attr: ["f"]
+          flags: new Set(["f"])
         }
       },
       {
@@ -96,14 +90,13 @@ export const Tasks = () => {
           "name": "爱思助手_7.98.53.02_泉水叮咚.7z",
           "size": 351331566,
           "timestamp": 1649150122,
-          "hash": "036e1a824fed20730b07b59de7d368183e11594d57bc62c8a0ea53c87781e95b"
         },
         local: {
           "name": "爱思助手_7.98.54.02_泉水叮咚.7z",
           "size": 351331566,
           "timestamp": 1649150122,
           "path": "036e1a824fed20730b07b59de7d368183e11594d57bc62c8a0ea53c87781e95b",
-          attr: ["l"]
+          flags: new Set(["l"])
         }
       },
       {
@@ -111,7 +104,6 @@ export const Tasks = () => {
           "name": "Edgeless密码管家_1.1.0.0_Cno.7z",
           "size": 54524,
           "timestamp": 1610208801,
-          "hash": "7615498febabf4070262c730ea11ea52f917dce66e410e8a4b5bc2fe07754a9c"
         },
         local: {
           "name": "Edgeless密码管家_1.1.0.0_Cno.7z",
@@ -125,7 +117,6 @@ export const Tasks = () => {
           "name": "微PE工具包_2.1.0.0_Cno.7z",
           "size": 14978651,
           "timestamp": 1592385317,
-          "hash": "8007cfed1fe5355ceaf3f1ada59bd4c8a78f53fb76663eb56663310ceeaf081e"
         },
         local: {
           "name": "微PE工具包_2.1.0.1_Cno.7z",
@@ -147,21 +138,21 @@ export const Tasks = () => {
         "size": 77608457,
         "timestamp": 1657656751,
         "path": "b1b27579f0c77dbaaecad9d74d2a9423040b92854416faf4edf7d12d6ad04089",
-        attr: ["f"]
+        flags: new Set(["f"])
       },
       {
         "name": "Windows 登录解锁工具_1.5.0.0_Cno.7z",
         "size": 242462,
         "timestamp": 1648646313,
         "path": "a46f96ac0523e7ca53977c485a59cefee9c5893b905e659bb523e2906840288f",
-        attr: ["f", "l"]
+        flags: new Set(["f", "l"])
       },
       {
         "name": "Edgeless密码管家_1.1.0.0_Cno.7z",
         "size": 54524,
         "timestamp": 1610208801,
         "path": "7615498febabf4070262c730ea11ea52f917dce66e410e8a4b5bc2fe07754a9c",
-        attr: ["l"]
+        flags: new Set(["l"])
       },
     ]
 

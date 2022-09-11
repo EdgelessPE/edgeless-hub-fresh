@@ -1,0 +1,7 @@
+function getConfig() {
+
+}
+
+export {
+  getConfig
+}

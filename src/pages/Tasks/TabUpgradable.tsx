@@ -1,20 +1,21 @@
 import {CardUpdate} from "@/pages/Tasks/CardUpdate";
-import {PluginDataLocal, PluginDataOnline} from "@/class";
 import React, {useState} from "react";
 import {ButtonWithIcon} from "@/components/atoms/ButtonWithIcon";
 import {ArrowUpOutlined} from "@ant-design/icons";
 import {formatSize} from "@/utils";
 import {Checkbox} from "@arco-design/web-react";
 import {calcStatusWeight, isDisabled} from "@/pages/Tasks/utils";
+import {FileNodePackageLocal} from "@/classes/local";
+import {FileNodePackageOnline} from "@/classes/online";
 
 export interface TabUpgradableProps {
   array: {
-    online: PluginDataOnline
-    local: PluginDataLocal
+    online: FileNodePackageOnline
+    local: FileNodePackageLocal
   }[],
   onUpgradeAll: (arr: {
-    online: PluginDataOnline
-    local: PluginDataLocal
+    online: FileNodePackageOnline
+    local: FileNodePackageLocal
   }[]) => void
 }
 

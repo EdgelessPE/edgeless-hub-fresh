@@ -1,10 +1,11 @@
 import {CardDownload} from "@/pages/Tasks/CardDownload";
 import React from "react";
-import {PluginDataOnline, TaskStatus} from "@/class";
+import {TaskStatus} from "@/classes";
+import {FileNodePackageOnline} from "@/classes/online";
 
 export interface TabRunningProps {
   array: {
-    data: PluginDataOnline,
+    data: FileNodePackageOnline,
     status: TaskStatus & { state: "Downloading" | "Installing" | "Pending" }
   }[]
 }

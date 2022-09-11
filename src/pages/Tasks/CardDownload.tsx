@@ -1,11 +1,12 @@
-import {PluginDataOnline, TaskStatus} from "@/class";
-import {formatSize, parsePluginName} from "@/utils";
+import {TaskStatus} from "@/classes";
+import {formatSize, parsePackageName} from "@/utils";
 import {Progress} from "@arco-design/web-react";
 import React from "react";
 import {colorfulProgressBar} from "@/constants";
+import {FileNodePackageOnline} from "@/classes/online";
 
 interface Props {
-  data: PluginDataOnline
+  data: FileNodePackageOnline
   status: TaskStatus & { state: "Downloading" | "Installing" | "Pending" }
 }
 
@@ -19,7 +20,7 @@ let lastMap = new Map<string, LastNode>()
 export const CardDownload = ({data, status}: Props) => {
   if (status.state == "Pending" || status.percentage == null) status.percentage = 0
 
-  const parsed = parsePluginName(data.name).unwrap(), id = data.name
+  const parsed = parsePackageName(data.name).unwrap(), id = data.name
 
   //生成速度信息
   const now = Date.now()

@@ -113,7 +113,7 @@ export const Config = () => {
   useEffect(() => {
     bridge("getLocalImageSrc", "D:\\360Downloads\\2056038.jpg")
       .then((wallPaperUrlRes: Result<string, string>) => {
-        if (wallPaperUrlRes.ok) setWallpaperPreview(<img src={wallPaperUrlRes.val}
+        if (wallPaperUrlRes.ok) setWallpaperPreview(<img src={wallPaperUrlRes.val} alt="wallpaper"
                                                          className="config__wallpaper-preview"/>)
       })
   }, [])

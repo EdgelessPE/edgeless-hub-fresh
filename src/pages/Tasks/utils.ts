@@ -1,14 +1,15 @@
-import {PluginDataLocal} from "@/class";
+import {FileNodePackageLocal} from "@/classes/local";
 
-function isDisabled(local: PluginDataLocal): boolean {
-  return local.attr?.includes("f") ?? false
+
+function isDisabled(local: FileNodePackageLocal): boolean {
+  return local.flags?.has("f") ?? false
 }
 
-function isLocalBoost(local: PluginDataLocal): boolean {
-  return local.attr?.includes("l") ?? false
+function isLocalBoost(local: FileNodePackageLocal): boolean {
+  return local.flags?.has("l") ?? false
 }
 
-function calcStatusWeight(data: PluginDataLocal): number {
+function calcStatusWeight(data: FileNodePackageLocal): number {
   let weight = 0
   if (isDisabled(data)) weight += 10
   if (isLocalBoost(data)) weight += 1

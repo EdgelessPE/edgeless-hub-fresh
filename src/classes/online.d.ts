@@ -79,11 +79,11 @@ interface HelloResponse {
 }
 
 interface AlphaResponse {
-  kernel_wim: FileNodeOnline;
+  kernel_wim: FileNodeOnline | null;
   cover: {
     lower_than: string;
     url: string;
-  };
+  } | null;
 }
 
 export {

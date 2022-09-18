@@ -76,6 +76,7 @@ const states: StateInfo<State>[] = [
     state: "Thrown",
     step: 4,
     tabContent: TabThrown,
+    isBranch: true,
   },
 ];
 const steps = ["准备文件", "更新 Ventoy", "更新 Edgeless"];

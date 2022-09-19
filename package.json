@@ -22,6 +22,7 @@
     "history": "^5.3.0",
     "react-router-dom": "6",
     "rxjs": "^7.5.6",
+    "ts-node": "^10.9.1",
     "ts-results": "^3.3.0"
   },
   "devDependencies": {

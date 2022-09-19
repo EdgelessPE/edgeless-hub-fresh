@@ -1,4 +1,5 @@
 import {Integrity} from "./index";
+import {Drive} from "drivelist";
 
 interface FileNodePackageLocal {
   name: string;
@@ -23,4 +24,6 @@ interface VentoyLocal {
   secureBoot: boolean;
 }
 
-export { FileNodePackageLocal, FileNodeLocal, VentoyLocal };
+type DiskRaw = Drive
+
+export {FileNodePackageLocal, FileNodeLocal, VentoyLocal, DiskRaw};

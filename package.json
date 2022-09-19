@@ -8,7 +8,8 @@
   "scripts": {
     "dev": "vite",
     "build": "tsc && vite build && electron-builder",
-    "fmt": "prettier --write ."
+    "fmt": "prettier --write .",
+    "gen": "ts-node scripts/genSchema.ts"
   },
   "engines": {
     "node": ">=14.17.0"
@@ -34,6 +35,7 @@
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
     "sass": "^1.53.0",
+    "ts-json-schema-generator": "^1.0.0",
     "typescript": "^4.7.4",
     "vite": "^3.0.2",
     "vite-plugin-electron": "^0.8.1"

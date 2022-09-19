@@ -1,9 +1,9 @@
-import {patch} from "./utils";
+import {patch} from "./patch";
 import {initial} from "./initial";
 import {expect, test} from "@jest/globals"
 
 test("patch", () => {
-  expect(patch({}, initial)).toBe(initial)
+  expect(patch({}, initial)).toEqual(initial)
   expect(patch({
     ept: {
       mirror: {
@@ -13,7 +13,7 @@ test("patch", () => {
       }
     },
     theme: "light"
-  }, initial)).toBe({
+  }, initial)).toEqual({
     ept: {
       mirror: {
         pool: {

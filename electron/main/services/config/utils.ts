@@ -5,6 +5,7 @@ import {Config} from "./type";
 import Ajv from "ajv";
 import {initial} from "./initial";
 import {log} from "../../log";
+import {patch} from "./patch";
 
 const Schema = require("schema/config.json")
 const ajv = new Ajv()
@@ -34,22 +35,6 @@ export function read(): Result<Config, string> {
   }
 }
 
-function patch(raw: any, patch: any): any {
-  for (const key of patch) {
-    if (!raw.hasOwnProperty(key)) {
-      raw[key] = patch[key]
-    } else {
-      const rawVal = raw[key], patchVal = patch[key]
-      if (typeof rawVal != typeof patchVal) {
-        //类型不一致，直接放弃patch并可能会在后续的validate中抛出错误
-        return raw
-      } else if (typeof rawVal == "object") {
-        raw[key] = patch(rawVal, patchVal)
-      }
-    }
-  }
-  return raw
-}
 
 function valid(dirty: any): Result<null, string> {
   validator.errors = undefined
@@ -59,8 +44,4 @@ function valid(dirty: any): Result<null, string> {
   } else {
     return new Err(`Error:Can't valid ${CONFIG_PATH} as config : ${validator.errors!.toString()}`)
   }
-}
-
-export {
-  patch
 }

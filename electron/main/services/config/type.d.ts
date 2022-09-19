@@ -1,10 +1,10 @@
-import {PropertyOnline, ServiceNode} from "../../../../types/online";
-import {Theme} from "../../../../types/theme";
+import {PropertyOnline, ServiceNode} from "types/online";
+import {Theme} from "types/theme";
 
 export interface Config {
   ept: {
     mirror: {
-      current: string,
+      current: string | null,
       pool: Record<string, MirrorLocal>
     },
   }

@@ -12,7 +12,10 @@
               "type": "object",
               "properties": {
                 "current": {
-                  "type": "string"
+                  "type": [
+                    "string",
+                    "null"
+                  ]
                 },
                 "pool": {
                   "type": "object",

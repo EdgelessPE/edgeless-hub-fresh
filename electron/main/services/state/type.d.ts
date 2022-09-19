@@ -1,5 +1,5 @@
 import {Config} from "../config/type";
-import {DiskRaw, VentoyLocal} from "../../../../types/local";
+import {DiskRaw, VentoyLocal} from "types/local";
 
 interface State {
   config: Config

@@ -1,22 +1,18 @@
-import { NaiveDescription } from "@/components/molecules/NaiveDescription";
-import { formatSize, parsePackageName } from "@/utils";
+import {NaiveDescription} from "@/components/molecules/NaiveDescription";
+import {formatSize, parsePackageName} from "@/utils";
 import React from "react";
-import { Dropdown, Menu, Tag } from "@arco-design/web-react";
-import {
-  IconCaretDown,
-  IconCaretUp,
-  IconMinusCircle,
-} from "@arco-design/web-react/icon";
-import { isDisabled, isLocalBoost } from "@/pages/Tasks/utils";
-import { FileNodePackageLocal } from "@/classes/local";
-import { FileNodePackageOnline } from "@/classes/online";
+import {Dropdown, Menu, Tag} from "@arco-design/web-react";
+import {IconCaretDown, IconCaretUp, IconMinusCircle,} from "@arco-design/web-react/icon";
+import {isDisabled, isLocalBoost} from "@/pages/Tasks/utils";
+import {FileNodePackageLocal} from "@/../../../classes/local";
+import {FileNodePackageOnline} from "@/../../../classes/online";
 
 interface Props {
   online: FileNodePackageOnline;
   local: FileNodePackageLocal;
 }
 
-export const CardUpdate = ({ local, online }: Props) => {
+export const CardUpdate = ({local, online}: Props) => {
   const parsedOnline = parsePackageName(online.name).unwrap(),
     parsedLocal = parsePackageName(local.name).unwrap(),
     disabled = isDisabled(local),

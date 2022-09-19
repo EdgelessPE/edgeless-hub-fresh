@@ -1,18 +1,12 @@
-import { useParams } from "react-router-dom";
+import {useParams} from "react-router-dom";
 import "./index.scss";
-import {
-  Divider,
-  PageHeader,
-  Popover,
-  Statistic,
-  Tag,
-} from "@arco-design/web-react";
-import { formatSize, formatTimestamp, parsePackageName } from "@/utils";
-import { PluginSmartButton } from "@/components/organisms/PluginSmartButton";
+import {Divider, PageHeader, Popover, Statistic, Tag,} from "@arco-design/web-react";
+import {formatSize, formatTimestamp, parsePackageName} from "@/utils";
+import {PluginSmartButton} from "@/components/organisms/PluginSmartButton";
 import React from "react";
-import { Webview } from "@/components/organisms/Webview";
-import { SizeAlert } from "@/components/molecules/SizeAlert";
-import { FileNodePackageOnline } from "@/classes/online";
+import {Webview} from "@/components/organisms/Webview";
+import {SizeAlert} from "@/components/molecules/SizeAlert";
+import {FileNodePackageOnline} from "@/../../../classes/online";
 
 function getPluginData(
   category: string,

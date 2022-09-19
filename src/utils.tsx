@@ -1,5 +1,5 @@
-import { Err, Ok, Result } from "ts-results";
-import { PluginParsedFullName } from "@/classes";
+import {Err, Ok, Result} from "ts-results";
+import {PluginParsedFullName} from "@/../classes";
 import bridge from "@/bridge";
 
 function log(text: string) {

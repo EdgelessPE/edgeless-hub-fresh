@@ -1,13 +1,8 @@
-import { PluginParsedFullName, TaskStatus } from "@/classes";
+import {PluginParsedFullName, TaskStatus} from "@/../../../classes";
 import React from "react";
-import { ButtonWithIcon } from "@/components/atoms/ButtonWithIcon";
-import {
-  ArrowUpOutlined,
-  CheckOutlined,
-  CloudDownloadOutlined,
-  LoadingOutlined,
-} from "@ant-design/icons";
-import { Progress } from "@arco-design/web-react";
+import {ButtonWithIcon} from "@/components/atoms/ButtonWithIcon";
+import {ArrowUpOutlined, CheckOutlined, CloudDownloadOutlined, LoadingOutlined,} from "@ant-design/icons";
+import {Progress} from "@arco-design/web-react";
 
 function getDownloadingText(percentage: number) {
   return `下载中 ${percentage}%`;

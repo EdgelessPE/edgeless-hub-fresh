@@ -1,7 +1,7 @@
-import { ipcMain } from "electron";
-import { BridgeReply, BridgeRequest } from "../class";
+import {ipcMain} from "electron";
+import {BridgeReply, BridgeRequest} from "../type";
 import log from "./log";
-import { getLocalImageSrc } from "./utils";
+import {getLocalImageSrc} from "./utils";
 
 const registry: { [name: string]: (...args: any) => any } = {
   log,

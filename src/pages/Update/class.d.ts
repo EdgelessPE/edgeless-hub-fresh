@@ -1,5 +1,5 @@
 import {TabProps} from "@/components/organisms/StateMachineTabs/class";
-import {KernelLocal, KernelOnline, VentoyLocal, VentoyOnline,} from "@/../../../classes";
+import {KernelLocal, KernelOnline, VentoyLocal, VentoyOnline,} from "types";
 
 type State =
   | "Checking"

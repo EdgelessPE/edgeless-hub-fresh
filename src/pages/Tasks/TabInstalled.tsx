@@ -4,7 +4,7 @@ import {formatSize} from "@/utils";
 import {sizeAlertConstants} from "@/constants";
 import {Checkbox, Select, Tag} from "@arco-design/web-react";
 import {calcStatusWeight, isDisabled, isLocalBoost,} from "@/pages/Tasks/utils";
-import {FileNodePackageLocal} from "@/../../../classes/local";
+import {FileNodePackageLocal} from "types/local";
 
 export interface TabInstalledProps {
   array: FileNodePackageLocal[];

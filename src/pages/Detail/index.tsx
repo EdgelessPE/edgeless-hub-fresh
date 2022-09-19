@@ -6,7 +6,7 @@ import {PluginSmartButton} from "@/components/organisms/PluginSmartButton";
 import React from "react";
 import {Webview} from "@/components/organisms/Webview";
 import {SizeAlert} from "@/components/molecules/SizeAlert";
-import {FileNodePackageOnline} from "@/../../../classes/online";
+import {FileNodePackageOnline} from "types/online";
 
 function getPluginData(
   category: string,

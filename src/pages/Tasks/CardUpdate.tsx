@@ -4,8 +4,8 @@ import React from "react";
 import {Dropdown, Menu, Tag} from "@arco-design/web-react";
 import {IconCaretDown, IconCaretUp, IconMinusCircle,} from "@arco-design/web-react/icon";
 import {isDisabled, isLocalBoost} from "@/pages/Tasks/utils";
-import {FileNodePackageLocal} from "@/../../../classes/local";
-import {FileNodePackageOnline} from "@/../../../classes/online";
+import {FileNodePackageLocal} from "types/local";
+import {FileNodePackageOnline} from "types/online";
 
 interface Props {
   online: FileNodePackageOnline;

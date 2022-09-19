@@ -1,11 +1,11 @@
-import { ipcRenderer } from "electron";
-import { BridgeReply, BridgeRequest } from "../electron/class";
+import {ipcRenderer} from "electron";
+import {BridgeReply, BridgeRequest} from "../electron/type";
 
 let taskCount = 0;
 
 export default async function (
-  functionName: string,
-  ...args: any
+    functionName: string,
+    ...args: any
 ): Promise<any> {
   return new Promise((resolve) => {
     //获取任务id

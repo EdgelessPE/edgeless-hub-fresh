@@ -5,8 +5,8 @@ import {ArrowUpOutlined} from "@ant-design/icons";
 import {formatSize} from "@/utils";
 import {Checkbox} from "@arco-design/web-react";
 import {calcStatusWeight, isDisabled} from "@/pages/Tasks/utils";
-import {FileNodePackageLocal} from "@/../../../classes/local";
-import {FileNodePackageOnline} from "@/../../../classes/online";
+import {FileNodePackageLocal} from "types/local";
+import {FileNodePackageOnline} from "types/online";
 
 export interface TabUpgradableProps {
   array: {

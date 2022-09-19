@@ -1,7 +1,7 @@
 import { CardDownload } from "@/pages/Tasks/CardDownload";
 import React from "react";
-import { TaskStatus } from "@/classes";
-import { FileNodePackageOnline } from "@/classes/online";
+import { TaskStatus } from "types";
+import { FileNodePackageOnline } from "types/online";
 
 export interface TabRunningProps {
   array: {

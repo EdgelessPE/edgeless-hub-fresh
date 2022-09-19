@@ -1,7 +1,7 @@
 import "./index.scss";
 import PluginCard from "@/pages/Category/PluginCard";
 import React from "react";
-import { FileNodePackageOnline } from "@/classes/online";
+import { FileNodePackageOnline } from "types/online";
 
 function renderPluginCards(
   plugins: FileNodePackageOnline[],

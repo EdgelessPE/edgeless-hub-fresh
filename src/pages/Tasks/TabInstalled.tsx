@@ -8,7 +8,7 @@ import {
   isDisabled,
   isLocalBoost,
 } from "@/pages/Tasks/utils";
-import { FileNodePackageLocal } from "@/classes/local";
+import { FileNodePackageLocal } from "types/local";
 
 export interface TabInstalledProps {
   array: FileNodePackageLocal[];

@@ -1,4 +1,4 @@
-import { PluginParsedFullName, TaskStatus } from "@/classes";
+import { PluginParsedFullName, TaskStatus } from "types";
 import React from "react";
 import { ButtonWithIcon } from "@/components/atoms/ButtonWithIcon";
 import {

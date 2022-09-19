@@ -1,4 +1,4 @@
-import { FileNodePackageLocal } from "@/classes/local";
+import { FileNodePackageLocal } from "types/local";
 
 function isDisabled(local: FileNodePackageLocal): boolean {
   return local.flags?.has("f") ?? false;

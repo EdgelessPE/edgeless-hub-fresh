@@ -14,6 +14,12 @@
       ],
       "styles/*": [
         "src/assets/styles/*"
+      ],
+      "types/*": [
+        "types/*"
+      ],
+      "schema/*": [
+        "schema/*"
       ]
     },
     "allowJs": false,
@@ -25,7 +31,7 @@
     "module": "es2020",
     "moduleResolution": "Node",
     "resolveJsonModule": true,
-    "isolatedModules": true,
+    "isolatedModules": false,
     "noEmit": true,
     "jsx": "react-jsx"
   },

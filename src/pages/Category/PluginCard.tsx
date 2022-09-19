@@ -5,7 +5,7 @@ import React from "react";
 import { formatSize, parsePackageName } from "@/utils";
 import { PluginSmartButton } from "@/components/organisms/PluginSmartButton";
 import { myHistory } from "@/router/history";
-import { FileNodePackageOnline } from "@/classes/online";
+import { FileNodePackageOnline } from "types/online";
 
 interface Prop {
   data: FileNodePackageOnline;

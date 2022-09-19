@@ -4,7 +4,7 @@ import React from "react";
 import { Dropdown, Menu, Tag } from "@arco-design/web-react";
 import { SizeAlert } from "@/components/molecules/SizeAlert";
 import { isDisabled, isLocalBoost } from "@/pages/Tasks/utils";
-import { FileNodePackageLocal } from "@/classes/local";
+import { FileNodePackageLocal } from "types/local";
 
 interface Props {
   local: FileNodePackageLocal;

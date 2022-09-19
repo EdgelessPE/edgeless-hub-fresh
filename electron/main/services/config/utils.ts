@@ -6,8 +6,8 @@ import Ajv from "ajv";
 import {initial} from "./initial";
 import {log} from "../../log";
 import {patch} from "./patch";
+import Schema from "schema/config.json"
 
-const Schema = require("schema/config.json")
 const ajv = new Ajv()
 const validator = ajv.compile(Schema.definitions.Config)
 
@@ -42,6 +42,6 @@ function valid(dirty: any): Result<null, string> {
   if (res) {
     return new Ok(null)
   } else {
-    return new Err(`Error:Can't valid ${CONFIG_PATH} as config : ${validator.errors!.toString()}`)
+    return new Err(`Error:Can't valid ${CONFIG_PATH} as config : ${validator.errors!.join(",").toString()}`)
   }
 }

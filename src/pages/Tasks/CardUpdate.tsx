@@ -1,5 +1,4 @@
 import { NaiveDescription } from "@/components/molecules/NaiveDescription";
-import { formatSize, parsePackageName } from "@/utils";
 import React from "react";
 import { Dropdown, Menu, Tag } from "@arco-design/web-react";
 import {
@@ -10,6 +9,8 @@ import {
 import { isDisabled, isLocalBoost } from "@/pages/Tasks/utils";
 import { FileNodePackageLocal } from "types/local";
 import { FileNodePackageOnline } from "types/online";
+import { parsePackageName } from "@/utils/parser";
+import { formatSize } from "@/utils/formatter";
 
 interface Props {
   online: FileNodePackageOnline;

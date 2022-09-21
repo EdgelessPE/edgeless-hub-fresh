@@ -1,6 +1,6 @@
 import { CardInstalled } from "@/pages/Tasks/CardInstalled";
 import React, { useEffect, useState } from "react";
-import { formatSize } from "@/utils";
+import { formatSize } from "@/utils/formatter";
 import { sizeAlertConstants } from "@/constants";
 import { Checkbox, Select, Tag } from "@arco-design/web-react";
 import {

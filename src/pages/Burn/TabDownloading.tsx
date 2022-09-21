@@ -6,7 +6,7 @@ import {
   NaiveProgressBar,
   NaiveProgressBarTask,
 } from "@/components/molecules/NaiveProgressBar";
-import { formatSize } from "@/utils";
+import { formatSize } from "@/utils/formatter";
 
 export const TabDownloading = ({ next, sharedState }: BurnTabProps) => {
   const emptyTask: NaiveProgressBarTask = {

@@ -2,10 +2,11 @@ import { Card, Space, Tooltip } from "@arco-design/web-react";
 import { CiCircleOutlined } from "@ant-design/icons";
 import { NaiveDescription } from "@/components/molecules/NaiveDescription";
 import React from "react";
-import { formatSize, parsePackageName } from "@/utils";
 import { PluginSmartButton } from "@/components/organisms/PluginSmartButton";
 import { myHistory } from "@/router/history";
 import { FileNodePackageOnline } from "types/online";
+import { parsePackageName } from "@/utils/parser";
+import { formatSize } from "@/utils/formatter";
 
 interface Prop {
   data: FileNodePackageOnline;

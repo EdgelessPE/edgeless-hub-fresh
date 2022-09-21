@@ -1,8 +1,8 @@
 import React, { useState } from "react";
 import { Props, StateInfo, StateMachineNode, TabProps } from "./class";
 import { Button, Steps } from "@arco-design/web-react";
-import { log } from "@/utils";
 import "./index.scss";
+import { log } from "@/utils/log";
 
 export const sharedState = new Map<string, any>(); //TODO:检查是否存在变量共用污染
 

@@ -5,7 +5,7 @@ import {
   NaiveProgressBarTask,
 } from "@/components/molecules/NaiveProgressBar";
 import { useState } from "react";
-import { formatSize } from "@/utils";
+import { formatSize } from "@/utils/formatter";
 import { UpdateTabProps } from "./types";
 
 type TaskInfo = NaiveProgressBarTask & { enable: boolean };

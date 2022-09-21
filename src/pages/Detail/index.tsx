@@ -7,12 +7,13 @@ import {
   Statistic,
   Tag,
 } from "@arco-design/web-react";
-import { formatSize, formatTimestamp, parsePackageName } from "@/utils";
 import { PluginSmartButton } from "@/components/organisms/PluginSmartButton";
 import React from "react";
 import { Webview } from "@/components/organisms/Webview";
 import { SizeAlert } from "@/components/molecules/SizeAlert";
 import { FileNodePackageOnline } from "types/online";
+import { parsePackageName } from "@/utils/parser";
+import { formatSize, formatTimestamp } from "@/utils/formatter";
 
 function getPluginData(
   category: string,

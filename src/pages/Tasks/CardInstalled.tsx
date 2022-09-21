@@ -1,10 +1,11 @@
 import { NaiveDescription } from "@/components/molecules/NaiveDescription";
-import { formatSize, parsePackageName } from "@/utils";
 import React from "react";
 import { Dropdown, Menu, Tag } from "@arco-design/web-react";
 import { SizeAlert } from "@/components/molecules/SizeAlert";
 import { isDisabled, isLocalBoost } from "@/pages/Tasks/utils";
 import { FileNodePackageLocal } from "types/local";
+import { parsePackageName } from "@/utils/parser";
+import { formatSize } from "@/utils/formatter";
 
 interface Props {
   local: FileNodePackageLocal;

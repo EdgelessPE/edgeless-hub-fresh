@@ -1,5 +1,5 @@
 import { Progress } from "@arco-design/web-react";
-import { formatSize } from "@/utils";
+import { formatSize } from "@/utils/formatter";
 import React from "react";
 import { colorfulProgressBar } from "@/constants";
 

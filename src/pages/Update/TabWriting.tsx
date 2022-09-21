@@ -1,7 +1,7 @@
 import { DeploymentUnitOutlined } from "@ant-design/icons";
 import { Button, Progress } from "@arco-design/web-react";
 import { colorfulProgressBar } from "@/constants";
-import { formatSize } from "@/utils";
+import { formatSize } from "@/utils/formatter";
 import { useState } from "react";
 import { UpdateTabProps } from "./types";
 

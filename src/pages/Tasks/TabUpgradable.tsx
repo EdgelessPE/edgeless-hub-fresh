@@ -2,7 +2,7 @@ import { CardUpdate } from "@/pages/Tasks/CardUpdate";
 import React, { useState } from "react";
 import { ButtonWithIcon } from "@/components/atoms/ButtonWithIcon";
 import { ArrowUpOutlined } from "@ant-design/icons";
-import { formatSize } from "@/utils";
+import { formatSize } from "@/utils/formatter";
 import { Checkbox } from "@arco-design/web-react";
 import { calcStatusWeight, isDisabled } from "@/pages/Tasks/utils";
 import { FileNodePackageLocal } from "types/local";

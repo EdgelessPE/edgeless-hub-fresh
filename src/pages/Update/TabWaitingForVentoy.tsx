@@ -2,7 +2,7 @@ import { IconBulb } from "@arco-design/web-react/icon";
 import { Button, Popconfirm, Space, Spin } from "@arco-design/web-react";
 import React from "react";
 import { UpdateTabProps } from "./types";
-import { log } from "@/utils";
+import { log } from "@/utils/log";
 
 function launchVentoy() {
   log("Info:Launch ventoy");

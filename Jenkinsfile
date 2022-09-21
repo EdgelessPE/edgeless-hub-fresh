@@ -7,7 +7,7 @@ pipeline {
       }
       steps {
         sh 'yarn'
-        sh 'yarn build:linux'
+        sh 'yarn build:linux -p=never'
       }
     }
 

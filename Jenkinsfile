@@ -1,15 +1,14 @@
 pipeline {
   agent any
-  when {
-    branch 'master'
-  }
   stages {
     stage('Build') {
+      when {
+        branch 'master'
+      }
       steps {
         sh 'yarn'
         sh 'yarn build'
       }
     }
-
   }
 }

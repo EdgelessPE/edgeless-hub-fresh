@@ -10,5 +10,6 @@ pipeline {
         sh 'yarn build:linux'
       }
     }
+
   }
 }

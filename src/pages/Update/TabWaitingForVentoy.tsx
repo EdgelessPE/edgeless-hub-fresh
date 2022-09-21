@@ -1,7 +1,7 @@
 import { IconBulb } from "@arco-design/web-react/icon";
 import { Button, Popconfirm, Space, Spin } from "@arco-design/web-react";
 import React from "react";
-import { UpdateTabProps } from "./class";
+import { UpdateTabProps } from "./types";
 import { log } from "@/utils";
 
 function launchVentoy() {

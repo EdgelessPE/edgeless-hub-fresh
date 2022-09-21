@@ -1,6 +1,6 @@
 import { FileSearchOutlined } from "@ant-design/icons";
 import { Button, Spin } from "@arco-design/web-react";
-import { AlphaTabProps } from "./class";
+import { AlphaTabProps } from "./types";
 
 export const TabValidating = ({ next, sharedState }: AlphaTabProps) => {
   return (

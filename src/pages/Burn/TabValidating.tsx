@@ -1,6 +1,6 @@
 import { FileSearchOutlined } from "@ant-design/icons";
 import { Button, Spin } from "@arco-design/web-react";
-import { BurnTabProps } from "@/pages/Burn/class";
+import { BurnTabProps } from "./types";
 
 export const TabValidating = ({ next, sharedState }: BurnTabProps) => {
   return (

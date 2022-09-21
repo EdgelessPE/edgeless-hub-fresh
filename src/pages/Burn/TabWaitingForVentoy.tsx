@@ -1,4 +1,4 @@
-import { BurnTabProps } from "@/pages/Burn/class";
+import { BurnTabProps } from "./types";
 import { IconBulb } from "@arco-design/web-react/icon";
 import { Button, Popconfirm, Space, Spin } from "@arco-design/web-react";
 import React from "react";

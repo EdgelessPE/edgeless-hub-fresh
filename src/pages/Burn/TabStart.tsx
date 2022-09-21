@@ -6,7 +6,7 @@ import {
   IconThunderbolt,
 } from "@arco-design/web-react/icon";
 import React from "react";
-import { BurnTabProps } from "./class";
+import { BurnTabProps } from "./types";
 
 export const TabStart = ({ next, sharedState }: BurnTabProps) => {
   const confirmCleanCache = () => {

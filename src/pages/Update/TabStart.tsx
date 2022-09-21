@@ -1,5 +1,5 @@
 import { FireOutlined } from "@ant-design/icons";
-import { UpdateKernel, UpdateTabProps, UpdateVentoy } from "./class";
+import { UpdateKernel, UpdateTabProps, UpdateVentoy } from "./types";
 import { Button } from "@arco-design/web-react";
 
 export const TabStart = ({ next, sharedState }: UpdateTabProps) => {

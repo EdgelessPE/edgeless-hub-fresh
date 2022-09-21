@@ -7,9 +7,9 @@ import {
 } from "@arco-design/web-react";
 import { useState } from "react";
 import { LockOutlined } from "@ant-design/icons";
-import { AlphaTabProps } from "@/pages/Alpha/class";
+import { AlphaTabProps } from "./types";
 import { IconCloseCircle } from "@arco-design/web-react/icon";
-import { FileNodeLocal } from "@/classes/local";
+import { FileNodeLocal } from "types/local";
 
 const kernelLocal: FileNodeLocal = {
     name: "Edgeless_Beta_4.1.0.iso",

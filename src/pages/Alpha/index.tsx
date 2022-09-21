@@ -1,6 +1,6 @@
 import { StateInfo } from "@/components/organisms/StateMachineTabs/class";
 import { StateMachineTabs } from "@/components/organisms/StateMachineTabs";
-import { State } from "./class";
+import { State } from "./types";
 import { TabInput } from "./TabInput";
 import { TabThrown } from "./TabThrown";
 import { TabEmpty } from "./TabEmpty";

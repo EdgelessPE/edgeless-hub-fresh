@@ -1,6 +1,6 @@
 import { CloudSyncOutlined } from "@ant-design/icons";
 import { Button, Spin } from "@arco-design/web-react";
-import { UpdateTabProps } from "./class";
+import { UpdateTabProps } from "./types";
 import { FileNodeLocal } from "types/local";
 
 export const TabChecking = ({ next, sharedState }: UpdateTabProps) => {

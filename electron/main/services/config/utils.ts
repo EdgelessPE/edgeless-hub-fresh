@@ -51,7 +51,7 @@ function valid(dirty: any): Result<null, string> {
   }
 }
 
-function patch(rawJson: any, patchJson: any): any {
+function patch<T>(rawJson: T, patchJson: any): T {
   for (const key in patchJson) {
     if (!rawJson.hasOwnProperty(key)) {
       rawJson[key] = patchJson[key];
@@ -90,4 +90,4 @@ async function write(config: Config): Promise<Result<null, string>> {
   });
 }
 
-export { read, write };
+export { read, write, patch, valid };

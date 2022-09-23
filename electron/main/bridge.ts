@@ -4,7 +4,7 @@ import { innerLog } from "./log";
 import { getLocalImageSrc } from "./utils";
 
 const registry: { [name: string]: (...args: any) => any } = {
-  log: innerLog,
+  innerLog,
   getLocalImageSrc,
 };
 

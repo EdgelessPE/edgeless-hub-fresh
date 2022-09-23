@@ -6,26 +6,26 @@ function log(text: string) {
     switch (s[0]) {
       case "Info":
         console.log(text);
-        bridge("log", "Info", text);
+        bridge("innerLog", "Info", text);
         break;
       case "Warning":
-        bridge("log", "Warning", text);
+        bridge("innerLog", "Warning", text);
         // electronLog.warn(text)
         console.warn(text);
         break;
       case "Error":
-        bridge("log", "Error", text);
+        bridge("innerLog", "Error", text);
         // electronLog.error(text)
         console.error(text);
         break;
       default:
-        bridge("log", "Info", text);
+        bridge("innerLog", "Info", text);
         // electronLog.info(text)
         console.log(text);
         break;
     }
   } else {
-    bridge("log", "Info", text);
+    bridge("innerLog", "Info", text);
     console.log(text);
   }
 }

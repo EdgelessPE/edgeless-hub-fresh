@@ -15,18 +15,18 @@ export default async function (
       if (reply.id != id) return;
       else {
         resolve(reply.payload);
-        ipcRenderer.removeListener("bridge-reply", callback);
+        ipcRenderer.removeListener("_bridge-reply", callback);
         return;
       }
     };
     //监听回调
-    ipcRenderer.on("bridge-reply", callback);
+    ipcRenderer.on("_bridge-reply", callback);
     //发送
     const req: BridgeRequest = {
       id,
       args,
       functionName,
     };
-    ipcRenderer.send("bridge", req);
+    ipcRenderer.send("_bridge", req);
   });
 }

@@ -4,7 +4,7 @@ import { join } from "path";
 import installExtension, {
   REACT_DEVELOPER_TOOLS,
 } from "electron-devtools-installer";
-import bridge from "./bridge";
+import bridge from "./services/bridge";
 
 if (release().startsWith("6.1")) app.disableHardwareAcceleration();
 

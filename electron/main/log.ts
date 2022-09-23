@@ -8,7 +8,7 @@ const date = new Date();
 electronLog.transports.file.resolvePath = () =>
   path.join(
     process.cwd(),
-
+    "log",
     `${date.getFullYear()}_${date.getMonth()}_${date.getDate()}.txt`
   );
 

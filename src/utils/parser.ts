@@ -1,6 +1,6 @@
 import { Err, Ok, Result } from "ts-results";
-import { PluginParsedFullName } from "types/index";
 import { log } from "@/utils/log";
+import { PluginParsedFullName } from "../../types";
 
 function parsePackageName(
   fullName: string

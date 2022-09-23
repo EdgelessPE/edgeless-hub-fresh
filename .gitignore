@@ -25,3 +25,4 @@ dist-ssr
 release
 .vscode/.debug.env
 pnpm-lock.yaml
+/config.json

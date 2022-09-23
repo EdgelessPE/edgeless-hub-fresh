@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { Button, Layout } from "@arco-design/web-react";
+import { Button, Layout, Message } from "@arco-design/web-react";
 import { Routes } from "react-router-dom";
 import "@arco-design/web-react/dist/css/arco.css";
 
@@ -12,6 +12,7 @@ import { Logo } from "@/components/layout/Logo";
 import { Header } from "@/components/layout/Header";
 import { IconSettings } from "@arco-design/web-react/icon";
 import { BrowserHistory } from "history";
+import { ipcRenderer } from "electron";
 
 const Sider = Layout.Sider;
 const Content = Layout.Content;
@@ -59,6 +60,14 @@ const App: React.FC = () => {
     }
     setCollapsed((prev) => !prev);
   };
+
+  // 向主进程通知进行初始化并监听是否初始化失败
+  useEffect(() => {
+    ipcRenderer.on("_init-error", (event, msg) => {
+      Message.error(msg);
+    });
+    ipcRenderer.send("_init");
+  }, []);
 
   return (
     <Layout className="app">

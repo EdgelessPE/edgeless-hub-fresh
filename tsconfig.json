@@ -15,12 +15,6 @@
       "styles/*": [
         "src/assets/styles/*"
       ],
-      "types/*": [
-        "types/*"
-      ],
-      "schema/*": [
-        "schema/*"
-      ]
     },
     "allowJs": false,
     "skipLibCheck": true,

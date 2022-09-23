@@ -21,6 +21,7 @@ async function getObservableConfig(): Promise<
     const update = (config: Config) => {
       subscriber.next(config);
       cfg = config;
+      setObservableConfig(config);
     };
     update(res.unwrap());
     watch(CONFIG_PATH, async () => {
@@ -75,3 +76,10 @@ async function setObservableConfig(
 
   return write(resultConfig);
 }
+
+export {
+  getObservableConfig,
+  setObservableConfig,
+  patchObservableConfig,
+  modifyObservableConfig,
+};

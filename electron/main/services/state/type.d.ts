@@ -1,5 +1,5 @@
 import { Config } from "../config/type";
-import { DiskRaw, VentoyLocal } from "types/local";
+import { VentoyLocal } from "../../../../types/local";
 
 interface State {
   config: Config;
@@ -11,6 +11,6 @@ interface State {
 
 interface Disk {
   letter: string;
-  rawInfo: DiskRaw;
+  rawInfo: {}; //TODO:补充raw信息
   ventoyInfo: VentoyLocal;
 }

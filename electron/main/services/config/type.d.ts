@@ -1,5 +1,5 @@
-import { PropertyOnline, ServiceNode } from "types/online";
-import { Theme } from "types/theme";
+import { Theme } from "../../../../types/theme";
+import { PropertyOnline, ServiceNode } from "../../../../types/online";
 
 export interface Config {
   ept: {

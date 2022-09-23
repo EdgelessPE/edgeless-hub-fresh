@@ -5,11 +5,11 @@ import { Config } from "./type";
 import Ajv from "ajv";
 import { initial } from "./initial";
 import { log } from "../../log";
-import Schema from "schema/config.json";
+import Schema from "../../../schema/config.json";
 import path from "path";
 
 const ajv = new Ajv();
-const validator = ajv.compile(Schema.definitions.Config);
+const validator = ajv.compile(Schema);
 
 async function read(): Promise<Result<Config, string>> {
   return new Promise((resolve) => {

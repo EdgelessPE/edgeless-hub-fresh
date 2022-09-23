@@ -5,19 +5,12 @@
     "moduleResolution": "Node",
     "resolveJsonModule": true,
     "allowSyntheticDefaultImports": true,
-    "paths": {
-      "types/*": [
-        "types/*"
-      ],
-      "schema/*": [
-        "schema/*"
-      ]
-    }
+    "paths": {}
   },
   "include": [
     "vite.config.ts",
     "package.json",
     "electron",
-    "schema/*.json"
+    "electron/schema/*.json"
   ]
 }

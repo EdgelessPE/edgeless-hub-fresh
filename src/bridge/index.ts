@@ -1,5 +1,5 @@
 import { ipcRenderer } from "electron";
-import { BridgeReply, BridgeRequest } from "../electron/type";
+import { BridgeReply, BridgeRequest } from "../../electron/types";
 
 let taskCount = 0;
 

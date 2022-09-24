@@ -22,7 +22,7 @@ export default async function (): Promise<Result<null, string>> {
   // 创建用于保存最后一次值的 map
   const recentMap = new Map<string, any>();
 
-  //代理订阅全部 Observable 并将其发送到 ipc 上
+  //代理订阅全部 Observable 并将其更新发送到 ipc 上
   for (const key in register) {
     const observable = register[key];
     recentMap.set(key, null);
@@ -40,11 +40,15 @@ export default async function (): Promise<Result<null, string>> {
     if (!recentMap.has(key)) {
       log(`Error:Fatal:Try to subscribe to a unknown observable : ${key}`);
       return;
+    } else {
+      const value = recentMap.get(key);
+      if (value != null) {
+        event.reply("_bridge_observable-update", {
+          key,
+          value,
+        });
+      }
     }
-    event.reply("_bridge_observable-update", {
-      key,
-      value: recentMap.get(key),
-    });
   });
 
   return new Ok(null);

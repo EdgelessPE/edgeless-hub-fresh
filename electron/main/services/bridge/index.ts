@@ -1,5 +1,5 @@
 import { ipcMain } from "electron";
-import { BridgeReply, BridgeRequest } from "../../../type";
+import { BridgeReply, BridgeRequest } from "../../../types";
 import { innerLog } from "../../log";
 import { getLocalImageSrc } from "../../utils";
 import observableBridge from "./observable";

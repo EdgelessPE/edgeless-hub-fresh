@@ -3,10 +3,10 @@ import { BridgeReply, BridgeRequest } from "../../types/bridge";
 
 let taskCount = 0;
 
-export default async function (
+export default async function <T>(
   functionName: string,
   ...args: any
-): Promise<any> {
+): Promise<T> {
   return new Promise((resolve) => {
     //获取任务id
     const id = taskCount++;

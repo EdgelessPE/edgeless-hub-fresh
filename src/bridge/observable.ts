@@ -24,7 +24,7 @@ function init() {
 
 function addListener(key: string, listener: Listener) {
   if (listenerMap.has(key)) {
-    console.log(`Warning:Duplicated listener add call : ${key}`);
+    log(`Warning:Duplicated listener add call : ${key}`);
   }
   listenerMap.set(key, listener);
 }
@@ -33,7 +33,6 @@ function createBridgeObservable<T>(key: string): Observable<T> {
   ipcRenderer.send("_bridge_observable-subscribe", key);
   return new Observable<T>((subscriber) => {
     const listener: Listener = (update) => {
-      console.log("Debug:Receive update", update);
       switch (update.type) {
         case "next":
           subscriber.next(update.value);

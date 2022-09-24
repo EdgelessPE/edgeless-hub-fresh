@@ -30,6 +30,7 @@ async function getObservableConfig(): Promise<
       if (res.ok) {
         update(res.val);
       } else {
+        // TODO:使用 Result 类型以方便重置配置
         subscriber.error(res.val);
         // cfg=null
         log(`Error:Can't read config from filesystem change : ${res.val}`);

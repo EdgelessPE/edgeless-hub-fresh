@@ -21,7 +21,7 @@ export default function () {
     let entry = callMap.get(req.functionName);
     if (entry == null) {
       const reply = `Error:Fatal:Function "${req.functionName}" unregistered!`;
-      console.log(reply);
+      // console.log(reply);
       event.reply("_bridge-reply", {
         id: req.id,
         payload: reply,

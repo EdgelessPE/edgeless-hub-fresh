@@ -1,7 +1,7 @@
 import fs from "fs";
 import { CONFIG_PATH } from "../../constants";
 import { Err, Ok, Result } from "ts-results";
-import { Config } from "./type";
+import { Config } from "../../../../types/config";
 import Ajv from "ajv";
 import { initial } from "./initial";
 import { log } from "../../log";

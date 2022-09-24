@@ -1,15 +1,13 @@
 import { ipcMain } from "electron";
-import { BridgeReply, BridgeRequest } from "../../../types";
+import { BridgeReply, BridgeRequest } from "../../../../types/bridge";
 import { innerLog } from "../../log";
 import { getLocalImageSrc } from "../../utils";
-import observableBridge from "./observable";
 
 const registry: Record<string, (...args: any) => any> = {
   innerLog,
   getLocalImageSrc,
 };
 
-let initObservableBridge = true;
 
 export default function () {
   //创建调用地图
@@ -35,17 +33,6 @@ export default function () {
           payload,
         };
       event.reply("_bridge-reply", reply);
-    }
-  });
-
-  //当渲染进程就绪时初始化 observable bridge
-  ipcMain.on("_init", async (event) => {
-    if (initObservableBridge) {
-      initObservableBridge = false;
-      const initRes = await observableBridge();
-      if (initRes.err) {
-        event.reply("_init-error", initRes.val);
-      }
     }
   });
 }

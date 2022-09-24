@@ -1,4 +1,4 @@
-import { Config } from "../config/type";
+import { Config } from "../../../../types/config";
 import { VentoyLocal } from "../../../../types/local";
 
 interface State {

@@ -13,6 +13,7 @@ import { Header } from "@/components/layout/Header";
 import { IconSettings } from "@arco-design/web-react/icon";
 import { BrowserHistory } from "history";
 import { ipcRenderer } from "electron";
+import init from "@/init";
 
 const Sider = Layout.Sider;
 const Content = Layout.Content;
@@ -61,12 +62,15 @@ const App: React.FC = () => {
     setCollapsed((prev) => !prev);
   };
 
-  // 向主进程通知进行初始化并监听是否初始化失败
   useEffect(() => {
+    // 向主进程通知进行初始化并监听是否初始化失败
     ipcRenderer.on("_init-error", (event, msg) => {
       Message.error(msg);
     });
     ipcRenderer.send("_init");
+
+    // 初始化渲染进程监听器
+    init();
   }, []);
 
   return (

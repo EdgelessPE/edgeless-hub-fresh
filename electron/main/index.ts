@@ -1,10 +1,10 @@
-import { app, BrowserWindow, shell } from "electron";
+import { app, BrowserWindow, ipcMain, shell } from "electron";
 import { release } from "os";
 import { join } from "path";
 import installExtension, {
   REACT_DEVELOPER_TOOLS,
 } from "electron-devtools-installer";
-import bridge from "./services/bridge";
+import init from "./init";
 
 if (release().startsWith("6.1")) app.disableHardwareAcceleration();
 
@@ -64,7 +64,14 @@ app.whenReady().then(async () => {
   const extName = await installExtension(REACT_DEVELOPER_TOOLS);
   console.log(`Added Extension:  ${extName}`);
   await createWindow();
-  bridge();
+
+  // 当渲染进程就绪时进行初始化
+  ipcMain.on("_init", async (event) => {
+    const initRes = await init(win!.webContents);
+    if (initRes.err) {
+      event.reply("_init-error", initRes.val);
+    }
+  });
 });
 
 app.on("window-all-closed", () => {

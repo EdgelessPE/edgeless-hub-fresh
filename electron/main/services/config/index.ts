@@ -1,10 +1,11 @@
 import { Observable } from "rxjs";
 import { watch } from "fs";
 import { patch, read, valid, write } from "./utils";
-import { Config } from "./type";
+import { Config } from "../../../../types/config";
 import { log } from "../../log";
 import { Ok, Result } from "ts-results";
 import { CONFIG_PATH } from "../../constants";
+import { debounce } from "lodash";
 
 // 始终持有一份config的最新副本以在更新时用作补丁母版
 let cfg: Config | null = null;
@@ -21,11 +22,10 @@ async function getObservableConfig(): Promise<
     const update = (config: Config) => {
       subscriber.next(config);
       cfg = config;
-      setObservableConfig(config);
     };
     update(res.unwrap());
-    watch(CONFIG_PATH, async () => {
-      log(`Info:Config file change observed`);
+    const handler = async () => {
+      log(`Info:Config file change watched`);
       const res = await read();
       if (res.ok) {
         update(res.val);
@@ -34,7 +34,8 @@ async function getObservableConfig(): Promise<
         // cfg=null
         log(`Error:Can't read config from filesystem change : ${res.val}`);
       }
-    });
+    };
+    watch(CONFIG_PATH, debounce(handler, 50));
   });
 
   return new Ok(observable);

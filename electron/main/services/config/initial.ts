@@ -1,4 +1,4 @@
-import { Config } from "./type";
+import { Config } from "../../../../types/config";
 
 export const initial: Config = {
   ept: {

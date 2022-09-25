@@ -1,8 +1,9 @@
 import { Button, Popconfirm, Space } from "@arco-design/web-react";
 import { resetConfig } from "@/services/config";
 import bridge from "@/bridge/method";
+import { ConfirmProps } from "@arco-design/web-react/es/Modal/confirm";
 
-export const configError = (msg: string) => {
+export const configError = (msg: string): ConfirmProps => {
   return {
     title: "Hub 配置文件已损坏",
     content: msg,

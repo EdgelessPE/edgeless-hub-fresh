@@ -5,12 +5,13 @@ import { useState } from "react";
 import bridge from "@/bridge/method";
 import { Subject } from "rxjs";
 import { configError } from "@/modals/configError";
+import ExportedModalComponent from "@arco-design/web-react/es/Modal/modal";
 
 let cfg: Config | null = null;
 let subject: Subject<Result<Config, string> | null> | null = null;
 const listeners: Array<(cfg: Config | null) => void> = [];
 
-async function initConfig(modal: any) {
+async function initConfig(modal: typeof ExportedModalComponent) {
   subject = await createBridgeSubject<Result<Config, string>>("config");
   subject.subscribe((result) => {
     if (result?.ok) {

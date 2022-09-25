@@ -119,18 +119,19 @@ export const Config = () => {
 
   //获取当前壁纸url
   useEffect(() => {
-    bridge("getLocalImageSrc", "D:\\360Downloads\\2056038.jpg").then(
-      (wallPaperUrlRes: Result<string, string>) => {
-        if (wallPaperUrlRes.ok)
-          setWallpaperPreview(
-            <img
-              src={wallPaperUrlRes.val}
-              alt="wallpaper"
-              className="config__wallpaper-preview"
-            />
-          );
-      }
-    );
+    bridge<Result<string, string>>(
+      "getLocalImageSrc",
+      "D:\\360Downloads\\2056038.jpg"
+    ).then((wallPaperUrlRes) => {
+      if (wallPaperUrlRes.ok)
+        setWallpaperPreview(
+          <img
+            src={wallPaperUrlRes.val}
+            alt="wallpaper"
+            className="config__wallpaper-preview"
+          />
+        );
+    });
   }, []);
 
   return (

@@ -64,10 +64,10 @@ app.whenReady().then(async () => {
   try {
     const extName = await installExtension(REACT_DEVELOPER_TOOLS);
     console.log(`Added Extension:  ${extName}`);
-  } catch(e) {
+  } catch (e) {
     console.error(e);
   }
-  
+
   await createWindow();
 
   // 当渲染进程就绪时进行初始化
@@ -100,3 +100,21 @@ app.on("activate", async () => {
     await createWindow();
   }
 });
+
+// 自定义窗口控制函数
+export function closeWindow() {
+  app.quit();
+}
+
+export function restartWindow() {
+  if (app.isPackaged) {
+    app.relaunch();
+  } else {
+    console.log("Internal:Manually start another develop process");
+  }
+  closeWindow();
+}
+
+export function toggleDevTool() {
+  win.webContents.openDevTools();
+}

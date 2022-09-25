@@ -13,6 +13,7 @@ import { Header } from "@/components/layout/Header";
 import { IconSettings } from "@arco-design/web-react/icon";
 import { BrowserHistory } from "history";
 import init from "@/init";
+import useModal from "@arco-design/web-react/es/Modal/useModal";
 
 const Sider = Layout.Sider;
 const Content = Layout.Content;
@@ -61,12 +62,15 @@ const App: React.FC = () => {
     setCollapsed((prev) => !prev);
   };
 
+  // 初始化与错误处理弹窗
+  const [modal, contextHolder] = useModal();
   useEffect(() => {
-    init();
+    init(modal);
   }, []);
 
   return (
     <Layout className="app">
+      {contextHolder}
       <Sider
         collapsed={collapsed}
         collapsible

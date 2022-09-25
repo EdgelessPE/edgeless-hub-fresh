@@ -10,9 +10,13 @@ import {
 } from "../config";
 import { Err, Ok, Result } from "ts-results";
 import { InitError } from "../../../../types";
+import { closeWindow, restartWindow, toggleDevTool } from "../../index";
 
 function getMethodRegister(): Record<string, (...args: any) => any> {
   return {
+    closeWindow,
+    restartWindow,
+    toggleDevTool,
     innerLog,
     getLocalImageSrc,
     setObservableConfig,

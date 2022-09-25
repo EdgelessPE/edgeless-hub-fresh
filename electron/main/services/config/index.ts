@@ -6,6 +6,7 @@ import { log } from "../../log";
 import { Ok, Result } from "ts-results";
 import { CONFIG_PATH } from "../../constants";
 import { debounce } from "lodash";
+import { initial } from "./initial";
 
 // 始终持有一份config的最新副本以在更新时用作补丁母版
 let cfg: Config | null = null;
@@ -15,6 +16,7 @@ async function getObservableConfig(): Promise<
 > {
   const res = await read();
   if (res.err) {
+    log(res.val);
     return res;
   }
 
@@ -78,9 +80,14 @@ async function setObservableConfig(
   return write(resultConfig);
 }
 
+async function resetObservableConfig(): Promise<Result<null, string>> {
+  return write(initial);
+}
+
 export {
   getObservableConfig,
   setObservableConfig,
   patchObservableConfig,
   modifyObservableConfig,
+  resetObservableConfig,
 };

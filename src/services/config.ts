@@ -7,7 +7,7 @@ import { Subject } from "rxjs";
 
 let cfg: Config | null = null;
 let subject: Subject<Result<Config, string> | null> | null = null;
-const listeners: Array<(cfg: Config) => void> = [];
+const listeners: Array<(cfg: Config | null) => void> = [];
 
 async function initConfig() {
   subject = await createBridgeSubject<Result<Config, string>>("config");
@@ -16,6 +16,10 @@ async function initConfig() {
       cfg = result.val;
       listeners.forEach((listener) => {
         listener(result.val);
+      });
+    } else {
+      listeners.forEach((listener) => {
+        listener(null);
       });
     }
   });
@@ -42,4 +46,15 @@ async function setConfig(resultConfig: Config) {
   return bridge<Result<null, string>>("setObservableConfig", resultConfig);
 }
 
-export { initConfig, useConfig, setConfig, modifyConfig, patchConfig };
+async function resetConfig() {
+  return bridge<Result<null, string>>("resetObservableConfig");
+}
+
+export {
+  initConfig,
+  useConfig,
+  setConfig,
+  modifyConfig,
+  patchConfig,
+  resetConfig,
+};

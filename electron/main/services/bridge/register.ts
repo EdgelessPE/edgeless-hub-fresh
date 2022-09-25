@@ -5,6 +5,7 @@ import {
   getObservableConfig,
   modifyObservableConfig,
   patchObservableConfig,
+  resetObservableConfig,
   setObservableConfig,
 } from "../config";
 import { Ok, Result } from "ts-results";
@@ -16,6 +17,7 @@ function getMethodRegister(): Record<string, (...args: any) => any> {
     setObservableConfig,
     patchObservableConfig,
     modifyObservableConfig,
+    resetObservableConfig,
   };
 }
 

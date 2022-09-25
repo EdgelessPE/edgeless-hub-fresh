@@ -1,6 +1,6 @@
 import observableBridge from "./services/bridge/observable";
 import { Ok, Result } from "ts-results";
-import bridge from "./services/bridge";
+import bridge from "./services/bridge/method";
 
 let needInit = true;
 

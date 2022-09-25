@@ -11,32 +11,31 @@ import { debounce } from "lodash";
 let cfg: Config | null = null;
 
 async function getObservableConfig(): Promise<
-  Result<Observable<Config>, string>
+  Result<Observable<Result<Config, string>>, string>
 > {
   const res = await read();
   if (res.err) {
     return res;
   }
 
-  const observable = new Observable<Config>((subscriber) => {
-    const update = (config: Config) => {
-      subscriber.next(config);
-      cfg = config;
-    };
-    update(res.unwrap());
-    const handler = async () => {
-      log(`Info:Config file change watched`);
-      const res = await read();
-      if (res.ok) {
-        update(res.val);
+  const observable = new Observable<Result<Config, string>>((subscriber) => {
+    const update = (result: Result<Config, string>) => {
+      subscriber.next(result);
+      if (result.ok) {
+        cfg = result.val;
       } else {
-        // TODO:使用 Result 类型以方便重置配置
-        subscriber.error(res.val);
-        // cfg=null
-        log(`Error:Can't read config from filesystem change : ${res.val}`);
+        log(`Error:Can't update config : ${res.val}`);
       }
     };
-    watch(CONFIG_PATH, debounce(handler, 50));
+    update(res);
+
+    watch(
+      CONFIG_PATH,
+      debounce(async () => {
+        log(`Info:Config file change watched`);
+        update(await read());
+      }, 50)
+    );
   });
 
   return new Ok(observable);

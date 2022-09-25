@@ -14,6 +14,7 @@ import { useState } from "react";
 import { myHistory } from "@/router/history";
 import { createBridgeObservable } from "@/bridge/observable";
 import { Config } from "../../../types/config";
+import { Result } from "ts-results";
 
 const pluginsRecommendation = new Array(5).fill({
   title: "腾讯会议",
@@ -21,7 +22,8 @@ const pluginsRecommendation = new Array(5).fill({
   link: "/settings",
 });
 
-const configObservable = createBridgeObservable<Config>("config");
+const configObservable =
+  createBridgeObservable<Result<Config, string>>("config");
 configObservable.subscribe((value) => {
   console.log("Observed update", value);
 });

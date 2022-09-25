@@ -1,19 +1,14 @@
 import { ipcMain } from "electron";
 import { BridgeReply, BridgeRequest } from "../../../../types/bridge";
-import { innerLog } from "../../log";
-import { getLocalImageSrc } from "../../utils";
-
-const registry: Record<string, (...args: any) => any> = {
-  innerLog,
-  getLocalImageSrc,
-};
-
+import { getMethodRegister } from "./register";
 
 export default function () {
   //创建调用地图
   const callMap = new Map<string, (...args: any) => any>();
-  for (let key in registry) {
-    callMap.set(key, registry[key]);
+
+  const methodRegistry = getMethodRegister();
+  for (let key in methodRegistry) {
+    callMap.set(key, methodRegistry[key]);
   }
 
   //监听桥事件

@@ -1,4 +1,4 @@
-import bridge from "@/bridge";
+import bridge from "@/bridge/method";
 
 function log(text: string) {
   const s = text.split(":");

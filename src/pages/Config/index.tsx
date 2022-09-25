@@ -12,7 +12,7 @@ import preferenceItems from "./preferenceItems.json";
 import resolutions from "./resolutions.json";
 import "./index.scss";
 import { IconEyeInvisible, IconInfoCircle } from "@arco-design/web-react/icon";
-import bridge from "@/bridge";
+import bridge from "@/bridge/method";
 import { Result } from "ts-results";
 
 interface ConfigItem {

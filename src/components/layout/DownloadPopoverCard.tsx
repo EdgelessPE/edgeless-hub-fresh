@@ -1,5 +1,5 @@
 import React from "react";
-import bridge from "@/bridge";
+import bridge from "@/bridge/method";
 import { Button, Popover } from "@arco-design/web-react";
 import { IconDownload } from "@arco-design/web-react/icon";
 

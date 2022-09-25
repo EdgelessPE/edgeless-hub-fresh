@@ -1,10 +1,10 @@
 import { initObservableBridge } from "@/bridge/observable";
-import { initConfig, resetConfig } from "@/services/config";
+import { initConfig } from "@/services/config";
 import { ipcRenderer } from "electron";
-import { Button, Message, Popconfirm, Space } from "@arco-design/web-react";
+import { Message } from "@arco-design/web-react";
 import { InitError } from "../types";
 import { log } from "@/utils/log";
-import bridge from "@/bridge/method";
+import { configError } from "@/modals/configError";
 
 export default async function (modal: any) {
   // 向主进程通知进行初始化并监听是否初始化失败
@@ -13,46 +13,7 @@ export default async function (modal: any) {
     log(`Error:Init error, type : ${err.type}, msg : ${err.msg}`);
     switch (err.type) {
       case "Config":
-        modal.error({
-          title: "Hub 配置文件已损坏",
-          content: err.msg,
-          okText: "重置",
-          okButtonProps: {
-            type: "primary",
-            status: "danger",
-          },
-          cancelText: "退出",
-          footer: (
-            <Space>
-              <Popconfirm
-                title="这会导致你丢失镜像站等重要的自定义配置，是否继续？"
-                onOk={async () => {
-                  await resetConfig();
-                  await bridge("restartWindow");
-                }}
-                okButtonProps={{
-                  type: "primary",
-                  status: "danger",
-                }}
-                okText="继续"
-                cancelText="取消"
-              >
-                <Button type="primary" status="danger">
-                  重置配置
-                </Button>
-              </Popconfirm>
-              <Button
-                onClick={async () => {
-                  await bridge("closeWindow");
-                }}
-              >
-                退出程序
-              </Button>
-            </Space>
-          ),
-          escToExit: false,
-          maskClosable: false,
-        });
+        modal.error(configError(err.msg));
         break;
       default:
         Message.error(err.msg);
@@ -62,5 +23,5 @@ export default async function (modal: any) {
   ipcRenderer.send("_init");
 
   initObservableBridge();
-  await initConfig();
+  await initConfig(modal);
 }

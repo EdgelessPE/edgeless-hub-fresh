@@ -50,12 +50,8 @@ async function createWindow() {
     win.webContents.openDevTools();
   }
 
-  win.webContents.on("did-finish-load", () => {
-    win?.webContents.send("main-process-message", new Date().toLocaleString());
-  });
-
   win.webContents.setWindowOpenHandler(({ url }) => {
-    if (url.startsWith("https:")) shell.openExternal(url);
+    if (url.startsWith("http")) shell.openExternal(url);
     return { action: "deny" };
   });
 }

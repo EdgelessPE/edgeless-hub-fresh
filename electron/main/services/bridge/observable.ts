@@ -3,10 +3,11 @@ import { log } from "../../log";
 import { Ok, Result } from "ts-results";
 import { ObservableBridgeUpdate } from "../../../../types/bridge";
 import { getObservableRegistry } from "./register";
+import { InitError } from "../../../../types";
 
 export default async function (
   webContents: any
-): Promise<Result<null, string>> {
+): Promise<Result<null, InitError>> {
   // 初始化需要异步获取的 register keys
   const initRes = await getObservableRegistry();
   if (initRes.err) return initRes;

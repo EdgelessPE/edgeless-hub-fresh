@@ -1,10 +1,11 @@
 import observableBridge from "./services/bridge/observable";
 import { Ok, Result } from "ts-results";
 import bridge from "./services/bridge/method";
+import { InitError } from "../../types";
 
 let needInit = true;
 
-async function init(webContents: any): Promise<Result<null, string>> {
+async function init(webContents: any): Promise<Result<null, InitError>> {
   if (!needInit) {
     return new Ok(null);
   }

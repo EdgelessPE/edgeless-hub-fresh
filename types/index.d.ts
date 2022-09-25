@@ -33,10 +33,18 @@ type TaskStatus = {
   percentage?: number; // 0-100
 };
 
+type InitErrorTypes = "Config" | "DownloadDir";
+
+interface InitError {
+  type: InitErrorTypes;
+  msg: string;
+}
+
 export {
   Integrity,
   PluginParsedFullName,
   KernelParsedFullName,
   VentoyParsedFullName,
   TaskStatus,
+  InitError,
 };

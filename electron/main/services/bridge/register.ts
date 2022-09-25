@@ -8,7 +8,8 @@ import {
   resetObservableConfig,
   setObservableConfig,
 } from "../config";
-import { Ok, Result } from "ts-results";
+import { Err, Ok, Result } from "ts-results";
+import { InitError } from "../../../../types";
 
 function getMethodRegister(): Record<string, (...args: any) => any> {
   return {
@@ -22,12 +23,16 @@ function getMethodRegister(): Record<string, (...args: any) => any> {
 }
 
 async function getObservableRegistry(): Promise<
-  Result<Record<string, Observable<any>>, string>
+  Result<Record<string, Observable<any>>, InitError>
 > {
   const register: Record<string, Observable<any>> = {};
 
   const configRes = await getObservableConfig();
-  if (configRes.err) return configRes;
+  if (configRes.err)
+    return new Err({
+      type: "Config",
+      msg: configRes.val,
+    });
   register.config = configRes.unwrap();
 
   return new Ok(register);

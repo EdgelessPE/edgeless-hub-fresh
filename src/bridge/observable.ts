@@ -1,5 +1,5 @@
 import { ipcRenderer } from "electron";
-import { Observable } from "rxjs";
+import { Observable, Subject } from "rxjs";
 import { ObservableBridgeUpdate } from "../../types/bridge";
 import { log } from "@/utils/log";
 
@@ -49,4 +49,24 @@ function createBridgeObservable<T>(key: string): Observable<T> {
   });
 }
 
-export { createBridgeObservable, init };
+function createBridgeSubject<T>(key: string): Subject<T> {
+  ipcRenderer.send("_bridge_observable-subscribe", key);
+  const subject = new Subject<T>();
+  const listener: Listener = (update) => {
+    switch (update.type) {
+      case "next":
+        subject.next(update.value);
+        break;
+      case "error":
+        subject.error(update.value);
+        break;
+      case "complete":
+        subject.complete();
+        break;
+    }
+  };
+  addListener(key, listener);
+  return subject;
+}
+
+export { createBridgeObservable, createBridgeSubject, init };

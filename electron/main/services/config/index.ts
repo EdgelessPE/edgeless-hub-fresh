@@ -55,9 +55,9 @@ async function patchObservableConfig<K extends keyof Config>(patchJson: {
 }
 
 async function modifyObservableConfig(
-  factory: (rawConfig: Config) => Config
+  modifier: (rawConfig: Config) => Config
 ): Promise<Result<null, string>> {
-  const resultJson = factory(cfg);
+  const resultJson = modifier(cfg);
 
   const vRes = valid(resultJson);
   if (vRes.err) {

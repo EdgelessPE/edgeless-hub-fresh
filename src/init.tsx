@@ -5,9 +5,8 @@ import { Message } from "@arco-design/web-react";
 import { InitError } from "../types";
 import { log } from "@/utils/log";
 import { configError } from "@/modals/configError";
-import ExportedModalComponent from "@arco-design/web-react/es/Modal/modal";
 
-export default async function (modal: typeof ExportedModalComponent) {
+export default async function (modal: any) {
   // 向主进程通知进行初始化并监听是否初始化失败
   ipcRenderer.on("_init-error", (event, err: InitError) => {
     // TODO:区分初始化错误类型并针对性处理

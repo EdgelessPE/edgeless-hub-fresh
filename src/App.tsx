@@ -14,6 +14,7 @@ import { IconSettings } from "@arco-design/web-react/icon";
 import { BrowserHistory } from "history";
 import init from "@/init";
 import useModal from "@arco-design/web-react/es/Modal/useModal";
+import { getRouterPath } from "@/router/utils";
 
 const Sider = Layout.Sider;
 const Content = Layout.Content;
@@ -21,9 +22,7 @@ const Content = Layout.Content;
 function useSettingButton(showText: boolean, history: BrowserHistory) {
   const [selected, setSelected] = useState(false);
   const getSelected = () => {
-    let s = decodeURI(window.location.pathname)
-      .split("/")
-      .filter((key) => key != "");
+    const s = getRouterPath();
     if (s.length == 1 && s[0] == "settings") {
       setSelected(true);
     } else {

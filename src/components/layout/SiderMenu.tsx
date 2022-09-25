@@ -2,6 +2,7 @@ import { Menu } from "@arco-design/web-react";
 import React, { useEffect, useState } from "react";
 import { BrowserHistory } from "history";
 import { siderNodes } from "@/constants";
+import { getRouterPath } from "@/router/utils";
 
 const MenuItem = Menu.Item;
 const SubMenu = Menu.SubMenu;
@@ -50,30 +51,22 @@ function renderSiderMenu(input: SiderNode[]): JSX.Element[] {
 }
 
 function getCurrentOpenStatus() {
-  let s = decodeURI(window.location.pathname)
-    .split("/")
-    .filter((key) => key != "");
+  const s = getRouterPath();
   if (s.length == 4) {
     //说明是detail页面，定位至分类
-    s[1] = "category";
     return {
-      sub: [s[0]],
-      keys: [s.slice(0, 3).join("/")],
+      sub: ["plugin"],
+      keys: [`plugin/category/${s[2]}`],
     };
-  } else if (s.length >= 2) {
+  } else if (s.length > 1) {
     return {
       sub: [s[0]],
       keys: [s.join("/")],
     };
-  } else if (s.length == 1) {
-    return {
-      sub: [],
-      keys: s,
-    };
   } else {
     return {
       sub: [],
-      keys: ["home"],
+      keys: s,
     };
   }
 }

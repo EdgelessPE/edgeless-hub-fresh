@@ -6,6 +6,7 @@ import { DownloadPopoverCard } from "@/components/layout/DownloadPopoverCard";
 import { iconMapCategory, iconTitleMapSider } from "@/constants";
 import { DownloadSpeedBadge } from "@/components/organisms/DownloadSpeedBadge";
 import { PageHeaderWithIcon } from "@/components/molecules/PageHeaderWithIcon";
+import { getRouterPath } from "@/router/utils";
 
 interface Prop {
   history: BrowserHistory;
@@ -14,9 +15,7 @@ interface Prop {
 function renderHeader(
   setTitle: React.Dispatch<React.SetStateAction<string | JSX.Element | null>>
 ) {
-  const s = decodeURI(window.location.pathname)
-    .split("/")
-    .filter((key) => key != "");
+  const s = getRouterPath();
   const renderSubTitle = (title: string) => {
     if (
       title == "任务" ||

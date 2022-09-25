@@ -61,8 +61,13 @@ async function createWindow() {
 }
 
 app.whenReady().then(async () => {
-  const extName = await installExtension(REACT_DEVELOPER_TOOLS);
-  console.log(`Added Extension:  ${extName}`);
+  try {
+    const extName = await installExtension(REACT_DEVELOPER_TOOLS);
+    console.log(`Added Extension:  ${extName}`);
+  } catch(e) {
+    console.error(e);
+  }
+  
   await createWindow();
 
   // 当渲染进程就绪时进行初始化

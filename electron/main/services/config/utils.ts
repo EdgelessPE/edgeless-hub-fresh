@@ -44,9 +44,9 @@ function valid(dirty: any): Result<null, string> {
     return new Ok(null);
   } else {
     return new Err(
-      `Error:Can't valid ${CONFIG_PATH} as config : ${validator
-        .errors!.join(",")
-        .toString()}`
+      `Error:Can't valid ${CONFIG_PATH} as config : ${JSON.stringify(
+        validator.errors
+      )}`
     );
   }
 }

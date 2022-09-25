@@ -3,23 +3,27 @@ import { Config } from "../../types/config";
 import { Result } from "ts-results";
 import { useState } from "react";
 import bridge from "@/bridge/method";
+import { Subject } from "rxjs";
 
 let cfg: Config | null = null;
+let subject: Subject<Result<Config, string> | null> | null = null;
+const listeners: Array<(cfg: Config) => void> = [];
 
-const subject = createBridgeSubject<Result<Config, string>>("config");
-subject.subscribe((result) => {
-  if (result.ok) {
-    cfg = result.val;
-  }
-});
-
-function useConfig(): Config {
-  const [config, setConfig] = useState(cfg!);
+async function initConfig() {
+  subject = await createBridgeSubject<Result<Config, string>>("config");
   subject.subscribe((result) => {
-    if (result.ok) {
-      setConfig(result.val);
+    if (result?.ok) {
+      cfg = result.val;
+      listeners.forEach((listener) => {
+        listener(result.val);
+      });
     }
   });
+}
+
+function useConfig() {
+  const [config, setConfig] = useState(cfg);
+  listeners.push(setConfig);
   return config;
 }
 
@@ -38,4 +42,4 @@ async function setConfig(resultConfig: Config) {
   return bridge<Result<null, string>>("setObservableConfig", resultConfig);
 }
 
-export { useConfig, setConfig, modifyConfig, patchConfig };
+export { initConfig, useConfig, setConfig, modifyConfig, patchConfig };

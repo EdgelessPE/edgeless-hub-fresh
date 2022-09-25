@@ -1,5 +1,5 @@
 import { ipcRenderer } from "electron";
-import { Observable, Subject } from "rxjs";
+import { BehaviorSubject, Observable, Subject } from "rxjs";
 import { ObservableBridgeUpdate } from "../../types/bridge";
 import { log } from "@/utils/log";
 
@@ -7,7 +7,7 @@ type Listener = (update: ObservableBridgeUpdate) => void;
 
 const listenerMap = new Map<string, Listener>();
 
-function init() {
+function initObservableBridge() {
   ipcRenderer.on(
     "_bridge_observable-update",
     (event, value: ObservableBridgeUpdate) => {
@@ -15,6 +15,7 @@ function init() {
         log(
           `Error:Fatal:Receive unknown observable update, key : ${value.key}`
         );
+        return;
       }
       const callback = listenerMap.get(value.key)!;
       callback(value);
@@ -49,9 +50,9 @@ function createBridgeObservable<T>(key: string): Observable<T> {
   });
 }
 
-function createBridgeSubject<T>(key: string): Subject<T> {
+function createBridgeSubject<T>(key: string): Subject<T | null> {
   ipcRenderer.send("_bridge_observable-subscribe", key);
-  const subject = new Subject<T>();
+  const subject = new BehaviorSubject<T | null>(null);
   const listener: Listener = (update) => {
     switch (update.type) {
       case "next":
@@ -69,4 +70,4 @@ function createBridgeSubject<T>(key: string): Subject<T> {
   return subject;
 }
 
-export { createBridgeObservable, createBridgeSubject, init };
+export { createBridgeObservable, createBridgeSubject, initObservableBridge };

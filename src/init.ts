@@ -1,5 +1,7 @@
-import { init } from "@/bridge/observable";
+import { initObservableBridge } from "@/bridge/observable";
+import { initConfig } from "@/services/config";
 
-export default function () {
-  init();
+export default async function () {
+  initObservableBridge();
+  await initConfig();
 }

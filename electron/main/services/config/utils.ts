@@ -59,7 +59,7 @@ function patch<T>(rawJson: T, patchJson: any): T {
       const rawVal = rawJson[key],
         patchVal = patchJson[key];
       if (typeof rawVal != typeof patchVal) {
-        //类型不一致，直接放弃patch并可能会在后续的validate中抛出错误
+        // 类型不一致，直接放弃patch并可能会在后续的validate中抛出错误
         return rawJson;
       } else if (typeof rawVal == "object") {
         rawJson[key] = patch(rawVal, patchVal);

@@ -7,7 +7,7 @@ import { getObservableRegistry } from "./register";
 export default async function (
   webContents: any
 ): Promise<Result<null, string>> {
-  //初始化需要异步获取的 register keys
+  // 初始化需要异步获取的 register keys
   const initRes = await getObservableRegistry();
   if (initRes.err) return initRes;
   const register = initRes.unwrap();
@@ -16,7 +16,7 @@ export default async function (
   // 此 bridge 的行为接近 BehaviorObservable
   const recentMap = new Map<string, ObservableBridgeUpdate | null>();
 
-  //代理订阅全部 Observable 并将其更新发送到 ipc 上
+  // 代理订阅全部 Observable 并将其更新发送到 ipc 上
   for (const key in register) {
     recentMap.set(key, null);
 
@@ -44,7 +44,7 @@ export default async function (
     });
   }
 
-  //监听来自渲染进程的监听请求并发送 recent 值
+  // 监听来自渲染进程的监听请求并发送 recent 值
   ipcMain.on("_bridge_observable-subscribe", (event, key: string) => {
     if (!recentMap.has(key)) {
       log(`Error:Fatal:Try to subscribe to a unknown observable : ${key}`);

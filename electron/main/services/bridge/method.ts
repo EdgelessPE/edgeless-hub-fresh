@@ -3,7 +3,7 @@ import { BridgeReply, BridgeRequest } from "../../../../types/bridge";
 import { getMethodRegister } from "./register";
 
 export default function () {
-  //创建调用地图
+  // 创建调用地图
   const callMap = new Map<string, (...args: any) => any>();
 
   const methodRegistry = getMethodRegister();
@@ -11,7 +11,7 @@ export default function () {
     callMap.set(key, methodRegistry[key]);
   }
 
-  //监听桥事件
+  // 监听桥事件
   ipcMain.on("_bridge", async (event, req: BridgeRequest) => {
     let entry = callMap.get(req.functionName);
     if (entry == null) {

@@ -7,7 +7,7 @@ interface FileNodePackageLocal {
   integrity?: Integrity;
 
   path: string;
-  flags?: Set<string>; //插件包属性，例如对于被禁用的 LocalBoost 插件包 *.7zfl 其值为 ["f","l"]
+  flags?: Set<string>; // 插件包属性，例如对于被禁用的 LocalBoost 插件包 *.7zfl 其值为 ["f","l"]
 }
 
 interface FileNodeLocal {

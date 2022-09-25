@@ -11,6 +11,6 @@ interface State {
 
 interface Disk {
   letter: string;
-  rawInfo: {}; //TODO:补充raw信息
+  rawInfo: {}; // TODO:补充raw信息
   ventoyInfo: VentoyLocal;
 }

@@ -8,9 +8,9 @@ export default async function <T>(
   ...args: any
 ): Promise<T> {
   return new Promise((resolve) => {
-    //获取任务id
+    // 获取任务id
     const id = taskCount++;
-    //生成回调函数
+    // 生成回调函数
     const callback = (_: any, reply: BridgeReply) => {
       if (reply.id != id) return;
       else {
@@ -19,9 +19,9 @@ export default async function <T>(
         return;
       }
     };
-    //监听回调
+    // 监听回调
     ipcRenderer.on("_bridge-reply", callback);
-    //发送
+    // 发送
     const req: BridgeRequest = {
       id,
       args,

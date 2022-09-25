@@ -30,7 +30,7 @@ type TaskStatus = {
     | "Installing"
     | "Installed"
     | "Upgradable";
-  percentage?: number; //0-100
+  percentage?: number; // 0-100
 };
 
 export {

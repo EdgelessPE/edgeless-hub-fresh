@@ -1,10 +1,10 @@
 import fs from "fs";
-import { CONFIG_PATH } from "../../constants";
-import { Err, Ok, Result } from "ts-results";
-import { Config } from "../../../../types/config";
+import {CONFIG_PATH} from "../../constants";
+import {Err, Ok, Result} from "ts-results";
+import {Config} from "../../../../types/config";
 import Ajv from "ajv";
-import { initial } from "./initial";
-import { log } from "../../log";
+import {initial} from "./initial";
+import {log} from "../../log";
 import Schema from "../../../schema/config.json";
 import path from "path";
 
@@ -12,9 +12,10 @@ const ajv = new Ajv();
 const validator = ajv.compile(Schema);
 
 async function read(): Promise<Result<Config, string>> {
-  return new Promise((resolve) => {
+  return new Promise(async (resolve) => {
     if (!fs.existsSync(CONFIG_PATH)) {
       log(`Info:Config ${CONFIG_PATH} not found, use initial one`);
+      await write(initial)
       resolve(new Ok(initial));
     }
 

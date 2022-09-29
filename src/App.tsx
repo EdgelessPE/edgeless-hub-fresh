@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import { Button, Layout } from "@arco-design/web-react";
 import { Routes } from "react-router-dom";
 import "@arco-design/web-react/dist/css/arco.css";
-
+import { setCurrentTheme } from "@/services/theme";
 import { getRouterNodes } from "@/router/routers";
 import { myHistory } from "@/router/history";
 
@@ -47,6 +47,15 @@ function useSettingButton(showText: boolean, history: BrowserHistory) {
     </Button>
   );
 }
+
+// 暗黑模式跟随系统
+let media = window.matchMedia('(prefers-color-scheme: dark)');
+if (media.matches) {
+  document.body.setAttribute("arco-theme", "dark");
+  setCurrentTheme(false);
+}
+
+
 
 const App: React.FC = () => {
   const [collapsed, setCollapsed] = useState(false);

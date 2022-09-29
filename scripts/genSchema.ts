@@ -20,12 +20,12 @@ function main() {
       outputPath:
         "./electron/main/services/ept/parsers/protocol3/schema/hello.json",
     },
-    {
-      path: "./types/online.d.ts",
-      type: "AlphaResponse",
-      outputPath:
-        "./electron/main/services/ept/parsers/protocol3/schema/alpha.json",
-    },
+    // {
+    //   path: "./types/online.d.ts",
+    //   type: "AlphaResponse",
+    //   outputPath:
+    //     "./electron/main/services/ept/parsers/protocol3/schema/alpha.json",
+    // },
   ];
 
   for (const cfg of arr) {

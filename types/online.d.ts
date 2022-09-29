@@ -66,7 +66,7 @@ interface PropertyOnline {
   official_maintained: boolean;
 }
 
-interface HelloResponse {
+export interface HelloResponse {
   name: string;
   description: string;
   protocol: string;
@@ -78,7 +78,7 @@ interface HelloResponse {
   hub?: HubOnline;
 }
 
-interface AlphaResponse {
+export interface AlphaResponse {
   kernel_wim: FileNodeOnline | null;
   cover: {
     lower_than: string;
@@ -87,8 +87,6 @@ interface AlphaResponse {
 }
 
 export {
-  HelloResponse,
-  AlphaResponse,
   ServiceNode,
   FileNodePackageOnline,
   FileNodeOnline,

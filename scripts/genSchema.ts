@@ -9,7 +9,7 @@ function main() {
     type: "Config",
   };
 
-  const output_path = "./schema/config.json";
+  const output_path = "./electron/schema/config.json";
 
   const schema = tsj.createGenerator(config).createSchema(config.type);
   const schemaString = JSON.stringify(schema, null, 2);

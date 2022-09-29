@@ -20,7 +20,69 @@
                 "pool": {
                   "type": "object",
                   "additionalProperties": {
-                    "$ref": "#/definitions/MirrorLocal"
+                    "type": "object",
+                    "properties": {
+                      "name": {
+                        "type": "string"
+                      },
+                      "description": {
+                        "type": "string"
+                      },
+                      "protocol": {
+                        "type": "string"
+                      },
+                      "property": {
+                        "type": "object",
+                        "properties": {
+                          "domestic_server": {
+                            "type": "boolean"
+                          },
+                          "upload_bandwidth": {
+                            "type": "number"
+                          },
+                          "sync_interval": {
+                            "type": "number"
+                          },
+                          "official_maintained": {
+                            "type": "boolean"
+                          }
+                        },
+                        "required": [
+                          "domestic_server",
+                          "upload_bandwidth",
+                          "sync_interval",
+                          "official_maintained"
+                        ],
+                        "additionalProperties": false
+                      },
+                      "services": {
+                        "type": "array",
+                        "items": {
+                          "type": "object",
+                          "properties": {
+                            "name": {
+                              "type": "string"
+                            },
+                            "path": {
+                              "type": "string"
+                            }
+                          },
+                          "required": [
+                            "name",
+                            "path"
+                          ],
+                          "additionalProperties": false
+                        }
+                      }
+                    },
+                    "required": [
+                      "name",
+                      "description",
+                      "protocol",
+                      "property",
+                      "services"
+                    ],
+                    "additionalProperties": false
                   }
                 }
               },
@@ -47,71 +109,6 @@
       "required": [
         "ept",
         "theme"
-      ],
-      "additionalProperties": false
-    },
-    "MirrorLocal": {
-      "type": "object",
-      "properties": {
-        "name": {
-          "type": "string"
-        },
-        "description": {
-          "type": "string"
-        },
-        "protocol": {
-          "type": "string"
-        },
-        "property": {
-          "type": "object",
-          "properties": {
-            "domestic_server": {
-              "type": "boolean"
-            },
-            "upload_bandwidth": {
-              "type": "number"
-            },
-            "sync_interval": {
-              "type": "number"
-            },
-            "official_maintained": {
-              "type": "boolean"
-            }
-          },
-          "required": [
-            "domestic_server",
-            "upload_bandwidth",
-            "sync_interval",
-            "official_maintained"
-          ],
-          "additionalProperties": false
-        },
-        "services": {
-          "type": "array",
-          "items": {
-            "type": "object",
-            "properties": {
-              "name": {
-                "type": "string"
-              },
-              "path": {
-                "type": "string"
-              }
-            },
-            "required": [
-              "name",
-              "path"
-            ],
-            "additionalProperties": false
-          }
-        }
-      },
-      "required": [
-        "name",
-        "description",
-        "protocol",
-        "property",
-        "services"
       ],
       "additionalProperties": false
     }

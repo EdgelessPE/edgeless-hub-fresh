@@ -1,6 +1,7 @@
 import { Err, Ok, Result } from "ts-results";
 import fs from "fs";
 import { ValidateFunction } from "ajv";
+import axios from "axios";
 
 function getLocalImageSrc(fsPath: string): Result<string, string> {
   if (!fs.existsSync(fsPath)) {
@@ -29,4 +30,20 @@ function validate<T>(
   }
 }
 
-export { getLocalImageSrc, validate };
+async function fetch<T>(
+  url: string,
+  errTip?: string
+): Promise<Result<T, string>> {
+  try {
+    const res = await axios.get(url);
+    return res.data;
+  } catch (e) {
+    const errMsg = JSON.stringify(e);
+    const tip = errMsg
+      ? errMsg.replace("{}", errMsg)
+      : `Error:Can't fetch ${url} : ${errMsg}`;
+    return new Err(tip);
+  }
+}
+
+export { getLocalImageSrc, validate, fetch };

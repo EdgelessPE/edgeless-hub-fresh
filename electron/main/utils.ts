@@ -36,7 +36,7 @@ async function fetch<T>(
 ): Promise<Result<T, string>> {
   try {
     const res = await axios.get(url);
-    return res.data;
+    return new Ok(res.data);
   } catch (e) {
     const errMsg = JSON.stringify(e);
     const tip = errMsg
@@ -46,4 +46,12 @@ async function fetch<T>(
   }
 }
 
-export { getLocalImageSrc, validate, fetch };
+function joinUrl(base: string, suffix: string) {
+  if (base[base.length - 1] == "/") {
+    return base + suffix;
+  } else {
+    return base + "/" + suffix;
+  }
+}
+
+export { getLocalImageSrc, validate, fetch, joinUrl };

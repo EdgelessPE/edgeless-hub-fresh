@@ -11,6 +11,9 @@
         "description": {
           "type": "string"
         },
+        "root": {
+          "type": "string"
+        },
         "protocol": {
           "type": "string"
         },
@@ -63,44 +66,47 @@
             "tree": {
               "type": "object",
               "additionalProperties": {
-                "type": "object",
-                "properties": {
-                  "name": {
-                    "type": "string"
-                  },
-                  "size": {
-                    "type": "number"
-                  },
-                  "timestamp": {
-                    "type": "number"
-                  },
-                  "integrity": {
-                    "type": "object",
-                    "properties": {
-                      "method": {
-                        "type": "string",
-                        "enum": [
-                          "sha256",
-                          "blake3"
-                        ]
-                      },
-                      "value": {
-                        "type": "string"
-                      }
+                "type": "array",
+                "items": {
+                  "type": "object",
+                  "properties": {
+                    "name": {
+                      "type": "string"
                     },
-                    "required": [
-                      "method",
-                      "value"
-                    ],
-                    "additionalProperties": false
-                  }
-                },
-                "required": [
-                  "name",
-                  "size",
-                  "timestamp"
-                ],
-                "additionalProperties": false
+                    "size": {
+                      "type": "number"
+                    },
+                    "timestamp": {
+                      "type": "number"
+                    },
+                    "integrity": {
+                      "type": "object",
+                      "properties": {
+                        "method": {
+                          "type": "string",
+                          "enum": [
+                            "sha256",
+                            "blake3"
+                          ]
+                        },
+                        "value": {
+                          "type": "string"
+                        }
+                      },
+                      "required": [
+                        "method",
+                        "value"
+                      ],
+                      "additionalProperties": false
+                    }
+                  },
+                  "required": [
+                    "name",
+                    "size",
+                    "timestamp"
+                  ],
+                  "additionalProperties": false
+                }
               }
             },
             "path": {
@@ -381,7 +387,7 @@
                     "type": "string"
                   },
                   "repeat_after": {
-                    "type": "string"
+                    "type": "number"
                   }
                 },
                 "required": [
@@ -562,6 +568,7 @@
       "required": [
         "name",
         "description",
+        "root",
         "protocol",
         "property",
         "services"

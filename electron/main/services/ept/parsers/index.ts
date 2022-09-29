@@ -1,8 +1,7 @@
 import { Err, Ok, Result } from "ts-results";
 import { AlphaResponse, HelloResponse } from "../../../../../types/online";
-import path from "path";
 import { parsers } from "./_register";
-import { fetch, validate } from "../../../utils";
+import { fetch, joinUrl, validate } from "../../../utils";
 import { RegisterNode } from "./types";
 
 function getRegisterNode(protocol: string): Result<RegisterNode, string> {
@@ -18,7 +17,7 @@ async function fetchHello(
   baseUrl: string
 ): Promise<Result<HelloResponse, string>> {
   const helloRes = await fetch<HelloResponse>(
-    path.join(baseUrl, "hello"),
+    joinUrl(baseUrl, "hello"),
     `Error:Can't shake hand with mirror at ${baseUrl} : {}`
   );
   if (helloRes.err) return helloRes;
@@ -32,7 +31,11 @@ async function fetchHello(
   if (parserRes.err) return parserRes;
   const node = parserRes.unwrap();
 
-  return validate(hello, node.validators.hello);
+  return validate(
+    hello,
+    node.validators.hello,
+    `Error:Can't validate hello response with mirror at ${baseUrl} : {}`
+  );
 }
 
 async function fetchAlpha(
@@ -41,7 +44,7 @@ async function fetchAlpha(
   token: string
 ): Promise<Result<AlphaResponse, string>> {
   const alphaRes = await fetch<AlphaResponse>(
-    path.join(baseUrl, `alpha?token=${token}`),
+    joinUrl(baseUrl, `alpha?token=${token}`),
     `Error:Can't fetch alpha data hand with mirror at ${baseUrl} : {}`
   );
   if (alphaRes.err) return alphaRes;
@@ -51,7 +54,11 @@ async function fetchAlpha(
   if (parserRes.err) return parserRes;
   const node = parserRes.unwrap();
 
-  return validate(alpha, node.validators.alpha);
+  return validate(
+    alpha,
+    node.validators.alpha,
+    `Error:Can't validate alpha response with mirror at ${baseUrl} : {}`
+  );
 }
 
 export { fetchHello, fetchAlpha };

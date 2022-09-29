@@ -17,7 +17,7 @@ interface FileNodeOnline {
 }
 
 interface PluginsOnline {
-  tree: Record<string, FileNodePackageOnline>;
+  tree: Record<string, FileNodePackageOnline[]>;
   path: string;
 }
 
@@ -45,7 +45,7 @@ interface HubOnline {
     description: string;
     close_text: string;
     lower_than: string;
-    repeat_after: string;
+    repeat_after: number;
   }[];
   packages: {
     update: FileNodeOnline;
@@ -69,6 +69,7 @@ interface PropertyOnline {
 export interface HelloResponse {
   name: string;
   description: string;
+  root: string;
   protocol: string;
   property: PropertyOnline;
   services: ServiceNode[];

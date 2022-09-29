@@ -39,7 +39,7 @@ async function read(): Promise<Result<Config, string>> {
 }
 
 function valid(dirty: any) {
-  return validate(dirty, validator);
+  return validate(dirty, validator, `Error:Can't validate config : {}`);
 }
 
 function patch<T>(rawJson: T, patchJson: any): T {

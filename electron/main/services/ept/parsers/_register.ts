@@ -1,7 +1,7 @@
 import { RegisterNode } from "./types";
 import Ajv from "ajv";
-import helloSchema from "./schemas/protocol310/hello.json";
-import alphaSchema from "./schemas/protocol310/alpha.json";
+import * as helloSchema from "./schemas/protocol310/hello.json";
+import * as alphaSchema from "./schemas/protocol310/alpha.json";
 
 const ajv = new Ajv();
 const helloValidator = ajv.compile(helloSchema);

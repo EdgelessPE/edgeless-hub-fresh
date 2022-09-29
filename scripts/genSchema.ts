@@ -18,7 +18,7 @@ function main() {
       path: "./types/online.d.ts",
       type: "HelloResponse",
       outputPath:
-        "./electron/main/services/ept/parsers/protocol3/schema/hello.json",
+        "./electron/main/services/ept/parsers/schemas/protocol310.json",
     },
     // {
     //   path: "./types/online.d.ts",

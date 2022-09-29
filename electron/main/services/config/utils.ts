@@ -7,6 +7,7 @@ import { initial } from "./initial";
 import { log } from "../../log";
 import Schema from "../../../schema/config.json";
 import path from "path";
+import { validate } from "../../utils";
 
 const ajv = new Ajv();
 const validator = ajv.compile(Schema);
@@ -37,18 +38,8 @@ async function read(): Promise<Result<Config, string>> {
   });
 }
 
-function valid(dirty: any): Result<null, string> {
-  validator.errors = undefined;
-  const res = validator(dirty);
-  if (res) {
-    return new Ok(null);
-  } else {
-    return new Err(
-      `Error:Can't valid ${CONFIG_PATH} as config : ${JSON.stringify(
-        validator.errors
-      )}`
-    );
-  }
+function valid(dirty: any) {
+  return validate(dirty, validator);
 }
 
 function patch<T>(rawJson: T, patchJson: any): T {

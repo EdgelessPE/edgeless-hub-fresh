@@ -1,7 +1,7 @@
 import { Err, Ok, Result } from "ts-results";
 import fs from "fs";
 import { ValidateFunction } from "ajv";
-import axios from "axios";
+import axios, { AxiosError } from "axios";
 
 function getLocalImageSrc(fsPath: string): Result<string, string> {
   if (!fs.existsSync(fsPath)) {
@@ -30,19 +30,26 @@ function validate<T>(
   }
 }
 
+type ErrHandler = (err: AxiosError) => string;
 async function fetch<T>(
   url: string,
-  errTip?: string
+  errTip?: string | ErrHandler
 ): Promise<Result<T, string>> {
   try {
     const res = await axios.get(url);
     return new Ok(res.data);
-  } catch (e) {
+  } catch (e: any) {
     const errMsg = JSON.stringify(e);
-    const tip = errMsg
-      ? errMsg.replace("{}", errMsg)
-      : `Error:Can't fetch ${url} : ${errMsg}`;
-    return new Err(tip);
+    if (typeof errTip == "string") {
+      const tip = errTip
+        ? errTip.replace("{}", errMsg)
+        : `Error:Can't fetch ${url} : ${errMsg}`;
+      return new Err(tip);
+    } else if (typeof errTip == "function") {
+      return new Err(errTip(e));
+    } else {
+      return new Err(`Error:Can't fetch ${url} : ${errMsg}`);
+    }
   }
 }
 

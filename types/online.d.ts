@@ -83,7 +83,7 @@ export interface AlphaResponse {
   kernel_wim: FileNodeOnline | null;
   cover: {
     lower_than: string;
-    url: string;
+    file: FileNodeOnline;
   } | null;
 }
 

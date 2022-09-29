@@ -67,13 +67,57 @@
                 "lower_than": {
                   "type": "string"
                 },
-                "url": {
-                  "type": "string"
+                "file": {
+                  "type": "object",
+                  "properties": {
+                    "name": {
+                      "type": "string"
+                    },
+                    "version": {
+                      "type": "string"
+                    },
+                    "url": {
+                      "type": "string"
+                    },
+                    "size": {
+                      "type": "number"
+                    },
+                    "timestamp": {
+                      "type": "number"
+                    },
+                    "integrity": {
+                      "type": "object",
+                      "properties": {
+                        "method": {
+                          "type": "string",
+                          "enum": [
+                            "sha256",
+                            "blake3"
+                          ]
+                        },
+                        "value": {
+                          "type": "string"
+                        }
+                      },
+                      "required": [
+                        "method",
+                        "value"
+                      ],
+                      "additionalProperties": false
+                    }
+                  },
+                  "required": [
+                    "name",
+                    "version",
+                    "url",
+                    "size"
+                  ],
+                  "additionalProperties": false
                 }
               },
               "required": [
                 "lower_than",
-                "url"
+                "file"
               ],
               "additionalProperties": false
             },

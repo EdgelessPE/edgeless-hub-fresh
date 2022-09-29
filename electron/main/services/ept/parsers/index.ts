@@ -45,7 +45,13 @@ async function fetchAlpha(
 ): Promise<Result<AlphaResponse, string>> {
   const alphaRes = await fetch<AlphaResponse>(
     joinUrl(baseUrl, `alpha?token=${token}`),
-    `Error:Can't fetch alpha data hand with mirror at ${baseUrl} : {}`
+    (e) => {
+      if (e.code == "ERR_BAD_REQUEST") {
+        return `Error:Invalid alpha token`;
+      } else {
+        return `Error:Can't fetch alpha data from mirror at ${baseUrl} : {}`;
+      }
+    }
   );
   if (alphaRes.err) return alphaRes;
   const alpha = alphaRes.unwrap();
@@ -57,7 +63,7 @@ async function fetchAlpha(
   return validate(
     alpha,
     node.validators.alpha,
-    `Error:Can't validate alpha response with mirror at ${baseUrl} : {}`
+    `Error:Can't validate alpha response from mirror at ${baseUrl} : {}`
   );
 }
 

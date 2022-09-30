@@ -11,6 +11,7 @@
     "vite.config.ts",
     "package.json",
     "electron",
-    "electron/schema/*.json"
+    "electron/**/*.json",
+    "electron/main/services/ept/parsers/**/schema/*.json"
   ]
 }

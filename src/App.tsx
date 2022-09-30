@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import { Button, Layout } from "@arco-design/web-react";
 import { Routes } from "react-router-dom";
 import "@arco-design/web-react/dist/css/arco.css";
-
+import { setCurrentTheme } from "@/services/theme";
 import { getRouterNodes } from "@/router/routers";
 import { myHistory } from "@/router/history";
 
@@ -13,6 +13,8 @@ import { Header } from "@/components/layout/Header";
 import { IconSettings } from "@arco-design/web-react/icon";
 import { BrowserHistory } from "history";
 import init from "@/init";
+import useModal from "@arco-design/web-react/es/Modal/useModal";
+import { getRouterPath } from "@/router/utils";
 
 const Sider = Layout.Sider;
 const Content = Layout.Content;
@@ -20,9 +22,7 @@ const Content = Layout.Content;
 function useSettingButton(showText: boolean, history: BrowserHistory) {
   const [selected, setSelected] = useState(false);
   const getSelected = () => {
-    let s = decodeURI(window.location.pathname)
-      .split("/")
-      .filter((key) => key != "");
+    const s = getRouterPath();
     if (s.length == 1 && s[0] == "settings") {
       setSelected(true);
     } else {
@@ -48,6 +48,15 @@ function useSettingButton(showText: boolean, history: BrowserHistory) {
   );
 }
 
+// 暗黑模式跟随系统
+let media = window.matchMedia('(prefers-color-scheme: dark)');
+if (media.matches) {
+  document.body.setAttribute("arco-theme", "dark");
+  setCurrentTheme(false);
+}
+
+
+
 const App: React.FC = () => {
   const [collapsed, setCollapsed] = useState(false);
   const [displayText, setDisplayText] = useState(true);
@@ -61,12 +70,15 @@ const App: React.FC = () => {
     setCollapsed((prev) => !prev);
   };
 
+  // 初始化与错误处理弹窗
+  const [modal, contextHolder] = useModal();
   useEffect(() => {
-    init();
+    init(modal);
   }, []);
 
   return (
     <Layout className="app">
+      {contextHolder}
       <Sider
         collapsed={collapsed}
         collapsible

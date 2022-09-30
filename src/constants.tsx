@@ -82,7 +82,7 @@ const siderNodes: SiderNode[] = [
         icon: <SafetyCertificateOutlined />,
       },
       {
-        path: "plugin/detail/实用工具/Smap_0.1.11.0_undefined（bot）.7z",
+        path: "plugin/detail/安全急救/Smap_0.1.11.0_undefined（bot）.7z",
         title: "详情",
       },
     ],
@@ -152,7 +152,7 @@ function getTitleMapSider(nodes: SiderNode[]): Record<
     }
   > = {};
   for (let node of nodes) {
-    map[node.path == "home" ? "" : node.path] = {
+    map[node.path] = {
       icon: node.icon,
       title: node.title,
     };

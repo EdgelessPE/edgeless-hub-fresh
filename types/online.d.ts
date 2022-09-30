@@ -17,7 +17,7 @@ interface FileNodeOnline {
 }
 
 interface PluginsOnline {
-  tree: Record<string, FileNodePackageOnline>;
+  tree: Record<string, FileNodePackageOnline[]>;
   path: string;
 }
 
@@ -45,7 +45,7 @@ interface HubOnline {
     description: string;
     close_text: string;
     lower_than: string;
-    repeat_after: string;
+    repeat_after: number;
   }[];
   packages: {
     update: FileNodeOnline;
@@ -66,9 +66,10 @@ interface PropertyOnline {
   official_maintained: boolean;
 }
 
-interface HelloResponse {
+export interface HelloResponse {
   name: string;
   description: string;
+  root: string;
   protocol: string;
   property: PropertyOnline;
   services: ServiceNode[];
@@ -78,17 +79,15 @@ interface HelloResponse {
   hub?: HubOnline;
 }
 
-interface AlphaResponse {
+export interface AlphaResponse {
   kernel_wim: FileNodeOnline | null;
   cover: {
     lower_than: string;
-    url: string;
+    file: FileNodeOnline;
   } | null;
 }
 
 export {
-  HelloResponse,
-  AlphaResponse,
   ServiceNode,
   FileNodePackageOnline,
   FileNodeOnline,

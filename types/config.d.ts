@@ -1,5 +1,5 @@
 import { Theme } from "./theme";
-import { PropertyOnline, ServiceNode } from "./online";
+import { MirrorLocal } from "./ept";
 
 export interface Config {
   ept: {
@@ -11,10 +11,3 @@ export interface Config {
   theme: Theme;
 }
 
-interface MirrorLocal {
-  name: string;
-  description: string;
-  protocol: string;
-  property: PropertyOnline;
-  services: ServiceNode[];
-}

@@ -4,12 +4,13 @@ import { Result } from "ts-results";
 import { useState } from "react";
 import bridge from "@/bridge/method";
 import { Subject } from "rxjs";
+import { configError } from "@/modals/configError";
 
 let cfg: Config | null = null;
 let subject: Subject<Result<Config, string> | null> | null = null;
 const listeners: Array<(cfg: Config | null) => void> = [];
 
-async function initConfig() {
+async function initConfig(modal: any) {
   subject = await createBridgeSubject<Result<Config, string>>("config");
   subject.subscribe((result) => {
     if (result?.ok) {
@@ -21,6 +22,9 @@ async function initConfig() {
       listeners.forEach((listener) => {
         listener(null);
       });
+      if (result) {
+        modal.error(configError(result?.val));
+      }
     }
   });
 }

@@ -1,21 +1,47 @@
 const tsj = require("ts-json-schema-generator");
 const fs = require("fs");
 
-function main() {
-  /** @type {import('ts-json-schema-generator/dist/src/Config').Config} */
-  const config = {
-    path: "./electron/main/services/config/type.d.ts",
-    tsconfig: "./tsconfig.json",
-    type: "Config",
-  };
-
-  const output_path = "./schema/config.json";
-
-  const schema = tsj.createGenerator(config).createSchema(config.type);
-  const schemaString = JSON.stringify(schema, null, 2);
-  fs.writeFile(output_path, schemaString, (err: any) => {
-    if (err) throw err;
-  });
+interface NaiveAjvConfig {
+  path: string;
+  type: string;
+  outputPath: string;
 }
 
-main();
+function main() {
+  const arr: NaiveAjvConfig[] = [
+    {
+      path: "./types/config.d.ts",
+      type: "Config",
+      outputPath: "./electron/schema/config.json",
+    },
+    {
+      path: "./types/online.d.ts",
+      type: "HelloResponse",
+      outputPath:
+        "./electron/main/services/ept/parsers/schemas/protocol310/hello.json",
+    },
+    {
+      path: "./types/online.d.ts",
+      type: "AlphaResponse",
+      outputPath:
+        "./electron/main/services/ept/parsers/schemas/protocol310/alpha.json",
+    },
+  ];
+
+  for (const cfg of arr) {
+    const { path, type, outputPath } = cfg;
+    /** @type {import('ts-json-schema-generator/dist/src/Config').Config} */
+    const config = {
+      path,
+      type,
+      tsconfig: "./tsconfig.json",
+    };
+    const schema = tsj.createGenerator(config).createSchema(config.type);
+    const schemaString = JSON.stringify(schema, null, 2);
+    fs.writeFile(outputPath, schemaString, (err: any) => {
+      if (err) throw err;
+    });
+  }
+}
+
+main()

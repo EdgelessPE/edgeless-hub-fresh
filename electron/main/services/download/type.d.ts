@@ -1,0 +1,41 @@
+import { Result } from "ts-results";
+import { Subscriber } from "rxjs";
+
+type MayErrorReturned = Promise<Result<null, string>>;
+export type AddTaskFn = (
+  url: string,
+  dir: string,
+  suggested: AddTaskSuggested,
+  subscriber: Subscriber<TaskProgressNotification> // 用于通知下载进度、速度
+) => Promise<Result<AddTaskReturned, string>>;
+
+export interface Provider {
+  name: string;
+  description: string;
+  addTask: AddTaskFn;
+
+  init(): MayErrorReturned;
+}
+
+interface AddTaskSuggested {
+  fileName: string;
+  totalSize: number;
+  speedLimit: number;
+  threads: number;
+}
+
+interface AddTaskReturned {
+  targetPosition: string; // 文件最终绝对路径，理论上应该 == path.join(dir,suggested.fileName)
+  handler?: TaskHandler; // 如下载引擎支持暂停和继续则返回 handler
+}
+
+interface TaskHandler {
+  continue(): MayErrorReturned;
+
+  pause(): MayErrorReturned;
+}
+
+export interface TaskProgressNotification {
+  percent: number; // 进度百分比，取值0-100
+  speed: number; // 下载速度，单位 B/s
+}

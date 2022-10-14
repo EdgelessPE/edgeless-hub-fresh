@@ -1,5 +1,6 @@
 import { Result } from "ts-results";
 import { Subscriber } from "rxjs";
+import { DownloadProviderInfo } from "../../../../../types/download";
 
 type MayErrorReturned = Promise<Result<null, string>>;
 export type AddTaskFn = (
@@ -10,14 +11,13 @@ export type AddTaskFn = (
 ) => Promise<Result<AddTaskReturned, string>>;
 
 export interface Provider {
-  name: string;
-  description: string;
+  info: DownloadProviderInfo;
   addTask: AddTaskFn;
 
   init(): MayErrorReturned;
 }
 
-interface AddTaskSuggested {
+export interface AddTaskSuggested {
   fileName: string;
   totalSize: number;
   speedLimit: number;

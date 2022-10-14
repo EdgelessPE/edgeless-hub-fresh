@@ -1,6 +1,6 @@
 import Downloader from "nodejs-file-downloader";
 import { Ok, Result } from "ts-results";
-import { AddTaskFn } from "../type";
+import { AddTaskFn, Provider } from "./type";
 import path from "path";
 
 interface ProgressUpdate {
@@ -52,3 +52,14 @@ function calcSpeed(recent: ProgressUpdate, current: ProgressUpdate) {
 
   return sizeFinishedByte / timePassedSecond;
 }
+
+export const NFDProvider: Provider = {
+  info: {
+    name: "内置下载",
+    description:
+      "默认的下载引擎，不需要外部二进制依赖，仅支持单线程且不支持下载暂停",
+    id: "nfd",
+  },
+  init,
+  addTask,
+};

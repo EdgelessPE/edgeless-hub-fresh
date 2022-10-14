@@ -104,11 +104,28 @@
             "light",
             "dark"
           ]
+        },
+        "download": {
+          "type": "object",
+          "properties": {
+            "provider": {
+              "type": "string"
+            },
+            "cacheDir": {
+              "type": "string"
+            }
+          },
+          "required": [
+            "provider",
+            "cacheDir"
+          ],
+          "additionalProperties": false
         }
       },
       "required": [
         "ept",
-        "theme"
+        "theme",
+        "download"
       ],
       "additionalProperties": false
     }

@@ -20,8 +20,8 @@ export interface Provider {
 export interface AddTaskSuggested {
   fileName: string;
   totalSize: number;
-  speedLimit: number;
-  threads: number;
+  // speedLimit: number;
+  // threads: number;
 }
 
 interface AddTaskReturned {

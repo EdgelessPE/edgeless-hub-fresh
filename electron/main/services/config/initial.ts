@@ -8,4 +8,8 @@ export const initial: Config = {
     },
   },
   theme: "light",
+  download: {
+    provider: "nfd",
+    cacheDir: "./cache",
+  },
 };

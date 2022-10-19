@@ -11,6 +11,11 @@ import { initial } from "./initial";
 // 始终持有一份config的最新副本以在更新时用作补丁母版
 let cfg: Config | null = null;
 
+// 用于轻量地获取一份临时配置信息
+function getTempConfig(): Config {
+  return cfg!;
+}
+
 async function getObservableConfig(): Promise<
   Result<Observable<Result<Config, string>>, string>
 > {
@@ -85,6 +90,7 @@ async function resetObservableConfig(): Promise<Result<null, string>> {
 }
 
 export {
+  getTempConfig,
   getObservableConfig,
   setObservableConfig,
   patchObservableConfig,

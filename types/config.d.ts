@@ -9,5 +9,9 @@ export interface Config {
     };
   };
   theme: Theme;
+  download: {
+    provider: string;
+    cacheDir: string;
+  };
 }
 

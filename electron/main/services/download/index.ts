@@ -76,8 +76,7 @@ async function addTaskProxy(
           returned: null,
         };
         if (addRes.ok) {
-          const returned = addRes.unwrap();
-          payload.returned = returned;
+          payload.returned = addRes.unwrap();
         }
         Pool.eventBus.emit("add", taskId, payload);
 

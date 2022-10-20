@@ -25,6 +25,4 @@ async function getHash(filePath: string): Promise<Result<string, string>> {
   })
 }
 
-export {
-  getHash
-}
+export default getHash

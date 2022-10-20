@@ -1,8 +1,9 @@
-import { Observable } from "rxjs";
-import { TaskProgressNotification } from "./provider/type";
-import { EventEmitter } from "node:events";
-import { log } from "../../log";
-import { AddTaskEventPayload, PoolMapNode, PoolStatus } from "./type";
+import {Observable} from "rxjs";
+import {TaskProgressNotification} from "./provider/type";
+import {EventEmitter} from "node:events";
+import {log} from "../../log";
+import {AddTaskEventPayload, PoolMapNode, PoolStatus} from "./type";
+import {Err, Result} from "ts-results";
 
 const eventBus = new EventEmitter();
 const map = new Map<string, PoolMapNode>();
@@ -14,23 +15,23 @@ function setMap(id: string, status: PoolStatus) {
     );
     return false;
   }
+  const entry = map.get(id)!;
   // 记录日志
   const logTitle = status.type == "error" ? "Error" : "Info";
   log(
-    `${logTitle}:Switch task ${id} to status ${
+    `${logTitle}:Switch task ${id} status from ${entry.status.type} to ${
       status.type
     } with payload : ${JSON.stringify(status.payload)}`
   );
 
   // 更新 map
-  const entry = map.get(id)!;
   entry.status = status;
   map.set(id, entry);
 
   return true;
 }
 
-export function getRendererObservable() {
+function getRendererObservable() {
   //TODO:完善rendererView生成和发送
   const rendererView = [];
   return new Observable((subscriber) => {
@@ -50,11 +51,11 @@ export function getRendererObservable() {
       },
       {
         statusName: "validating",
-        handler: (id: string, payload: TaskProgressNotification) => {
+        handler: (id: string) => {
           if (
             !setMap(id, {
               type: "validating",
-              payload,
+              payload: null,
             })
           )
             return;
@@ -132,7 +133,44 @@ export function getRendererObservable() {
   });
 }
 
-export default {
+async function pauseTask(id: string): Promise<Result<null, string>> {
+  // 获取任务入口
+  if (!map.has(id)) {
+    return new Err(`Error:Can't find task ${id}`)
+  }
+  const entry = map.get(id)!
+  // 检查任务是否支持暂停
+  if (entry.returned.handler == null) {
+    return new Err(`Error:Task ${id} used download provider ${entry.provider} which doesn't support pausing`)
+  }
+  // 仅当当前状态机为 downloading 时允许暂停
+  if (entry.status.type != "downloading") {
+    return new Err(`Error:Task ${id} current status ${entry.status.type} doesn't support pausing`)
+  }
+
+  // 通过把手进行暂停
+  return entry.returned.handler.pause()
+}
+
+async function continueTask(id: string): Promise<Result<null, string>> {
+  if (!map.has(id)) {
+    return new Err(`Error:Can't find task ${id}`)
+  }
+  const entry = map.get(id)!
+
+  if (entry.returned.handler == null) {
+    return new Err(`Error:Task ${id} used download provider ${entry.provider} which doesn't support continuation`)
+  }
+  if (entry.status.type != "paused") {
+    return new Err(`Error:Task ${id} current status ${entry.status.type} doesn't require continuation`)
+  }
+
+  return entry.returned.handler.continue()
+}
+
+export {
   eventBus,
-  map,
+  getRendererObservable,
+  pauseTask,
+  continueTask,
 };

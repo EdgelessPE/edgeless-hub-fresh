@@ -1,16 +1,12 @@
-import {
-  AddTaskSuggested,
-  Provider,
-  TaskProgressNotification,
-} from "./provider/type";
-import { Ok, Result } from "ts-results";
-import { Integrity } from "../../../../types";
-import Pool from "./pool";
-import { Observable } from "rxjs";
-import { getTempConfig } from "../config";
-import { getProvider } from "./provider";
-import { getTaskId } from "./utils";
-import { AddTaskEventPayload } from "./type";
+import {AddTaskSuggested, Provider, TaskProgressNotification,} from "./provider/type";
+import {Ok, Result} from "ts-results";
+import {Integrity} from "../../../../types";
+import {eventBus} from "./pool";
+import {Observable} from "rxjs";
+import {getTempConfig} from "../config";
+import {getProvider} from "./provider";
+import {getTaskId} from "./utils";
+import {AddTaskEventPayload} from "./type";
 
 const providerReadyMap = new Map<string, Provider>();
 
@@ -55,13 +51,13 @@ async function addTaskProxy(
     fileName,
     totalSize,
   };
+  const taskId = getTaskId(providerId);
 
   // 代理订阅引擎事件更新
   const proxyObservable = new Observable<TaskProgressNotification>(
     (subscriber) => {
       provider.addTask(url, dir, suggested, subscriber).then((addRes) => {
         // 添加下载任务
-        const taskId = getTaskId(providerId);
         const payload: AddTaskEventPayload = {
           provider: providerId,
           params: {
@@ -78,18 +74,36 @@ async function addTaskProxy(
         if (addRes.ok) {
           payload.returned = addRes.unwrap();
         }
-        Pool.eventBus.emit("add", taskId, payload);
+        eventBus.emit("add", taskId, payload);
 
         // 如果添加失败，将此任务状态机跳转至 error
         if (addRes.err) {
           const errMsg = addRes.val;
-          Pool.eventBus.emit("error", taskId, errMsg);
+          eventBus.emit("error", taskId, errMsg);
         }
       });
     }
   );
 
   proxyObservable.subscribe({
-    next(notification) {},
+    next(notification) {
+      eventBus.emit("downloading", taskId, notification)
+    },
+    error(e: any) {
+      if (typeof e == "string") {
+        eventBus.emit("error", taskId, e)
+      } else {
+        eventBus.emit("error", taskId, JSON.stringify(e))
+      }
+    },
+    complete() {
+      // 进行数据校验
+      eventBus.emit("validating", taskId)
+      if (integrity) {
+        // TODO:数据校验调用
+      } else {
+        eventBus.emit("completed", taskId)
+      }
+    }
   });
 }

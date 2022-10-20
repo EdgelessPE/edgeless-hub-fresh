@@ -1,135 +1,54 @@
-import {Observable} from "rxjs";
-import {TaskProgressNotification} from "./provider/type";
-import {EventEmitter} from "node:events";
-import {log} from "../../log";
-import {AddTaskEventPayload, PoolMapNode, PoolStatus} from "./type";
-import {Err, Result} from "ts-results";
+import {Observable, Subscriber} from "rxjs";
+import {PoolMapNode} from "./type";
+import {Err, Ok, Result} from "ts-results";
+import {RendererViewTask} from "../../../../types/download";
+import {convertPoolMapNode2RendererViewTask} from "./utils";
+import {emitPaused, emitPending, registerEventBus} from "./eventBus";
 
-const eventBus = new EventEmitter();
 const map = new Map<string, PoolMapNode>();
+const rendererView: RendererViewTask[] = [];
 
-function setMap(id: string, status: PoolStatus) {
-  if (!map.has(id)) {
-    log(
-      `Error:Fatal:Download task ${id} should exist before status ${status.type} update`
-    );
-    return false;
+function updateRendererViewObservable(subscriber: Subscriber<RendererViewTask[]>) {
+  // 更新 Observable
+  subscriber.next(rendererView)
+}
+
+function updateRendererView(id: string, subscriber: Subscriber<RendererViewTask[]>) {
+  let isNewNode = true
+  const entry = map.get(id)!
+  const updatedNode = convertPoolMapNode2RendererViewTask(id, entry)
+
+  for (let i = 0; i < rendererView.length; i++) {
+    const node = rendererView[i]
+    if (node.id == id) {
+      rendererView[i] = updatedNode
+      isNewNode = false
+      break
+    }
   }
-  const entry = map.get(id)!;
-  // 记录日志
-  const logTitle = status.type == "error" ? "Error" : "Info";
-  log(
-    `${logTitle}:Switch task ${id} status from ${entry.status.type} to ${
-      status.type
-    } with payload : ${JSON.stringify(status.payload)}`
-  );
+  if (isNewNode) {
+    rendererView.push(updatedNode)
+  }
+  updateRendererViewObservable(subscriber)
+}
 
-  // 更新 map
-  entry.status = status;
-  map.set(id, entry);
-
-  return true;
+function removeRenderView(id: string, subscriber: Subscriber<RendererViewTask[]>) {
+  for (let i = 0; i < rendererView.length; i++) {
+    const node = rendererView[i]
+    if (node.id == id) {
+      rendererView.splice(i, 1)
+      break
+    }
+  }
+  updateRendererViewObservable(subscriber)
 }
 
 function getRendererObservable() {
-  //TODO:完善rendererView生成和发送
-  const rendererView = [];
-  return new Observable((subscriber) => {
-    // event bus 事件统一处理
-    const eventHandlers = [
-      {
-        statusName: "downloading",
-        handler: (id: string, payload: TaskProgressNotification) => {
-          if (
-            !setMap(id, {
-              type: "downloading",
-              payload,
-            })
-          )
-            return;
-        },
-      },
-      {
-        statusName: "validating",
-        handler: (id: string) => {
-          if (
-            !setMap(id, {
-              type: "validating",
-              payload: null,
-            })
-          )
-            return;
-        },
-      },
-      {
-        statusName: "error",
-        handler: (id: string, payload: string) => {
-          if (
-            !setMap(id, {
-              type: "error",
-              payload,
-            })
-          )
-            return;
-        },
-      },
-      {
-        statusName: "completed",
-        handler: (id: string) => {
-          if (
-            !setMap(id, {
-              type: "completed",
-              payload: null,
-            })
-          )
-            return;
-        },
-      },
-      {
-        statusName: "paused",
-        handler: (id: string) => {
-          if (
-            !setMap(id, {
-              type: "paused",
-              payload: null,
-            })
-          )
-            return;
-        },
-      },
-      {
-        statusName: "pending",
-        handler: (id: string) => {
-          if (
-            !setMap(id, {
-              type: "pending",
-              payload: null,
-            })
-          )
-            return;
-        },
-      },
-      {
-        statusName: "add",
-        handler: (id: string, payload: AddTaskEventPayload) => {
-          const { provider, params, returned } = payload;
-          const mapNode: PoolMapNode = {
-            provider,
-            params,
-            returned,
-            status: {
-              type: "pending",
-              payload: null,
-            },
-          };
-          log(`Info:Add task with map node : ${JSON.stringify(mapNode)}`);
-          map.set(id, mapNode);
-        },
-      },
-    ];
-    eventHandlers.forEach((node) => {
-      eventBus.on(node.statusName, node.handler);
-    });
+  return new Observable<RendererViewTask[]>((subscriber) => {
+    // 注册 event bus 处理事件
+    registerEventBus(map, (id) => {
+      updateRendererView(id, subscriber)
+    })
   });
 }
 
@@ -148,8 +67,17 @@ async function pauseTask(id: string): Promise<Result<null, string>> {
     return new Err(`Error:Task ${id} current status ${entry.status.type} doesn't support pausing`)
   }
 
+  // 将状态机配置为 pending
+  emitPending(id)
+
   // 通过把手进行暂停
-  return entry.returned.handler.pause()
+  const pauseRes = await entry.returned.handler.pause()
+  if (pauseRes.err) return pauseRes
+
+  // 更新状态机为 paused
+  emitPaused(id)
+
+  return new Ok(null)
 }
 
 async function continueTask(id: string): Promise<Result<null, string>> {
@@ -162,15 +90,22 @@ async function continueTask(id: string): Promise<Result<null, string>> {
     return new Err(`Error:Task ${id} used download provider ${entry.provider} which doesn't support continuation`)
   }
   if (entry.status.type != "paused") {
-    return new Err(`Error:Task ${id} current status ${entry.status.type} doesn't require continuation`)
+    return new Err(`Error:Task ${id} current status ${entry.status.type} doesn't allow continuation`)
   }
 
-  return entry.returned.handler.continue()
+  emitPending(id)
+
+  const continueRes = await entry.returned.handler.continue()
+  if (continueRes.err) return continueRes
+
+  // 此处不变更状态机至 downloading ，由 provider 自发产生值更新下载进度
+
+  return new Ok(null)
 }
 
 export {
-  eventBus,
   getRendererObservable,
+  removeRenderView,
   pauseTask,
   continueTask,
 };

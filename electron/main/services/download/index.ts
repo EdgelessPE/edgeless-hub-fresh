@@ -1,12 +1,12 @@
 import {AddTaskSuggested, Provider, TaskProgressNotification,} from "./provider/type";
 import {Ok, Result} from "ts-results";
 import {Integrity} from "../../../../types";
-import {eventBus} from "./pool";
 import {Observable} from "rxjs";
 import {getTempConfig} from "../config";
 import {getProvider} from "./provider";
 import {getTaskId} from "./utils";
 import {AddTaskEventPayload} from "./type";
+import {createTaskNode, emitCompleted, emitDownloading, emitError, emitValidating} from "./eventBus";
 
 const providerReadyMap = new Map<string, Provider>();
 
@@ -74,12 +74,12 @@ async function addTaskProxy(
         if (addRes.ok) {
           payload.returned = addRes.unwrap();
         }
-        eventBus.emit("add", taskId, payload);
+        createTaskNode(taskId, payload);
 
         // 如果添加失败，将此任务状态机跳转至 error
         if (addRes.err) {
           const errMsg = addRes.val;
-          eventBus.emit("error", taskId, errMsg);
+          emitError(taskId, errMsg);
         }
       });
     }
@@ -87,22 +87,22 @@ async function addTaskProxy(
 
   proxyObservable.subscribe({
     next(notification) {
-      eventBus.emit("downloading", taskId, notification)
+      emitDownloading(taskId, notification)
     },
     error(e: any) {
       if (typeof e == "string") {
-        eventBus.emit("error", taskId, e)
+        emitError(taskId, e)
       } else {
-        eventBus.emit("error", taskId, JSON.stringify(e))
+        emitError(taskId, JSON.stringify(e))
       }
     },
     complete() {
       // 进行数据校验
-      eventBus.emit("validating", taskId)
+      emitValidating(taskId)
       if (integrity) {
         // TODO:数据校验调用
       } else {
-        eventBus.emit("completed", taskId)
+        emitCompleted(taskId)
       }
     }
   });

@@ -1,4 +1,4 @@
-import { Integrity } from "./index";
+import {Integrity} from "./index";
 
 interface FileNodePackageLocal {
   name: string;
@@ -23,4 +23,14 @@ interface VentoyLocal {
   secureBoot: boolean;
 }
 
-export { FileNodePackageLocal, FileNodeLocal, VentoyLocal };
+interface UDisk {
+  letter: string
+  rw: boolean
+  kernel?: FileNodeLocal
+  alpha?: FileNodeLocal
+  ventoy?: VentoyLocal
+  plugins?: FileNodePackageLocal
+  configs?: string[]
+}
+
+export {FileNodePackageLocal, FileNodeLocal, VentoyLocal, UDisk};

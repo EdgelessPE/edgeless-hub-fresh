@@ -29,7 +29,7 @@ async function prepareProvider(id: string): Promise<Result<Provider, string>> {
 }
 
 // 返回唯一的 task id
-async function addTaskProxy(
+async function createTask(
   url: string,
   fileName: string,
   totalSize: number,
@@ -38,8 +38,7 @@ async function addTaskProxy(
   // 读取一份当前配置
   const cfg = getTempConfig();
 
-  // 获取下载引擎
-  // 由配置文件获取当前引擎id
+  // 由配置文件获取当前下载引擎 id
   const providerId = cfg.download.provider;
   const pRes = await prepareProvider(providerId);
   if (pRes.err) return pRes;
@@ -106,4 +105,8 @@ async function addTaskProxy(
       }
     }
   });
+}
+
+export {
+  createTask
 }

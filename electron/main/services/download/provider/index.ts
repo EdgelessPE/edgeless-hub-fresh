@@ -1,21 +1,6 @@
-import { Register } from "./_register";
-import { Provider } from "./type";
-import { Err, Ok, Result } from "ts-results";
-import { modifyObservableConfig } from "../../config";
-import { DownloadProviderInfo } from "../../../../../types/download";
-
-function getProvider(id: string): Result<Provider, string> {
-  for (const provider of Register) {
-    if (provider.info.id == id) {
-      return new Ok(provider);
-    }
-  }
-  return new Err(`Error:Can't find download provider with id ${id}`);
-}
-
-function getProviderList(): DownloadProviderInfo[] {
-  return Register.map((n) => n.info);
-}
+import {getProvider} from "./_register";
+import {Result} from "ts-results";
+import {modifyObservableConfig} from "../../config";
 
 async function setProvider(id: string): Promise<Result<null, string>> {
   const searchRes = getProvider(id);
@@ -30,4 +15,4 @@ async function setProvider(id: string): Promise<Result<null, string>> {
   });
 }
 
-export { getProvider, getProviderList, setProvider };
+export {setProvider};

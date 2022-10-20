@@ -1,17 +1,8 @@
-import { Err, Ok, Result } from "ts-results";
-import { AlphaResponse, HelloResponse } from "../../../../../types/online";
-import { parsers } from "./_register";
-import { fetch, joinUrl, validate } from "../../../utils";
-import { RegisterNode } from "./types";
+import {Err, Result} from "ts-results";
+import {AlphaResponse, HelloResponse} from "../../../../../types/online";
+import {getRegisterNode} from "./_register";
+import {fetch, joinUrl, validate} from "../../../utils";
 
-function getRegisterNode(protocol: string): Result<RegisterNode, string> {
-  for (const node of parsers) {
-    if (node.supportedProtocols.includes(protocol)) {
-      return new Ok(node);
-    }
-  }
-  return new Err(`Error:Can't find protocol parser for ${protocol}`);
-}
 
 async function fetchHello(
   baseUrl: string

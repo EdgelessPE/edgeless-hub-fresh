@@ -1,4 +1,4 @@
-import {getHash} from "./blake3";
+import getHash from "./blake3";
 
 test("blake3", async () => {
   const hashRes = await getHash("./test/eMule_0.60.3.1_方块人steve.7z")

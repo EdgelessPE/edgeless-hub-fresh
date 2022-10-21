@@ -1,6 +1,7 @@
-import blake3 from "./blake3";
 import {Err, Ok, Result} from "ts-results";
 import {Integrity} from "../../../../types";
+import sha256 from "./sha256";
+import blake3 from "./blake3";
 
 type IntegrityValidator = (filePath: string) => Promise<Result<string, string>>
 type IntegrityMethod = Integrity["method"]
@@ -12,6 +13,10 @@ const registerMap: {
   {
     method: "blake3",
     entrance: blake3
+  },
+  {
+    method: "sha256",
+    entrance: sha256
   }
 ]
 

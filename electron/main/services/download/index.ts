@@ -3,10 +3,12 @@ import {Ok, Result} from "ts-results";
 import {Integrity} from "../../../../types";
 import {Observable} from "rxjs";
 import {getTempConfig} from "../config";
-import {getProvider} from "./provider";
 import {getTaskId} from "./utils";
 import {AddTaskEventPayload} from "./type";
 import {createTaskNode, emitCompleted, emitDownloading, emitError, emitValidating} from "./eventBus";
+import {getProvider} from "./provider/_register";
+import * as path from "path";
+import {validateIntegrity} from "../integrity";
 
 const providerReadyMap = new Map<string, Provider>();
 
@@ -51,6 +53,7 @@ async function createTask(
     totalSize,
   };
   const taskId = getTaskId(providerId);
+  let targetPosition = path.join(dir, fileName)
 
   // 代理订阅引擎事件更新
   const proxyObservable = new Observable<TaskProgressNotification>(
@@ -72,6 +75,7 @@ async function createTask(
         };
         if (addRes.ok) {
           payload.returned = addRes.unwrap();
+          targetPosition = payload.returned.targetPosition
         }
         createTaskNode(taskId, payload);
 
@@ -95,11 +99,16 @@ async function createTask(
         emitError(taskId, JSON.stringify(e))
       }
     },
-    complete() {
+    async complete() {
       // 进行数据校验
       emitValidating(taskId)
       if (integrity) {
-        // TODO:数据校验调用
+        const vRes = await validateIntegrity(targetPosition, integrity)
+        if (vRes.err) {
+          emitError(taskId, vRes.val)
+        } else {
+          emitCompleted(taskId)
+        }
       } else {
         emitCompleted(taskId)
       }

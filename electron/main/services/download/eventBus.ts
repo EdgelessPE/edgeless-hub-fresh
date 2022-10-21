@@ -16,12 +16,14 @@ function registerEventBus(map: Map<string, PoolMapNode>, updateCallback: (id: st
     }
     const entry = map.get(id)!;
     // 记录日志
-    const logTitle = status.type == "error" ? "Error" : "Info";
-    log(
-      `${logTitle}:Switch task ${id} status from ${entry.status.type} to ${
-        status.type
-      } with payload : ${JSON.stringify(status.payload)}`
-    );
+    if (entry.status.type != status.type) {
+      const logTitle = status.type == "error" ? "Error" : "Info";
+      log(
+        `${logTitle}:Switch task ${id} status from ${entry.status.type} to ${
+          status.type
+        } with payload : ${JSON.stringify(status.payload)}`
+      );
+    }
 
     // 更新 map
     entry.status = status;

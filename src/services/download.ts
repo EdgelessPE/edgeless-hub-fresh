@@ -1,17 +1,20 @@
 import {RendererViewTask} from "../../types/download";
 import {createBridgeObservable} from "@/bridge/observable";
-import {useState} from "react";
+import {useMemo, useState} from "react";
 import {Integrity} from "../../types";
 import {Result} from "ts-results";
 import bridge from "@/bridge/method";
 
 
 function useDownloadPoolRendererView() {
-  const observable = createBridgeObservable<RendererViewTask[]>("downloadPool")
   const [view, setView] = useState<RendererViewTask[]>([])
-  observable.subscribe(setView)
-
-  return view
+  return useMemo(() => {
+    const observable = createBridgeObservable<RendererViewTask[]>("downloadPool")
+    observable.subscribe(val => {
+      setView(val)
+    })
+    return view
+  }, [])
 }
 
 async function createTask(
@@ -33,4 +36,12 @@ async function pauseTask(id: string): Promise<Result<null, string>> {
 
 async function continueTask(id: string): Promise<Result<null, string>> {
   return bridge("continueTask", id)
+}
+
+export {
+  useDownloadPoolRendererView,
+  createTask,
+  removeTask,
+  pauseTask,
+  continueTask
 }

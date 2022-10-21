@@ -1,6 +1,6 @@
 import Downloader from "nodejs-file-downloader";
-import { Ok, Result } from "ts-results";
-import { AddTaskFn, Provider } from "./type";
+import {Ok, Result} from "ts-results";
+import {AddTaskFn, Provider} from "./type";
 import path from "path";
 
 interface ProgressUpdate {
@@ -26,6 +26,7 @@ const addTask: AddTaskFn = async (url, dir, suggested, subscriber) => {
         time: Date.now(),
         remainingSize,
       };
+      if (current.time - recent.time < 1000) return
       subscriber.next({
         percent: Number(percentage),
         speed: calcSpeed(recent, current),
@@ -35,8 +36,9 @@ const addTask: AddTaskFn = async (url, dir, suggested, subscriber) => {
   });
 
   try {
-    await downloadHandler.download();
-    subscriber.complete();
+    downloadHandler
+      .download()
+      .then(() => subscriber.complete())
   } catch (e) {
     subscriber.error(e);
   }
@@ -47,10 +49,11 @@ const addTask: AddTaskFn = async (url, dir, suggested, subscriber) => {
 };
 
 function calcSpeed(recent: ProgressUpdate, current: ProgressUpdate) {
-  const timePassedSecond = (current.time - recent.time) / 1000;
-  const sizeFinishedByte = current.remainingSize - recent.remainingSize;
+  const timePassedMilliSecond = (current.time - recent.time);
+  const sizeFinishedByte = recent.remainingSize - current.remainingSize;
+  const res = (sizeFinishedByte / timePassedMilliSecond) * 1000
 
-  return sizeFinishedByte / timePassedSecond;
+  return res;
 }
 
 export const NFDProvider: Provider = {

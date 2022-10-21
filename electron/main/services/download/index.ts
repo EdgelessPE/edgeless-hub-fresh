@@ -1,7 +1,7 @@
 import {AddTaskSuggested, Provider, TaskProgressNotification,} from "./provider/type";
 import {Ok, Result} from "ts-results";
 import {Integrity} from "../../../../types";
-import {Observable} from "rxjs";
+import {auditTime, Observable} from "rxjs";
 import {getTempConfig} from "../config";
 import {getTaskId} from "./utils";
 import {AddTaskEventPayload} from "./type";
@@ -88,32 +88,35 @@ async function createTask(
     }
   );
 
-  proxyObservable.subscribe({
-    next(notification) {
-      emitDownloading(taskId, notification)
-    },
-    error(e: any) {
-      if (typeof e == "string") {
-        emitError(taskId, e)
-      } else {
-        emitError(taskId, JSON.stringify(e))
-      }
-    },
-    async complete() {
-      // 进行数据校验
-      emitValidating(taskId)
-      if (integrity) {
-        const vRes = await validateIntegrity(targetPosition, integrity)
-        if (vRes.err) {
-          emitError(taskId, vRes.val)
+  proxyObservable
+    .pipe(auditTime(1000))
+    .subscribe({
+      next(notification) {
+        emitDownloading(taskId, notification)
+      },
+      error(e: any) {
+        if (typeof e == "string") {
+          emitError(taskId, e)
+        } else {
+          emitError(taskId, JSON.stringify(e))
+        }
+      },
+      complete() {
+        // 进行数据校验
+        emitValidating(taskId)
+        if (integrity) {
+          validateIntegrity(targetPosition, integrity).then(vRes => {
+            if (vRes.err) {
+              emitError(taskId, vRes.val)
+            } else {
+              emitCompleted(taskId)
+            }
+          })
         } else {
           emitCompleted(taskId)
         }
-      } else {
-        emitCompleted(taskId)
       }
-    }
-  });
+    });
 
   return new Ok(taskId)
 }

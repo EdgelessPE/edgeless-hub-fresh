@@ -1,17 +1,24 @@
 import "./index.scss";
-import { Tabs } from "@arco-design/web-react";
-import { TabRunning, TabRunningProps } from "@/pages/Tasks/TabRunning";
-import { TabUpgradable, TabUpgradableProps } from "@/pages/Tasks/TabUpgradable";
-import { TabInstalled, TabInstalledProps } from "@/pages/Tasks/TabInstalled";
-import React, { useEffect, useState } from "react";
+import {Button, Tabs} from "@arco-design/web-react";
+import {TabRunning, TabRunningProps} from "@/pages/Tasks/TabRunning";
+import {TabUpgradable, TabUpgradableProps} from "@/pages/Tasks/TabUpgradable";
+import {TabInstalled, TabInstalledProps} from "@/pages/Tasks/TabInstalled";
+import React, {useState} from "react";
+import {createTask, useDownloadPoolRendererView} from "@/services/download";
 
 export const Tasks = () => {
   const [p, setP] = useState(0);
-  useEffect(() => {
-    setInterval(() => {
-      setP((prev) => Math.min(prev + 1, 100));
-    }, 1000);
-  }, []);
+  // useEffect(() => {
+  //   setInterval(() => {
+  //     setP((prev) => Math.min(prev + 1, 100));
+  //   }, 1000);
+  // }, []);
+
+  const pool = useDownloadPoolRendererView()
+  const down = async () => {
+    const idRes = await createTask("https://pineapple.edgeless.top/disk/插件包/实用工具/禁用小键盘_1.0.0.0_Cno.7z", "禁用小键盘_1.0.0.0_Cno.7z", 140)
+    console.log(idRes)
+  }
 
   const running: TabRunningProps["array"] = [
       {
@@ -158,9 +165,10 @@ export const Tasks = () => {
 
   return (
     <div className="tasks__container">
+      <Button onClick={down}>下载</Button>
       <Tabs defaultActiveTab="1" className="tasks__tabs">
         <Tabs.TabPane key="1" title={`进行中（${running.length}）`}>
-          <TabRunning array={running} />
+          <TabRunning array={running}/>
         </Tabs.TabPane>
         <Tabs.TabPane key="2" title={`可更新（${upgradable.length}）`}>
           <TabUpgradable

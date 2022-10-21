@@ -128,6 +128,14 @@ function registerEventBus(map: Map<string, PoolMapNode>, updateCallback: (id: st
         updateCallback(id)
       },
     },
+    {
+      statusName: "remove", // 任务状态机移除事件
+      handler: (id: string) => {
+        log(`Info:Remove task ${id}`)
+        map.delete(id)
+        updateCallback(id)
+      }
+    }
   ];
   eventHandlers.forEach((node) => {
     eventBus.on(node.statusName, node.handler);
@@ -162,6 +170,10 @@ function createTaskNode(id: string, payload: AddTaskEventPayload) {
   eventBus.emit("add", id, payload)
 }
 
+function removeTaskNode(id: string) {
+  eventBus.emit("remove", id)
+}
+
 export {
   registerEventBus,
   emitValidating,
@@ -170,5 +182,6 @@ export {
   emitError,
   emitPaused,
   emitPending,
-  createTaskNode
+  createTaskNode,
+  removeTaskNode
 }

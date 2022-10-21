@@ -7,7 +7,7 @@ import {initial} from "./initial";
 import {log} from "../../log";
 import Schema from "../../../schema/config.json";
 import path from "path";
-import { validate } from "../../utils";
+import {validate} from "../../utils";
 
 const ajv = new Ajv();
 const validator = ajv.compile(Schema);
@@ -26,6 +26,7 @@ async function read(): Promise<Result<Config, string>> {
       rawJson = JSON.parse(rawText);
     } catch (e) {
       resolve(new Err(`Error:Can't parse ${CONFIG_PATH} as json`));
+      return
     }
 
     const patchedJson = patch(rawJson, initial);
@@ -43,9 +44,10 @@ function valid(dirty: any) {
   return validate(dirty, validator, `Error:Can't validate config : {}`);
 }
 
-function patch<T>(rawJson: T, patchJson: any): T {
+function patch<T extends object, K extends keyof T>(rawJson: T, patchJson: { [P in K]: T[P] }): T {
   for (const key in patchJson) {
     if (!rawJson.hasOwnProperty(key)) {
+      // @ts-ignore
       rawJson[key] = patchJson[key];
     } else {
       const rawVal = rawJson[key],
@@ -54,6 +56,7 @@ function patch<T>(rawJson: T, patchJson: any): T {
         // 类型不一致，直接放弃patch并可能会在后续的validate中抛出错误
         return rawJson;
       } else if (typeof rawVal == "object") {
+        // @ts-ignore
         rawJson[key] = patch(rawVal, patchVal);
       }
     }

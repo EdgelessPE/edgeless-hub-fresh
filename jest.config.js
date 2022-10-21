@@ -3,6 +3,6 @@ module.exports = {
   preset: 'ts-jest',
   testEnvironment: 'node',
   moduleNameMapper: {
-    "schema/(.*)": "<rootDir>/schema/$1",
+    "schema/(.*)": "<rootDir>/electron/schema/$1",
   }
 };

@@ -1,12 +1,12 @@
-import { Observable } from "rxjs";
-import { watch } from "fs";
-import { patch, read, valid, write } from "./utils";
-import { Config } from "../../../../types/config";
-import { log } from "../../log";
-import { Ok, Result } from "ts-results";
-import { CONFIG_PATH } from "../../constants";
-import { debounce } from "lodash";
-import { initial } from "./initial";
+import {Observable} from "rxjs";
+import {watch} from "fs";
+import {patch, read, valid, write} from "./utils";
+import {Config} from "../../../../types/config";
+import {log} from "../../log";
+import {Err, Ok, Result} from "ts-results";
+import {CONFIG_PATH} from "../../constants";
+import {debounce} from "lodash";
+import {initial} from "./initial";
 
 // 始终持有一份config的最新副本以在更新时用作补丁母版
 let cfg: Config | null = null;
@@ -51,6 +51,8 @@ async function getObservableConfig(): Promise<
 async function patchObservableConfig<K extends keyof Config>(patchJson: {
   [P in K]: Config[P];
 }): Promise<Result<null, string>> {
+  if (cfg == null) return new Err(`Error:Fatal:Temporary cfg is null`)
+
   const patchedJson = patch(cfg, patchJson);
 
   const vRes = valid(patchedJson);
@@ -64,7 +66,9 @@ async function patchObservableConfig<K extends keyof Config>(patchJson: {
 async function modifyObservableConfig(
   modifier: (rawConfig: Config) => Config
 ): Promise<Result<null, string>> {
-  const resultJson = modifier(cfg);
+  if (cfg == null) return new Err(`Error:Fatal:Temporary cfg is null`)
+
+  const resultJson = modifier(cfg!);
 
   const vRes = valid(resultJson);
   if (vRes.err) {

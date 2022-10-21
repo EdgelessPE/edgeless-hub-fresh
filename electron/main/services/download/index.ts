@@ -114,6 +114,8 @@ async function createTask(
       }
     }
   });
+
+  return new Ok(taskId)
 }
 
 export {

@@ -1,42 +1,52 @@
-import {Observable, Subscriber} from "rxjs";
-import {PoolMapNode} from "./type";
-import {Err, Ok, Result} from "ts-results";
-import {RendererViewTask} from "../../../../types/download";
-import {convertPoolMapNode2RendererViewTask} from "./utils";
-import {emitPaused, emitPending, registerEventBus, removeTaskNode} from "./eventBus";
+import { Observable, Subscriber } from "rxjs";
+import { PoolMapNode } from "./type";
+import { Err, Ok, Result } from "ts-results";
+import { RendererViewTask } from "../../../../types/download";
+import { convertPoolMapNode2RendererViewTask } from "./utils";
+import {
+  emitPaused,
+  emitPending,
+  registerEventBus,
+  removeTaskNode,
+} from "./eventBus";
 import * as path from "path";
-import fs from "fs"
-import {log} from "../../log";
+import fs from "fs";
+import { log } from "../../log";
 
 const map = new Map<string, PoolMapNode>();
 const rendererView: RendererViewTask[] = [];
 
-function updateRendererViewObservable(subscriber: Subscriber<RendererViewTask[]>) {
+function updateRendererViewObservable(
+  subscriber: Subscriber<RendererViewTask[]>
+) {
   // 更新 Observable
-  subscriber.next(rendererView)
+  subscriber.next(rendererView);
 }
 
-function updateRendererView(id: string, subscriber: Subscriber<RendererViewTask[]>) {
-  let isNewNode = true
-  const entry = map.get(id)
+function updateRendererView(
+  id: string,
+  subscriber: Subscriber<RendererViewTask[]>
+) {
+  let isNewNode = true;
+  const entry = map.get(id);
   if (entry == null) {
     // 说明此节点已被移除
-    return removeRenderView(id, subscriber)
+    return removeRenderView(id, subscriber);
   }
-  const updatedNode = convertPoolMapNode2RendererViewTask(id, entry)
+  const updatedNode = convertPoolMapNode2RendererViewTask(id, entry);
 
   for (let i = 0; i < rendererView.length; i++) {
-    const node = rendererView[i]
+    const node = rendererView[i];
     if (node.id == id) {
-      rendererView[i] = updatedNode
-      isNewNode = false
-      break
+      rendererView[i] = updatedNode;
+      isNewNode = false;
+      break;
     }
   }
   if (isNewNode) {
-    rendererView.push(updatedNode)
+    rendererView.push(updatedNode);
   }
-  updateRendererViewObservable(subscriber)
+  updateRendererViewObservable(subscriber);
 }
 
 function removeRenderView(id: string, subscriber: Subscriber<RendererViewTask[]>) {
@@ -64,10 +74,12 @@ async function pauseTask(id: string): Promise<Result<null, string>> {
   if (!map.has(id)) {
     return new Err(`Error:Can't find task ${id}`)
   }
-  const entry = map.get(id)!
+  const entry = map.get(id)!;
   // 检查任务是否支持暂停
-  if (entry.returned.handler == null) {
-    return new Err(`Error:Task ${id} used download provider ${entry.provider} which doesn't support pausing`)
+  if (entry.returned?.handler == null) {
+    return new Err(
+      `Error:Task ${id} used download provider ${entry.provider} which doesn't support pausing`
+    );
   }
   // 仅当当前状态机为 downloading 时允许暂停
   if (entry.status.type != "downloading") {
@@ -89,15 +101,19 @@ async function pauseTask(id: string): Promise<Result<null, string>> {
 
 async function continueTask(id: string): Promise<Result<null, string>> {
   if (!map.has(id)) {
-    return new Err(`Error:Can't find task ${id}`)
+    return new Err(`Error:Can't find task ${id}`);
   }
-  const entry = map.get(id)!
+  const entry = map.get(id)!;
 
-  if (entry.returned.handler == null) {
-    return new Err(`Error:Task ${id} used download provider ${entry.provider} which doesn't support continuation`)
+  if (entry.returned?.handler == null) {
+    return new Err(
+      `Error:Task ${id} used download provider ${entry.provider} which doesn't support continuation`
+    );
   }
   if (entry.status.type != "paused") {
-    return new Err(`Error:Task ${id} current status ${entry.status.type} doesn't allow continuation`)
+    return new Err(
+      `Error:Task ${id} current status ${entry.status.type} doesn't allow continuation`
+    );
   }
 
   emitPending(id)

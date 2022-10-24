@@ -1,14 +1,25 @@
-import {AddTaskSuggested, Provider, TaskProgressNotification,} from "./provider/type";
-import {Ok, Result} from "ts-results";
-import {Integrity} from "../../../../types";
-import {auditTime, Observable} from "rxjs";
-import {getTempConfig} from "../config";
-import {getTaskId} from "./utils";
-import {AddTaskEventPayload} from "./type";
-import {createTaskNode, emitCompleted, emitDownloading, emitError, emitValidating} from "./eventBus";
-import {getProvider} from "./provider/_register";
+import {
+  AddTaskSuggested,
+  Provider,
+  TaskProgressNotification,
+} from "./provider/type";
+import { Ok, Result } from "ts-results";
+import { Integrity } from "../../../../types";
+import { auditTime, Observable } from "rxjs";
+import { getTempConfig } from "../config";
+import { getTaskId } from "./utils";
+import { AddTaskEventPayload } from "./type";
+import {
+  createTaskNode,
+  emitCompleted,
+  emitDownloading,
+  emitError,
+  emitValidating,
+} from "./eventBus";
+import { getProvider } from "./provider/_register";
 import * as path from "path";
-import {validateIntegrity} from "../integrity";
+import { validateIntegrity } from "../integrity";
+import { existUsableFile } from "./cache";
 
 const providerReadyMap = new Map<string, Provider>();
 
@@ -53,31 +64,44 @@ async function createTask(
     totalSize,
   };
   const taskId = getTaskId(providerId);
-  let targetPosition = path.join(dir, fileName)
+  const addTaskEventPayload: AddTaskEventPayload = {
+    provider: providerId,
+    params: {
+      url,
+      dir,
+      suggested: {
+        fileName,
+        totalSize,
+      },
+      integrity,
+    },
+    returned: null,
+  };
+  let targetPosition = path.join(dir, fileName);
+
+  // 尝试使用缓存
+  if (await existUsableFile(path.join(dir, fileName), totalSize, integrity)) {
+    // 创建任务节点
+    createTaskNode(taskId, addTaskEventPayload);
+    // 立即将状态机跳转至 completed
+    emitCompleted(taskId);
+
+    return new Ok(taskId);
+  }
 
   // 代理订阅引擎事件更新
   const proxyObservable = new Observable<TaskProgressNotification>(
     (subscriber) => {
+      // 添加下载任务
       provider.addTask(url, dir, suggested, subscriber).then((addRes) => {
-        // 添加下载任务
-        const payload: AddTaskEventPayload = {
-          provider: providerId,
-          params: {
-            url,
-            dir,
-            suggested: {
-              fileName,
-              totalSize,
-            },
-            integrity,
-          },
-          returned: null,
-        };
         if (addRes.ok) {
-          payload.returned = addRes.unwrap();
-          targetPosition = payload.returned.targetPosition
+          const returned = addRes.unwrap();
+          if (returned != null) {
+            addTaskEventPayload.returned = returned;
+            targetPosition = returned.targetPosition;
+          }
         }
-        createTaskNode(taskId, payload);
+        createTaskNode(taskId, addTaskEventPayload);
 
         // 如果添加失败，将此任务状态机跳转至 error
         if (addRes.err) {

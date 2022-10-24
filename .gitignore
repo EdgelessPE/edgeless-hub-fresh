@@ -27,3 +27,4 @@ release
 pnpm-lock.yaml
 /config.json
 /test
+/cache

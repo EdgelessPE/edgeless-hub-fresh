@@ -4,7 +4,7 @@ import {TabRunning, TabRunningProps} from "@/pages/Tasks/TabRunning";
 import {TabUpgradable, TabUpgradableProps} from "@/pages/Tasks/TabUpgradable";
 import {TabInstalled, TabInstalledProps} from "@/pages/Tasks/TabInstalled";
 import React, {useState} from "react";
-import {createTask, useDownloadPoolRendererView} from "@/services/download";
+import {createTask} from "@/services/download";
 
 export const Tasks = () => {
   const [p, setP] = useState(0);
@@ -14,7 +14,6 @@ export const Tasks = () => {
   //   }, 1000);
   // }, []);
 
-  const pool = useDownloadPoolRendererView()
   const down = async () => {
     const idRes = await createTask("https://pineapple.edgeless.top/disk/插件包/实用工具/禁用小键盘_1.0.0.0_Cno.7z", "禁用小键盘_1.0.0.0_Cno.7z", 140)
     console.log(idRes)

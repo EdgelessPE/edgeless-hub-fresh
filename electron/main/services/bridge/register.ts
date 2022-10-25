@@ -12,7 +12,7 @@ import {Err, Ok, Result} from "ts-results";
 import {InitError} from "../../../../types";
 import {closeWindow, restartWindow, toggleDevTool} from "../../index";
 import {createTask} from "../download";
-import {continueTask, getDownloadPoolRendererViewObservable, pauseTask, removeTask} from "../download/pool";
+import {continueTask, pauseTask, removeTask} from "../download/pool";
 
 function getMethodRegister(): Record<string, (...args: any) => any> {
   return {
@@ -45,9 +45,6 @@ async function getObservableRegistry(): Promise<
       msg: configRes.val,
     });
   register.config = configRes.unwrap();
-
-  // download pool renderer view
-  register.downloadPool = getDownloadPoolRendererViewObservable()
 
   return new Ok(register);
 }

@@ -57,13 +57,6 @@ class StateMachine {
     })
   }
 
-  toPending() {
-    this.switchState({
-      type: "pending",
-      payload: null
-    })
-  }
-
   private switchState(next: TaskState) {
     console.log(`Debug:Switch download task ${this.id} state from ${this.state.type} to ${next.type}`)
     this.state = next

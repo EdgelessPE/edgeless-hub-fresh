@@ -4,11 +4,12 @@ import {Integrity} from "../../../../types";
 import {auditTime, Observable} from "rxjs";
 import {getTempConfig} from "../config";
 import {getTaskId} from "./utils";
-import {DownloadTaskHandler} from "./type";
+import {DownloadTaskHandler, TaskMeta} from "./type";
 import {getProvider} from "./provider/_register";
 import * as path from "path";
 import {validateIntegrity} from "../integrity";
 import {existUsableFile} from "./cache";
+import {StateMachine} from "./StateMachine";
 
 const providerReadyMap = new Map<string, Provider>();
 
@@ -53,7 +54,7 @@ async function createTask(
     totalSize,
   };
   const taskId = getTaskId(providerId);
-  const addTaskEventPayload: AddTaskEventPayload = {
+  const taskMeta: TaskMeta = {
     provider: providerId,
     params: {
       url,
@@ -68,15 +69,10 @@ async function createTask(
   };
   let targetPosition = path.join(dir, fileName);
 
-  // 创建任务状态机
-
-
   // 尝试使用缓存
   if (await existUsableFile(path.join(dir, fileName), totalSize, integrity)) {
-    // 创建任务节点
-    createTaskNode(taskId, addTaskEventPayload);
-    // 立即将状态机跳转至 completed
-    emitCompleted(taskId);
+    // 创建任务状态机
+    const stateMachine = new StateMachine(taskId, taskMeta, "completed")
 
     return new Ok(taskId);
   }

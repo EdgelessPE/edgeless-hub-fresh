@@ -1,5 +1,5 @@
 import {Integrity} from "./index";
-import {PoolStatus} from "../electron/main/services/download/type";
+import {TaskState} from "../electron/main/services/download/type";
 
 interface DownloadProviderInfo {
   name: string;
@@ -13,7 +13,7 @@ interface RendererViewTask {
   fileName: string
   totalSize: number
   url: string
-  status: PoolStatus;
+  state: TaskState;
   targetPosition: string
   supportPausing: boolean
   integrity?: Integrity

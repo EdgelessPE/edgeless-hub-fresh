@@ -1,4 +1,4 @@
-import { Config } from "../../../../types/config";
+import {Config} from "../../../../types/config";
 
 export const initial: Config = {
   ept: {
@@ -11,5 +11,6 @@ export const initial: Config = {
   download: {
     provider: "nfd",
     cacheDir: "./cache",
+    maxDownloadingTasks: 3,
   },
 };

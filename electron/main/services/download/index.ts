@@ -1,25 +1,14 @@
-import {
-  AddTaskSuggested,
-  Provider,
-  TaskProgressNotification,
-} from "./provider/type";
-import { Ok, Result } from "ts-results";
-import { Integrity } from "../../../../types";
-import { auditTime, Observable } from "rxjs";
-import { getTempConfig } from "../config";
-import { getTaskId } from "./utils";
-import { AddTaskEventPayload } from "./type";
-import {
-  createTaskNode,
-  emitCompleted,
-  emitDownloading,
-  emitError,
-  emitValidating,
-} from "./eventBus";
-import { getProvider } from "./provider/_register";
+import {AddTaskSuggested, Provider, TaskProgressNotification,} from "./provider/type";
+import {Ok, Result} from "ts-results";
+import {Integrity} from "../../../../types";
+import {auditTime, Observable} from "rxjs";
+import {getTempConfig} from "../config";
+import {getTaskId} from "./utils";
+import {DownloadTaskHandler} from "./type";
+import {getProvider} from "./provider/_register";
 import * as path from "path";
-import { validateIntegrity } from "../integrity";
-import { existUsableFile } from "./cache";
+import {validateIntegrity} from "../integrity";
+import {existUsableFile} from "./cache";
 
 const providerReadyMap = new Map<string, Provider>();
 
@@ -41,13 +30,13 @@ async function prepareProvider(id: string): Promise<Result<Provider, string>> {
   return new Ok(provider);
 }
 
-// 返回唯一的 task id
+// 返回任务把手
 async function createTask(
   url: string,
   fileName: string,
   totalSize: number,
   integrity?: Integrity
-): Promise<Result<string, string>> {
+): Promise<Result<DownloadTaskHandler, string>> {
   // 读取一份当前配置
   const cfg = getTempConfig();
 
@@ -78,6 +67,9 @@ async function createTask(
     returned: null,
   };
   let targetPosition = path.join(dir, fileName);
+
+  // 创建任务状态机
+
 
   // 尝试使用缓存
   if (await existUsableFile(path.join(dir, fileName), totalSize, integrity)) {

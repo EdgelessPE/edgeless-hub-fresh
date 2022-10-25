@@ -1,11 +1,8 @@
-import {
-  AddTaskReturned,
-  AddTaskSuggested,
-  TaskProgressNotification,
-} from "./provider/type";
-import { Integrity } from "../../../../types";
+import {AddTaskReturned, AddTaskSuggested, TaskProgressNotification,} from "./provider/type";
+import {Integrity} from "../../../../types";
+import {Result} from "ts-results";
 
-interface PoolMapNode {
+interface TaskMeta {
   provider: string;
   params: {
     url: string;
@@ -14,24 +11,33 @@ interface PoolMapNode {
     integrity?: Integrity;
   };
   returned: AddTaskReturned | null;
-  status: PoolStatus;
 }
 
-type PoolStatus = {
+interface AbstractPoolNode {
+  id: string
+  state: TaskState
+}
+
+type TaskState = {
   type:
+    | "queuing"
     | "downloading"
     | "validating"
     | "error"
     | "completed"
-    | "paused"
-    | "pending";
+    | "paused";
   payload: TaskProgressNotification | string | null;
 };
 
-interface AddTaskEventPayload {
-  provider: PoolMapNode["provider"];
-  params: PoolMapNode["params"];
-  returned: PoolMapNode["returned"];
+interface DownloadTaskHandler {
+  state: TaskState
+  allowPause: () => boolean
+
+  pause: () => Promise<Result<null, string>>
+  continue: () => Promise<Result<null, string>>
+  remove: (removeFile: boolean) => Promise<Result<null, string>>
+
+  onChange: (callback: (state: TaskState) => void) => void
 }
 
-export { PoolStatus, PoolMapNode, AddTaskEventPayload };
+export {TaskState, TaskMeta, DownloadTaskHandler, AbstractPoolNode};

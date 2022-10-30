@@ -1,18 +1,10 @@
 import "./index.scss";
-import { SmileTwoTone } from "@ant-design/icons";
-import {
-  Alert,
-  Avatar,
-  Button,
-  Divider,
-  List,
-  Space,
-  Tag,
-} from "@arco-design/web-react";
-import { IconRefresh } from "@arco-design/web-react/icon";
-import { useState } from "react";
-import { myHistory } from "@/router/history";
-import { useConfig } from "@/services/config";
+import {SmileTwoTone} from "@ant-design/icons";
+import {Alert, Avatar, Button, Divider, List, Space, Tag,} from "@arco-design/web-react";
+import {IconRefresh} from "@arco-design/web-react/icon";
+import React, {useState} from "react";
+import {myHistory} from "@/router/history";
+import {useConfig} from "@/services/config";
 
 const pluginsRecommendation = new Array(5).fill({
   title: "腾讯会议",
@@ -88,7 +80,7 @@ export const Home = () => {
                 <List.Item
                   key={index}
                   actions={[
-                    <Button onClick={() => myHistory.push(item.link)}>
+                    <Button key="btn" onClick={() => myHistory.push(item.link)}>
                       查看
                     </Button>,
                   ]}

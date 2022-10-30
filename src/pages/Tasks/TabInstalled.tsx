@@ -1,14 +1,10 @@
-import { CardInstalled } from "@/pages/Tasks/CardInstalled";
-import React, { useEffect, useState } from "react";
-import { formatSize } from "@/utils/formatter";
-import { sizeAlertConstants } from "@/constants";
-import { Checkbox, Select, Tag } from "@arco-design/web-react";
-import {
-  calcStatusWeight,
-  isDisabled,
-  isLocalBoost,
-} from "@/pages/Tasks/utils";
-import { FileNodePackageLocal } from "types/local";
+import {CardInstalled} from "@/pages/Tasks/CardInstalled";
+import React, {useEffect, useState} from "react";
+import {formatSize} from "@/utils/formatter";
+import {sizeAlertConstants} from "@/constants";
+import {Checkbox, Select, Tag} from "@arco-design/web-react";
+import {calcStatusWeight, isDisabled, isLocalBoost,} from "@/pages/Tasks/utils";
+import {FileNodePackageLocal} from "types/local";
 
 export interface TabInstalledProps {
   array: FileNodePackageLocal[];
@@ -36,8 +32,8 @@ export const TabInstalled = ({ array }: TabInstalledProps) => {
   //排序函数
   const reSort = (method: string) => {
     setSortBy(method);
-    let res = [];
-    for (let node of array.sort(sortMethodMap[method])) {
+    const res = [];
+    for (const node of array.sort(sortMethodMap[method])) {
       if (!ignoreDisabled || !isDisabled(node))
         res.push(<CardInstalled key={node.name} local={node} />);
     }

@@ -1,8 +1,8 @@
-import { Menu } from "@arco-design/web-react";
-import React, { useEffect, useState } from "react";
-import { BrowserHistory } from "history";
-import { siderNodes } from "@/constants";
-import { getRouterPath } from "@/router/utils";
+import {Menu} from "@arco-design/web-react";
+import React, {useEffect, useState} from "react";
+import {BrowserHistory} from "history";
+import {siderNodes} from "@/constants";
+import {getRouterPath} from "@/router/utils";
 
 const MenuItem = Menu.Item;
 const SubMenu = Menu.SubMenu;
@@ -20,11 +20,11 @@ export interface SiderNode {
 }
 
 function renderSiderMenu(input: SiderNode[]): JSX.Element[] {
-  let result: JSX.Element[] = [];
-  for (let node of input) {
+  const result: JSX.Element[] = [];
+  for (const node of input) {
     if (node.hide) continue;
     if (node.children != null) {
-      let children = renderSiderMenu(node.children);
+      const children = renderSiderMenu(node.children);
       result.push(
         <SubMenu
           key={node.path}

@@ -1,12 +1,12 @@
-import { CardUpdate } from "@/pages/Tasks/CardUpdate";
-import React, { useState } from "react";
-import { ButtonWithIcon } from "@/components/atoms/ButtonWithIcon";
-import { ArrowUpOutlined } from "@ant-design/icons";
-import { formatSize } from "@/utils/formatter";
-import { Checkbox } from "@arco-design/web-react";
-import { calcStatusWeight, isDisabled } from "@/pages/Tasks/utils";
-import { FileNodePackageLocal } from "types/local";
-import { FileNodePackageOnline } from "types/online";
+import {CardUpdate} from "@/pages/Tasks/CardUpdate";
+import React, {useState} from "react";
+import {ButtonWithIcon} from "@/components/atoms/ButtonWithIcon";
+import {ArrowUpOutlined} from "@ant-design/icons";
+import {formatSize} from "@/utils/formatter";
+import {Checkbox} from "@arco-design/web-react";
+import {calcStatusWeight, isDisabled} from "@/pages/Tasks/utils";
+import {FileNodePackageLocal} from "types/local";
+import {FileNodePackageOnline} from "types/online";
 
 export interface TabUpgradableProps {
   array: {
@@ -24,8 +24,8 @@ export interface TabUpgradableProps {
 export const TabUpgradable = ({ array, onUpgradeAll }: TabUpgradableProps) => {
   const [ignoreDisabled, setIgnoreDisabled] = useState(false);
 
-  let result: React.ReactElement[] = [];
-  for (let node of array.sort((a, b) => {
+  const result: React.ReactElement[] = [];
+  for (const node of array.sort((a, b) => {
     const x = calcStatusWeight(a.local),
       y = calcStatusWeight(b.local);
     if (x - y != 0) return x - y;

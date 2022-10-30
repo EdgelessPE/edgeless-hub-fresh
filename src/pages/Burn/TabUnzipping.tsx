@@ -1,6 +1,7 @@
-import { IconArchive } from "@arco-design/web-react/icon";
-import { BurnTabProps } from "./types";
-import { Button, Spin } from "@arco-design/web-react";
+import {IconArchive} from "@arco-design/web-react/icon";
+import {BurnTabProps} from "./types";
+import {Button, Spin} from "@arco-design/web-react";
+import React from "react";
 
 export const TabUnzipping = ({ next, sharedState }: BurnTabProps) => {
   return (

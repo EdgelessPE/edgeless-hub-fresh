@@ -1,6 +1,7 @@
-import { FireOutlined } from "@ant-design/icons";
-import { UpdateKernel, UpdateTabProps, UpdateVentoy } from "./types";
-import { Button } from "@arco-design/web-react";
+import {FireOutlined} from "@ant-design/icons";
+import {UpdateKernel, UpdateTabProps, UpdateVentoy} from "./types";
+import {Button} from "@arco-design/web-react";
+import React from "react";
 
 export const TabStart = ({ next, sharedState }: UpdateTabProps) => {
   const updateKernel: UpdateKernel | null = sharedState.get("update_kernel"),

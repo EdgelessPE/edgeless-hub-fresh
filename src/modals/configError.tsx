@@ -1,7 +1,8 @@
-import { Button, Popconfirm, Space } from "@arco-design/web-react";
-import { resetConfig } from "@/services/config";
+import {Button, Popconfirm, Space} from "@arco-design/web-react";
+import {resetConfig} from "@/services/config";
 import bridge from "@/bridge/method";
-import { ConfirmProps } from "@arco-design/web-react/es/Modal/confirm";
+import {ConfirmProps} from "@arco-design/web-react/es/Modal/confirm";
+import React from "react";
 
 export const configError = (msg: string): ConfirmProps => {
   return {

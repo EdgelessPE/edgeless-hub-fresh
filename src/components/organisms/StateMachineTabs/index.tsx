@@ -1,8 +1,8 @@
-import React, { useState } from "react";
-import { Props, StateInfo, StateMachineNode, TabProps } from "./class";
-import { Button, Steps } from "@arco-design/web-react";
+import React, {useState} from "react";
+import {Props, StateInfo, StateMachineNode, TabProps} from "./class";
+import {Button, Steps} from "@arco-design/web-react";
 import "./index.scss";
-import { log } from "@/utils/log";
+import {log} from "@/utils/log";
 
 export const sharedState = new Map<string, any>(); //TODO:检查是否存在变量共用污染
 
@@ -38,7 +38,7 @@ export function StateMachineTabs<State extends string>({
 
   const next = (state?: State) => {
     if (state != null) {
-      for (let node of states) {
+      for (const node of states) {
         if (node.state == state) {
           setCurrentState({
             state: node.state,
@@ -63,7 +63,7 @@ export function StateMachineTabs<State extends string>({
     sharedState,
   };
   const renderTab = () => {
-    for (let node of states) {
+    for (const node of states) {
       if (currentState.state == node.state) {
         return React.createElement(node.tabContent, tabProps);
       }

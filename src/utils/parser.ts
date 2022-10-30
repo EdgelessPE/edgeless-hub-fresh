@@ -1,11 +1,11 @@
-import { Err, Ok, Result } from "ts-results";
-import { log } from "@/utils/log";
-import { PluginParsedFullName } from "../../types/parsed";
+import {Err, Ok, Result} from "ts-results";
+import {log} from "@/utils/log";
+import {PluginParsedFullName} from "../../types/parsed";
 
 function parsePackageName(
   fullName: string
 ): Result<PluginParsedFullName, string> {
-  let indexOfDot = fullName.lastIndexOf(".");
+  const indexOfDot = fullName.lastIndexOf(".");
   const ext = fullName.slice(indexOfDot + 1);
 
   const s2 = fullName.slice(0, indexOfDot).split("_");

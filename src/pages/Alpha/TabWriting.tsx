@@ -1,9 +1,9 @@
-import { DeploymentUnitOutlined } from "@ant-design/icons";
-import { Button, Progress } from "@arco-design/web-react";
-import { colorfulProgressBar } from "@/constants";
-import { formatSize } from "@/utils/formatter";
-import { useState } from "react";
-import { AlphaTabProps } from "./types";
+import {DeploymentUnitOutlined} from "@ant-design/icons";
+import {Button, Progress} from "@arco-design/web-react";
+import {colorfulProgressBar} from "@/constants";
+import {formatSize} from "@/utils/formatter";
+import React, {useState} from "react";
+import {AlphaTabProps} from "./types";
 
 export const TabWriting = ({ next, sharedState }: AlphaTabProps) => {
   const [copyStatus, setCopyStatus] = useState({

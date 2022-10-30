@@ -1,7 +1,7 @@
-import { CardDownload } from "@/pages/Tasks/CardDownload";
+import {CardDownload} from "@/pages/Tasks/CardDownload";
 import React from "react";
-import { TaskStatus } from "types";
-import { FileNodePackageOnline } from "types/online";
+import {TaskStatus} from "types";
+import {FileNodePackageOnline} from "types/online";
 
 export interface TabRunningProps {
   array: {
@@ -11,8 +11,8 @@ export interface TabRunningProps {
 }
 
 export const TabRunning = ({ array }: TabRunningProps) => {
-  let result: React.ReactElement[] = [];
-  for (let node of array) {
+  const result: React.ReactElement[] = [];
+  for (const node of array) {
     result.push(
       <CardDownload
         key={node.data.name}

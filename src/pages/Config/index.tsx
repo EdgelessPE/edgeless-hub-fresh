@@ -1,19 +1,11 @@
-import {
-  Button,
-  Empty,
-  Input,
-  List,
-  Select,
-  Switch,
-  Tooltip,
-} from "@arco-design/web-react";
-import React, { useEffect, useState } from "react";
+import {Button, Empty, Input, List, Select, Switch, Tooltip,} from "@arco-design/web-react";
+import React, {useEffect, useState} from "react";
 import preferenceItems from "./preferenceItems.json";
 import resolutions from "./resolutions.json";
 import "./index.scss";
-import { IconEyeInvisible, IconInfoCircle } from "@arco-design/web-react/icon";
+import {IconEyeInvisible, IconInfoCircle} from "@arco-design/web-react/icon";
 import bridge from "@/bridge/method";
-import { Result } from "ts-results";
+import {Result} from "ts-results";
 
 interface ConfigItem {
   title: string;
@@ -31,8 +23,8 @@ interface PreferenceItem {
 }
 
 function renderConfigItems(items: ConfigItem[]): React.ReactElement[] {
-  let result: React.ReactElement[] = [];
-  for (let item of items) {
+  const result: React.ReactElement[] = [];
+  for (const item of items) {
     result.push(
       <List.Item key={item.title} actions={item.actions}>
         <List.Item.Meta
@@ -48,11 +40,11 @@ function renderConfigItems(items: ConfigItem[]): React.ReactElement[] {
 }
 
 function renderPreferenceItems(): React.ReactElement[] {
-  let result: React.ReactElement[] = [];
-  for (let item of preferenceItems) {
-    let actions = item.information
+  const result: React.ReactElement[] = [];
+  for (const item of preferenceItems) {
+    const actions = item.information
       ? [
-          <Tooltip content={item.information}>
+          <Tooltip key={item.title} content={item.information}>
             <IconInfoCircle />
           </Tooltip>,
         ]
@@ -73,8 +65,8 @@ function renderPreferenceItems(): React.ReactElement[] {
 }
 
 function renderResolutionOptions(): React.ReactElement[] {
-  let result: React.ReactElement[] = [];
-  for (let item of resolutions) {
+  const result: React.ReactElement[] = [];
+  for (const item of resolutions) {
     const val = `${item.width}_${item.height}`;
     result.push(
       <Select.Option key={val} value={val}>
@@ -96,7 +88,7 @@ export const Config = () => {
       title: "浏览器首页",
       description: "支持通过插件包加载的主流浏览器",
       actions: [
-        <Input style={{ width: "240px" }} value="https://www.baidu.com" />,
+        <Input key="url" style={{ width: "240px" }} value="https://www.baidu.com" />,
       ],
     },
     {
@@ -105,6 +97,7 @@ export const Config = () => {
         "仅对Legacy引导启动生效，UEFI引导启动时请在启动菜单选择分辨率",
       actions: [
         <Select
+          key="select"
           style={{ width: "132px" }}
           value={resolution}
           onChange={setResolution}

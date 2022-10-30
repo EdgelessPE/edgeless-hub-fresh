@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, {useEffect, useState} from "react";
 
 interface Prop {
   kvMap: Record<string, string | React.ReactNode>;
@@ -17,9 +17,9 @@ export const NaiveDescription = ({
 }: Prop) => {
   const [reactiveItems, setReactiveItems] = useState<React.ReactNode[]>([]);
   useEffect(() => {
-    let elements: React.ReactNode[] = [];
+    const elements: React.ReactNode[] = [];
     let tdCount = 0;
-    for (let key in kvMap) {
+    for (const key in kvMap) {
       const content = kvMap[key];
       elements.push(
         <tr key={key}>

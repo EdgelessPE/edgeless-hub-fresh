@@ -1,15 +1,9 @@
-import {
-  Button,
-  Checkbox,
-  Input,
-  Message,
-  Space,
-} from "@arco-design/web-react";
-import { useState } from "react";
-import { LockOutlined } from "@ant-design/icons";
-import { AlphaTabProps } from "./types";
-import { IconCloseCircle } from "@arco-design/web-react/icon";
-import { FileNodeLocal } from "types/local";
+import {Button, Checkbox, Input, Message, Space,} from "@arco-design/web-react";
+import React, {useState} from "react";
+import {LockOutlined} from "@ant-design/icons";
+import {AlphaTabProps} from "./types";
+import {IconCloseCircle} from "@arco-design/web-react/icon";
+import {FileNodeLocal} from "types/local";
 
 const kernelLocal: FileNodeLocal = {
     name: "Edgeless_Beta_4.1.0.iso",

@@ -1,7 +1,8 @@
-import { IconCloseCircle } from "@arco-design/web-react/icon";
-import { Button, Space } from "@arco-design/web-react";
-import { reportIssue } from "@/pages/Burn/utils";
-import { AlphaTabProps } from "./types";
+import {IconCloseCircle} from "@arco-design/web-react/icon";
+import {Button, Space} from "@arco-design/web-react";
+import {reportIssue} from "@/pages/Burn/utils";
+import {AlphaTabProps} from "./types";
+import React from "react";
 
 export const TabThrown = ({ next, sharedState }: AlphaTabProps) => {
   const thrownMessage = sharedState.get("thrown_message") ?? "无错误信息";

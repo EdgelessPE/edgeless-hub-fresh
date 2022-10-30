@@ -1,8 +1,8 @@
-import { IconExclamationCircle } from "@arco-design/web-react/icon";
-import { BurnTabProps } from "./types";
-import { Button, Message, Select, Space } from "@arco-design/web-react";
-import { useState } from "react";
-import { reportIssue } from "@/pages/Burn/utils";
+import {IconExclamationCircle} from "@arco-design/web-react/icon";
+import {BurnTabProps} from "./types";
+import {Button, Message, Select, Space} from "@arco-design/web-react";
+import React, {useState} from "react";
+import {reportIssue} from "@/pages/Burn/utils";
 
 export const TabWaitingForSelect = ({ next, sharedState }: BurnTabProps) => {
   const possibleDisks = ["C", "D", "E"];

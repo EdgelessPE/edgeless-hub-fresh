@@ -1,12 +1,9 @@
-import { IconCloudDownload } from "@arco-design/web-react/icon";
-import { Button, Space } from "@arco-design/web-react";
-import {
-  NaiveProgressBar,
-  NaiveProgressBarTask,
-} from "@/components/molecules/NaiveProgressBar";
-import { useState } from "react";
-import { formatSize } from "@/utils/formatter";
-import { UpdateTabProps } from "./types";
+import {IconCloudDownload} from "@arco-design/web-react/icon";
+import {Button, Space} from "@arco-design/web-react";
+import {NaiveProgressBar, NaiveProgressBarTask,} from "@/components/molecules/NaiveProgressBar";
+import React, {useState} from "react";
+import {formatSize} from "@/utils/formatter";
+import {UpdateTabProps} from "./types";
 
 type TaskInfo = NaiveProgressBarTask & { enable: boolean };
 

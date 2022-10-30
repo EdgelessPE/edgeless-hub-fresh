@@ -1,5 +1,6 @@
-import { Empty } from "@arco-design/web-react";
-import { UsbOutlined } from "@ant-design/icons";
+import {Empty} from "@arco-design/web-react";
+import {UsbOutlined} from "@ant-design/icons";
+import React from "react";
 
 export const EmptyInsertUDisk = () => {
   return (

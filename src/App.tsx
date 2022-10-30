@@ -1,20 +1,20 @@
-import React, { useEffect, useState } from "react";
-import { Button, Layout } from "@arco-design/web-react";
-import { Routes } from "react-router-dom";
+import React, {useEffect, useState} from "react";
+import {Button, Layout} from "@arco-design/web-react";
+import {Routes} from "react-router-dom";
 import "@arco-design/web-react/dist/css/arco.css";
-import { setCurrentTheme } from "@/services/theme";
-import { getRouterNodes } from "@/router/routers";
-import { myHistory } from "@/router/history";
+import {setCurrentTheme} from "@/services/theme";
+import {getRouterNodes} from "@/router/routers";
+import {myHistory} from "@/router/history";
 
-import { SiderMenu } from "@/components/layout/SiderMenu";
-import { HistoryRouter } from "@/router/HistoryRouter";
-import { Logo } from "@/components/layout/Logo";
-import { Header } from "@/components/layout/Header";
-import { IconSettings } from "@arco-design/web-react/icon";
-import { BrowserHistory } from "history";
+import {SiderMenu} from "@/components/layout/SiderMenu";
+import {HistoryRouter} from "@/router/HistoryRouter";
+import {Logo} from "@/components/layout/Logo";
+import {Header} from "@/components/layout/Header";
+import {IconSettings} from "@arco-design/web-react/icon";
+import {BrowserHistory} from "history";
 import init from "@/init";
 import useModal from "@arco-design/web-react/es/Modal/useModal";
-import { getRouterPath } from "@/router/utils";
+import {getRouterPath} from "@/router/utils";
 
 const Sider = Layout.Sider;
 const Content = Layout.Content;
@@ -49,7 +49,7 @@ function useSettingButton(showText: boolean, history: BrowserHistory) {
 }
 
 // 暗黑模式跟随系统
-let media = window.matchMedia('(prefers-color-scheme: dark)');
+const media = window.matchMedia('(prefers-color-scheme: dark)');
 if (media.matches) {
   document.body.setAttribute("arco-theme", "dark");
   setCurrentTheme(false);

@@ -1,6 +1,6 @@
-import { ReactNode, useLayoutEffect, useState } from "react";
-import { History } from "history";
-import { Router } from "react-router-dom";
+import React, {ReactNode, useLayoutEffect, useState} from "react";
+import {History} from "history";
+import {Router} from "react-router-dom";
 
 export interface BrowserRouterProps {
   basename?: string;
@@ -13,7 +13,7 @@ export function HistoryRouter({
   children,
   history,
 }: BrowserRouterProps) {
-  let [state, setState] = useState({
+  const [state, setState] = useState({
     action: history.action,
     location: history.location,
   });

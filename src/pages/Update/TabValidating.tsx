@@ -1,6 +1,7 @@
-import { FileSearchOutlined } from "@ant-design/icons";
-import { Button, Spin } from "@arco-design/web-react";
-import { UpdateTabProps } from "./types";
+import {FileSearchOutlined} from "@ant-design/icons";
+import {Button, Spin} from "@arco-design/web-react";
+import {UpdateTabProps} from "./types";
+import React from "react";
 
 export const TabValidating = ({ next, sharedState }: UpdateTabProps) => {
   return (

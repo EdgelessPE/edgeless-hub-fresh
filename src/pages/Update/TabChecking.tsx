@@ -1,7 +1,8 @@
-import { CloudSyncOutlined } from "@ant-design/icons";
-import { Button, Spin } from "@arco-design/web-react";
-import { UpdateTabProps } from "./types";
-import { FileNodeLocal } from "types/local";
+import {CloudSyncOutlined} from "@ant-design/icons";
+import {Button, Spin} from "@arco-design/web-react";
+import {UpdateTabProps} from "./types";
+import {FileNodeLocal} from "types/local";
+import React from "react";
 
 export const TabChecking = ({ next, sharedState }: UpdateTabProps) => {
   const kernelOnline: FileNodeLocal = {

@@ -1,11 +1,11 @@
-import { NaiveDescription } from "@/components/molecules/NaiveDescription";
+import {NaiveDescription} from "@/components/molecules/NaiveDescription";
 import React from "react";
-import { Dropdown, Menu, Tag } from "@arco-design/web-react";
-import { SizeAlert } from "@/components/molecules/SizeAlert";
-import { isDisabled, isLocalBoost } from "@/pages/Tasks/utils";
-import { FileNodePackageLocal } from "types/local";
-import { parsePackageName } from "@/utils/parser";
-import { formatSize } from "@/utils/formatter";
+import {Dropdown, Menu, Tag} from "@arco-design/web-react";
+import {SizeAlert} from "@/components/molecules/SizeAlert";
+import {isDisabled, isLocalBoost} from "@/pages/Tasks/utils";
+import {FileNodePackageLocal} from "types/local";
+import {parsePackageName} from "@/utils/parser";
+import {formatSize} from "@/utils/formatter";
 
 interface Props {
   local: FileNodePackageLocal;
@@ -16,7 +16,7 @@ export const CardInstalled = ({ local }: Props) => {
   const disabled = isDisabled(local),
     localboost = isLocalBoost(local);
 
-  let descriptions: Record<string, string | React.ReactElement> = {
+  const descriptions: Record<string, string | React.ReactElement> = {
     版本号: parsed.version,
     占用: (
       <div>

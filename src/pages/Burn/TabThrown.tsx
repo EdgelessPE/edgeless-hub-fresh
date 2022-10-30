@@ -1,7 +1,8 @@
-import { IconCloseCircle } from "@arco-design/web-react/icon";
-import { Button, Space } from "@arco-design/web-react";
-import { BurnTabProps } from "./types";
-import { reportIssue } from "./utils";
+import {IconCloseCircle} from "@arco-design/web-react/icon";
+import {Button, Space} from "@arco-design/web-react";
+import {BurnTabProps} from "./types";
+import {reportIssue} from "./utils";
+import React from "react";
 
 export const TabThrown = ({ next, sharedState }: BurnTabProps) => {
   sharedState.set(

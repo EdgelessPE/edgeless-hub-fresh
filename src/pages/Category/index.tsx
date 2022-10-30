@@ -1,15 +1,15 @@
 import "./index.scss";
 import PluginCard from "@/pages/Category/PluginCard";
 import React from "react";
-import { FileNodePackageOnline } from "types/online";
+import {FileNodePackageOnline} from "types/online";
 
 function renderPluginCards(
   plugins: FileNodePackageOnline[],
   category: string,
   showCategory: boolean
 ) {
-  let result: React.ReactElement[] = [];
-  for (let plugin of plugins) {
+  const result: React.ReactElement[] = [];
+  for (const plugin of plugins) {
     result.push(
       <PluginCard
         key={plugin.name}

@@ -1,7 +1,8 @@
-import { IconGift } from "@arco-design/web-react/icon";
-import { Button, Space } from "@arco-design/web-react";
-import { reportIssue } from "@/pages/Burn/utils";
-import { BurnTabProps } from "./types";
+import {IconGift} from "@arco-design/web-react/icon";
+import {Button, Space} from "@arco-design/web-react";
+import {reportIssue} from "@/pages/Burn/utils";
+import {BurnTabProps} from "./types";
+import React from "react";
 
 export const TabFinish = ({ next, sharedState }: BurnTabProps) => {
   return (

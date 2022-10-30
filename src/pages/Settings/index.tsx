@@ -1,12 +1,8 @@
-import { Avatar, Button, List, Radio } from "@arco-design/web-react";
+import {Avatar, Button, List, Radio} from "@arco-design/web-react";
 import "./index.scss";
-import {
-  DeliveredProcedureOutlined,
-  SearchOutlined,
-  SkinOutlined,
-} from "@ant-design/icons";
-import React, { useState } from "react";
-import { getCurrentTheme, setCurrentTheme } from "@/services/theme";
+import {DeliveredProcedureOutlined, SearchOutlined, SkinOutlined,} from "@ant-design/icons";
+import React, {useState} from "react";
+import {getCurrentTheme, setCurrentTheme} from "@/services/theme";
 
 interface SettingItem {
   avatar: React.ReactElement;
@@ -16,8 +12,8 @@ interface SettingItem {
 }
 
 function renderSettingItems(items: SettingItem[]): React.ReactElement[] {
-  let result: React.ReactElement[] = [];
-  for (let item of items) {
+  const result: React.ReactElement[] = [];
+  for (const item of items) {
     result.push(
       <List.Item key={item.title} actions={item.actions}>
         <List.Item.Meta
@@ -53,7 +49,7 @@ export const Settings = () => {
       title: "主题",
       description: "切换白昼模式与黑夜模式",
       actions: [
-        <Radio.Group type="button" value={theme} onChange={toggleTheme}>
+        <Radio.Group key="radio" type="button" value={theme} onChange={toggleTheme}>
           <Radio value={true}>白昼</Radio>
           <Radio value={false}>黑夜</Radio>
         </Radio.Group>,
@@ -64,7 +60,7 @@ export const Settings = () => {
       title: "缓存目录（114 MB）",
       description: "D:\\Download\\HubCache",
       actions: [
-        <Button.Group>
+        <Button.Group key="button">
           <Button>查看</Button>
           <Button>清理</Button>
         </Button.Group>,
@@ -76,6 +72,7 @@ export const Settings = () => {
       description: "插件详情页面自动搜索功能的引擎提供方",
       actions: [
         <Radio.Group
+          key="radio"
           type="button"
           value={searchEngine}
           onChange={setSearchEngine}

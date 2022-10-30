@@ -1,4 +1,5 @@
-import { CrownOutlined } from "@ant-design/icons";
+import {CrownOutlined} from "@ant-design/icons";
+import React from "react";
 
 export const TabLatest = () => {
   return (

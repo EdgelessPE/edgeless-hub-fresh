@@ -11,7 +11,7 @@ import {
   IconThunderbolt,
 } from "@arco-design/web-react/icon";
 import React from "react";
-import { SiderNode } from "@/components/layout/SiderMenu";
+import {SiderNode} from "@/components/layout/SiderMenu";
 import {
   ApiOutlined,
   BookOutlined,
@@ -151,7 +151,7 @@ function getTitleMapSider(nodes: SiderNode[]): Record<
       icon?: JSX.Element;
     }
   > = {};
-  for (let node of nodes) {
+  for (const node of nodes) {
     map[node.path] = {
       icon: node.icon,
       title: node.title,

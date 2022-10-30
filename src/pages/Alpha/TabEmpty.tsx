@@ -1,4 +1,5 @@
-import { EmptyInsertUDisk } from "@/components/molecules/EmptyInsertUDisk";
+import {EmptyInsertUDisk} from "@/components/molecules/EmptyInsertUDisk";
+import React from "react";
 
 export const TabEmpty = () => {
   return (

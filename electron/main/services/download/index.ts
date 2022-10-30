@@ -4,7 +4,7 @@ import {Integrity} from "../../../../types";
 import {auditTime, Observable} from "rxjs";
 import {getTempConfig} from "../config";
 import {getTaskId} from "./utils";
-import {DownloadTaskHandler, TaskMeta} from "./type";
+import {TaskMeta} from "./type";
 import {getProvider} from "./provider/_register";
 import * as path from "path";
 import {validateIntegrity} from "../integrity";

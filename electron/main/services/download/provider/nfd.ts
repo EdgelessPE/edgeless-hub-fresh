@@ -1,6 +1,6 @@
 import Downloader from "nodejs-file-downloader";
 import {Ok, Result} from "ts-results";
-import {AddTaskFn, Provider} from "./type";
+import {AddTaskFn, MayErrorReturned, Provider} from "./type";
 import path from "path";
 
 interface ProgressUpdate {
@@ -35,16 +35,25 @@ const addTask: AddTaskFn = async (url, dir, suggested, subscriber) => {
     },
   });
 
-  try {
-    downloadHandler
-      .download()
-      .then(() => subscriber.complete())
-  } catch (e) {
-    subscriber.error(e);
-  }
-
   return new Ok({
     targetPosition: path.join(dir, fileName),
+    handler: {
+      start: async () => {
+        return new Promise<MayErrorReturned>(resolve => {
+          try {
+            downloadHandler
+              .download()
+              .then(() => subscriber.complete())
+          } catch (e) {
+            subscriber.error(e);
+          }
+        })
+      },
+      remove: async () => {
+        // TODO:删除临时文件，如果存在的话
+        return new Ok(null)
+      }
+    }
   });
 };
 

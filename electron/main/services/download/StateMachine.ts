@@ -1,10 +1,14 @@
 import {TaskMeta, TaskState} from "./type";
 import {TaskProgressNotification} from "./provider/type";
+import {StateMachineChangeEvent} from "../model/Module";
+
+type Listener = (event: StateMachineChangeEvent) => void
 
 class StateMachine {
   id: string
   state: TaskState
   meta: TaskMeta
+  private listeners: Listener[]
 
   constructor(id: string, meta: TaskMeta, initialState: "queuing" | "completed") {
     this.id = id
@@ -57,9 +61,16 @@ class StateMachine {
     })
   }
 
+  listen(listener: Listener) {
+    this.listeners.push(listener)
+  }
+
   private switchState(next: TaskState) {
     console.log(`Debug:Switch download task ${this.id} state from ${this.state.type} to ${next.type}`)
     this.state = next
+    this.listeners.forEach(listener => {
+      listener(next)
+    })
   }
 }
 

@@ -1,6 +1,6 @@
-import { Result } from "ts-results";
-import { Subscriber } from "rxjs";
-import { DownloadProviderInfo } from "../../../../../types/download";
+import {Result} from "ts-results";
+import {Subscriber} from "rxjs";
+import {DownloadProviderInfo} from "../../../../../types/download";
 
 type MayErrorReturned = Promise<Result<null, string>>;
 export type AddTaskFn = (
@@ -26,13 +26,17 @@ export interface AddTaskSuggested {
 
 interface AddTaskReturned {
   targetPosition: string; // 文件最终绝对路径，理论上应该 == path.join(dir,suggested.fileName)
-  handler?: TaskHandler; // 如下载引擎支持暂停和继续则返回 handler
+  handler: ProviderHandler;
 }
 
-interface TaskHandler {
-  continue(): MayErrorReturned;
+interface ProviderHandler {
+  start(): MayErrorReturned;
 
-  pause(): MayErrorReturned;
+  remove(): MayErrorReturned;
+
+  continue?(): MayErrorReturned;
+
+  pause?(): MayErrorReturned;
 }
 
 export interface TaskProgressNotification {

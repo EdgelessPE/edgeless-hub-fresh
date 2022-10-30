@@ -1,7 +1,7 @@
 import electronLog from "electron-log";
 import path from "path";
 
-type LogLevel = "Info" | "Warning" | "Error";
+type LogLevel = "Debug" | "Info" | "Warning" | "Error";
 
 const date = new Date();
 
@@ -13,6 +13,7 @@ electronLog.transports.file.resolvePath = () =>
   );
 
 const map: Record<LogLevel, any> = {
+  Debug: electronLog.debug,
   Info: electronLog.info,
   Warning: electronLog.warn,
   Error: electronLog.error,
@@ -26,6 +27,10 @@ function log(text: string) {
   const s = text.split(":");
   if (s.length > 1) {
     switch (s[0]) {
+      case "Debug":
+        // console.log(text);
+        innerLog("Debug", text);
+        break;
       case "Info":
         // console.log(text);
         innerLog("Info", text);

@@ -4,6 +4,10 @@ function log(text: string) {
   const s = text.split(":");
   if (s.length > 1) {
     switch (s[0]) {
+      case "Debug":
+        console.log(text);
+        bridge("innerLog", "Debug", text);
+        break;
       case "Info":
         console.log(text);
         bridge("innerLog", "Info", text);

@@ -1,4 +1,3 @@
-import {AddTaskReturned, AddTaskSuggested} from "../../services/download/provider/type";
 import {Integrity} from "../../../../types";
 
 
@@ -12,11 +11,11 @@ interface TaskMeta {
   provider: string;
   params: {
     url: string;
+    fileName: string;
     dir: string;
-    suggested: AddTaskSuggested;
+    totalSize: number;
     integrity?: Integrity;
   };
-  returned: AddTaskReturned | null;
 }
 
 interface TaskState {

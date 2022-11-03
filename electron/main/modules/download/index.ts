@@ -64,6 +64,18 @@ class Download extends Module {
     const dir = path.join(cacheDir, DOWNLOAD_SUB_DIR_PACKAGES)
     const targetPosition = path.join(dir, fileName)
 
+    // 向抽象池添加任务
+    AbstractPool.add(this.stateMachine.id, this.stateMachine.state, {
+      provider: providerId,
+      params: {
+        url,
+        fileName,
+        dir,
+        totalSize,
+        integrity
+      }
+    })
+
     // 检查是否存在可用缓存
     const cacheRes = await existUsableFile(targetPosition, totalSize, integrity)
     if (cacheRes) {
@@ -152,9 +164,12 @@ class Download extends Module {
     // 状态机状态变化监听处理
     this.stateMachine.listen((state) => {
       const {type, payload} = state
+      // 通知模块上层监听器
       this.listeners.forEach(listener => {
         listener(type, payload, getAllowedCommands(type, allowPause))
       })
+      // 更新抽象池
+      AbstractPool.update(this.stateMachine.id, this.stateMachine.state)
     })
   }
 

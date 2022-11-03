@@ -51,10 +51,10 @@ class StateMachine {
     })
   }
 
-  toPaused() {
+  toPaused(fromType: "queuing" | "downloading") {
     this.switchState({
       type: "paused",
-      payload: null
+      payload: fromType
     })
   }
 

@@ -43,22 +43,10 @@ class Download extends Module {
   provider: InterruptableProvider
   meta: TaskMeta
 
-  // 标记外部命令干预，用于打断异步流程继续执行
-  flags: {
-    providerStarted: boolean;
-    queuingPaused: boolean;
-    canceled: boolean;
-  }
-
   constructor(params: DownloadParams) {
     super();
     this.listeners = []
     this.params = params
-    this.flags = {
-      providerStarted: false,
-      queuingPaused: false,
-      canceled: false,
-    }
 
     // 创建时立即分配状态机
     this.stateMachine = new StateMachine(getTaskId())
@@ -132,21 +120,15 @@ class Download extends Module {
     // 开始监听状态机事件
     this.startListenStateMachine(this.provider.allowPause)
 
-    // 开始排队
-    return this.download()
-  }
-
-  // 负责从排队开始到调用 provider.start()
-  async download(): Promise<Res<null>> {
     // 切换状态机至 queuing 状态
     this.stateMachine.toQueuing()
 
     // 抽象池任务队列排队
-    await AbstractPool.queue()
+    const ctn = await AbstractPool.queue(this.stateMachine.id)
 
-    // 检查是否需要暂停或取消继续执行
-    if (this.flags.queuingPaused || this.flags.canceled) {
-      return
+    // 检查是否需要取消执行
+    if (!ctn) {
+      return new Err(`Error:Task canceled by user`)
     }
 
     // TODO:检查磁盘剩余空间
@@ -160,12 +142,9 @@ class Download extends Module {
       this.stateMachine.toError(dRes.val)
       return dRes
     }
-    this.flags.providerStarted = true
 
     // 进行校验
     this.stateMachine.toValidating()
-    const {integrity, fileName, dir} = this.meta.params
-    const targetPosition = path.join(dir, fileName)
     if (integrity != null) {
       const vRes = await validateIntegrity(targetPosition, integrity)
       if (vRes.err) {
@@ -225,7 +204,7 @@ class Download extends Module {
       }
 
       // 立即跳转状态机至已暂停
-      this.stateMachine.toPaused()
+      this.stateMachine.toPaused(type)
 
       // 请求 provider 进行暂停
       const pRes = await this.provider.pause()
@@ -238,59 +217,68 @@ class Download extends Module {
       return pRes
     } else if (type == "queuing") {
       // 立即跳转状态机至已暂停
-      this.stateMachine.toPaused()
+      this.stateMachine.toPaused(type)
 
-      // 修改 flag 告知异步排队函数
-      this.flags.queuingPaused = true
+      // 挂起排队队列
+      AbstractPool.suspendQueue(this.stateMachine.id)
     }
   }
 
   private async continue(): Promise<Res<null>> {
     // 根据是否在排队时暂停分类处理
-    if (this.flags.queuingPaused) {
-      // 判断下载是否已开始
-      if (this.flags.providerStarted) {
-
-      } else {
-        // 重新排队进行下载
-        return this.download()
-      }
-    } else {
+    const fromType = this.stateMachine.state.payload as "downloading" | "queuing"
+    if (fromType == "downloading") {
       // 检查 provider 是否支持暂停
       if (!this.provider.allowPause) {
         return new Err(`Error:Fatal:Task ${this.stateMachine.id}'s provider ${this.meta.provider} doesn't support pause`)
       }
 
-      // 抽象池排队
+      return new Promise(async (resolve) => {
+        // 切换状态机并提前 resolve
+        this.stateMachine.toQueuing()
+        resolve(new Ok(null))
+
+        // 抽象池排队
+        const ctn = await AbstractPool.queue(this.stateMachine.id)
+
+        // 检查是否需要取消执行
+        if (!ctn) {
+          return new Err(`Error:Task canceled by user`)
+        }
+
+        // 请求 provider 继续
+        const cRes = await this.provider.continue()
+
+        // 处理继续出错
+        if (cRes.err) {
+          this.stateMachine.toError(cRes.val)
+        }
+
+        // 不需要跳转状态机至 downloading，由构造 provider 时传入的匿名函数完成
+      })
+    } else if (fromType == "queuing") {
+      // 立即跳转状态机至排队中
       this.stateMachine.toQueuing()
-      await AbstractPool.queue()
 
-      // 请求 provider 继续
-      const cRes = await this.provider.continue()
-
-      // 处理继续出错
-      if (cRes.err) {
-        this.stateMachine.toError(cRes.val)
-      }
-
-      // 不需要跳转状态机至 downloading，由构造 provider 时传入的匿名函数完成
-
-      return cRes
+      // 继续排队队列
+      AbstractPool.resumeQueue(this.stateMachine.id)
     }
   }
 
   // 尽力而为的保证取消成功
   private async cancel(): Promise<Res<null>> {
-    // 标记
-    this.flags.canceled = true
 
     // 尝试转换状态机至终态或 paused
     const {type} = this.stateMachine.state
-    if (type == "downloading" || type == "queuing") {
+    if (type == "downloading") {
       const pRes = await this.pause()
       if (pRes.err) {
         log(`Warning:Can't pause task ${this.stateMachine.id} before cancel : ${pRes.val}`)
       }
+    }
+    if (type == "queuing") {
+      // 从抽象池取消排队
+      AbstractPool.cancelQueue(this.stateMachine.id)
     }
 
     // 尝试调用 provider 进行移除

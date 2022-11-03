@@ -62,6 +62,10 @@ class StateMachine {
     this.listeners.push(listener)
   }
 
+  removeListeners() {
+    this.listeners = []
+  }
+
   private switchState(next: TaskState) {
     log(`Debug:Switch download task ${this.id} state from ${this.state.type} to ${next.type}`)
     this.state = next

@@ -22,7 +22,7 @@ const register: ProviderRegisterNode[] = [
   }
 ]
 
-function getProvider(id: string): Result<ProviderConstructor, string> {
+function getProviderConstructor(id: string): Result<ProviderConstructor, string> {
   for (const provider of register) {
     if (provider.info.id == id) {
       return new Ok(provider.entrance);
@@ -32,5 +32,5 @@ function getProvider(id: string): Result<ProviderConstructor, string> {
 }
 
 export {
-  getProvider
+  getProviderConstructor
 }

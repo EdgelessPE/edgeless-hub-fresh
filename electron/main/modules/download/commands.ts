@@ -8,7 +8,7 @@ const allowedCommandsMap: Record<TaskStateType, Set<string>> = {
   validating: new Set(["cancel"]),
   completed: new Set(),
   paused: new Set(["continue", "cancel"]),
-  error: new Set(["retry", "cancel"]),
+  error: new Set(["cancel"]),
 }
 
 function getAllowedCommands(type: TaskStateType, allowPause: boolean): string[] {

@@ -37,9 +37,12 @@ function tryDel(targetPosition: string) {
 }
 
 class Download extends Module {
+  // 构造时直接赋值
   listeners: Listener[]
   params: DownloadParams
   stateMachine: StateMachine
+
+  // 需要等待 start 被调用才能赋值
   provider: InterruptableProvider
   meta: TaskMeta
 
@@ -47,8 +50,7 @@ class Download extends Module {
     super();
     this.listeners = []
     this.params = params
-
-    // 创建时立即分配状态机
+    // 构造时立即分配状态机
     this.stateMachine = new StateMachine(getTaskId())
   }
 
@@ -133,9 +135,9 @@ class Download extends Module {
 
     // TODO:检查磁盘剩余空间
 
+    // 不需要跳转状态机至 downloading，由构造 provider 时传入的匿名函数完成
 
     // 开始并等待下载到达 provider 终态（completed / error）
-    // 状态机切换(queuing -> downloading)由构造 provider 时传入的匿名函数完成
     const dRes = await this.provider.start()
     if (dRes.err) {
       // 切换状态机至 error
@@ -173,8 +175,6 @@ class Download extends Module {
         return this.cancel()
       case "continue":
         return this.continue()
-      case "retry":
-        return this.retry()
       default:
         return new Err(`Error:Fatal:Unknown command received : ${cmd}, payload : ${payload}`)
     }
@@ -192,6 +192,20 @@ class Download extends Module {
       // 更新抽象池
       AbstractPool.update(this.stateMachine.id, this.stateMachine.state)
     })
+  }
+
+  async beforeRetry(): Promise<Res<null>> {
+    // 尝试删除已下载的文件
+    const targetPosition = path.join(this.meta.params.dir, this.meta.params.fileName)
+    tryDel(targetPosition)
+
+    // 从抽象池删除任务
+    AbstractPool.remove(this.stateMachine.id)
+
+    // 移除旧的状态机监听器
+    this.stateMachine.removeListeners()
+
+    return new Ok(null)
   }
 
   private async pause(): Promise<Res<null>> {
@@ -216,11 +230,11 @@ class Download extends Module {
 
       return pRes
     } else if (type == "queuing") {
-      // 立即跳转状态机至已暂停
-      this.stateMachine.toPaused(type)
-
       // 挂起排队队列
       AbstractPool.suspendQueue(this.stateMachine.id)
+
+      // 跳转状态机至已暂停
+      this.stateMachine.toPaused(type)
     }
   }
 
@@ -257,15 +271,15 @@ class Download extends Module {
         // 不需要跳转状态机至 downloading，由构造 provider 时传入的匿名函数完成
       })
     } else if (fromType == "queuing") {
-      // 立即跳转状态机至排队中
-      this.stateMachine.toQueuing()
-
       // 继续排队队列
       AbstractPool.resumeQueue(this.stateMachine.id)
+
+      // 跳转状态机至排队中
+      this.stateMachine.toQueuing()
     }
   }
 
-  // 尽力而为的保证取消成功
+  // 取消任务，只返回成功
   private async cancel(): Promise<Res<null>> {
 
     // 尝试转换状态机至终态或 paused
@@ -298,20 +312,5 @@ class Download extends Module {
     AbstractPool.remove(this.stateMachine.id)
 
     return new Ok(null)
-  }
-
-  private async retry(): Promise<Res<null>> {
-    // 尝试删除已下载的文件
-    const targetPosition = path.join(this.meta.params.dir, this.meta.params.fileName)
-    tryDel(targetPosition)
-
-    // 从抽象池删除任务
-    AbstractPool.remove(this.stateMachine.id)
-
-    // 移除旧的状态机监听器
-    this.stateMachine.removeListeners()
-
-    // 任务开始
-    return this.start()
   }
 }

@@ -6,8 +6,6 @@ abstract class Module {
   abstract listen(listener: (type: string, payload: any, allowedCommands: string[]) => void)
 
   abstract command(cmd: string, payload: any): ARes<any>
-
-  abstract beforeRetry(): ARes<null>
 }
 
 

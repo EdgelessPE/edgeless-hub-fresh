@@ -194,20 +194,6 @@ class Download extends Module {
     })
   }
 
-  async beforeRetry(): Promise<Res<null>> {
-    // 尝试删除已下载的文件
-    const targetPosition = path.join(this.meta.params.dir, this.meta.params.fileName)
-    tryDel(targetPosition)
-
-    // 从抽象池删除任务
-    AbstractPool.remove(this.stateMachine.id)
-
-    // 移除旧的状态机监听器
-    this.stateMachine.removeListeners()
-
-    return new Ok(null)
-  }
-
   private async pause(): Promise<Res<null>> {
     // 根据当前状态分流处理
     const {type} = this.stateMachine.state

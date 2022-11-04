@@ -3,12 +3,12 @@ import {TaskState} from "./type";
 type TaskStateType = TaskState['type']
 
 const allowedCommandsMap: Record<TaskStateType, Set<string>> = {
-  queuing: new Set(["pause", "cancel"]),
-  downloading: new Set(["cancel"]),
-  validating: new Set(["cancel"]),
+  queuing: new Set(["pause"]),
+  downloading: new Set(),
+  validating: new Set(),
   completed: new Set(),
-  paused: new Set(["continue", "cancel"]),
-  error: new Set(["cancel"]),
+  paused: new Set(["continue"]),
+  error: new Set(),
 }
 
 function getAllowedCommands(type: TaskStateType, allowPause: boolean): string[] {

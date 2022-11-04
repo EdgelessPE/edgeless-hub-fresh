@@ -1,15 +1,13 @@
 import {Module} from "../Module";
-import {Err, Ok, Result} from "ts-results";
+import {Err, Ok} from "ts-results";
 import {Integrity} from "../../../../types";
 import {StateMachine} from "./StateMachine";
 import {getTaskId} from "./utils";
 import {getTempConfig} from "../../services/config";
 import * as path from "path";
-import * as fs from "fs";
 import {existUsableFile} from "./cache";
-import {TaskMeta} from "./type";
+import {TaskMeta, TaskProgressNotification} from "./type";
 import {getProviderConstructor} from "./providers/_register";
-import {TaskProgressNotification} from "../../services/download/provider/type";
 import {DOWNLOAD_SUB_DIR_PACKAGES} from "../../constants";
 import {InterruptableProvider} from "./providers/Provider";
 import AbstractPool from "./abstractPool";
@@ -17,6 +15,7 @@ import {validateIntegrity} from "../../services/integrity";
 import {Res} from "../../type";
 import {getAllowedCommands, isAllowedCommand} from "./commands";
 import {log} from "../../log";
+import {del} from "../../utils/shell";
 
 type Listener = (type: string, payload: any, allowedCommands: string[]) => void
 
@@ -25,15 +24,6 @@ interface DownloadParams {
   fileName: string;
   totalSize: number;
   integrity?: Integrity;
-}
-
-function tryDel(targetPosition: string) {
-  if (fs.existsSync(targetPosition)) {
-    fs.unlinkSync(targetPosition)
-    if (fs.existsSync(targetPosition)) {
-      log(`Warning:Can't remove downloaded file : ${targetPosition}`)
-    }
-  }
 }
 
 class Download extends Module {
@@ -59,11 +49,11 @@ class Download extends Module {
     this.listeners.push(listener)
   }
 
-  async start(): Promise<Result<null, string>> {
+  async start(): Promise<Res<string>> {
     // 解构下载参数和配置参数
     const {url, fileName, totalSize, integrity} = this.params
     const cfg = getTempConfig()
-    const {provider: providerId, cacheDir, maxDownloadingTasks} = cfg.download
+    const {provider: providerId, cacheDir} = cfg.download
     const dir = path.join(cacheDir, DOWNLOAD_SUB_DIR_PACKAGES)
     const targetPosition = path.join(dir, fileName)
     this.meta = {
@@ -158,7 +148,7 @@ class Download extends Module {
 
     // 完成下载
     this.stateMachine.toCompleted()
-    return new Ok(null)
+    return new Ok(targetPosition)
   }
 
   async command(cmd: string, payload: any): Promise<Res<null>> {
@@ -171,8 +161,6 @@ class Download extends Module {
     switch (cmd) {
       case "pause":
         return this.pause()
-      case "cancel":
-        return this.cancel()
       case "continue":
         return this.continue()
       default:
@@ -266,7 +254,7 @@ class Download extends Module {
   }
 
   // 取消任务，只返回成功
-  private async cancel(): Promise<Res<null>> {
+  async cancel(): Promise<Res<null>> {
 
     // 尝试转换状态机至终态或 paused
     const {type} = this.stateMachine.state
@@ -289,7 +277,9 @@ class Download extends Module {
 
     // 尝试删除已下载的文件
     const targetPosition = path.join(this.meta.params.dir, this.meta.params.fileName)
-    tryDel(targetPosition)
+    if (!del(targetPosition)) {
+      log(`Warning:Can't delete downloaded file before cancel task ${this.stateMachine.id}`)
+    }
 
     // 标记状态机至 error
     this.stateMachine.toError(`Error:Task canceled by user`)

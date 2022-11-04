@@ -2,15 +2,11 @@ import {Integrity} from "../../../../types";
 import * as fs from "fs";
 import {validateIntegrity} from "../../services/integrity";
 import {log} from "../../log";
+import {del} from "../../utils/shell";
 
 function getFileSize(filePath: string): number {
   const status = fs.statSync(filePath);
   return status.size;
-}
-
-function del(filePath: string) {
-  fs.unlinkSync(filePath);
-  return false;
 }
 
 async function existUsableFile(
@@ -28,7 +24,9 @@ async function existUsableFile(
     log(
       `Debug:Cache file size not match, expect ${totalSize}, got ${actualSize}`
     );
-    return del(filePath);
+    if (!del(filePath)) {
+      log(`Warning:Can't delete broken cache file : ${filePath}`)
+    }
   }
   // 检查文件哈希
   if (integrity) {

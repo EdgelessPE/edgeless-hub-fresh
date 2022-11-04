@@ -18,7 +18,7 @@ export const TabStart = ({ next, sharedState }: UpdateTabProps) => {
         </p>
         <p>
           {updateVentoy?.online
-            ? `Ventoy：${updateVentoy.local.version} -> ${updateVentoy.online.name}`
+            ? `Ventoy：${updateVentoy.local.version} -> ${updateVentoy.online.version}`
             : ""}
         </p>
       </div>

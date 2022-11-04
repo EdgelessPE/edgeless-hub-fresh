@@ -44,8 +44,7 @@ export const TabUpgradable = ({ array, onUpgradeAll }: TabUpgradableProps) => {
   const onClickUpgradeAll = () => {
     onUpgradeAll(
       array.filter((node) => {
-        if (!ignoreDisabled || !isDisabled(node.local)) return true;
-        else return false;
+        return !ignoreDisabled || !isDisabled(node.local);
       })
     );
   };

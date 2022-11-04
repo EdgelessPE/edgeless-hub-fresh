@@ -33,11 +33,13 @@ interface KernelOnline {
 
 interface VentoyLocal {
   name: string;
+  version: string;
 
 }
 
 interface VentoyOnline {
   name: string;
+  version: string;
 
 }
 

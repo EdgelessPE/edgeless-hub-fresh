@@ -1,11 +1,11 @@
-import { existsSync, rmSync } from "fs";
-import { join } from "path";
-import { defineConfig, Plugin, UserConfig } from "vite";
+import {existsSync, rmSync} from "fs";
+import {join} from "path";
+import {defineConfig, Plugin, UserConfig} from "vite";
 import react from "@vitejs/plugin-react";
 import electron from "vite-plugin-electron";
 import pkg from "./package.json";
 
-rmSync(join(__dirname, "dist"), { recursive: true, force: true }); // v14.14.0
+rmSync(join(__dirname, "dist"), {recursive: true, force: true}); // v14.14.0
 
 // https://vitejs.dev/config/
 export default defineConfig({
@@ -58,7 +58,7 @@ function withDebug(config: UserConfig): UserConfig {
     config.plugins = (config.plugins || []).concat({
       name: "electron-vite-debug",
       configResolved(config) {
-        // TODO: when the next version of `vite-plugine-electron` is released, use the config hook.
+        // TODO: when the next version of `vite-plugin-electron` is released, use the config hook.
         const index = config.plugins.findIndex(
           (p) => p.name === "electron-main-watcher"
         );

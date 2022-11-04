@@ -73,7 +73,8 @@ const App: React.FC = () => {
   // 初始化与错误处理弹窗
   const [modal, contextHolder] = useModal();
   useEffect(() => {
-    init(modal);
+    init(modal).then(() => {
+    });
   }, []);
 
   return (

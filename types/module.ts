@@ -3,6 +3,4 @@ interface TaskProgressNotification {
   speed: number; // 下载速度，单位 B/s
 }
 
-export {
-  TaskProgressNotification
-}
+export { TaskProgressNotification };

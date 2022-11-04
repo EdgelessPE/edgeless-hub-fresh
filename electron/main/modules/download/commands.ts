@@ -1,6 +1,6 @@
 import {TaskState} from "./type";
 
-type TaskStateType = TaskState['type']
+type TaskStateType = TaskState["type"];
 
 const allowedCommandsMap: Record<TaskStateType, Set<string>> = {
   queuing: new Set(["pause"]),
@@ -9,26 +9,30 @@ const allowedCommandsMap: Record<TaskStateType, Set<string>> = {
   completed: new Set(),
   paused: new Set(["continue"]),
   error: new Set(),
-}
+};
 
-function getAllowedCommands(type: TaskStateType, allowPause: boolean): string[] {
-  const set = allowedCommandsMap[type]
-  const cmd = Array.from(set)
+function getAllowedCommands(
+  type: TaskStateType,
+  allowPause: boolean
+): string[] {
+  const set = allowedCommandsMap[type];
+  const cmd = Array.from(set);
   if (allowPause && type == "downloading") {
-    cmd.push("pause")
+    cmd.push("pause");
   }
-  return cmd
+  return cmd;
 }
 
-function isAllowedCommand(type: TaskStateType, allowPause: boolean, command: string) {
+function isAllowedCommand(
+  type: TaskStateType,
+  allowPause: boolean,
+  command: string
+) {
   if (allowPause && type == "downloading" && command == "pause") {
-    return true
+    return true;
   }
-  const set = allowedCommandsMap[type]
-  return set.has(command)
+  const set = allowedCommandsMap[type];
+  return set.has(command);
 }
 
-export {
-  getAllowedCommands,
-  isAllowedCommand
-}
+export { getAllowedCommands, isAllowedCommand };

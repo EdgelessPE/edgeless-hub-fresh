@@ -3,7 +3,6 @@ import {AlphaResponse, HelloResponse} from "../../../../../types/online";
 import {getRegisterNode} from "./_register";
 import {fetch, joinUrl, validate} from "../../../utils";
 
-
 async function fetchHello(
   baseUrl: string
 ): Promise<Result<HelloResponse, string>> {

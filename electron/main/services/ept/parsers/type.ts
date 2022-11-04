@@ -8,4 +8,4 @@ interface RegisterNode {
   };
 }
 
-export {RegisterNode};
+export { RegisterNode };

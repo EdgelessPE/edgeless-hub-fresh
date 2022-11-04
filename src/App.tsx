@@ -49,13 +49,11 @@ function useSettingButton(showText: boolean, history: BrowserHistory) {
 }
 
 // 暗黑模式跟随系统
-const media = window.matchMedia('(prefers-color-scheme: dark)');
+const media = window.matchMedia("(prefers-color-scheme: dark)");
 if (media.matches) {
   document.body.setAttribute("arco-theme", "dark");
   setCurrentTheme(false);
 }
-
-
 
 const App: React.FC = () => {
   const [collapsed, setCollapsed] = useState(false);
@@ -73,8 +71,7 @@ const App: React.FC = () => {
   // 初始化与错误处理弹窗
   const [modal, contextHolder] = useModal();
   useEffect(() => {
-    init(modal).then(() => {
-    });
+    init(modal).then(() => {});
   }, []);
 
   return (

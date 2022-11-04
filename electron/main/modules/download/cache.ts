@@ -25,7 +25,7 @@ async function existUsableFile(
       `Debug:Cache file size not match, expect ${totalSize}, got ${actualSize}`
     );
     if (!del(filePath)) {
-      log(`Warning:Can't delete broken cache file : ${filePath}`)
+      log(`Warning:Can't delete broken cache file : ${filePath}`);
     }
   }
   // 检查文件哈希
@@ -41,4 +41,4 @@ async function existUsableFile(
   return true;
 }
 
-export {existUsableFile};
+export { existUsableFile };

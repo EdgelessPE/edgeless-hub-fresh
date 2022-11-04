@@ -15,4 +15,3 @@ export interface Config {
     maxDownloadingTasks: number;
   };
 }
-

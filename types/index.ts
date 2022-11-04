@@ -23,24 +23,20 @@ interface InitError {
 
 interface KernelLocal {
   name: string;
-
 }
 
 interface KernelOnline {
   name: string;
-
 }
 
 interface VentoyLocal {
   name: string;
   version: string;
-
 }
 
 interface VentoyOnline {
   name: string;
   version: string;
-
 }
 
 export {
@@ -50,5 +46,5 @@ export {
   KernelLocal,
   KernelOnline,
   VentoyLocal,
-  VentoyOnline
+  VentoyOnline,
 };

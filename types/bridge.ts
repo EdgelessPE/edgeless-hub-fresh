@@ -15,4 +15,4 @@ interface BridgeReply {
   payload: any;
 }
 
-export {ObservableBridgeUpdate, BridgeRequest, BridgeReply};
+export { ObservableBridgeUpdate, BridgeRequest, BridgeReply };

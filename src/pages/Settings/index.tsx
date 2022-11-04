@@ -49,7 +49,12 @@ export const Settings = () => {
       title: "主题",
       description: "切换白昼模式与黑夜模式",
       actions: [
-        <Radio.Group key="radio" type="button" value={theme} onChange={toggleTheme}>
+        <Radio.Group
+          key="radio"
+          type="button"
+          value={theme}
+          onChange={toggleTheme}
+        >
           <Radio value={true}>白昼</Radio>
           <Radio value={false}>黑夜</Radio>
         </Radio.Group>,

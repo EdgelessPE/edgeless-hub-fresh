@@ -88,7 +88,11 @@ export const Config = () => {
       title: "浏览器首页",
       description: "支持通过插件包加载的主流浏览器",
       actions: [
-        <Input key="url" style={{ width: "240px" }} value="https://www.baidu.com" />,
+        <Input
+          key="url"
+          style={{ width: "240px" }}
+          value="https://www.baidu.com"
+        />,
       ],
     },
     {

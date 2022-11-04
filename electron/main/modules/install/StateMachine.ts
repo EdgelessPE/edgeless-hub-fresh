@@ -2,61 +2,63 @@ import {log} from "../../log";
 import {TaskProgressNotification} from "../../../../types/module";
 
 interface State {
-  type: "running" | "completed" | "error"
-  payload: TaskProgressNotification | string | null
+  type: "running" | "completed" | "error";
+  payload: TaskProgressNotification | string | null;
 }
 
-type Listener = (state: State) => void
+type Listener = (state: State) => void;
 
 class StateMachine {
-  state: State
-  private listeners: Listener[]
+  state: State;
+  private listeners: Listener[];
 
   constructor() {
     this.state = {
       type: "running",
-      payload: null
-    }
-    this.listeners = []
+      payload: null,
+    };
+    this.listeners = [];
   }
 
   listen(listener: Listener) {
-    this.listeners.push(listener)
+    this.listeners.push(listener);
   }
 
   toRunning(payload: TaskProgressNotification) {
     this.switchState({
       type: "running",
-      payload
-    })
+      payload,
+    });
   }
 
   toCompleted() {
     this.switchState({
       type: "completed",
-      payload: null
-    })
+      payload: null,
+    });
   }
 
   toError(msg: string) {
     this.switchState({
       type: "error",
-      payload: msg
-    })
+      payload: msg,
+    });
   }
 
   private switchState(next: State) {
     if (this.state.type != "running") {
-      log(`Warning:Illegal state switch to ${JSON.stringify(next)} : current state is ${this.state.type}`)
-      return
+      log(
+        `Warning:Illegal state switch to ${JSON.stringify(
+          next
+        )} : current state is ${this.state.type}`
+      );
+      return;
     }
-    this.state = next
-    this.listeners.forEach(listener => {
-      listener(next)
-    })
+    this.state = next;
+    this.listeners.forEach((listener) => {
+      listener(next);
+    });
   }
 }
 
-export {
-  StateMachine
-}
+export { StateMachine };

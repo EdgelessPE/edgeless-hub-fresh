@@ -3,7 +3,7 @@ import {IconDelete, IconFire, IconQuestionCircle, IconThunderbolt,} from "@arco-
 import React from "react";
 import {BurnTabProps} from "./type";
 
-export const TabStart = ({next, sharedState}: BurnTabProps) => {
+export const TabStart = ({ next, sharedState }: BurnTabProps) => {
   const confirmCleanCache = () => {
     Modal.confirm({
       title:

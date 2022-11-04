@@ -51,7 +51,7 @@ async function getObservableConfig(): Promise<
 async function patchObservableConfig<K extends keyof Config>(patchJson: {
   [P in K]: Config[P];
 }): Promise<Result<null, string>> {
-  if (cfg == null) return new Err(`Error:Fatal:Temporary cfg is null`)
+  if (cfg == null) return new Err(`Error:Fatal:Temporary cfg is null`);
 
   const patchedJson = patch(cfg, patchJson);
 
@@ -66,7 +66,7 @@ async function patchObservableConfig<K extends keyof Config>(patchJson: {
 async function modifyObservableConfig(
   modifier: (rawConfig: Config) => Config
 ): Promise<Result<null, string>> {
-  if (cfg == null) return new Err(`Error:Fatal:Temporary cfg is null`)
+  if (cfg == null) return new Err(`Error:Fatal:Temporary cfg is null`);
 
   const resultJson = modifier(cfg!);
 

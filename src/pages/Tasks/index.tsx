@@ -15,9 +15,13 @@ export const Tasks = () => {
   // }, []);
 
   const down = async () => {
-    const idRes = await createTask("https://pineapple.edgeless.top/disk/插件包/实用工具/禁用小键盘_1.0.0.0_Cno.7z", "禁用小键盘_1.0.0.0_Cno.7z", 140)
-    console.log(idRes)
-  }
+    const idRes = await createTask(
+      "https://pineapple.edgeless.top/disk/插件包/实用工具/禁用小键盘_1.0.0.0_Cno.7z",
+      "禁用小键盘_1.0.0.0_Cno.7z",
+      140
+    );
+    console.log(idRes);
+  };
 
   const running: TabRunningProps["array"] = [
       {
@@ -167,7 +171,7 @@ export const Tasks = () => {
       <Button onClick={down}>下载</Button>
       <Tabs defaultActiveTab="1" className="tasks__tabs">
         <Tabs.TabPane key="1" title={`进行中（${running.length}）`}>
-          <TabRunning array={running}/>
+          <TabRunning array={running} />
         </Tabs.TabPane>
         <Tabs.TabPane key="2" title={`可更新（${upgradable.length}）`}>
           <TabUpgradable

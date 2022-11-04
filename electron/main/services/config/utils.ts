@@ -16,7 +16,7 @@ async function read(): Promise<Result<Config, string>> {
   return new Promise(async (resolve) => {
     if (!fs.existsSync(CONFIG_PATH)) {
       log(`Info:Config ${CONFIG_PATH} not found, use initial one`);
-      await write(initial)
+      await write(initial);
       resolve(new Ok(initial));
     }
 
@@ -26,7 +26,7 @@ async function read(): Promise<Result<Config, string>> {
       rawJson = JSON.parse(rawText);
     } catch (e) {
       resolve(new Err(`Error:Can't parse ${CONFIG_PATH} as json`));
-      return
+      return;
     }
 
     const patchedJson = patch(rawJson, initial);
@@ -44,7 +44,10 @@ function valid(dirty: any) {
   return validate(dirty, validator, `Error:Can't validate config : {}`);
 }
 
-function patch<T extends object, K extends keyof T>(rawJson: T, patchJson: { [P in K]: T[P] }): T {
+function patch<T extends object, K extends keyof T>(
+  rawJson: T,
+  patchJson: { [P in K]: T[P] }
+): T {
   for (const key in patchJson) {
     if (!rawJson.hasOwnProperty(key)) {
       // @ts-ignore

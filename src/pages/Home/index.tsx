@@ -12,7 +12,6 @@ const pluginsRecommendation = new Array(5).fill({
   link: "/settings",
 });
 
-
 export const Home = () => {
   const [displayNotice, setDisplayNotice] = useState(false);
   const config = useConfig();

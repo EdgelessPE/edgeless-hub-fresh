@@ -2,9 +2,9 @@ import {Integrity} from "../../../../types";
 import {TaskProgressNotification} from "../../../../types/module";
 
 interface AbstractPoolNode {
-  id: string
-  state: TaskState
-  meta: TaskMeta
+  id: string;
+  state: TaskState;
+  meta: TaskMeta;
 }
 
 interface TaskMeta {
@@ -29,9 +29,4 @@ interface TaskState {
   payload: TaskProgressNotification | string | null;
 }
 
-export {
-  TaskProgressNotification,
-  TaskState,
-  TaskMeta,
-  AbstractPoolNode
-}
+export { TaskProgressNotification, TaskState, TaskMeta, AbstractPoolNode };

@@ -18,7 +18,9 @@ const parsers: RegisterNode[] = [
   },
 ];
 
-export function getRegisterNode(protocol: string): Result<RegisterNode, string> {
+export function getRegisterNode(
+  protocol: string
+): Result<RegisterNode, string> {
   for (const node of parsers) {
     if (node.supportedProtocols.includes(protocol)) {
       return new Ok(node);

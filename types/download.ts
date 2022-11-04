@@ -7,19 +7,15 @@ interface DownloadProviderInfo {
   id: string;
 }
 
-
 interface RendererViewTask {
-  id: string
-  fileName: string
-  totalSize: number
-  url: string
+  id: string;
+  fileName: string;
+  totalSize: number;
+  url: string;
   state: TaskState;
-  targetPosition: string
-  supportPausing: boolean
-  integrity?: Integrity
+  targetPosition: string;
+  supportPausing: boolean;
+  integrity?: Integrity;
 }
 
-export {
-  DownloadProviderInfo,
-  RendererViewTask,
-}
+export { DownloadProviderInfo, RendererViewTask };

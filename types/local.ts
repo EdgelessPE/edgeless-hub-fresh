@@ -24,13 +24,13 @@ interface VentoyLocal {
 }
 
 interface UDisk {
-  letter: string
-  rw: boolean
-  kernel?: FileNodeLocal
-  alpha?: FileNodeLocal
-  ventoy?: VentoyLocal
-  plugins?: FileNodePackageLocal
-  configs?: string[]
+  letter: string;
+  rw: boolean;
+  kernel?: FileNodeLocal;
+  alpha?: FileNodeLocal;
+  ventoy?: VentoyLocal;
+  plugins?: FileNodePackageLocal;
+  configs?: string[];
 }
 
-export {FileNodePackageLocal, FileNodeLocal, VentoyLocal, UDisk};
+export { FileNodePackageLocal, FileNodeLocal, VentoyLocal, UDisk };

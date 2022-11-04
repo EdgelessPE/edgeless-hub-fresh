@@ -44,4 +44,4 @@ function main() {
   }
 }
 
-main()
+main();

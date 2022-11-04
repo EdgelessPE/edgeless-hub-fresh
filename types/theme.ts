@@ -1,3 +1,3 @@
 type Theme = "light" | "dark";
 
-export {Theme};
+export { Theme };

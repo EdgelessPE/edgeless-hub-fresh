@@ -8,4 +8,4 @@ interface MirrorLocal {
   services: ServiceNode[];
 }
 
-export {MirrorLocal};
+export { MirrorLocal };

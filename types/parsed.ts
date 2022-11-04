@@ -17,4 +17,4 @@ interface VentoyParsedFullName {
   platform: "Windows" | "Linux";
 }
 
-export {PluginParsedFullName, KernelParsedFullName, VentoyParsedFullName};
+export { PluginParsedFullName, KernelParsedFullName, VentoyParsedFullName };

@@ -11,8 +11,6 @@ import {
 import {Err, Ok, Result} from "ts-results";
 import {InitError} from "../../../../types";
 import {closeWindow, restartWindow, toggleDevTool} from "../../index";
-import {createTask} from "../download";
-import {continueTask, pauseTask, removeTask} from "../download/pool";
 
 function getMethodRegister(): Record<string, (...args: any) => any> {
   return {
@@ -25,10 +23,6 @@ function getMethodRegister(): Record<string, (...args: any) => any> {
     patchObservableConfig,
     modifyObservableConfig,
     resetObservableConfig,
-    createTask,
-    removeTask,
-    pauseTask,
-    continueTask,
   };
 }
 

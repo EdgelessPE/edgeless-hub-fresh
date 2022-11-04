@@ -1,5 +1,5 @@
 import {ARes} from "../../../type";
-import {TaskProgressNotification} from "../../../services/download/provider/type";
+import {TaskProgressNotification} from "../type";
 
 interface ProviderParams {
   url: string

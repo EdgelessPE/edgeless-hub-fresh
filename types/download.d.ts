@@ -1,5 +1,5 @@
 import {Integrity} from "./index";
-import {TaskState} from "../electron/main/services/download/type";
+import {TaskState} from "../electron/main/modules/download/type";
 
 interface DownloadProviderInfo {
   name: string;

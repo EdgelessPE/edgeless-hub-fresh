@@ -67,7 +67,14 @@ class StateMachine {
   }
 
   private switchState(next: TaskState) {
-    log(`Debug:Switch download task ${this.id} state from ${this.state.type} to ${next.type}`)
+    const {type} = this.state
+    // 终态限制跳转检测
+    if (type == "completed" || type == "error") {
+      log(`Warning:Illegal state switch : current state is ${type}`)
+      return
+    }
+
+    log(`Debug:Switch download task ${this.id} state from ${type} to ${next.type}`)
     this.state = next
     this.listeners.forEach(listener => {
       listener(next)

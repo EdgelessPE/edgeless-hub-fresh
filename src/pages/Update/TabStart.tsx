@@ -1,5 +1,5 @@
 import {FireOutlined} from "@ant-design/icons";
-import {UpdateKernel, UpdateTabProps, UpdateVentoy} from "./types";
+import {UpdateKernel, UpdateTabProps, UpdateVentoy} from "./type";
 import {Button} from "@arco-design/web-react";
 import React from "react";
 

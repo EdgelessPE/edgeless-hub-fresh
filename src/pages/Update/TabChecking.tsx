@@ -1,6 +1,6 @@
 import {CloudSyncOutlined} from "@ant-design/icons";
 import {Button, Spin} from "@arco-design/web-react";
-import {UpdateTabProps} from "./types";
+import {UpdateTabProps} from "./type";
 import {FileNodeLocal} from "types/local";
 import React from "react";
 

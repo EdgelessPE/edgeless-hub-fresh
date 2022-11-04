@@ -1,6 +1,6 @@
 import {IconArchive} from "@arco-design/web-react/icon";
 import {Button, Spin} from "@arco-design/web-react";
-import {UpdateTabProps} from "./types";
+import {UpdateTabProps} from "./type";
 import React from "react";
 
 export const TabUnzipping = ({ next, sharedState }: UpdateTabProps) => {

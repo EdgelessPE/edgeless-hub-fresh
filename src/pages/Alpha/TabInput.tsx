@@ -1,7 +1,7 @@
 import {Button, Checkbox, Input, Message, Space,} from "@arco-design/web-react";
 import React, {useState} from "react";
 import {LockOutlined} from "@ant-design/icons";
-import {AlphaTabProps} from "./types";
+import {AlphaTabProps} from "./type";
 import {IconCloseCircle} from "@arco-design/web-react/icon";
 import {FileNodeLocal} from "types/local";
 

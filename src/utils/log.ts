@@ -14,17 +14,14 @@ function log(text: string) {
         break;
       case "Warning":
         bridge("innerLog", "Warning", text);
-        // electronLog.warn(text)
         console.warn(text);
         break;
       case "Error":
         bridge("innerLog", "Error", text);
-        // electronLog.error(text)
         console.error(text);
         break;
       default:
         bridge("innerLog", "Info", text);
-        // electronLog.info(text)
         console.log(text);
         break;
     }

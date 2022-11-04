@@ -1,5 +1,5 @@
 import {DeploymentUnitOutlined} from "@ant-design/icons";
-import {BurnTabProps} from "./types";
+import {BurnTabProps} from "./type";
 import {Button, Progress} from "@arco-design/web-react";
 import {colorfulProgressBar} from "@/constants";
 import React, {useState} from "react";

@@ -1,5 +1,5 @@
 import {IconExclamationCircle} from "@arco-design/web-react/icon";
-import {BurnTabProps} from "./types";
+import {BurnTabProps} from "./type";
 import {Button, Message, Select, Space} from "@arco-design/web-react";
 import React, {useState} from "react";
 import {reportIssue} from "@/pages/Burn/utils";

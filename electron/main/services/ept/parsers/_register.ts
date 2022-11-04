@@ -1,4 +1,4 @@
-import {RegisterNode} from "./types";
+import {RegisterNode} from "./type";
 import Ajv from "ajv";
 import * as helloSchema from "./schemas/protocol310/hello.json";
 import * as alphaSchema from "./schemas/protocol310/alpha.json";

@@ -1,5 +1,5 @@
 import {IconArchive} from "@arco-design/web-react/icon";
-import {BurnTabProps} from "./types";
+import {BurnTabProps} from "./type";
 import {Button, Spin} from "@arco-design/web-react";
 import React from "react";
 

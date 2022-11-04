@@ -3,7 +3,7 @@ import {Button, Space} from "@arco-design/web-react";
 import {NaiveProgressBar, NaiveProgressBarTask,} from "@/components/molecules/NaiveProgressBar";
 import React, {useState} from "react";
 import {formatSize} from "@/utils/formatter";
-import {UpdateTabProps} from "./types";
+import {UpdateTabProps} from "./type";
 
 type TaskInfo = NaiveProgressBarTask & { enable: boolean };
 

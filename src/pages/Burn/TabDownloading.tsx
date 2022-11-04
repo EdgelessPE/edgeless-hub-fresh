@@ -1,6 +1,6 @@
 import {IconCloudDownload} from "@arco-design/web-react/icon";
 import {Button, Space} from "@arco-design/web-react";
-import {BurnTabProps} from "./types";
+import {BurnTabProps} from "./type";
 import React, {useState} from "react";
 import {NaiveProgressBar, NaiveProgressBarTask,} from "@/components/molecules/NaiveProgressBar";
 import {formatSize} from "@/utils/formatter";

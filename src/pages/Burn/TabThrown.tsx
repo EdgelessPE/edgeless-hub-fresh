@@ -1,6 +1,6 @@
 import {IconCloseCircle} from "@arco-design/web-react/icon";
 import {Button, Space} from "@arco-design/web-react";
-import {BurnTabProps} from "./types";
+import {BurnTabProps} from "./type";
 import {reportIssue} from "./utils";
 import React from "react";
 

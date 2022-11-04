@@ -1,14 +1,14 @@
-import { BurnTabProps } from "./types";
-import { IconBulb } from "@arco-design/web-react/icon";
-import { Button, Popconfirm, Space, Spin } from "@arco-design/web-react";
+import {BurnTabProps} from "./type";
+import {IconBulb} from "@arco-design/web-react/icon";
+import {Button, Popconfirm, Space, Spin} from "@arco-design/web-react";
 import React from "react";
-import { log } from "@/utils/log";
+import {log} from "@/utils/log";
 
 function launchVentoy() {
   log("Info:Launch ventoy");
 }
 
-export const TabWaitingForVentoy = ({ next, sharedState }: BurnTabProps) => {
+export const TabWaitingForVentoy = ({next, sharedState}: BurnTabProps) => {
   return (
     <div className="smt__container">
       <IconBulb className="smt__icon" />

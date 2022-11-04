@@ -3,7 +3,7 @@ import {Button, Progress} from "@arco-design/web-react";
 import {colorfulProgressBar} from "@/constants";
 import {formatSize} from "@/utils/formatter";
 import React, {useState} from "react";
-import {UpdateTabProps} from "./types";
+import {UpdateTabProps} from "./type";
 
 export const TabWriting = ({ next, sharedState }: UpdateTabProps) => {
   const [copyStatus, setCopyStatus] = useState({

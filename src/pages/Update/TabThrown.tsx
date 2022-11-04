@@ -1,7 +1,7 @@
 import {IconCloseCircle} from "@arco-design/web-react/icon";
 import {Button, Space} from "@arco-design/web-react";
 import {reportIssue} from "@/pages/Burn/utils";
-import {UpdateTabProps} from "./types";
+import {UpdateTabProps} from "./type";
 import React from "react";
 
 export const TabThrown = ({ next, sharedState }: UpdateTabProps) => {

@@ -1,5 +1,5 @@
 import React, {useState} from "react";
-import {Props, StateInfo, StateMachineNode, TabProps} from "./class";
+import {Props, StateInfo, StateMachineNode, TabProps} from "./type";
 import {Button, Steps} from "@arco-design/web-react";
 import "./index.scss";
 import {log} from "@/utils/log";

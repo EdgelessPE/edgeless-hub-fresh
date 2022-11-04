@@ -70,7 +70,7 @@ class StateMachine {
     const {type} = this.state
     // 终态限制跳转检测
     if (type == "completed" || type == "error") {
-      log(`Warning:Illegal state switch : current state is ${type}`)
+      log(`Warning:Illegal state switch to ${JSON.stringify(next)} : current state is ${type}`)
       return
     }
 

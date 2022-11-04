@@ -14,7 +14,7 @@
       ],
       "styles/*": [
         "src/assets/styles/*"
-      ],
+      ]
     },
     "allowJs": false,
     "skipLibCheck": true,
@@ -29,6 +29,13 @@
     "noEmit": true,
     "jsx": "react-jsx"
   },
-  "include": ["src"],
-  "references": [{ "path": "./tsconfig.node.json" }]
+  "include": [
+    "src",
+    "types/*.ts"
+  ],
+  "references": [
+    {
+      "path": "./tsconfig.node.json"
+    }
+  ]
 }

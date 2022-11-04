@@ -12,6 +12,7 @@
     "package.json",
     "electron",
     "electron/**/*.json",
-    "electron/main/services/ept/parsers/**/schema/*.json"
+    "electron/main/services/ept/parsers/**/schema/*.json",
+    "types/*.ts"
   ]
 }

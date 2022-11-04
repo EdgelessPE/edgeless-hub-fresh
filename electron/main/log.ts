@@ -28,29 +28,24 @@ function log(text: string) {
   if (s.length > 1) {
     switch (s[0]) {
       case "Debug":
-        // console.log(text);
+        // TODO:仅当在调试模式时才记录 debug 日志
         innerLog("Debug", text);
         break;
       case "Info":
-        // console.log(text);
         innerLog("Info", text);
         break;
       case "Warning":
         innerLog("Warning", text);
-        // console.warn(text);
         break;
       case "Error":
         innerLog("Error", text);
-        // console.error(text);
         break;
       default:
         innerLog("Info", text);
-        // console.log(text);
         break;
     }
   } else {
     innerLog("Info", text);
-    // console.log(text);
   }
 }
 

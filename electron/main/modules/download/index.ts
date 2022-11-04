@@ -38,13 +38,13 @@ function tryDel(targetPosition: string) {
 
 class Download extends Module {
   // 构造时直接赋值
-  listeners: Listener[]
-  params: DownloadParams
-  stateMachine: StateMachine
+  private listeners: Listener[]
+  private readonly params: DownloadParams
+  private stateMachine: StateMachine
 
   // 需要等待 start 被调用才能赋值
-  provider: InterruptableProvider
-  meta: TaskMeta
+  private provider: InterruptableProvider
+  private meta: TaskMeta
 
   constructor(params: DownloadParams) {
     super();
@@ -299,4 +299,9 @@ class Download extends Module {
 
     return new Ok(null)
   }
+}
+
+export {
+  DownloadParams,
+  Download
 }

@@ -40,8 +40,8 @@ class Download extends Module {
     super();
     this.listeners = [];
     this.params = params;
-    // 构造时立即分配状态机
     this.stateMachine = new StateMachine(getTaskId());
+
     this.provider = null;
     this.meta = null;
   }

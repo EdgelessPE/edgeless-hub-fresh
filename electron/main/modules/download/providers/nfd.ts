@@ -1,7 +1,8 @@
 import {Provider, ProviderParams, TaskProgressListener} from "./Provider";
 import {Res} from "../../../type";
 import {Err, Ok} from "ts-results";
-import Downloader from "nodejs-file-downloader";
+
+const Downloader = require("nodejs-file-downloader");
 
 interface ProgressUpdate {
   time: number;
@@ -68,7 +69,7 @@ export class NfdProvider extends Provider {
         .then(() => {
           resolve(new Ok(null));
         })
-        .catch((e) => {
+        .catch((e: any) => {
           resolve(
             new Err(
               `Error:Nfd provider can't download file : ${JSON.stringify(e)}`

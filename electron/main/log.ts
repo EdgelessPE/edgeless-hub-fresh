@@ -1,5 +1,5 @@
 import electronLog from "electron-log";
-import path from "path";
+import * as path from "path";
 
 type LogLevel = "Debug" | "Info" | "Warning" | "Error";
 

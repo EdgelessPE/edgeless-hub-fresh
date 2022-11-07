@@ -85,16 +85,16 @@ class Sequence {
       })
 
       // 开始执行模块
-      const output = await moduleInstance.start()
+      const outputRes = await moduleInstance.start()
 
       // 判断模块终态
       const finalType = this.current.state.type
-      if (finalType == "error" || output.err) {
+      if (finalType == "error" || outputRes.err) {
         // 立即返回错误
-        return new Err(`Error:Sequence stopped at step ${this.current.name} with state ${finalType}, payload : ${this.current.state.payload}, resolved value : ${JSON.stringify(output)}`)
+        return new Err(`Error:Sequence stopped at step ${this.current.name} with state ${finalType}, payload : ${this.current.state.payload}, resolved value : ${JSON.stringify(outputRes)}`)
       } else if (finalType == "completed") {
         // 继续下一个步骤循环
-        this.prevOutput = output.unwrap()
+        this.prevOutput = outputRes.unwrap()
         log(`Debug:Go to next seq node with previous output = ${JSON.stringify(this.prevOutput)}`)
       } else {
         return new Err(`Error:Sequence abnormal : module ${this.current.name} didn't stop at final state, current=${JSON.stringify(this.current)}`)
@@ -121,7 +121,7 @@ class Sequence {
     return this.moduleInstance.cancel()
   }
 
-  // 重试当前步骤并返回一个与 start() 相同类型的值
+  // 重试当前步骤并返回一个新的 start() 调用
   // 另外在序列管理器层级提供另一个 retry 方法用于重试整条序列
   async retryCurrentStep(): Promise<Res<any>> {
     // 取消当前步骤执行

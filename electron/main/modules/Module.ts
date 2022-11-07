@@ -4,7 +4,7 @@ abstract class Module {
   // 接收上层传入的监听器
   abstract listen(
     listener: (type: string, payload: any, allowedCommands: string[]) => void
-  );
+  ): void;
 
   // 开始执行模块
   abstract start(): ARes<any>;

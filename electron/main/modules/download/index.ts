@@ -33,8 +33,8 @@ class Download extends Module {
   private stateMachine: StateMachine;
 
   // 需要等待 start 被调用才能赋值
-  private provider: InterruptableProvider;
-  private meta: TaskMeta;
+  private provider: InterruptableProvider | null;
+  private meta: TaskMeta | null;
 
   constructor(params: DownloadParams) {
     super();
@@ -42,6 +42,8 @@ class Download extends Module {
     this.params = params;
     // 构造时立即分配状态机
     this.stateMachine = new StateMachine(getTaskId());
+    this.provider = null;
+    this.meta = null;
   }
 
   // 上层监听注册
@@ -49,11 +51,14 @@ class Download extends Module {
     this.listeners.push(listener);
   }
 
+  /**
+   * @return 下载得到文件的绝对路径
+   */
   async start(): Promise<Res<string>> {
     // 解构下载参数和配置参数
-    const { url, fileName, totalSize, integrity } = this.params;
+    const {url, fileName, totalSize, integrity} = this.params;
     const cfg = getTempConfig();
-    const { provider: providerId, cacheDir } = cfg.download;
+    const {provider: providerId, cacheDir} = cfg.download;
     const dir = path.join(cacheDir, DOWNLOAD_SUB_DIR_PACKAGES);
     const targetPosition = path.join(dir, fileName);
     this.meta = {
@@ -81,7 +86,7 @@ class Download extends Module {
       this.startListenStateMachine();
       // 更改状态机至已完成状态
       this.stateMachine.toCompleted();
-      return new Ok(null);
+      return new Ok(targetPosition);
     }
 
     // 实例化 provider
@@ -93,7 +98,7 @@ class Download extends Module {
     }
     const providerConstructor = pRes.unwrap();
     // @ts-ignore
-    this.provider = new providerConstructor(
+    const provider = new providerConstructor(
       {
         url,
         fileName,
@@ -104,9 +109,10 @@ class Download extends Module {
         this.stateMachine.toDownloading(notification);
       }
     );
+    this.provider = provider;
 
     // 初始化 provider
-    const initRes = await this.provider.init();
+    const initRes = await provider.init();
     if (initRes.err) {
       // 切换状态机至 error
       this.stateMachine.toError(initRes.val);
@@ -114,7 +120,7 @@ class Download extends Module {
     }
 
     // 开始监听状态机事件
-    this.startListenStateMachine(this.provider.allowPause);
+    this.startListenStateMachine(provider.allowPause);
 
     // 切换状态机至 queuing 状态
     this.stateMachine.toQueuing();
@@ -132,7 +138,7 @@ class Download extends Module {
     // 不需要跳转状态机至 downloading，由构造 provider 时传入的匿名函数完成
 
     // 开始并等待下载到达 provider 终态（completed / error）
-    const dRes = await this.provider.start();
+    const dRes = await provider.start();
     if (dRes.err) {
       // 切换状态机至 error
       this.stateMachine.toError(dRes.val);
@@ -158,7 +164,7 @@ class Download extends Module {
   async command(cmd: string, payload: any): Promise<Res<null>> {
     const { type } = this.stateMachine.state;
     // 检查命令是否合法
-    if (!isAllowedCommand(type, this.provider.allowPause, cmd)) {
+    if (!isAllowedCommand(type, this.provider!.allowPause, cmd)) {
       return new Err(
         `Error:Fatal:Illegal command received : ${cmd}, payload : ${payload}`
       );
@@ -180,7 +186,7 @@ class Download extends Module {
   private startListenStateMachine(allowPause = false) {
     // 状态机状态变化监听处理
     this.stateMachine.listen((state) => {
-      const { type, payload } = state;
+      const {type, payload} = state;
       // 通知模块上层监听器
       this.listeners.forEach((listener) => {
         listener(type, payload, getAllowedCommands(type, allowPause));
@@ -190,14 +196,59 @@ class Download extends Module {
     });
   }
 
+  // 取消任务，只返回成功
+  async cancel(): Promise<Res<null>> {
+    // 尝试转换状态机至终态或 paused
+    const {type} = this.stateMachine.state;
+    if (type == "downloading") {
+      const pRes = await this.pause();
+      if (pRes.err) {
+        log(
+          `Warning:Can't pause task ${this.stateMachine.id} before cancel : ${pRes.val}`
+        );
+      }
+    }
+    if (type == "queuing") {
+      // 从抽象池取消排队
+      AbstractPool.cancelQueue(this.stateMachine.id);
+    }
+
+    // 尝试调用 provider 进行移除
+    const rRes = await this.provider!.remove();
+    if (rRes.err) {
+      log(
+        `Warning:Can't remove task ${this.stateMachine.id} through provider ${this.meta!.provider} before cancel : ${rRes.val}`
+      );
+    }
+
+    // 尝试删除已下载的文件
+    const targetPosition = path.join(
+      this.meta!.params.dir,
+      this.meta!.params.fileName
+    );
+    if (!del(targetPosition)) {
+      log(
+        `Warning:Can't delete downloaded file before cancel task ${this.stateMachine.id}`
+      );
+    }
+
+    // 标记状态机至 error
+    this.stateMachine.toError(`Error:Task canceled by user`);
+
+    // 从抽象池删除此任务
+    AbstractPool.remove(this.stateMachine.id);
+
+    return new Ok(null);
+  }
+
   private async pause(): Promise<Res<null>> {
     // 根据当前状态分流处理
-    const { type } = this.stateMachine.state;
+    const {type} = this.stateMachine.state;
     if (type == "downloading") {
       // 检查 provider 是否支持暂停
-      if (!this.provider.allowPause) {
+      if (!this.provider!.allowPause) {
         return new Err(
-          `Error:Fatal:Task ${this.stateMachine.id}'s provider ${this.meta.provider} doesn't support pause`
+          `Error:Fatal:Task ${this.stateMachine.id}'s provider ${this.meta!.provider} doesn't support pause`
         );
       }
 
@@ -205,7 +256,7 @@ class Download extends Module {
       this.stateMachine.toPaused(type);
 
       // 请求 provider 进行暂停
-      const pRes = await this.provider.pause();
+      const pRes = await this.provider!.pause();
 
       // 处理暂停出错
       if (pRes.err) {
@@ -220,6 +271,8 @@ class Download extends Module {
       // 跳转状态机至已暂停
       this.stateMachine.toPaused(type);
     }
+
+    return new Err(`Error:Can't pause download at state ${this.stateMachine.state.type}`)
   }
 
   private async continue(): Promise<Res<null>> {
@@ -229,9 +282,9 @@ class Download extends Module {
       | "queuing";
     if (fromType == "downloading") {
       // 检查 provider 是否支持暂停
-      if (!this.provider.allowPause) {
+      if (!this.provider!.allowPause) {
         return new Err(
-          `Error:Fatal:Task ${this.stateMachine.id}'s provider ${this.meta.provider} doesn't support pause`
+          `Error:Fatal:Task ${this.stateMachine.id}'s provider ${this.meta!.provider} doesn't support pause`
         );
       }
 
@@ -249,7 +302,7 @@ class Download extends Module {
         }
 
         // 请求 provider 继续
-        const cRes = await this.provider.continue();
+        const cRes = await this.provider!.continue();
 
         // 处理继续出错
         if (cRes.err) {
@@ -265,51 +318,8 @@ class Download extends Module {
       // 跳转状态机至排队中
       this.stateMachine.toQueuing();
     }
-  }
 
-  // 取消任务，只返回成功
-  async cancel(): Promise<Res<null>> {
-    // 尝试转换状态机至终态或 paused
-    const { type } = this.stateMachine.state;
-    if (type == "downloading") {
-      const pRes = await this.pause();
-      if (pRes.err) {
-        log(
-          `Warning:Can't pause task ${this.stateMachine.id} before cancel : ${pRes.val}`
-        );
-      }
-    }
-    if (type == "queuing") {
-      // 从抽象池取消排队
-      AbstractPool.cancelQueue(this.stateMachine.id);
-    }
-
-    // 尝试调用 provider 进行移除
-    const rRes = await this.provider.remove();
-    if (rRes.err) {
-      log(
-        `Warning:Can't remove task ${this.stateMachine.id} through provider ${this.meta.provider} before cancel : ${rRes.val}`
-      );
-    }
-
-    // 尝试删除已下载的文件
-    const targetPosition = path.join(
-      this.meta.params.dir,
-      this.meta.params.fileName
-    );
-    if (!del(targetPosition)) {
-      log(
-        `Warning:Can't delete downloaded file before cancel task ${this.stateMachine.id}`
-      );
-    }
-
-    // 标记状态机至 error
-    this.stateMachine.toError(`Error:Task canceled by user`);
-
-    // 从抽象池删除此任务
-    AbstractPool.remove(this.stateMachine.id);
-
-    return new Ok(null);
+    return new Err(`Error:Fatal:Can't continue download at state ${this.stateMachine.state.type}`)
   }
 }
 

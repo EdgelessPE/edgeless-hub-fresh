@@ -1,4 +1,4 @@
-import {Provider} from "./Provider";
+import {Provider, ProviderParams, TaskProgressListener} from "./Provider";
 import {Res} from "../../../type";
 import {Err, Ok} from "ts-results";
 import Downloader from "nodejs-file-downloader";
@@ -10,6 +10,14 @@ interface ProgressUpdate {
 
 export class NfdProvider extends Provider {
   recent: ProgressUpdate;
+
+  constructor(params: ProviderParams, listener: TaskProgressListener) {
+    super(params, listener);
+    this.recent = {
+      time: Date.now(),
+      remainingSize: 0,
+    };
+  }
 
   async init(): Promise<Res<null>> {
     return new Ok(null);

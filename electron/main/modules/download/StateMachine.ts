@@ -14,6 +14,7 @@ class StateMachine {
       type: "queuing",
       payload: null,
     };
+    this.listeners = [];
   }
 
   toQueuing() {

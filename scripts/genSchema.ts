@@ -29,7 +29,7 @@ function main() {
   ];
 
   for (const cfg of arr) {
-    const {path, type, outputPath} = cfg;
+    const { path, type, outputPath } = cfg;
     console.log(`Generating type ${type}...`);
     /** @type {import('ts-json-schema-generator/dist/src/Config').Config} */
     const config = {
@@ -39,7 +39,7 @@ function main() {
     };
     const schema = tsj.createGenerator(config).createSchema(config.type);
     const schemaString = JSON.stringify(schema, null, 2);
-    const finalString = `const schema = ${schemaString}; \n export default schema;`
+    const finalString = `const schema = ${schemaString}; \n export default schema;`;
     fs.writeFile(outputPath, finalString, (err: any) => {
       if (err) throw err;
     });

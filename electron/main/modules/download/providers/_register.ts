@@ -25,9 +25,9 @@ const register: ProviderRegisterNode[] = [
 function getProviderConstructor(
   id: string
 ): Result<ProviderConstructor, string> {
-  const p = register.find(provider => provider.info.id == id)
+  const p = register.find((provider) => provider.info.id == id);
   if (p != null) {
-    return new Ok(p.entrance)
+    return new Ok(p.entrance);
   } else {
     return new Err(`Error:Can't find download provider with id ${id}`);
   }

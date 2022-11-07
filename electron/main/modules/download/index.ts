@@ -56,9 +56,9 @@ class Download extends Module {
    */
   async start(): Promise<Res<string>> {
     // 解构下载参数和配置参数
-    const {url, fileName, totalSize, integrity} = this.params;
+    const { url, fileName, totalSize, integrity } = this.params;
     const cfg = getTempConfig();
-    const {provider: providerId, cacheDir} = cfg.download;
+    const { provider: providerId, cacheDir } = cfg.download;
     const dir = path.join(cacheDir, DOWNLOAD_SUB_DIR_PACKAGES);
     const targetPosition = path.join(dir, fileName);
     this.meta = {
@@ -186,7 +186,7 @@ class Download extends Module {
   private startListenStateMachine(allowPause = false) {
     // 状态机状态变化监听处理
     this.stateMachine.listen((state) => {
-      const {type, payload} = state;
+      const { type, payload } = state;
       // 通知模块上层监听器
       this.listeners.forEach((listener) => {
         listener(type, payload, getAllowedCommands(type, allowPause));
@@ -199,7 +199,7 @@ class Download extends Module {
   // 取消任务，只返回成功
   async cancel(): Promise<Res<null>> {
     // 尝试转换状态机至终态或 paused
-    const {type} = this.stateMachine.state;
+    const { type } = this.stateMachine.state;
     if (type == "downloading") {
       const pRes = await this.pause();
       if (pRes.err) {
@@ -217,7 +217,9 @@ class Download extends Module {
     const rRes = await this.provider!.remove();
     if (rRes.err) {
       log(
-        `Warning:Can't remove task ${this.stateMachine.id} through provider ${this.meta!.provider} before cancel : ${rRes.val}`
+        `Warning:Can't remove task ${this.stateMachine.id} through provider ${
+          this.meta!.provider
+        } before cancel : ${rRes.val}`
       );
     }
 
@@ -243,12 +245,14 @@ class Download extends Module {
 
   private async pause(): Promise<Res<null>> {
     // 根据当前状态分流处理
-    const {type} = this.stateMachine.state;
+    const { type } = this.stateMachine.state;
     if (type == "downloading") {
       // 检查 provider 是否支持暂停
       if (!this.provider!.allowPause) {
         return new Err(
-          `Error:Fatal:Task ${this.stateMachine.id}'s provider ${this.meta!.provider} doesn't support pause`
+          `Error:Fatal:Task ${this.stateMachine.id}'s provider ${
+            this.meta!.provider
+          } doesn't support pause`
         );
       }
 
@@ -272,7 +276,9 @@ class Download extends Module {
       this.stateMachine.toPaused(type);
     }
 
-    return new Err(`Error:Can't pause download at state ${this.stateMachine.state.type}`)
+    return new Err(
+      `Error:Can't pause download at state ${this.stateMachine.state.type}`
+    );
   }
 
   private async continue(): Promise<Res<null>> {
@@ -284,7 +290,9 @@ class Download extends Module {
       // 检查 provider 是否支持暂停
       if (!this.provider!.allowPause) {
         return new Err(
-          `Error:Fatal:Task ${this.stateMachine.id}'s provider ${this.meta!.provider} doesn't support pause`
+          `Error:Fatal:Task ${this.stateMachine.id}'s provider ${
+            this.meta!.provider
+          } doesn't support pause`
         );
       }
 
@@ -319,7 +327,9 @@ class Download extends Module {
       this.stateMachine.toQueuing();
     }
 
-    return new Err(`Error:Fatal:Can't continue download at state ${this.stateMachine.state.type}`)
+    return new Err(
+      `Error:Fatal:Can't continue download at state ${this.stateMachine.state.type}`
+    );
   }
 }
 

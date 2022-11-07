@@ -50,7 +50,7 @@ export class NfdProvider extends Provider {
       if (current.time - this.recent.time < 1000) return;
       this.listener({
         percent: Number(percentage),
-        speed: calcSpeed(this.recent, current),
+        speed: Number(calcSpeed(this.recent, current)),
       });
       this.recent = current;
     };
@@ -83,5 +83,5 @@ export class NfdProvider extends Provider {
 function calcSpeed(recent: ProgressUpdate, current: ProgressUpdate) {
   const timePassedMilliSecond = current.time - recent.time;
   const sizeFinishedByte = recent.remainingSize - current.remainingSize;
-  return (sizeFinishedByte / timePassedMilliSecond) * 1000;
+  return ((sizeFinishedByte / timePassedMilliSecond) * 1000).toFixed(2);
 }

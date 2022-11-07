@@ -5,7 +5,7 @@ import {Config} from "../../../../types/config";
 import Ajv from "ajv";
 import {initial} from "./initial";
 import {log} from "../../log";
-import Schema from "../../../schema/config.json";
+import Schema from "../../../schema/config";
 import path from "path";
 import {validate} from "../../utils";
 

@@ -1,7 +1,7 @@
 import {RegisterNode} from "./type";
 import Ajv from "ajv";
-import * as helloSchema from "./schemas/protocol310/hello.json";
-import * as alphaSchema from "./schemas/protocol310/alpha.json";
+import helloSchema from "./schemas/protocol310/hello";
+import alphaSchema from "./schemas/protocol310/alpha";
 import {Err, Ok, Result} from "ts-results";
 
 const ajv = new Ajv();

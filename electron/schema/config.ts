@@ -1,4 +1,4 @@
-{
+const schema = {
   "$schema": "http://json-schema.org/draft-07/schema#",
   "$ref": "#/definitions/Config",
   "definitions": {
@@ -12,7 +12,10 @@
               "type": "object",
               "properties": {
                 "current": {
-                  "type": ["string", "null"]
+                  "type": [
+                    "string",
+                    "null"
+                  ]
                 },
                 "pool": {
                   "type": "object",
@@ -64,7 +67,10 @@
                               "type": "string"
                             }
                           },
-                          "required": ["name", "path"],
+                          "required": [
+                            "name",
+                            "path"
+                          ],
                           "additionalProperties": false
                         }
                       }
@@ -80,16 +86,24 @@
                   }
                 }
               },
-              "required": ["current", "pool"],
+              "required": [
+                "current",
+                "pool"
+              ],
               "additionalProperties": false
             }
           },
-          "required": ["mirror"],
+          "required": [
+            "mirror"
+          ],
           "additionalProperties": false
         },
         "theme": {
           "type": "string",
-          "enum": ["light", "dark"]
+          "enum": [
+            "light",
+            "dark"
+          ]
         },
         "download": {
           "type": "object",
@@ -99,14 +113,26 @@
             },
             "cacheDir": {
               "type": "string"
+            },
+            "maxDownloadingTasks": {
+              "type": "number"
             }
           },
-          "required": ["provider", "cacheDir"],
+          "required": [
+            "provider",
+            "cacheDir",
+            "maxDownloadingTasks"
+          ],
           "additionalProperties": false
         }
       },
-      "required": ["ept", "theme", "download"],
+      "required": [
+        "ept",
+        "theme",
+        "download"
+      ],
       "additionalProperties": false
     }
   }
-}
+};
+export default schema;

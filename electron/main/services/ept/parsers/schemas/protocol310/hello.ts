@@ -1,4 +1,4 @@
-{
+const schema = {
   "$schema": "http://json-schema.org/draft-07/schema#",
   "$ref": "#/definitions/HelloResponse",
   "definitions": {
@@ -53,7 +53,10 @@
                 "type": "string"
               }
             },
-            "required": ["name", "path"],
+            "required": [
+              "name",
+              "path"
+            ],
             "additionalProperties": false
           }
         },
@@ -81,17 +84,27 @@
                       "properties": {
                         "method": {
                           "type": "string",
-                          "enum": ["sha256", "blake3"]
+                          "enum": [
+                            "sha256",
+                            "blake3"
+                          ]
                         },
                         "value": {
                           "type": "string"
                         }
                       },
-                      "required": ["method", "value"],
+                      "required": [
+                        "method",
+                        "value"
+                      ],
                       "additionalProperties": false
                     }
                   },
-                  "required": ["name", "size", "timestamp"],
+                  "required": [
+                    "name",
+                    "size",
+                    "timestamp"
+                  ],
                   "additionalProperties": false
                 }
               }
@@ -100,7 +113,10 @@
               "type": "string"
             }
           },
-          "required": ["tree", "path"],
+          "required": [
+            "tree",
+            "path"
+          ],
           "additionalProperties": false
         },
         "kernel": {
@@ -126,17 +142,28 @@
               "properties": {
                 "method": {
                   "type": "string",
-                  "enum": ["sha256", "blake3"]
+                  "enum": [
+                    "sha256",
+                    "blake3"
+                  ]
                 },
                 "value": {
                   "type": "string"
                 }
               },
-              "required": ["method", "value"],
+              "required": [
+                "method",
+                "value"
+              ],
               "additionalProperties": false
             }
           },
-          "required": ["name", "version", "url", "size"],
+          "required": [
+            "name",
+            "version",
+            "url",
+            "size"
+          ],
           "additionalProperties": false
         },
         "ventoy": {
@@ -165,17 +192,28 @@
                   "properties": {
                     "method": {
                       "type": "string",
-                      "enum": ["sha256", "blake3"]
+                      "enum": [
+                        "sha256",
+                        "blake3"
+                      ]
                     },
                     "value": {
                       "type": "string"
                     }
                   },
-                  "required": ["method", "value"],
+                  "required": [
+                    "method",
+                    "value"
+                  ],
                   "additionalProperties": false
                 }
               },
-              "required": ["name", "version", "url", "size"],
+              "required": [
+                "name",
+                "version",
+                "url",
+                "size"
+              ],
               "additionalProperties": false
             },
             "linux": {
@@ -201,17 +239,28 @@
                   "properties": {
                     "method": {
                       "type": "string",
-                      "enum": ["sha256", "blake3"]
+                      "enum": [
+                        "sha256",
+                        "blake3"
+                      ]
                     },
                     "value": {
                       "type": "string"
                     }
                   },
-                  "required": ["method", "value"],
+                  "required": [
+                    "method",
+                    "value"
+                  ],
                   "additionalProperties": false
                 }
               },
-              "required": ["name", "version", "url", "size"],
+              "required": [
+                "name",
+                "version",
+                "url",
+                "size"
+              ],
               "additionalProperties": false
             },
             "plugin": {
@@ -237,21 +286,36 @@
                   "properties": {
                     "method": {
                       "type": "string",
-                      "enum": ["sha256", "blake3"]
+                      "enum": [
+                        "sha256",
+                        "blake3"
+                      ]
                     },
                     "value": {
                       "type": "string"
                     }
                   },
-                  "required": ["method", "value"],
+                  "required": [
+                    "method",
+                    "value"
+                  ],
                   "additionalProperties": false
                 }
               },
-              "required": ["name", "version", "url", "size"],
+              "required": [
+                "name",
+                "version",
+                "url",
+                "size"
+              ],
               "additionalProperties": false
             }
           },
-          "required": ["windows", "linux", "plugin"],
+          "required": [
+            "windows",
+            "linux",
+            "plugin"
+          ],
           "additionalProperties": false
         },
         "hub": {
@@ -267,7 +331,10 @@
                   "type": "string"
                 }
               },
-              "required": ["version", "page"],
+              "required": [
+                "version",
+                "page"
+              ],
               "additionalProperties": false
             },
             "update": {
@@ -362,17 +429,28 @@
                       "properties": {
                         "method": {
                           "type": "string",
-                          "enum": ["sha256", "blake3"]
+                          "enum": [
+                            "sha256",
+                            "blake3"
+                          ]
                         },
                         "value": {
                           "type": "string"
                         }
                       },
-                      "required": ["method", "value"],
+                      "required": [
+                        "method",
+                        "value"
+                      ],
                       "additionalProperties": false
                     }
                   },
-                  "required": ["name", "version", "url", "size"],
+                  "required": [
+                    "name",
+                    "version",
+                    "url",
+                    "size"
+                  ],
                   "additionalProperties": false
                 },
                 "extended_update": {
@@ -398,17 +476,28 @@
                       "properties": {
                         "method": {
                           "type": "string",
-                          "enum": ["sha256", "blake3"]
+                          "enum": [
+                            "sha256",
+                            "blake3"
+                          ]
                         },
                         "value": {
                           "type": "string"
                         }
                       },
-                      "required": ["method", "value"],
+                      "required": [
+                        "method",
+                        "value"
+                      ],
                       "additionalProperties": false
                     }
                   },
-                  "required": ["name", "version", "url", "size"],
+                  "required": [
+                    "name",
+                    "version",
+                    "url",
+                    "size"
+                  ],
                   "additionalProperties": false
                 },
                 "full": {
@@ -434,25 +523,45 @@
                       "properties": {
                         "method": {
                           "type": "string",
-                          "enum": ["sha256", "blake3"]
+                          "enum": [
+                            "sha256",
+                            "blake3"
+                          ]
                         },
                         "value": {
                           "type": "string"
                         }
                       },
-                      "required": ["method", "value"],
+                      "required": [
+                        "method",
+                        "value"
+                      ],
                       "additionalProperties": false
                     }
                   },
-                  "required": ["name", "version", "url", "size"],
+                  "required": [
+                    "name",
+                    "version",
+                    "url",
+                    "size"
+                  ],
                   "additionalProperties": false
                 }
               },
-              "required": ["update", "extended_update", "full"],
+              "required": [
+                "update",
+                "extended_update",
+                "full"
+              ],
               "additionalProperties": false
             }
           },
-          "required": ["latest", "update", "notices", "packages"],
+          "required": [
+            "latest",
+            "update",
+            "notices",
+            "packages"
+          ],
           "additionalProperties": false
         }
       },
@@ -467,4 +576,5 @@
       "additionalProperties": false
     }
   }
-}
+};
+export default schema;

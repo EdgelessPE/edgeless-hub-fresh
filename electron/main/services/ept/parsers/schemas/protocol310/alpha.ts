@@ -1,4 +1,4 @@
-{
+const schema = {
   "$schema": "http://json-schema.org/draft-07/schema#",
   "$ref": "#/definitions/AlphaResponse",
   "definitions": {
@@ -30,17 +30,28 @@
                   "properties": {
                     "method": {
                       "type": "string",
-                      "enum": ["sha256", "blake3"]
+                      "enum": [
+                        "sha256",
+                        "blake3"
+                      ]
                     },
                     "value": {
                       "type": "string"
                     }
                   },
-                  "required": ["method", "value"],
+                  "required": [
+                    "method",
+                    "value"
+                  ],
                   "additionalProperties": false
                 }
               },
-              "required": ["name", "version", "url", "size"],
+              "required": [
+                "name",
+                "version",
+                "url",
+                "size"
+              ],
               "additionalProperties": false
             },
             {
@@ -79,21 +90,35 @@
                       "properties": {
                         "method": {
                           "type": "string",
-                          "enum": ["sha256", "blake3"]
+                          "enum": [
+                            "sha256",
+                            "blake3"
+                          ]
                         },
                         "value": {
                           "type": "string"
                         }
                       },
-                      "required": ["method", "value"],
+                      "required": [
+                        "method",
+                        "value"
+                      ],
                       "additionalProperties": false
                     }
                   },
-                  "required": ["name", "version", "url", "size"],
+                  "required": [
+                    "name",
+                    "version",
+                    "url",
+                    "size"
+                  ],
                   "additionalProperties": false
                 }
               },
-              "required": ["lower_than", "file"],
+              "required": [
+                "lower_than",
+                "file"
+              ],
               "additionalProperties": false
             },
             {
@@ -102,8 +127,12 @@
           ]
         }
       },
-      "required": ["kernel_wim", "cover"],
+      "required": [
+        "kernel_wim",
+        "cover"
+      ],
       "additionalProperties": false
     }
   }
-}
+};
+export default schema;

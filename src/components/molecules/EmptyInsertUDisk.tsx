@@ -7,7 +7,7 @@ export const EmptyInsertUDisk = () => {
     <Empty
       icon={
         <div className="empty__icon">
-          <UsbOutlined />
+          <UsbOutlined/>
         </div>
       }
       description={<b className="empty__tip">插入 Edgeless 启动盘以继续</b>}

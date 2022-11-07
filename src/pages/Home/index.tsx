@@ -1,6 +1,14 @@
 import "./index.scss";
 import {SmileTwoTone} from "@ant-design/icons";
-import {Alert, Avatar, Button, Divider, List, Space, Tag,} from "@arco-design/web-react";
+import {
+  Alert,
+  Avatar,
+  Button,
+  Divider,
+  List,
+  Space,
+  Tag,
+} from "@arco-design/web-react";
 import {IconRefresh} from "@arco-design/web-react/icon";
 import React, {useState} from "react";
 import {myHistory} from "@/router/history";

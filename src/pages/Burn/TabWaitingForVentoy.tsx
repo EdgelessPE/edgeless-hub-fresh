@@ -8,7 +8,7 @@ function launchVentoy() {
   log("Info:Launch ventoy");
 }
 
-export const TabWaitingForVentoy = ({ next, sharedState }: BurnTabProps) => {
+export const TabWaitingForVentoy = ({next, sharedState}: BurnTabProps) => {
   return (
     <div className="smt__container">
       <IconBulb className="smt__icon" />

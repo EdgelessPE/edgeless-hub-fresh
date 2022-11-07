@@ -4,7 +4,7 @@ import {BurnTabProps} from "./type";
 import {reportIssue} from "./utils";
 import React from "react";
 
-export const TabThrown = ({ next, sharedState }: BurnTabProps) => {
+export const TabThrown = ({next, sharedState}: BurnTabProps) => {
   sharedState.set(
     "thrown_message",
     "你的启动盘被田所浩二撅力！（悲）\n你是一个一个一个，哼哼啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊阿啊啊啊啊"

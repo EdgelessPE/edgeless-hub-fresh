@@ -1,5 +1,6 @@
 const tsj = require("ts-json-schema-generator");
 const fs = require("fs");
+const cp = require("child_process");
 
 interface NaiveAjvConfig {
   path: string;
@@ -44,6 +45,9 @@ function main() {
       if (err) throw err;
     });
   }
+
+  console.log(`Formatting code...`);
+  cp.execSync("yarn fmt");
 }
 
 main();

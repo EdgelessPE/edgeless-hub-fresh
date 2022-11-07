@@ -14,12 +14,12 @@ import {Search} from "@/pages/Search";
 const routerList: {
   [path: string]: JSX.Element;
 } = {
-  "": <Home />,
-  "produce/burn": <Burn />,
-  "produce/update": <Update />,
-  "produce/alpha": <Alpha />,
-  "plugin/detail/:category/:fullName": <Detail />,
-  config: <Config />,
+  "": <Home/>,
+  "produce/burn": <Burn/>,
+  "produce/update": <Update/>,
+  "produce/alpha": <Alpha/>,
+  "plugin/detail/:category/:fullName": <Detail/>,
+  config: <Config/>,
   "plugin/category/:category": <Category />,
   tasks: <Tasks />,
   settings: <Settings />,

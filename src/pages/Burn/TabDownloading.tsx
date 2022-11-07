@@ -2,10 +2,13 @@ import {IconCloudDownload} from "@arco-design/web-react/icon";
 import {Button, Space} from "@arco-design/web-react";
 import {BurnTabProps} from "./type";
 import React, {useState} from "react";
-import {NaiveProgressBar, NaiveProgressBarTask,} from "@/components/molecules/NaiveProgressBar";
+import {
+  NaiveProgressBar,
+  NaiveProgressBarTask,
+} from "@/components/molecules/NaiveProgressBar";
 import {formatSize} from "@/utils/formatter";
 
-export const TabDownloading = ({ next, sharedState }: BurnTabProps) => {
+export const TabDownloading = ({next, sharedState}: BurnTabProps) => {
   const emptyTask: NaiveProgressBarTask = {
     percent: 0,
     totalSize: 0,

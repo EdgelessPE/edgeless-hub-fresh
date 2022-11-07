@@ -9,8 +9,8 @@ export interface BrowserRouterProps {
 }
 
 export function HistoryRouter({
-  basename,
-  children,
+                                basename,
+                                children,
   history,
 }: BrowserRouterProps) {
   const [state, setState] = useState({

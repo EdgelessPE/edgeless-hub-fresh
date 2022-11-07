@@ -4,7 +4,7 @@ import React, {useState} from "react";
 import {UpdateTabProps} from "./type";
 import {reportIssue} from "@/pages/Burn/utils";
 
-export const TabWaitingForSelect = ({ next, sharedState }: UpdateTabProps) => {
+export const TabWaitingForSelect = ({next, sharedState}: UpdateTabProps) => {
   const possibleDisks = ["C", "D", "E"];
   const [selected, setSelected] = useState("");
 

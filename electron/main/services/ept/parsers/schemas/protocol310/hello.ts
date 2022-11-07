@@ -1,329 +1,396 @@
 const schema = {
-  $schema: "http://json-schema.org/draft-07/schema#",
-  $ref: "#/definitions/HelloResponse",
-  definitions: {
-    HelloResponse: {
-      type: "object",
-      properties: {
-        name: {
-          type: "string",
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "$ref": "#/definitions/HelloResponse",
+  "definitions": {
+    "HelloResponse": {
+      "type": "object",
+      "properties": {
+        "name": {
+          "type": "string"
         },
-        description: {
-          type: "string",
+        "description": {
+          "type": "string"
         },
-        root: {
-          type: "string",
+        "root": {
+          "type": "string"
         },
-        protocol: {
-          type: "string",
+        "protocol": {
+          "type": "string"
         },
-        property: {
-          type: "object",
-          properties: {
-            domestic_server: {
-              type: "boolean",
+        "property": {
+          "type": "object",
+          "properties": {
+            "domestic_server": {
+              "type": "boolean"
             },
-            upload_bandwidth: {
-              type: "number",
+            "upload_bandwidth": {
+              "type": "number"
             },
-            sync_interval: {
-              type: "number",
+            "sync_interval": {
+              "type": "number"
             },
-            official_maintained: {
-              type: "boolean",
-            },
+            "official_maintained": {
+              "type": "boolean"
+            }
           },
-          required: [
+          "required": [
             "domestic_server",
             "upload_bandwidth",
             "sync_interval",
-            "official_maintained",
+            "official_maintained"
           ],
-          additionalProperties: false,
+          "additionalProperties": false
         },
-        services: {
-          type: "array",
-          items: {
-            type: "object",
-            properties: {
-              name: {
-                type: "string",
+        "services": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "properties": {
+              "name": {
+                "type": "string"
               },
-              path: {
-                type: "string",
-              },
+              "path": {
+                "type": "string"
+              }
             },
-            required: ["name", "path"],
-            additionalProperties: false,
-          },
+            "required": [
+              "name",
+              "path"
+            ],
+            "additionalProperties": false
+          }
         },
-        plugins: {
-          type: "object",
-          properties: {
-            tree: {
-              type: "object",
-              additionalProperties: {
-                type: "array",
-                items: {
-                  type: "object",
-                  properties: {
-                    name: {
-                      type: "string",
+        "plugins": {
+          "type": "object",
+          "properties": {
+            "tree": {
+              "type": "object",
+              "additionalProperties": {
+                "type": "array",
+                "items": {
+                  "type": "object",
+                  "properties": {
+                    "name": {
+                      "type": "string"
                     },
-                    size: {
-                      type: "number",
+                    "size": {
+                      "type": "number"
                     },
-                    timestamp: {
-                      type: "number",
+                    "timestamp": {
+                      "type": "number"
                     },
-                    integrity: {
-                      type: "object",
-                      properties: {
-                        method: {
-                          type: "string",
-                          enum: ["sha256", "blake3"],
+                    "integrity": {
+                      "type": "object",
+                      "properties": {
+                        "method": {
+                          "type": "string",
+                          "enum": [
+                            "sha256",
+                            "blake3"
+                          ]
                         },
-                        value: {
-                          type: "string",
-                        },
+                        "value": {
+                          "type": "string"
+                        }
                       },
-                      required: ["method", "value"],
-                      additionalProperties: false,
-                    },
+                      "required": [
+                        "method",
+                        "value"
+                      ],
+                      "additionalProperties": false
+                    }
                   },
-                  required: ["name", "size", "timestamp"],
-                  additionalProperties: false,
-                },
-              },
+                  "required": [
+                    "name",
+                    "size",
+                    "timestamp"
+                  ],
+                  "additionalProperties": false
+                }
+              }
             },
-            path: {
-              type: "string",
-            },
+            "path": {
+              "type": "string"
+            }
           },
-          required: ["tree", "path"],
-          additionalProperties: false,
+          "required": [
+            "tree",
+            "path"
+          ],
+          "additionalProperties": false
         },
-        kernel: {
-          type: "object",
-          properties: {
-            name: {
-              type: "string",
+        "kernel": {
+          "type": "object",
+          "properties": {
+            "name": {
+              "type": "string"
             },
-            version: {
-              type: "string",
+            "version": {
+              "type": "string"
             },
-            url: {
-              type: "string",
+            "url": {
+              "type": "string"
             },
-            size: {
-              type: "number",
+            "size": {
+              "type": "number"
             },
-            timestamp: {
-              type: "number",
+            "timestamp": {
+              "type": "number"
             },
-            integrity: {
-              type: "object",
-              properties: {
-                method: {
-                  type: "string",
-                  enum: ["sha256", "blake3"],
+            "integrity": {
+              "type": "object",
+              "properties": {
+                "method": {
+                  "type": "string",
+                  "enum": [
+                    "sha256",
+                    "blake3"
+                  ]
                 },
-                value: {
-                  type: "string",
-                },
+                "value": {
+                  "type": "string"
+                }
               },
-              required: ["method", "value"],
-              additionalProperties: false,
-            },
+              "required": [
+                "method",
+                "value"
+              ],
+              "additionalProperties": false
+            }
           },
-          required: ["name", "version", "url", "size"],
-          additionalProperties: false,
+          "required": [
+            "name",
+            "version",
+            "url",
+            "size"
+          ],
+          "additionalProperties": false
         },
-        ventoy: {
-          type: "object",
-          properties: {
-            windows: {
-              type: "object",
-              properties: {
-                name: {
-                  type: "string",
+        "ventoy": {
+          "type": "object",
+          "properties": {
+            "windows": {
+              "type": "object",
+              "properties": {
+                "name": {
+                  "type": "string"
                 },
-                version: {
-                  type: "string",
+                "version": {
+                  "type": "string"
                 },
-                url: {
-                  type: "string",
+                "url": {
+                  "type": "string"
                 },
-                size: {
-                  type: "number",
+                "size": {
+                  "type": "number"
                 },
-                timestamp: {
-                  type: "number",
+                "timestamp": {
+                  "type": "number"
                 },
-                integrity: {
-                  type: "object",
-                  properties: {
-                    method: {
-                      type: "string",
-                      enum: ["sha256", "blake3"],
+                "integrity": {
+                  "type": "object",
+                  "properties": {
+                    "method": {
+                      "type": "string",
+                      "enum": [
+                        "sha256",
+                        "blake3"
+                      ]
                     },
-                    value: {
-                      type: "string",
-                    },
+                    "value": {
+                      "type": "string"
+                    }
                   },
-                  required: ["method", "value"],
-                  additionalProperties: false,
-                },
+                  "required": [
+                    "method",
+                    "value"
+                  ],
+                  "additionalProperties": false
+                }
               },
-              required: ["name", "version", "url", "size"],
-              additionalProperties: false,
+              "required": [
+                "name",
+                "version",
+                "url",
+                "size"
+              ],
+              "additionalProperties": false
             },
-            linux: {
-              type: "object",
-              properties: {
-                name: {
-                  type: "string",
+            "linux": {
+              "type": "object",
+              "properties": {
+                "name": {
+                  "type": "string"
                 },
-                version: {
-                  type: "string",
+                "version": {
+                  "type": "string"
                 },
-                url: {
-                  type: "string",
+                "url": {
+                  "type": "string"
                 },
-                size: {
-                  type: "number",
+                "size": {
+                  "type": "number"
                 },
-                timestamp: {
-                  type: "number",
+                "timestamp": {
+                  "type": "number"
                 },
-                integrity: {
-                  type: "object",
-                  properties: {
-                    method: {
-                      type: "string",
-                      enum: ["sha256", "blake3"],
+                "integrity": {
+                  "type": "object",
+                  "properties": {
+                    "method": {
+                      "type": "string",
+                      "enum": [
+                        "sha256",
+                        "blake3"
+                      ]
                     },
-                    value: {
-                      type: "string",
-                    },
+                    "value": {
+                      "type": "string"
+                    }
                   },
-                  required: ["method", "value"],
-                  additionalProperties: false,
-                },
+                  "required": [
+                    "method",
+                    "value"
+                  ],
+                  "additionalProperties": false
+                }
               },
-              required: ["name", "version", "url", "size"],
-              additionalProperties: false,
+              "required": [
+                "name",
+                "version",
+                "url",
+                "size"
+              ],
+              "additionalProperties": false
             },
-            plugin: {
-              type: "object",
-              properties: {
-                name: {
-                  type: "string",
+            "plugin": {
+              "type": "object",
+              "properties": {
+                "name": {
+                  "type": "string"
                 },
-                version: {
-                  type: "string",
+                "version": {
+                  "type": "string"
                 },
-                url: {
-                  type: "string",
+                "url": {
+                  "type": "string"
                 },
-                size: {
-                  type: "number",
+                "size": {
+                  "type": "number"
                 },
-                timestamp: {
-                  type: "number",
+                "timestamp": {
+                  "type": "number"
                 },
-                integrity: {
-                  type: "object",
-                  properties: {
-                    method: {
-                      type: "string",
-                      enum: ["sha256", "blake3"],
+                "integrity": {
+                  "type": "object",
+                  "properties": {
+                    "method": {
+                      "type": "string",
+                      "enum": [
+                        "sha256",
+                        "blake3"
+                      ]
                     },
-                    value: {
-                      type: "string",
-                    },
+                    "value": {
+                      "type": "string"
+                    }
                   },
-                  required: ["method", "value"],
-                  additionalProperties: false,
-                },
+                  "required": [
+                    "method",
+                    "value"
+                  ],
+                  "additionalProperties": false
+                }
               },
-              required: ["name", "version", "url", "size"],
-              additionalProperties: false,
-            },
+              "required": [
+                "name",
+                "version",
+                "url",
+                "size"
+              ],
+              "additionalProperties": false
+            }
           },
-          required: ["windows", "linux", "plugin"],
-          additionalProperties: false,
+          "required": [
+            "windows",
+            "linux",
+            "plugin"
+          ],
+          "additionalProperties": false
         },
-        hub: {
-          type: "object",
-          properties: {
-            latest: {
-              type: "object",
-              properties: {
-                version: {
-                  type: "string",
+        "hub": {
+          "type": "object",
+          "properties": {
+            "latest": {
+              "type": "object",
+              "properties": {
+                "version": {
+                  "type": "string"
                 },
-                page: {
-                  type: "string",
-                },
+                "page": {
+                  "type": "string"
+                }
               },
-              required: ["version", "page"],
-              additionalProperties: false,
+              "required": [
+                "version",
+                "page"
+              ],
+              "additionalProperties": false
             },
-            update: {
-              type: "object",
-              properties: {
-                allow_normal_since: {
-                  type: "string",
+            "update": {
+              "type": "object",
+              "properties": {
+                "allow_normal_since": {
+                  "type": "string"
                 },
-                force_update_until: {
-                  type: "string",
+                "force_update_until": {
+                  "type": "string"
                 },
-                wide_gaps: {
-                  type: "array",
-                  items: {
-                    type: "string",
-                  },
-                },
+                "wide_gaps": {
+                  "type": "array",
+                  "items": {
+                    "type": "string"
+                  }
+                }
               },
-              required: [
+              "required": [
                 "allow_normal_since",
                 "force_update_until",
-                "wide_gaps",
+                "wide_gaps"
               ],
-              additionalProperties: false,
+              "additionalProperties": false
             },
-            notices: {
-              type: "array",
-              items: {
-                type: "object",
-                properties: {
-                  id: {
-                    type: "string",
+            "notices": {
+              "type": "array",
+              "items": {
+                "type": "object",
+                "properties": {
+                  "id": {
+                    "type": "string"
                   },
-                  channel: {
-                    type: "string",
+                  "channel": {
+                    "type": "string"
                   },
-                  level: {
-                    type: "string",
+                  "level": {
+                    "type": "string"
                   },
-                  message: {
-                    type: "string",
+                  "message": {
+                    "type": "string"
                   },
-                  description: {
-                    type: "string",
+                  "description": {
+                    "type": "string"
                   },
-                  close_text: {
-                    type: "string",
+                  "close_text": {
+                    "type": "string"
                   },
-                  lower_than: {
-                    type: "string",
+                  "lower_than": {
+                    "type": "string"
                   },
-                  repeat_after: {
-                    type: "number",
-                  },
+                  "repeat_after": {
+                    "type": "number"
+                  }
                 },
-                required: [
+                "required": [
                   "id",
                   "channel",
                   "level",
@@ -331,141 +398,183 @@ const schema = {
                   "description",
                   "close_text",
                   "lower_than",
-                  "repeat_after",
+                  "repeat_after"
                 ],
-                additionalProperties: false,
-              },
+                "additionalProperties": false
+              }
             },
-            packages: {
-              type: "object",
-              properties: {
-                update: {
-                  type: "object",
-                  properties: {
-                    name: {
-                      type: "string",
+            "packages": {
+              "type": "object",
+              "properties": {
+                "update": {
+                  "type": "object",
+                  "properties": {
+                    "name": {
+                      "type": "string"
                     },
-                    version: {
-                      type: "string",
+                    "version": {
+                      "type": "string"
                     },
-                    url: {
-                      type: "string",
+                    "url": {
+                      "type": "string"
                     },
-                    size: {
-                      type: "number",
+                    "size": {
+                      "type": "number"
                     },
-                    timestamp: {
-                      type: "number",
+                    "timestamp": {
+                      "type": "number"
                     },
-                    integrity: {
-                      type: "object",
-                      properties: {
-                        method: {
-                          type: "string",
-                          enum: ["sha256", "blake3"],
+                    "integrity": {
+                      "type": "object",
+                      "properties": {
+                        "method": {
+                          "type": "string",
+                          "enum": [
+                            "sha256",
+                            "blake3"
+                          ]
                         },
-                        value: {
-                          type: "string",
-                        },
+                        "value": {
+                          "type": "string"
+                        }
                       },
-                      required: ["method", "value"],
-                      additionalProperties: false,
-                    },
+                      "required": [
+                        "method",
+                        "value"
+                      ],
+                      "additionalProperties": false
+                    }
                   },
-                  required: ["name", "version", "url", "size"],
-                  additionalProperties: false,
+                  "required": [
+                    "name",
+                    "version",
+                    "url",
+                    "size"
+                  ],
+                  "additionalProperties": false
                 },
-                extended_update: {
-                  type: "object",
-                  properties: {
-                    name: {
-                      type: "string",
+                "extended_update": {
+                  "type": "object",
+                  "properties": {
+                    "name": {
+                      "type": "string"
                     },
-                    version: {
-                      type: "string",
+                    "version": {
+                      "type": "string"
                     },
-                    url: {
-                      type: "string",
+                    "url": {
+                      "type": "string"
                     },
-                    size: {
-                      type: "number",
+                    "size": {
+                      "type": "number"
                     },
-                    timestamp: {
-                      type: "number",
+                    "timestamp": {
+                      "type": "number"
                     },
-                    integrity: {
-                      type: "object",
-                      properties: {
-                        method: {
-                          type: "string",
-                          enum: ["sha256", "blake3"],
+                    "integrity": {
+                      "type": "object",
+                      "properties": {
+                        "method": {
+                          "type": "string",
+                          "enum": [
+                            "sha256",
+                            "blake3"
+                          ]
                         },
-                        value: {
-                          type: "string",
-                        },
+                        "value": {
+                          "type": "string"
+                        }
                       },
-                      required: ["method", "value"],
-                      additionalProperties: false,
-                    },
+                      "required": [
+                        "method",
+                        "value"
+                      ],
+                      "additionalProperties": false
+                    }
                   },
-                  required: ["name", "version", "url", "size"],
-                  additionalProperties: false,
+                  "required": [
+                    "name",
+                    "version",
+                    "url",
+                    "size"
+                  ],
+                  "additionalProperties": false
                 },
-                full: {
-                  type: "object",
-                  properties: {
-                    name: {
-                      type: "string",
+                "full": {
+                  "type": "object",
+                  "properties": {
+                    "name": {
+                      "type": "string"
                     },
-                    version: {
-                      type: "string",
+                    "version": {
+                      "type": "string"
                     },
-                    url: {
-                      type: "string",
+                    "url": {
+                      "type": "string"
                     },
-                    size: {
-                      type: "number",
+                    "size": {
+                      "type": "number"
                     },
-                    timestamp: {
-                      type: "number",
+                    "timestamp": {
+                      "type": "number"
                     },
-                    integrity: {
-                      type: "object",
-                      properties: {
-                        method: {
-                          type: "string",
-                          enum: ["sha256", "blake3"],
+                    "integrity": {
+                      "type": "object",
+                      "properties": {
+                        "method": {
+                          "type": "string",
+                          "enum": [
+                            "sha256",
+                            "blake3"
+                          ]
                         },
-                        value: {
-                          type: "string",
-                        },
+                        "value": {
+                          "type": "string"
+                        }
                       },
-                      required: ["method", "value"],
-                      additionalProperties: false,
-                    },
+                      "required": [
+                        "method",
+                        "value"
+                      ],
+                      "additionalProperties": false
+                    }
                   },
-                  required: ["name", "version", "url", "size"],
-                  additionalProperties: false,
-                },
+                  "required": [
+                    "name",
+                    "version",
+                    "url",
+                    "size"
+                  ],
+                  "additionalProperties": false
+                }
               },
-              required: ["update", "extended_update", "full"],
-              additionalProperties: false,
-            },
+              "required": [
+                "update",
+                "extended_update",
+                "full"
+              ],
+              "additionalProperties": false
+            }
           },
-          required: ["latest", "update", "notices", "packages"],
-          additionalProperties: false,
-        },
+          "required": [
+            "latest",
+            "update",
+            "notices",
+            "packages"
+          ],
+          "additionalProperties": false
+        }
       },
-      required: [
+      "required": [
         "name",
         "description",
         "root",
         "protocol",
         "property",
-        "services",
+        "services"
       ],
-      additionalProperties: false,
-    },
-  },
+      "additionalProperties": false
+    }
+  }
 };
 export default schema;

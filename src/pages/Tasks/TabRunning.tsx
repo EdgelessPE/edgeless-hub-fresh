@@ -10,7 +10,7 @@ export interface TabRunningProps {
   }[];
 }
 
-export const TabRunning = ({ array }: TabRunningProps) => {
+export const TabRunning = ({array}: TabRunningProps) => {
   const result: React.ReactElement[] = [];
   for (const node of array) {
     result.push(

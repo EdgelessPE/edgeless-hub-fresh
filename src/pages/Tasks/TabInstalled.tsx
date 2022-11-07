@@ -3,17 +3,19 @@ import React, {useEffect, useState} from "react";
 import {formatSize} from "@/utils/formatter";
 import {sizeAlertConstants} from "@/constants";
 import {Checkbox, Select, Tag} from "@arco-design/web-react";
-import {calcStatusWeight, isDisabled, isLocalBoost,} from "@/pages/Tasks/utils";
+import {
+  calcStatusWeight,
+  isDisabled,
+  isLocalBoost,
+} from "@/pages/Tasks/utils";
 import {FileNodePackageLocal} from "types/local";
 
 export interface TabInstalledProps {
   array: FileNodePackageLocal[];
 }
 
-const sortMethodMap: Record<
-  string,
-  (a: FileNodePackageLocal, b: FileNodePackageLocal) => number
-> = {
+const sortMethodMap: Record<string,
+  (a: FileNodePackageLocal, b: FileNodePackageLocal) => number> = {
   name: (a, b) => a.name.localeCompare(b.name),
   status: (a, b) => {
     const x = calcStatusWeight(a),

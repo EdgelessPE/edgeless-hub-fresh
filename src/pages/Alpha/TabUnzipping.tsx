@@ -3,10 +3,10 @@ import {Button, Spin} from "@arco-design/web-react";
 import {AlphaTabProps} from "./type";
 import React from "react";
 
-export const TabUnzipping = ({ next, sharedState }: AlphaTabProps) => {
+export const TabUnzipping = ({next, sharedState}: AlphaTabProps) => {
   return (
     <div className="smt__container">
-      <IconArchive className="smt__icon" />
+      <IconArchive className="smt__icon"/>
       <div>
         <h1>正在生成 Edgeless 依赖文件</h1>
         <p>处理进度：0 / 1</p>

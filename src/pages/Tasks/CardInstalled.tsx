@@ -11,7 +11,7 @@ interface Props {
   local: FileNodePackageLocal;
 }
 
-export const CardInstalled = ({ local }: Props) => {
+export const CardInstalled = ({local}: Props) => {
   const parsed = parsePackageName(local.name).unwrap();
   const disabled = isDisabled(local),
     localboost = isLocalBoost(local);

@@ -1,4 +1,10 @@
-import {Button, Checkbox, Input, Message, Space,} from "@arco-design/web-react";
+import {
+  Button,
+  Checkbox,
+  Input,
+  Message,
+  Space,
+} from "@arco-design/web-react";
 import React, {useState} from "react";
 import {LockOutlined} from "@ant-design/icons";
 import {AlphaTabProps} from "./type";

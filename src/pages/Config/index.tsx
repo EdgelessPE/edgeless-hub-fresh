@@ -1,4 +1,12 @@
-import {Button, Empty, Input, List, Select, Switch, Tooltip,} from "@arco-design/web-react";
+import {
+  Button,
+  Empty,
+  Input,
+  List,
+  Select,
+  Switch,
+  Tooltip,
+} from "@arco-design/web-react";
 import React, {useEffect, useState} from "react";
 import preferenceItems from "./preferenceItems.json";
 import resolutions from "./resolutions.json";

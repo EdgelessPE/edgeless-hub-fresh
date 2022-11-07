@@ -1,7 +1,7 @@
-import {DownloadProviderInfo} from "../../../../../types/download";
-import {Provider} from "./Provider";
-import {NfdProvider} from "./nfd";
-import {Err, Ok, Result} from "ts-results";
+import { DownloadProviderInfo } from "../../../../../types/download";
+import { Provider } from "./Provider";
+import { NfdProvider } from "./nfd";
+import { Err, Ok, Result } from "ts-results";
 
 type ProviderConstructor = typeof Provider;
 

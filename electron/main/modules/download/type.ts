@@ -1,5 +1,5 @@
-import {Integrity} from "../../../../types";
-import {TaskProgressNotification} from "../../../../types/module";
+import { Integrity } from "../../../../types";
+import { TaskProgressNotification } from "../../../../types/module";
 
 interface AbstractPoolNode {
   id: string;

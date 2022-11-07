@@ -1,21 +1,21 @@
-import {Module} from "../Module";
-import {Err, Ok} from "ts-results";
-import {Integrity} from "../../../../types";
-import {StateMachine} from "./StateMachine";
-import {getTaskId} from "./utils";
-import {getTempConfig} from "../../services/config";
+import { Module } from "../Module";
+import { Err, Ok } from "ts-results";
+import { Integrity } from "../../../../types";
+import { StateMachine } from "./StateMachine";
+import { getTaskId } from "./utils";
+import { getTempConfig } from "../../services/config";
 import * as path from "path";
-import {existUsableFile} from "./cache";
-import {TaskMeta, TaskProgressNotification} from "./type";
-import {getProviderConstructor} from "./providers/_register";
-import {DOWNLOAD_SUB_DIR_PACKAGES} from "../../constants";
-import {InterruptableProvider} from "./providers/Provider";
+import { existUsableFile } from "./cache";
+import { TaskMeta, TaskProgressNotification } from "./type";
+import { getProviderConstructor } from "./providers/_register";
+import { DOWNLOAD_SUB_DIR_PACKAGES } from "../../constants";
+import { InterruptableProvider } from "./providers/Provider";
 import AbstractPool from "./abstractPool";
-import {validateIntegrity} from "../../services/integrity";
-import {Res} from "../../type";
-import {getAllowedCommands, isAllowedCommand} from "./commands";
-import {log} from "../../log";
-import {del} from "../../utils/shell";
+import { validateIntegrity } from "../../services/integrity";
+import { Res } from "../../type";
+import { getAllowedCommands, isAllowedCommand } from "./commands";
+import { log } from "../../log";
+import { del } from "../../utils/shell";
 
 type Listener = (type: string, payload: any, allowedCommands: string[]) => void;
 

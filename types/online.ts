@@ -1,4 +1,4 @@
-import {Integrity} from "./index";
+import { Integrity } from "./index";
 
 interface FileNodePackageOnline {
   name: string;

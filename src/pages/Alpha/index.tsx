@@ -1,15 +1,15 @@
-import {StateInfo} from "@/components/organisms/StateMachineTabs/type";
-import {StateMachineTabs} from "@/components/organisms/StateMachineTabs";
-import {State} from "./type";
-import {TabInput} from "./TabInput";
-import {TabThrown} from "./TabThrown";
-import {TabEmpty} from "./TabEmpty";
-import {TabLatest} from "./TabLatest";
-import {TabStart} from "./TabStart";
-import {TabDownloading} from "./TabDownloading";
-import {TabUnzipping} from "./TabUnzipping";
-import {TabWriting} from "./TabWriting";
-import {TabValidating} from "./TabValidating";
+import { StateInfo } from "@/components/organisms/StateMachineTabs/type";
+import { StateMachineTabs } from "@/components/organisms/StateMachineTabs";
+import { State } from "./type";
+import { TabInput } from "./TabInput";
+import { TabThrown } from "./TabThrown";
+import { TabEmpty } from "./TabEmpty";
+import { TabLatest } from "./TabLatest";
+import { TabStart } from "./TabStart";
+import { TabDownloading } from "./TabDownloading";
+import { TabUnzipping } from "./TabUnzipping";
+import { TabWriting } from "./TabWriting";
+import { TabValidating } from "./TabValidating";
 import React from "react";
 
 const states: StateInfo<State>[] = [

@@ -1,10 +1,10 @@
 import "./index.scss";
-import {Button, Tabs} from "@arco-design/web-react";
-import {TabRunning, TabRunningProps} from "@/pages/Tasks/TabRunning";
-import {TabUpgradable, TabUpgradableProps} from "@/pages/Tasks/TabUpgradable";
-import {TabInstalled, TabInstalledProps} from "@/pages/Tasks/TabInstalled";
-import React, {useState} from "react";
-import {createTask} from "@/services/download";
+import { Button, Tabs } from "@arco-design/web-react";
+import { TabRunning, TabRunningProps } from "@/pages/Tasks/TabRunning";
+import { TabUpgradable, TabUpgradableProps } from "@/pages/Tasks/TabUpgradable";
+import { TabInstalled, TabInstalledProps } from "@/pages/Tasks/TabInstalled";
+import React, { useState } from "react";
+import { createTask } from "@/services/download";
 
 export const Tasks = () => {
   const [p, setP] = useState(0);

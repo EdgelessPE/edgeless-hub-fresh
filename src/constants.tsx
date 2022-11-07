@@ -11,7 +11,7 @@ import {
   IconThunderbolt,
 } from "@arco-design/web-react/icon";
 import React from "react";
-import {SiderNode} from "@/components/layout/SiderMenu";
+import { SiderNode } from "@/components/layout/SiderMenu";
 import {
   ApiOutlined,
   BookOutlined,

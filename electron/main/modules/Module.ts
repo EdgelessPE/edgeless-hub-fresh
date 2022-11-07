@@ -1,4 +1,4 @@
-import {ARes} from "../type";
+import { ARes } from "../type";
 
 abstract class Module {
   // 接收上层传入的监听器

@@ -1,10 +1,10 @@
-import {IconExclamationCircle} from "@arco-design/web-react/icon";
-import {Button, Message, Select, Space} from "@arco-design/web-react";
-import React, {useState} from "react";
-import {UpdateTabProps} from "./type";
-import {reportIssue} from "@/pages/Burn/utils";
+import { IconExclamationCircle } from "@arco-design/web-react/icon";
+import { Button, Message, Select, Space } from "@arco-design/web-react";
+import React, { useState } from "react";
+import { UpdateTabProps } from "./type";
+import { reportIssue } from "@/pages/Burn/utils";
 
-export const TabWaitingForSelect = ({next, sharedState}: UpdateTabProps) => {
+export const TabWaitingForSelect = ({ next, sharedState }: UpdateTabProps) => {
   const possibleDisks = ["C", "D", "E"];
   const [selected, setSelected] = useState("");
 

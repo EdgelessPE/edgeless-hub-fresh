@@ -1,4 +1,4 @@
-import {Download} from "./index";
+import { Download } from "./index";
 import * as fs from "fs";
 
 test("downloadModule", async () => {

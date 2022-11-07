@@ -1,17 +1,17 @@
-import {IconBulb} from "@arco-design/web-react/icon";
-import {Button, Popconfirm, Space, Spin} from "@arco-design/web-react";
+import { IconBulb } from "@arco-design/web-react/icon";
+import { Button, Popconfirm, Space, Spin } from "@arco-design/web-react";
 import React from "react";
-import {UpdateTabProps} from "./type";
-import {log} from "@/utils/log";
+import { UpdateTabProps } from "./type";
+import { log } from "@/utils/log";
 
 function launchVentoy() {
   log("Info:Launch ventoy");
 }
 
-export const TabWaitingForVentoy = ({next, sharedState}: UpdateTabProps) => {
+export const TabWaitingForVentoy = ({ next, sharedState }: UpdateTabProps) => {
   return (
     <div className="smt__container">
-      <IconBulb className="smt__icon"/>
+      <IconBulb className="smt__icon" />
       <div>
         <h1>请手动操作 Ventoy 安装程序以更新你 U 盘中的 Ventoy</h1>
         <p>通常无需更改其他配置，直接点击“升级”即可</p>

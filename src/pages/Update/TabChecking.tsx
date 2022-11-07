@@ -1,10 +1,10 @@
-import {CloudSyncOutlined} from "@ant-design/icons";
-import {Button, Spin} from "@arco-design/web-react";
-import {UpdateTabProps} from "./type";
-import {FileNodeLocal} from "types/local";
+import { CloudSyncOutlined } from "@ant-design/icons";
+import { Button, Spin } from "@arco-design/web-react";
+import { UpdateTabProps } from "./type";
+import { FileNodeLocal } from "types/local";
 import React from "react";
 
-export const TabChecking = ({next, sharedState}: UpdateTabProps) => {
+export const TabChecking = ({ next, sharedState }: UpdateTabProps) => {
   const kernelOnline: FileNodeLocal = {
       name: "Edgeless_Beta_4.1.0.iso",
       version: "4.1.0",

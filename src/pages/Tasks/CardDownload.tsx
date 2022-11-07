@@ -1,10 +1,10 @@
-import {TaskStatus} from "types";
-import {Progress} from "@arco-design/web-react";
+import { TaskStatus } from "types";
+import { Progress } from "@arco-design/web-react";
 import React from "react";
-import {colorfulProgressBar} from "@/constants";
-import {FileNodePackageOnline} from "types/online";
-import {parsePackageName} from "@/utils/parser";
-import {formatSize} from "@/utils/formatter";
+import { colorfulProgressBar } from "@/constants";
+import { FileNodePackageOnline } from "types/online";
+import { parsePackageName } from "@/utils/parser";
+import { formatSize } from "@/utils/formatter";
 
 interface Props {
   data: FileNodePackageOnline;

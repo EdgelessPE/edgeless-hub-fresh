@@ -1,8 +1,8 @@
-import {Integrity} from "../../../../types";
+import { Integrity } from "../../../../types";
 import * as fs from "fs";
-import {validateIntegrity} from "../../services/integrity";
-import {log} from "../../log";
-import {del} from "../../utils/shell";
+import { validateIntegrity } from "../../services/integrity";
+import { log } from "../../log";
+import { del } from "../../utils/shell";
 
 function getFileSize(filePath: string): number {
   const status = fs.statSync(filePath);

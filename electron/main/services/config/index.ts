@@ -1,12 +1,12 @@
-import {Observable} from "rxjs";
-import {watch} from "fs";
-import {patch, read, valid, write} from "./utils";
-import {Config} from "../../../../types/config";
-import {log} from "../../log";
-import {Err, Ok, Result} from "ts-results";
-import {CONFIG_PATH} from "../../constants";
-import {debounce} from "lodash";
-import {initial} from "./initial";
+import { Observable } from "rxjs";
+import { watch } from "fs";
+import { patch, read, valid, write } from "./utils";
+import { Config } from "../../../../types/config";
+import { log } from "../../log";
+import { Err, Ok, Result } from "ts-results";
+import { CONFIG_PATH } from "../../constants";
+import { debounce } from "lodash";
+import { initial } from "./initial";
 
 // 始终持有一份config的最新副本以在更新时用作补丁母版
 let cfg: Config = initial;

@@ -7,13 +7,13 @@ import {
   Switch,
   Tooltip,
 } from "@arco-design/web-react";
-import React, {useEffect, useState} from "react";
+import React, { useEffect, useState } from "react";
 import preferenceItems from "./preferenceItems.json";
 import resolutions from "./resolutions.json";
 import "./index.scss";
-import {IconEyeInvisible, IconInfoCircle} from "@arco-design/web-react/icon";
+import { IconEyeInvisible, IconInfoCircle } from "@arco-design/web-react/icon";
 import bridge from "@/bridge/method";
-import {Result} from "ts-results";
+import { Result } from "ts-results";
 
 interface ConfigItem {
   title: string;

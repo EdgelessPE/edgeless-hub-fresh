@@ -1,12 +1,12 @@
-import {IconArchive} from "@arco-design/web-react/icon";
-import {Button, Spin} from "@arco-design/web-react";
-import {UpdateTabProps} from "./type";
+import { IconArchive } from "@arco-design/web-react/icon";
+import { Button, Spin } from "@arco-design/web-react";
+import { UpdateTabProps } from "./type";
 import React from "react";
 
-export const TabUnzipping = ({next, sharedState}: UpdateTabProps) => {
+export const TabUnzipping = ({ next, sharedState }: UpdateTabProps) => {
   return (
     <div className="smt__container">
-      <IconArchive className="smt__icon"/>
+      <IconArchive className="smt__icon" />
       <div>
         <h1>正在生成 Edgeless 依赖文件</h1>
         <p>处理进度：1 / 2</p>

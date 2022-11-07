@@ -1,4 +1,4 @@
-import {IconCheckCircle} from "@arco-design/web-react/icon";
+import { IconCheckCircle } from "@arco-design/web-react/icon";
 import React from "react";
 
 export const TabLatest = () => {

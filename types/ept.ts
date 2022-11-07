@@ -1,4 +1,4 @@
-import {PropertyOnline, ServiceNode} from "./online";
+import { PropertyOnline, ServiceNode } from "./online";
 
 interface MirrorLocal {
   name: string;

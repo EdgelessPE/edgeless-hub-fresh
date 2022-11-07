@@ -1,17 +1,17 @@
-import {StateInfo} from "@/components/organisms/StateMachineTabs/type";
-import {StateMachineTabs} from "@/components/organisms/StateMachineTabs";
-import {State} from "./type";
-import {TabChecking} from "./TabChecking";
-import {TabThrown} from "./TabThrown";
-import {TabEmpty} from "./TabEmpty";
-import {TabStart} from "./TabStart";
-import {TabLatest} from "./TabLatest";
-import {TabDownloading} from "./TabDownloading";
-import {TabUnzipping} from "./TabUnzipping";
-import {TabWaitingForVentoy} from "./TabWaitingForVentoy";
-import {TabWaitingForSelect} from "./TabWaitingForSelect";
-import {TabWriting} from "./TabWriting";
-import {TabValidating} from "./TabValidating";
+import { StateInfo } from "@/components/organisms/StateMachineTabs/type";
+import { StateMachineTabs } from "@/components/organisms/StateMachineTabs";
+import { State } from "./type";
+import { TabChecking } from "./TabChecking";
+import { TabThrown } from "./TabThrown";
+import { TabEmpty } from "./TabEmpty";
+import { TabStart } from "./TabStart";
+import { TabLatest } from "./TabLatest";
+import { TabDownloading } from "./TabDownloading";
+import { TabUnzipping } from "./TabUnzipping";
+import { TabWaitingForVentoy } from "./TabWaitingForVentoy";
+import { TabWaitingForSelect } from "./TabWaitingForSelect";
+import { TabWriting } from "./TabWriting";
+import { TabValidating } from "./TabValidating";
 import React from "react";
 
 const states: StateInfo<State>[] = [

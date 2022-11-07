@@ -1,5 +1,5 @@
-import {Integrity} from "../../types";
-import {Result} from "ts-results";
+import { Integrity } from "../../types";
+import { Result } from "ts-results";
 import bridge from "@/bridge/method";
 
 async function createTask(

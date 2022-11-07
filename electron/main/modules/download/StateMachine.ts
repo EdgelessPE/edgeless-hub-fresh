@@ -1,5 +1,5 @@
-import {TaskProgressNotification, TaskState} from "./type";
-import {log} from "../../log";
+import { TaskProgressNotification, TaskState } from "./type";
+import { log } from "../../log";
 
 type Listener = (state: TaskState) => void;
 

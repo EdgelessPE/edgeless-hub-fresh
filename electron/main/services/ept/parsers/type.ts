@@ -1,4 +1,4 @@
-import {ValidateFunction} from "ajv";
+import { ValidateFunction } from "ajv";
 
 interface RegisterNode {
   supportedProtocols: string[];

@@ -1,12 +1,12 @@
-import {Avatar, Button, List, Radio} from "@arco-design/web-react";
+import { Avatar, Button, List, Radio } from "@arco-design/web-react";
 import "./index.scss";
 import {
   DeliveredProcedureOutlined,
   SearchOutlined,
   SkinOutlined,
 } from "@ant-design/icons";
-import React, {useState} from "react";
-import {getCurrentTheme, setCurrentTheme} from "@/services/theme";
+import React, { useState } from "react";
+import { getCurrentTheme, setCurrentTheme } from "@/services/theme";
 
 interface SettingItem {
   avatar: React.ReactElement;

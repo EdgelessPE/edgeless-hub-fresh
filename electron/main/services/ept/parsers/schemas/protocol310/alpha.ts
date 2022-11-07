@@ -1,138 +1,110 @@
 const schema = {
-  "$schema": "http://json-schema.org/draft-07/schema#",
-  "$ref": "#/definitions/AlphaResponse",
-  "definitions": {
-    "AlphaResponse": {
-      "type": "object",
-      "properties": {
-        "kernel_wim": {
-          "anyOf": [
+  $schema: "http://json-schema.org/draft-07/schema#",
+  $ref: "#/definitions/AlphaResponse",
+  definitions: {
+    AlphaResponse: {
+      type: "object",
+      properties: {
+        kernel_wim: {
+          anyOf: [
             {
-              "type": "object",
-              "properties": {
-                "name": {
-                  "type": "string"
+              type: "object",
+              properties: {
+                name: {
+                  type: "string",
                 },
-                "version": {
-                  "type": "string"
+                version: {
+                  type: "string",
                 },
-                "url": {
-                  "type": "string"
+                url: {
+                  type: "string",
                 },
-                "size": {
-                  "type": "number"
+                size: {
+                  type: "number",
                 },
-                "timestamp": {
-                  "type": "number"
+                timestamp: {
+                  type: "number",
                 },
-                "integrity": {
-                  "type": "object",
-                  "properties": {
-                    "method": {
-                      "type": "string",
-                      "enum": [
-                        "sha256",
-                        "blake3"
-                      ]
+                integrity: {
+                  type: "object",
+                  properties: {
+                    method: {
+                      type: "string",
+                      enum: ["sha256", "blake3"],
                     },
-                    "value": {
-                      "type": "string"
-                    }
+                    value: {
+                      type: "string",
+                    },
                   },
-                  "required": [
-                    "method",
-                    "value"
-                  ],
-                  "additionalProperties": false
-                }
+                  required: ["method", "value"],
+                  additionalProperties: false,
+                },
               },
-              "required": [
-                "name",
-                "version",
-                "url",
-                "size"
-              ],
-              "additionalProperties": false
+              required: ["name", "version", "url", "size"],
+              additionalProperties: false,
             },
             {
-              "type": "null"
-            }
-          ]
+              type: "null",
+            },
+          ],
         },
-        "cover": {
-          "anyOf": [
+        cover: {
+          anyOf: [
             {
-              "type": "object",
-              "properties": {
-                "lower_than": {
-                  "type": "string"
+              type: "object",
+              properties: {
+                lower_than: {
+                  type: "string",
                 },
-                "file": {
-                  "type": "object",
-                  "properties": {
-                    "name": {
-                      "type": "string"
+                file: {
+                  type: "object",
+                  properties: {
+                    name: {
+                      type: "string",
                     },
-                    "version": {
-                      "type": "string"
+                    version: {
+                      type: "string",
                     },
-                    "url": {
-                      "type": "string"
+                    url: {
+                      type: "string",
                     },
-                    "size": {
-                      "type": "number"
+                    size: {
+                      type: "number",
                     },
-                    "timestamp": {
-                      "type": "number"
+                    timestamp: {
+                      type: "number",
                     },
-                    "integrity": {
-                      "type": "object",
-                      "properties": {
-                        "method": {
-                          "type": "string",
-                          "enum": [
-                            "sha256",
-                            "blake3"
-                          ]
+                    integrity: {
+                      type: "object",
+                      properties: {
+                        method: {
+                          type: "string",
+                          enum: ["sha256", "blake3"],
                         },
-                        "value": {
-                          "type": "string"
-                        }
+                        value: {
+                          type: "string",
+                        },
                       },
-                      "required": [
-                        "method",
-                        "value"
-                      ],
-                      "additionalProperties": false
-                    }
+                      required: ["method", "value"],
+                      additionalProperties: false,
+                    },
                   },
-                  "required": [
-                    "name",
-                    "version",
-                    "url",
-                    "size"
-                  ],
-                  "additionalProperties": false
-                }
+                  required: ["name", "version", "url", "size"],
+                  additionalProperties: false,
+                },
               },
-              "required": [
-                "lower_than",
-                "file"
-              ],
-              "additionalProperties": false
+              required: ["lower_than", "file"],
+              additionalProperties: false,
             },
             {
-              "type": "null"
-            }
-          ]
-        }
+              type: "null",
+            },
+          ],
+        },
       },
-      "required": [
-        "kernel_wim",
-        "cover"
-      ],
-      "additionalProperties": false
-    }
-  }
+      required: ["kernel_wim", "cover"],
+      additionalProperties: false,
+    },
+  },
 };
 export default schema;

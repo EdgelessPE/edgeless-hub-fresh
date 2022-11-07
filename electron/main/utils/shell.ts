@@ -1,4 +1,4 @@
-import {log} from "../log";
+import { log } from "../log";
 
 import shell from "shelljs";
 import * as fs from "fs";

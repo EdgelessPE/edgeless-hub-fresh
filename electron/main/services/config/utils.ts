@@ -1,13 +1,13 @@
 import fs from "fs";
-import {CONFIG_PATH} from "../../constants";
-import {Err, Ok, Result} from "ts-results";
-import {Config} from "../../../../types/config";
+import { CONFIG_PATH } from "../../constants";
+import { Err, Ok, Result } from "ts-results";
+import { Config } from "../../../../types/config";
 import Ajv from "ajv";
-import {initial} from "./initial";
-import {log} from "../../log";
+import { initial } from "./initial";
+import { log } from "../../log";
 import Schema from "../../../schema/config";
 import path from "path";
-import {validate} from "../../utils";
+import { validate } from "../../utils";
 
 const ajv = new Ajv();
 const validator = ajv.compile(Schema);

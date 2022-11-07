@@ -1,8 +1,8 @@
-import {Observable, Observer, Subject} from "rxjs";
-import {Err, Ok} from "ts-results";
-import {Res} from "../type";
-import {Module} from "../modules/Module";
-import {log} from "../log";
+import { Observable, Observer, Subject } from "rxjs";
+import { Err, Ok } from "ts-results";
+import { Res } from "../type";
+import { Module } from "../modules/Module";
+import { log } from "../log";
 
 interface SeqNode {
   name: string;

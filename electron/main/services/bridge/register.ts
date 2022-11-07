@@ -1,6 +1,6 @@
-import {innerLog} from "../../log";
-import {getLocalImageSrc} from "../../utils";
-import {Observable} from "rxjs";
+import { innerLog } from "../../log";
+import { getLocalImageSrc } from "../../utils";
+import { Observable } from "rxjs";
 import {
   getObservableConfig,
   modifyObservableConfig,
@@ -8,9 +8,9 @@ import {
   resetObservableConfig,
   setObservableConfig,
 } from "../config";
-import {Err, Ok, Result} from "ts-results";
-import {InitError} from "../../../../types";
-import {closeWindow, restartWindow, toggleDevTool} from "../../index";
+import { Err, Ok, Result } from "ts-results";
+import { InitError } from "../../../../types";
+import { closeWindow, restartWindow, toggleDevTool } from "../../index";
 
 function getMethodRegister(): Record<string, (...args: any) => any> {
   return {

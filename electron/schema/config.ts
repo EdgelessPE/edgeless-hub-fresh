@@ -1,138 +1,116 @@
 const schema = {
-  "$schema": "http://json-schema.org/draft-07/schema#",
-  "$ref": "#/definitions/Config",
-  "definitions": {
-    "Config": {
-      "type": "object",
-      "properties": {
-        "ept": {
-          "type": "object",
-          "properties": {
-            "mirror": {
-              "type": "object",
-              "properties": {
-                "current": {
-                  "type": [
-                    "string",
-                    "null"
-                  ]
+  $schema: "http://json-schema.org/draft-07/schema#",
+  $ref: "#/definitions/Config",
+  definitions: {
+    Config: {
+      type: "object",
+      properties: {
+        ept: {
+          type: "object",
+          properties: {
+            mirror: {
+              type: "object",
+              properties: {
+                current: {
+                  type: ["string", "null"],
                 },
-                "pool": {
-                  "type": "object",
-                  "additionalProperties": {
-                    "type": "object",
-                    "properties": {
-                      "name": {
-                        "type": "string"
+                pool: {
+                  type: "object",
+                  additionalProperties: {
+                    type: "object",
+                    properties: {
+                      name: {
+                        type: "string",
                       },
-                      "description": {
-                        "type": "string"
+                      description: {
+                        type: "string",
                       },
-                      "protocol": {
-                        "type": "string"
+                      protocol: {
+                        type: "string",
                       },
-                      "property": {
-                        "type": "object",
-                        "properties": {
-                          "domestic_server": {
-                            "type": "boolean"
+                      property: {
+                        type: "object",
+                        properties: {
+                          domestic_server: {
+                            type: "boolean",
                           },
-                          "upload_bandwidth": {
-                            "type": "number"
+                          upload_bandwidth: {
+                            type: "number",
                           },
-                          "sync_interval": {
-                            "type": "number"
+                          sync_interval: {
+                            type: "number",
                           },
-                          "official_maintained": {
-                            "type": "boolean"
-                          }
+                          official_maintained: {
+                            type: "boolean",
+                          },
                         },
-                        "required": [
+                        required: [
                           "domestic_server",
                           "upload_bandwidth",
                           "sync_interval",
-                          "official_maintained"
+                          "official_maintained",
                         ],
-                        "additionalProperties": false
+                        additionalProperties: false,
                       },
-                      "services": {
-                        "type": "array",
-                        "items": {
-                          "type": "object",
-                          "properties": {
-                            "name": {
-                              "type": "string"
+                      services: {
+                        type: "array",
+                        items: {
+                          type: "object",
+                          properties: {
+                            name: {
+                              type: "string",
                             },
-                            "path": {
-                              "type": "string"
-                            }
+                            path: {
+                              type: "string",
+                            },
                           },
-                          "required": [
-                            "name",
-                            "path"
-                          ],
-                          "additionalProperties": false
-                        }
-                      }
+                          required: ["name", "path"],
+                          additionalProperties: false,
+                        },
+                      },
                     },
-                    "required": [
+                    required: [
                       "name",
                       "description",
                       "protocol",
                       "property",
-                      "services"
+                      "services",
                     ],
-                    "additionalProperties": false
-                  }
-                }
+                    additionalProperties: false,
+                  },
+                },
               },
-              "required": [
-                "current",
-                "pool"
-              ],
-              "additionalProperties": false
-            }
-          },
-          "required": [
-            "mirror"
-          ],
-          "additionalProperties": false
-        },
-        "theme": {
-          "type": "string",
-          "enum": [
-            "light",
-            "dark"
-          ]
-        },
-        "download": {
-          "type": "object",
-          "properties": {
-            "provider": {
-              "type": "string"
+              required: ["current", "pool"],
+              additionalProperties: false,
             },
-            "cacheDir": {
-              "type": "string"
-            },
-            "maxDownloadingTasks": {
-              "type": "number"
-            }
           },
-          "required": [
-            "provider",
-            "cacheDir",
-            "maxDownloadingTasks"
-          ],
-          "additionalProperties": false
-        }
+          required: ["mirror"],
+          additionalProperties: false,
+        },
+        theme: {
+          type: "string",
+          enum: ["light", "dark"],
+        },
+        download: {
+          type: "object",
+          properties: {
+            provider: {
+              type: "string",
+            },
+            cacheDir: {
+              type: "string",
+            },
+            maxDownloadingTasks: {
+              type: "number",
+            },
+          },
+          required: ["provider", "cacheDir", "maxDownloadingTasks"],
+          additionalProperties: false,
+        },
       },
-      "required": [
-        "ept",
-        "theme",
-        "download"
-      ],
-      "additionalProperties": false
-    }
-  }
+      required: ["ept", "theme", "download"],
+      additionalProperties: false,
+    },
+  },
 };
 export default schema;

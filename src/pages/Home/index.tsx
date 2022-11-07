@@ -1,5 +1,5 @@
 import "./index.scss";
-import {SmileTwoTone} from "@ant-design/icons";
+import { SmileTwoTone } from "@ant-design/icons";
 import {
   Alert,
   Avatar,
@@ -9,10 +9,10 @@ import {
   Space,
   Tag,
 } from "@arco-design/web-react";
-import {IconRefresh} from "@arco-design/web-react/icon";
-import React, {useState} from "react";
-import {myHistory} from "@/router/history";
-import {useConfig} from "@/services/config";
+import { IconRefresh } from "@arco-design/web-react/icon";
+import React, { useState } from "react";
+import { myHistory } from "@/router/history";
+import { useConfig } from "@/services/config";
 
 const pluginsRecommendation = new Array(5).fill({
   title: "腾讯会议",

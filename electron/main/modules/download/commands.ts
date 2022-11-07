@@ -1,4 +1,4 @@
-import {TaskState} from "./type";
+import { TaskState } from "./type";
 
 type TaskStateType = TaskState["type"];
 

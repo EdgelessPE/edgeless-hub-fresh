@@ -1,6 +1,6 @@
-import {Provider, ProviderParams, TaskProgressListener} from "./Provider";
-import {Res} from "../../../type";
-import {Err, Ok} from "ts-results";
+import { Provider, ProviderParams, TaskProgressListener } from "./Provider";
+import { Res } from "../../../type";
+import { Err, Ok } from "ts-results";
 
 const Downloader = require("nodejs-file-downloader");
 

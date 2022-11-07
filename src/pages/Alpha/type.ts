@@ -1,5 +1,5 @@
-import {TabProps} from "@/components/organisms/StateMachineTabs/type";
-import {KernelLocal, KernelOnline} from "types";
+import { TabProps } from "@/components/organisms/StateMachineTabs/type";
+import { KernelLocal, KernelOnline } from "types";
 
 type State =
   | "Input"

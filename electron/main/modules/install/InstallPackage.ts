@@ -1,12 +1,12 @@
-import {Module} from "../Module";
-import {Res} from "../../type";
-import {copyFile, ProgressData} from "cp-file";
-import {StateMachine} from "./StateMachine";
-import {log} from "../../log";
-import {Err, Ok} from "ts-results";
+import { Module } from "../Module";
+import { Res } from "../../type";
+import { copyFile, ProgressData } from "cp-file";
+import { StateMachine } from "./StateMachine";
+import { log } from "../../log";
+import { Err, Ok } from "ts-results";
 import * as fs from "fs";
 import * as path from "path";
-import {del} from "../../utils/shell";
+import { del } from "../../utils/shell";
 
 interface InstallPackageParams {
   sourceFilePath: string;

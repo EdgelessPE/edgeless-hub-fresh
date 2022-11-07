@@ -1,8 +1,8 @@
-import {Menu} from "@arco-design/web-react";
-import React, {useEffect, useState} from "react";
-import {BrowserHistory} from "history";
-import {siderNodes} from "@/constants";
-import {getRouterPath} from "@/router/utils";
+import { Menu } from "@arco-design/web-react";
+import React, { useEffect, useState } from "react";
+import { BrowserHistory } from "history";
+import { siderNodes } from "@/constants";
+import { getRouterPath } from "@/router/utils";
 
 const MenuItem = Menu.Item;
 const SubMenu = Menu.SubMenu;

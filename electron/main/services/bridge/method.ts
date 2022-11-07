@@ -1,6 +1,6 @@
-import {ipcMain} from "electron";
-import {BridgeReply, BridgeRequest} from "../../../../types/bridge";
-import {getMethodRegister} from "./register";
+import { ipcMain } from "electron";
+import { BridgeReply, BridgeRequest } from "../../../../types/bridge";
+import { getMethodRegister } from "./register";
 
 export default function () {
   // 创建调用地图

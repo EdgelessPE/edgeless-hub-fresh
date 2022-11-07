@@ -1,6 +1,6 @@
-import {getIntegrityCalculator} from "./_register";
-import {Integrity} from "../../../../types";
-import {Err, Ok, Result} from "ts-results";
+import { getIntegrityCalculator } from "./_register";
+import { Integrity } from "../../../../types";
+import { Err, Ok, Result } from "ts-results";
 
 // 返回 OkImpl(boolean) 时表示哈希计算成功，boolean 类型返回值表示哈希比较结果
 // 返回 ErrImpl(string) 时表示哈希计算失败

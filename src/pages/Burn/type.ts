@@ -1,4 +1,4 @@
-import {TabProps} from "@/components/organisms/StateMachineTabs/type";
+import { TabProps } from "@/components/organisms/StateMachineTabs/type";
 
 type State =
   | "Start"

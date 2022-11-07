@@ -1,16 +1,16 @@
-import {IconCloudDownload} from "@arco-design/web-react/icon";
-import {Button, Space} from "@arco-design/web-react";
+import { IconCloudDownload } from "@arco-design/web-react/icon";
+import { Button, Space } from "@arco-design/web-react";
 import {
   NaiveProgressBar,
   NaiveProgressBarTask,
 } from "@/components/molecules/NaiveProgressBar";
-import React, {useState} from "react";
-import {formatSize} from "@/utils/formatter";
-import {AlphaTabProps} from "./type";
+import React, { useState } from "react";
+import { formatSize } from "@/utils/formatter";
+import { AlphaTabProps } from "./type";
 
 type TaskInfo = NaiveProgressBarTask & { enable: boolean };
 
-export const TabDownloading = ({next, sharedState}: AlphaTabProps) => {
+export const TabDownloading = ({ next, sharedState }: AlphaTabProps) => {
   const emptyTask: TaskInfo = {
     enable: false,
     percent: 0,

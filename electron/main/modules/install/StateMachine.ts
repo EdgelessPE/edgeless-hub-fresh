@@ -1,5 +1,5 @@
-import {log} from "../../log";
-import {TaskProgressNotification} from "../../../../types/module";
+import { log } from "../../log";
+import { TaskProgressNotification } from "../../../../types/module";
 
 interface State {
   type: "running" | "completed" | "error";

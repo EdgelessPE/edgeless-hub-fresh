@@ -1,4 +1,4 @@
-import {Dropdown, Menu, Message, Modal, Space} from "@arco-design/web-react";
+import { Dropdown, Menu, Message, Modal, Space } from "@arco-design/web-react";
 import {
   IconDelete,
   IconFire,
@@ -6,9 +6,9 @@ import {
   IconThunderbolt,
 } from "@arco-design/web-react/icon";
 import React from "react";
-import {BurnTabProps} from "./type";
+import { BurnTabProps } from "./type";
 
-export const TabStart = ({next, sharedState}: BurnTabProps) => {
+export const TabStart = ({ next, sharedState }: BurnTabProps) => {
   const confirmCleanCache = () => {
     Modal.confirm({
       title:

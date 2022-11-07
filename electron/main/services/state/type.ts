@@ -1,5 +1,5 @@
-import {Config} from "../../../../types/config";
-import {VentoyLocal} from "../../../../types/local";
+import { Config } from "../../../../types/config";
+import { VentoyLocal } from "../../../../types/local";
 
 interface State {
   config: Config;

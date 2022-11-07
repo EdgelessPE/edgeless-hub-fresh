@@ -1,4 +1,4 @@
-import React, {useEffect, useState} from "react";
+import React, { useEffect, useState } from "react";
 
 interface Prop {
   kvMap: Record<string, string | React.ReactNode>;

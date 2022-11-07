@@ -1,4 +1,4 @@
-import {Err, Ok, Result} from "ts-results";
+import { Err, Ok, Result } from "ts-results";
 import * as fs from "fs";
 
 const sha256File = require("sha256-file");

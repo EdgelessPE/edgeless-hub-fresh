@@ -1,17 +1,17 @@
-import {NaiveDescription} from "@/components/molecules/NaiveDescription";
+import { NaiveDescription } from "@/components/molecules/NaiveDescription";
 import React from "react";
-import {Dropdown, Menu, Tag} from "@arco-design/web-react";
-import {SizeAlert} from "@/components/molecules/SizeAlert";
-import {isDisabled, isLocalBoost} from "@/pages/Tasks/utils";
-import {FileNodePackageLocal} from "types/local";
-import {parsePackageName} from "@/utils/parser";
-import {formatSize} from "@/utils/formatter";
+import { Dropdown, Menu, Tag } from "@arco-design/web-react";
+import { SizeAlert } from "@/components/molecules/SizeAlert";
+import { isDisabled, isLocalBoost } from "@/pages/Tasks/utils";
+import { FileNodePackageLocal } from "types/local";
+import { parsePackageName } from "@/utils/parser";
+import { formatSize } from "@/utils/formatter";
 
 interface Props {
   local: FileNodePackageLocal;
 }
 
-export const CardInstalled = ({local}: Props) => {
+export const CardInstalled = ({ local }: Props) => {
   const parsed = parsePackageName(local.name).unwrap();
   const disabled = isDisabled(local),
     localboost = isLocalBoost(local);

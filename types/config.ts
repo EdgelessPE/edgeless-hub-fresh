@@ -1,5 +1,5 @@
-import {Theme} from "./theme";
-import {MirrorLocal} from "./ept";
+import { Theme } from "./theme";
+import { MirrorLocal } from "./ept";
 
 export interface Config {
   ept: {

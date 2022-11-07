@@ -1,7 +1,7 @@
-import {AbstractPoolNode, TaskMeta, TaskState} from "./type";
-import {log} from "../../log";
-import {MAX_DOWNLOADING_TASKS} from "../../constants";
-import {getTempConfig} from "../../services/config";
+import { AbstractPoolNode, TaskMeta, TaskState } from "./type";
+import { log } from "../../log";
+import { MAX_DOWNLOADING_TASKS } from "../../constants";
+import { getTempConfig } from "../../services/config";
 
 interface QueueNode {
   id: string;

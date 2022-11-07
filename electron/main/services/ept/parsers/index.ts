@@ -1,7 +1,7 @@
-import {Err, Result} from "ts-results";
-import {AlphaResponse, HelloResponse} from "../../../../../types/online";
-import {getRegisterNode} from "./_register";
-import {fetch, joinUrl, validate} from "../../../utils";
+import { Err, Result } from "ts-results";
+import { AlphaResponse, HelloResponse } from "../../../../../types/online";
+import { getRegisterNode } from "./_register";
+import { fetch, joinUrl, validate } from "../../../utils";
 
 async function fetchHello(
   baseUrl: string

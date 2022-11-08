@@ -1,11 +1,14 @@
-import observableBridge from "./services/bridge/observable";
+import { initObservableBridge } from "./services/bridge/observable";
 import { Ok, Result } from "ts-results";
 import bridge from "./services/bridge/method";
 import { InitError } from "../../types";
+import type { WebContents } from "electron";
 
 let needInit = true;
 
-async function init(webContents: any): Promise<Result<null, InitError>> {
+async function init(
+  webContents: WebContents
+): Promise<Result<null, InitError>> {
   if (!needInit) {
     return new Ok(null);
   }
@@ -14,7 +17,7 @@ async function init(webContents: any): Promise<Result<null, InitError>> {
   bridge();
 
   // 初始化 observable bridge
-  const initRes = await observableBridge(webContents);
+  const initRes = await initObservableBridge(webContents);
   if (initRes.err) {
     return initRes;
   }

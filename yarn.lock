@@ -3483,6 +3483,11 @@ is-obj@^2.0.0:
   resolved "https://registry.yarnpkg.com/is-obj/-/is-obj-2.0.0.tgz#473fb05d973705e3fd9620545018ca8e22ef4982"
   integrity sha512-drqDG3cbczxxEJRoOXcOjtdp1J/lyp1mNn0xaznRs8+muBhgQcrnbspox5X5fOw0HnMnbfDzvnEMEtqDEJEo8w==
 
+is-observable@^3.0.0:
+  version "3.0.0"
+  resolved "https://registry.yarnpkg.com/is-observable/-/is-observable-3.0.0.tgz#2d1112c339249517426fedd699639238c2afca34"
+  integrity sha512-Lg2rIFMjjGQq+6HlvgDJDZ2jJAG032/uBivnEuIF7ckBHM9YK7plapRJpOnMtZwseDX6HO57aLIMeGDBsMHeuA==
+
 is-path-inside@^3.0.2, is-path-inside@^3.0.3:
   version "3.0.3"
   resolved "https://registry.yarnpkg.com/is-path-inside/-/is-path-inside-3.0.3.tgz#d231362e53a07ff2b0e0ea7fed049161ffd16283"

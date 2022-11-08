@@ -1,6 +1,10 @@
 import { ipcMain } from "electron";
 import { BridgeReply, BridgeRequest } from "../../../../types/bridge";
 import { getMethodRegister } from "./register";
+import { isObservable } from "rxjs";
+import { addObservableToBridge } from "./observable";
+
+let observableTempMapKeyCount = 0;
 
 export default function () {
   // 创建调用地图
@@ -27,6 +31,14 @@ export default function () {
           id: req.id,
           payload,
         };
+
+      // 对返回 Observable 的特殊处理
+      if (isObservable(payload)) {
+        const key = `_ORV_${observableTempMapKeyCount++}`;
+        addObservableToBridge(key, payload);
+        reply.payload = key;
+      }
+
       event.reply("_bridge-reply", reply);
     }
   });

@@ -1,5 +1,6 @@
 import { ipcRenderer } from "electron";
 import { BridgeReply, BridgeRequest } from "../../types/bridge";
+import { createBridgeObservable } from "@/bridge/observable";
 
 let taskCount = 0;
 
@@ -11,7 +12,15 @@ async function bridge<T>(functionName: string, ...args: unknown[]): Promise<T> {
     const callback = (_: unknown, reply: BridgeReply) => {
       if (reply.id != id) return;
       else {
-        resolve(reply.payload as T);
+        // 对返回 Observable 的特殊处理
+        if (
+          typeof reply.payload == "string" &&
+          reply.payload.startsWith("_ORV_")
+        ) {
+          resolve(createBridgeObservable(reply.payload) as unknown as T);
+        } else {
+          resolve(reply.payload as T);
+        }
         ipcRenderer.removeListener("_bridge-reply", callback);
         return;
       }

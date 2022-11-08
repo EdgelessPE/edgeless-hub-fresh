@@ -71,6 +71,7 @@ const App: React.FC = () => {
   // 初始化与错误处理弹窗
   const [modal, contextHolder] = useModal();
   useEffect(() => {
+    // eslint-disable-next-line @typescript-eslint/no-empty-function
     init(modal).then(() => {});
   }, []);
 

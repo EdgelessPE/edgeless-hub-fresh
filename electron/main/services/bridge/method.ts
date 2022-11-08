@@ -4,7 +4,7 @@ import { getMethodRegister } from "./register";
 
 export default function () {
   // 创建调用地图
-  const callMap = new Map<string, (...args: any) => any>();
+  const callMap = new Map<string, (...args: unknown[]) => unknown>();
 
   const methodRegistry = getMethodRegister();
   for (const key in methodRegistry) {

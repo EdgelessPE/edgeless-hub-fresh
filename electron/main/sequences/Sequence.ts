@@ -6,7 +6,7 @@ import { log } from "../log";
 
 interface SeqNode {
   name: string;
-  inputAdapter: (userInput: any, prevReturned: any) => any;
+  inputAdapter: (userInput: unknown, prevReturned: unknown) => unknown;
   moduleConstructor: any;
 }
 
@@ -19,18 +19,18 @@ interface Current {
 
 interface State {
   type: string;
-  payload: any;
+  payload: unknown;
 }
 
 class Sequence {
   private readonly seq: SeqNode[]; // 序列构造输入
-  private readonly userInput: any; // 用户输入
+  private readonly userInput: unknown; // 用户输入
   private current: Current | null; // 当前状态信息
   private currentSubject: Subject<Current | null>; // 用于通知上层当前状态信息
   private moduleInstance: Module | null; // 当前步骤所使用的模块实例
-  private prevOutput: any; // 存放上一模块输出
+  private prevOutput: unknown; // 存放上一模块输出
 
-  constructor(seq: SeqNode[], userInput: any) {
+  constructor(seq: SeqNode[], userInput: unknown) {
     this.seq = seq;
     this.userInput = userInput;
     this.current = null;
@@ -43,7 +43,7 @@ class Sequence {
    * 开始执行序列
    * @return 最后一个模块的输出
    */
-  async start(): Promise<Res<any>> {
+  async start(): Promise<Res<unknown>> {
     // 计算开始时的序列断点
     let stepIndex = this.current?.stepIndex ?? 0;
     log(`Info:Start sequence from seq index ${stepIndex}/${this.seq.length}`);
@@ -129,7 +129,7 @@ class Sequence {
     return new Ok(this.prevOutput);
   }
 
-  async command(cmd: string, payload: any): Promise<Res<any>> {
+  async command(cmd: string, payload: unknown): Promise<Res<unknown>> {
     // 检查命令是否被允许
     if (!this.current.allowedCommands.includes(cmd)) {
       return new Err(
@@ -154,7 +154,7 @@ class Sequence {
 
   // 重试当前步骤并返回一个新的 start() 调用
   // 另外在序列管理器层级提供另一个 retry 方法用于重试整条序列
-  async retryCurrentStep(): Promise<Res<any>> {
+  async retryCurrentStep(): Promise<Res<unknown>> {
     // 取消当前步骤执行
     const mcRes = await this.moduleInstance.cancel();
     if (mcRes.err) {

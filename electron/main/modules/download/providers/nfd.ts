@@ -2,6 +2,7 @@ import { Provider, ProviderParams, TaskProgressListener } from "./Provider";
 import { Res } from "../../../type";
 import { Err, Ok } from "ts-results";
 
+// eslint-disable-next-line @typescript-eslint/no-var-requires
 const Downloader = require("nodejs-file-downloader");
 
 interface ProgressUpdate {
@@ -69,7 +70,7 @@ export class NfdProvider extends Provider {
         .then(() => {
           resolve(new Ok(null));
         })
-        .catch((e: any) => {
+        .catch((e: unknown) => {
           resolve(
             new Err(
               `Error:Nfd provider can't download file : ${JSON.stringify(e)}`

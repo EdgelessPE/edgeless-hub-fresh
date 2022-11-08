@@ -41,7 +41,7 @@ function main() {
     const schema = tsj.createGenerator(config).createSchema(config.type);
     const schemaString = JSON.stringify(schema, null, 2);
     const finalString = `const schema = ${schemaString}; \n export default schema;`;
-    fs.writeFile(outputPath, finalString, (err: any) => {
+    fs.writeFile(outputPath, finalString, (err: unknown) => {
       if (err) throw err;
     });
   }

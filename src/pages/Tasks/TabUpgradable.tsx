@@ -58,7 +58,11 @@ export const TabUpgradable = ({ array, onUpgradeAll }: TabUpgradableProps) => {
         <ButtonWithIcon
           icon={<ArrowUpOutlined />}
           text={`全部更新（${formatSize(upgradableTotalSize)}）`}
-          props={{ type: "primary", size: "large", onClick: onClickUpgradeAll }}
+          buttonProps={{
+            type: "primary",
+            size: "large",
+            onClick: onClickUpgradeAll,
+          }}
           style={{ width: "196px", marginRight: "12px" }}
         />
         <Checkbox

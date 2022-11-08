@@ -64,7 +64,7 @@ const PluginCard = ({ data, category, showCategory = false }: Prop) => {
     return <></>;
   }
   const nameInfo = nameInfoRes.unwrap();
-  let description: any = {
+  let description: Record<string, string> = {
     版本号: nameInfo.version,
     打包者: nameInfo.author,
     大小: formatSize(data.size).toString(),

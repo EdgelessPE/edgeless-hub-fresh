@@ -3,15 +3,15 @@ import { BridgeReply, BridgeRequest } from "../../types/bridge";
 
 let taskCount = 0;
 
-async function bridge<T>(functionName: string, ...args: any): Promise<T> {
+async function bridge<T>(functionName: string, ...args: unknown[]): Promise<T> {
   return new Promise((resolve) => {
     // 获取任务id
     const id = taskCount++;
     // 生成回调函数
-    const callback = (_: any, reply: BridgeReply) => {
+    const callback = (_: unknown, reply: BridgeReply) => {
       if (reply.id != id) return;
       else {
-        resolve(reply.payload);
+        resolve(reply.payload as T);
         ipcRenderer.removeListener("_bridge-reply", callback);
         return;
       }

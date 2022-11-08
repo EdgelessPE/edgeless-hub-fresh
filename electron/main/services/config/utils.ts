@@ -13,11 +13,12 @@ const ajv = new Ajv();
 const validator = ajv.compile(Schema);
 
 async function read(): Promise<Result<Config, string>> {
-  return new Promise(async (resolve) => {
+  return new Promise((resolve) => {
     if (!fs.existsSync(CONFIG_PATH)) {
       log(`Info:Config ${CONFIG_PATH} not found, use initial one`);
-      await write(initial);
-      resolve(new Ok(initial));
+      write(initial).then(() => {
+        resolve(new Ok(initial));
+      });
     }
 
     const rawText = fs.readFileSync(CONFIG_PATH).toString();
@@ -40,7 +41,7 @@ async function read(): Promise<Result<Config, string>> {
   });
 }
 
-function valid(dirty: any) {
+function valid(dirty: unknown) {
   return validate(dirty, validator, `Error:Can't validate config : {}`);
 }
 
@@ -49,8 +50,7 @@ function patch<T extends object, K extends keyof T>(
   patchJson: { [P in K]: T[P] }
 ): T {
   for (const key in patchJson) {
-    if (!rawJson.hasOwnProperty(key)) {
-      // @ts-ignore
+    if (!rawJson[key]) {
       rawJson[key] = patchJson[key];
     } else {
       const rawVal = rawJson[key],
@@ -59,6 +59,7 @@ function patch<T extends object, K extends keyof T>(
         // 类型不一致，直接放弃patch并可能会在后续的validate中抛出错误
         return rawJson;
       } else if (typeof rawVal == "object") {
+        // eslint-disable-next-line @typescript-eslint/ban-ts-comment
         // @ts-ignore
         rawJson[key] = patch(rawVal, patchVal);
       }

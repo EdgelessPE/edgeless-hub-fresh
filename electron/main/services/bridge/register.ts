@@ -12,7 +12,7 @@ import { Err, Ok, Result } from "ts-results";
 import { InitError } from "../../../../types";
 import { closeWindow, restartWindow, toggleDevTool } from "../../index";
 
-function getMethodRegister(): Record<string, (...args: any) => any> {
+function getMethodRegister(): Record<string, (...args: unknown[]) => unknown> {
   return {
     closeWindow,
     restartWindow,
@@ -27,9 +27,9 @@ function getMethodRegister(): Record<string, (...args: any) => any> {
 }
 
 async function getObservableRegistry(): Promise<
-  Result<Record<string, Observable<any>>, InitError>
+  Result<Record<string, Observable<unknown>>, InitError>
 > {
-  const register: Record<string, Observable<any>> = {};
+  const register: Record<string, Observable<unknown>> = {};
 
   // config
   const configRes = await getObservableConfig();

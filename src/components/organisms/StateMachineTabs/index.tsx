@@ -4,7 +4,7 @@ import { Button, Steps } from "@arco-design/web-react";
 import "./index.scss";
 import { log } from "@/utils/log";
 
-export const sharedState = new Map<string, any>(); //TODO:检查是否存在变量共用污染
+export const sharedState = new Map<string, unknown>(); //TODO:检查是否存在变量共用污染
 
 function getNextState<State extends string>(
   states: StateInfo<State>[],

@@ -1,17 +1,23 @@
-import type { WebContents } from "electron";
-import { ipcMain } from "electron";
-import { log } from "../../log";
-import { Ok, Result } from "ts-results";
-import { ObservableBridgeUpdate } from "../../../../types/bridge";
-import { getObservableRegistry } from "./register";
-import { InitError } from "../../../../types";
-import { Observable } from "rxjs";
+import type {WebContents} from "electron";
+import {ipcMain} from "electron";
+import {log} from "../../log";
+import {Ok, Result} from "ts-results";
+import {ObservableBridgeUpdate} from "../../../../types/bridge";
+import {getObservableRegistry} from "./register";
+import {InitError} from "../../../../types";
+import {Observable} from "rxjs";
 
 // 创建用于保存最后一次发送响应对象的 map
 // 此 bridge 的行为接近 BehaviorObservable
 const recentMap = new Map<string, ObservableBridgeUpdate | null>();
 let webContentsGlobal: WebContents | null = null;
 
+/**
+ * 代理更新 Observable 值封装
+ * @param key Observable 对应的唯一键
+ * @param type 需要更新的事件类型
+ * @param value 事件负载
+ */
 function update(
   key: string,
   type: ObservableBridgeUpdate["type"],

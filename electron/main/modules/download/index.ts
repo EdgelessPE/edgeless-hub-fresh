@@ -17,7 +17,11 @@ import { getAllowedCommands, isAllowedCommand } from "./commands";
 import { log } from "../../log";
 import { del } from "../../utils/shell";
 
-type Listener = (type: string, payload: any, allowedCommands: string[]) => void;
+type Listener = (
+  type: string,
+  payload: unknown,
+  allowedCommands: string[]
+) => void;
 
 interface DownloadParams {
   url: string;
@@ -97,6 +101,7 @@ class Download extends Module {
       return pRes;
     }
     const providerConstructor = pRes.unwrap();
+    // eslint-disable-next-line @typescript-eslint/ban-ts-comment
     // @ts-ignore
     const provider = new providerConstructor(
       {
@@ -161,7 +166,7 @@ class Download extends Module {
     return new Ok(targetPosition);
   }
 
-  async command(cmd: string, payload: any): Promise<Res<null>> {
+  async command(cmd: string, payload: unknown): Promise<Res<null>> {
     const { type } = this.stateMachine.state;
     // 检查命令是否合法
     if (!isAllowedCommand(type, this.provider!.allowPause, cmd)) {
@@ -296,6 +301,7 @@ class Download extends Module {
         );
       }
 
+      // eslint-disable-next-line no-async-promise-executor
       return new Promise(async (resolve) => {
         // 切换状态机并提前 resolve
         this.stateMachine.toQueuing();

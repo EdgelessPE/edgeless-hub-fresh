@@ -58,7 +58,7 @@ function renderButton(status: TaskStatus, key: string): React.ReactElement {
           key={key}
           icon={<LoadingOutlined />}
           text="等待中"
-          props={disabledButtonProps}
+          buttonProps={disabledButtonProps}
           style={disabledButtonStyle}
         />
       );
@@ -82,7 +82,7 @@ function renderButton(status: TaskStatus, key: string): React.ReactElement {
           key={key}
           icon={<CheckOutlined />}
           text="已安装"
-          props={disabledButtonProps}
+          buttonProps={disabledButtonProps}
           style={disabledButtonStyle}
         />
       );

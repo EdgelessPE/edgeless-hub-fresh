@@ -18,7 +18,11 @@ interface ProgressUpdate {
   writtenSize: number;
 }
 
-type Listener = (type: string, payload: any, allowedCommands: string[]) => void;
+type Listener = (
+  type: string,
+  payload: unknown,
+  allowedCommands: string[]
+) => void;
 
 class InstallPackage extends Module {
   private readonly params: InstallPackageParams;
@@ -42,8 +46,8 @@ class InstallPackage extends Module {
     });
   }
 
-  async start(): Promise<Res<any>> {
-    const { sourceFilePath, targetFilePath } = this.params;
+  async start(): Promise<Res<null>> {
+    const {sourceFilePath, targetFilePath} = this.params;
     // 检查入参是否正确
     if (!fs.existsSync(sourceFilePath)) {
       const msg = `Error:Fatal:Source file not exist : ${sourceFilePath}`;
@@ -86,7 +90,7 @@ class InstallPackage extends Module {
     return new Ok(null);
   }
 
-  async command(cmd: string, payload: any): Promise<Res<null>> {
+  async command(cmd: string, payload: unknown): Promise<Res<null>> {
     return new Err(
       `Error:Fatal:No commands allowed in Install Package module : received ${cmd} with payload ${payload}`
     );

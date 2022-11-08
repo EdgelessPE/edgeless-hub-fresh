@@ -31,9 +31,7 @@ export const CardInstalled = ({ local }: Props) => {
   return (
     <div
       className="tasks__card__container"
-      style={
-        descriptions.hasOwnProperty("属性") ? { height: "120px" } : undefined
-      }
+      style={descriptions["属性"] ? { height: "120px" } : undefined}
     >
       <div className="tasks__card__header">
         <h3 className="tasks__card__header__title">

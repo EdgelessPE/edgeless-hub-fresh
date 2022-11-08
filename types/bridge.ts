@@ -7,12 +7,12 @@ interface ObservableBridgeUpdate {
 interface BridgeRequest {
   id: number;
   functionName: string;
-  args: any;
+  args: unknown[];
 }
 
 interface BridgeReply {
   id: number;
-  payload: any;
+  payload: unknown;
 }
 
 export { ObservableBridgeUpdate, BridgeRequest, BridgeReply };

@@ -1,3 +1,4 @@
+// eslint-disable-next-line no-undef
 module.exports = {
   env: {
     browser: true,
@@ -11,7 +12,7 @@ module.exports = {
   overrides: [
     {
       files: ["electron/**/*.ts", "src/**/*.tsx"],
-      excludedFiles: ["./*.js"],
+      excludedFiles: ["./*.js", "./scripts/*.ts"],
     },
   ],
   parser: "@typescript-eslint/parser",

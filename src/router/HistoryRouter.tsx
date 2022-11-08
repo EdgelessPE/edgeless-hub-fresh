@@ -23,6 +23,7 @@ export function HistoryRouter({
   return (
     <Router
       basename={basename}
+      /* eslint-disable-next-line react/no-children-prop */
       children={children}
       location={state.location}
       navigationType={state.action}

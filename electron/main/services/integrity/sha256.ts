@@ -1,6 +1,7 @@
 import { Err, Ok, Result } from "ts-results";
 import * as fs from "fs";
 
+// eslint-disable-next-line @typescript-eslint/no-var-requires
 const sha256File = require("sha256-file");
 
 async function getHash(filePath: string): Promise<Result<string, string>> {
@@ -9,7 +10,7 @@ async function getHash(filePath: string): Promise<Result<string, string>> {
       resolve(new Err(`Error:Can't open file ${filePath}`));
       return;
     }
-    sha256File(filePath, (err: any, val: string | null) => {
+    sha256File(filePath, (err: unknown, val: string | null) => {
       if (err) {
         resolve(
           new Err(

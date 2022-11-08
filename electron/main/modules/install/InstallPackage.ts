@@ -47,7 +47,7 @@ class InstallPackage extends Module {
   }
 
   async start(): Promise<Res<null>> {
-    const {sourceFilePath, targetFilePath} = this.params;
+    const { sourceFilePath, targetFilePath } = this.params;
     // 检查入参是否正确
     if (!fs.existsSync(sourceFilePath)) {
       const msg = `Error:Fatal:Source file not exist : ${sourceFilePath}`;

@@ -176,3 +176,5 @@ class Sequence {
     });
   }
 }
+
+export { Sequence };

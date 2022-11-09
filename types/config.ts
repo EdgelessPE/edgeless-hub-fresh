@@ -14,4 +14,5 @@ export interface Config {
     cacheDir: string;
     maxDownloadingTasks: number;
   };
+  flashDisk: string | null;
 }

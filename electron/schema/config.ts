@@ -107,8 +107,11 @@ const schema = {
           required: ["provider", "cacheDir", "maxDownloadingTasks"],
           additionalProperties: false,
         },
+        flashDisk: {
+          type: ["string", "null"],
+        },
       },
-      required: ["ept", "theme", "download"],
+      required: ["ept", "theme", "download", "flashDisk"],
       additionalProperties: false,
     },
   },

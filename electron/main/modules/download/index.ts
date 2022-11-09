@@ -5,7 +5,7 @@ import { StateMachine } from "./StateMachine";
 import { getTaskId } from "./utils";
 import { getTempConfig } from "../../services/config";
 import * as path from "path";
-import { existUsableFile } from "./cache";
+import { existUsableFile, getFileSize } from "./cache";
 import { TaskMeta, TaskProgressNotification } from "./type";
 import { getProviderConstructor } from "./providers/_register";
 import { DOWNLOAD_SUB_DIR_PACKAGES } from "../../constants";
@@ -152,6 +152,12 @@ class Download extends Module {
 
     // 进行校验
     this.stateMachine.toValidating();
+    const actualSize = getFileSize(targetPosition);
+    if (this.params.totalSize != actualSize) {
+      return new Err(
+        `Error:Downloaded file size not match : expected ${this.params.totalSize}, got ${actualSize}`
+      );
+    }
     if (integrity != null) {
       const vRes = await validateIntegrity(targetPosition, integrity);
       if (vRes.err) {
@@ -169,7 +175,7 @@ class Download extends Module {
   async command(cmd: string, payload: unknown): Promise<Res<null>> {
     const { type } = this.stateMachine.state;
     // 检查命令是否合法
-    if (!isAllowedCommand(type, this.provider!.allowPause, cmd)) {
+    if (!isAllowedCommand(type, this.provider?.allowPause, cmd)) {
       return new Err(
         `Error:Fatal:Illegal command received : ${cmd}, payload : ${payload}`
       );
@@ -219,19 +225,17 @@ class Download extends Module {
     }
 
     // 尝试调用 provider 进行移除
-    const rRes = await this.provider!.remove();
+    const rRes = await this.provider?.remove();
     if (rRes.err) {
       log(
-        `Warning:Can't remove task ${this.stateMachine.id} through provider ${
-          this.meta!.provider
-        } before cancel : ${rRes.val}`
+        `Warning:Can't remove task ${this.stateMachine.id} through provider ${this.meta?.provider} before cancel : ${rRes.val}`
       );
     }
 
     // 尝试删除已下载的文件
     const targetPosition = path.join(
-      this.meta!.params.dir,
-      this.meta!.params.fileName
+      this.meta?.params.dir,
+      this.meta?.params.fileName
     );
     if (!del(targetPosition)) {
       log(
@@ -253,11 +257,9 @@ class Download extends Module {
     const { type } = this.stateMachine.state;
     if (type == "downloading") {
       // 检查 provider 是否支持暂停
-      if (!this.provider!.allowPause) {
+      if (!this.provider?.allowPause) {
         return new Err(
-          `Error:Fatal:Task ${this.stateMachine.id}'s provider ${
-            this.meta!.provider
-          } doesn't support pause`
+          `Error:Fatal:Task ${this.stateMachine.id}'s provider ${this.meta?.provider} doesn't support pause`
         );
       }
 
@@ -265,7 +267,7 @@ class Download extends Module {
       this.stateMachine.toPaused(type);
 
       // 请求 provider 进行暂停
-      const pRes = await this.provider!.pause();
+      const pRes = await this.provider?.pause();
 
       // 处理暂停出错
       if (pRes.err) {
@@ -293,11 +295,9 @@ class Download extends Module {
       | "queuing";
     if (fromType == "downloading") {
       // 检查 provider 是否支持暂停
-      if (!this.provider!.allowPause) {
+      if (!this.provider?.allowPause) {
         return new Err(
-          `Error:Fatal:Task ${this.stateMachine.id}'s provider ${
-            this.meta!.provider
-          } doesn't support pause`
+          `Error:Fatal:Task ${this.stateMachine.id}'s provider ${this.meta?.provider} doesn't support pause`
         );
       }
 
@@ -316,7 +316,7 @@ class Download extends Module {
         }
 
         // 请求 provider 继续
-        const cRes = await this.provider!.continue();
+        const cRes = await this.provider?.continue();
 
         // 处理继续出错
         if (cRes.err) {

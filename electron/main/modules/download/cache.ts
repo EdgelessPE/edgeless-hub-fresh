@@ -41,4 +41,4 @@ async function existUsableFile(
   return true;
 }
 
-export { existUsableFile };
+export { existUsableFile, getFileSize };

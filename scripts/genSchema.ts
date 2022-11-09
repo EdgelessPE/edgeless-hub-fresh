@@ -1,6 +1,9 @@
+// eslint-disable-next-line @typescript-eslint/no-var-requires
 const tsj = require("ts-json-schema-generator");
+// eslint-disable-next-line @typescript-eslint/no-var-requires
 const fs = require("fs");
-const cp = require("child_process");
+// eslint-disable-next-line @typescript-eslint/no-var-requires
+const prettier = require("prettier");
 
 interface NaiveAjvConfig {
   path: string;
@@ -40,14 +43,14 @@ function main() {
     };
     const schema = tsj.createGenerator(config).createSchema(config.type);
     const schemaString = JSON.stringify(schema, null, 2);
-    const finalString = `const schema = ${schemaString}; \n export default schema;`;
+    const finalString = prettier.format(
+      `const schema = ${schemaString}; \n export default schema;`,
+      { parser: "babel" }
+    );
     fs.writeFile(outputPath, finalString, (err: unknown) => {
       if (err) throw err;
     });
   }
-
-  console.log(`Formatting code...`);
-  cp.execSync("yarn fmt");
 }
 
 main();

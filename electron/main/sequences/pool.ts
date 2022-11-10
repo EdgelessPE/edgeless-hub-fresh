@@ -20,12 +20,12 @@ interface IPool {
   multi: Map<string, IPoolNode[]>;
 }
 
-let multiSequenceCount = 0;
-
 const Pool: IPool = {
   single: new Map(),
   multi: new Map(),
 };
+
+let multiSequenceCount = 0;
 
 function getSingleSequenceEntry(key: string): Option<IPoolNode> {
   const entry = Pool.single.get(key);
@@ -33,29 +33,6 @@ function getSingleSequenceEntry(key: string): Option<IPoolNode> {
     return new Some(entry);
   } else {
     return None;
-  }
-}
-
-function getMultiSequencesEntries(key: string): IPoolNode[] {
-  const entry = Pool.multi.get(key);
-  if (entry != null) {
-    return entry;
-  } else {
-    const emptyEntry = [];
-    Pool.multi.set(key, emptyEntry);
-    return emptyEntry;
-  }
-}
-
-function getMultiSequenceEntry(key: string, id: string): Option<IPoolNode> {
-  const entryFindRes = getMultiSequencesEntries(key).find(
-    (value) => value.id == id
-  );
-
-  if (entryFindRes == null) {
-    return None;
-  } else {
-    return new Some(entryFindRes);
   }
 }
 
@@ -121,6 +98,29 @@ async function resetSingleSequenceEntry(
   return prepareSingleSequenceEntry(key, finalUserInput);
 }
 
+function getMultiSequencesEntries(key: string): IPoolNode[] {
+  const entry = Pool.multi.get(key);
+  if (entry != null) {
+    return entry;
+  } else {
+    const emptyEntry = [];
+    Pool.multi.set(key, emptyEntry);
+    return emptyEntry;
+  }
+}
+
+function getMultiSequenceEntry(key: string, id: string): Option<IPoolNode> {
+  const entryFindRes = getMultiSequencesEntries(key).find(
+    (value) => value.id == id
+  );
+
+  if (entryFindRes == null) {
+    return None;
+  } else {
+    return new Some(entryFindRes);
+  }
+}
+
 /**
  * 添加多条序列
  * @param key 序列所在集合键值
@@ -132,7 +132,7 @@ function addMultiSequence(
   key: string,
   userInput: unknown,
   replaceId?: string
-): string {
+): IPoolNode {
   const sequenceConstitutor = SEQUENCE_MULTI_SEQUENCE_CONSTITUTOR_MAP[key];
   if (sequenceConstitutor == null) {
     log(`Error:Fatal:Sequence ${key} constructor not registered!`);
@@ -153,7 +153,7 @@ function addMultiSequence(
 
   getMultiSequencesEntries(key).push(entry);
 
-  return id;
+  return entry;
 }
 
 function removeMultiSequence(key: string, id: string) {
@@ -175,7 +175,7 @@ async function resetMultiSequence(
   key: string,
   id: string,
   userInput?: unknown
-): Promise<string> {
+): Promise<IPoolNode> {
   let finalUserInput: unknown = userInput;
 
   const entryOpt = getMultiSequenceEntry(key, id);

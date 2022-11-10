@@ -1,4 +1,4 @@
-import { Observable, Observer, Subject } from "rxjs";
+import { Observable, Subject } from "rxjs";
 import { Err, Ok } from "ts-results";
 import { Res } from "../type";
 import { Module } from "../modules/Module";
@@ -168,13 +168,16 @@ class Sequence {
     return this.start();
   }
 
-  getCurrentObservable(
-    observer: Observer<Current | null>
-  ): Observable<Current | null> {
+  getCurrent() {
+    return this.current;
+  }
+
+  getCurrentObservable(): Observable<Current | null> {
+    this.currentSubject.unsubscribe();
     return new Observable<Current | null>((subscriber) => {
       this.currentSubject.subscribe(subscriber);
     });
   }
 }
 
-export { Sequence };
+export { Sequence, SeqNode, Current };

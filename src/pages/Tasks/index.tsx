@@ -4,7 +4,8 @@ import { TabRunning, TabRunningProps } from "@/pages/Tasks/TabRunning";
 import { TabUpgradable, TabUpgradableProps } from "@/pages/Tasks/TabUpgradable";
 import { TabInstalled, TabInstalledProps } from "@/pages/Tasks/TabInstalled";
 import React, { useState } from "react";
-import { createTask } from "@/services/download";
+import { addMultiSequence } from "@/services/sequence";
+import { SEQUENCE_MULTI_KEYS } from "../../../electron/main/sequences/constants";
 
 export const Tasks = () => {
   const [p, setP] = useState(0);
@@ -15,12 +16,17 @@ export const Tasks = () => {
   // }, []);
 
   const down = async () => {
-    const idRes = await createTask(
-      "https://pineapple.edgeless.top/disk/插件包/实用工具/禁用小键盘_1.0.0.0_Cno.7z",
-      "禁用小键盘_1.0.0.0_Cno.7z",
-      140
-    );
-    console.log(idRes);
+    // const idRes = await createTask(
+    //   "https://pineapple.edgeless.top/disk/插件包/实用工具/禁用小键盘_1.0.0.0_Cno.7z",
+    //   "禁用小键盘_1.0.0.0_Cno.7z",
+    //   140
+    // );
+    // console.log(idRes);
+    await addMultiSequence(SEQUENCE_MULTI_KEYS.ept.addPackage, {
+      url: "https://pineapple.edgeless.top/disk/插件包/实用工具/禁用小键盘_1.0.0.0_Cno.7z",
+      fileName: "禁用小键盘_1.0.0.0_Cno.7z",
+      totalSize: 140,
+    });
   };
 
   const running: TabRunningProps["array"] = [

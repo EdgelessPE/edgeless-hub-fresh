@@ -229,4 +229,5 @@ export {
   viewMultiSequences,
   addMultiSequence,
   removeMultiSequence,
+  resetMultiSequence,
 };

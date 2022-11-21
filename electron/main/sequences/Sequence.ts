@@ -71,7 +71,7 @@ class Sequence {
       const moduleInstance: Module = new seqNode.moduleConstructor(inputParams);
       this.moduleInstance = moduleInstance;
 
-      // 重置 current
+      // 不通知监听器地重置 current
       this.current = null;
 
       // 监听模块状态变更
@@ -108,7 +108,7 @@ class Sequence {
         outputRes = await moduleInstance.start();
       } catch (e) {
         const errMsg = JSON.stringify(e);
-        this.current = {
+        this.updateCurrent({
           name: seqNode.name,
           stepIndex,
           state: {
@@ -116,7 +116,7 @@ class Sequence {
             payload: errMsg,
           },
           allowedCommands: [],
-        };
+        });
         return new Err(
           `Error:Module ${this.current.name} thrown with error : ${errMsg}`
         );

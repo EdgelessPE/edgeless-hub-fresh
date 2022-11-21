@@ -1,4 +1,3 @@
-import { Observable, Subject } from "rxjs";
 import { Err, Ok } from "ts-results";
 import { Res } from "../type";
 import { Module } from "../modules/Module";
@@ -22,11 +21,13 @@ interface State {
   payload: unknown;
 }
 
+type Listener = (cur: Current) => void;
+
 class Sequence {
   private readonly seq: SeqNode[]; // 序列构造输入
   private readonly userInput: unknown; // 用户输入
   private current: Current | null; // 当前状态信息
-  private currentSubject: Subject<Current | null>; // 用于通知上层当前状态信息
+  private currentListeners: Listener[]; // 当前状态信息的上层监听器
   private moduleInstance: Module | null; // 当前步骤所使用的模块实例
   private prevOutput: unknown; // 存放上一模块输出
 
@@ -34,7 +35,7 @@ class Sequence {
     this.seq = seq;
     this.userInput = userInput;
     this.current = null;
-    this.currentSubject = new Subject<Current | null>();
+    this.currentListeners = [];
     this.moduleInstance = null;
     this.prevOutput = null;
   }
@@ -90,8 +91,7 @@ class Sequence {
           },
           allowedCommands,
         };
-        this.current = current;
-        this.currentSubject.next(current);
+        this.updateCurrent(current);
         log(`Debug:Update sequence current state : ${JSON.stringify(current)}`);
       });
 
@@ -168,15 +168,23 @@ class Sequence {
     return this.start();
   }
 
+  private updateCurrent(cur: Current) {
+    this.current = cur;
+    this.currentListeners.forEach((listener) => {
+      listener(cur);
+    });
+  }
+
   getCurrent() {
     return this.current;
   }
 
-  getCurrentObservable(): Observable<Current | null> {
-    this.currentSubject.unsubscribe();
-    return new Observable<Current | null>((subscriber) => {
-      this.currentSubject.subscribe(subscriber);
-    });
+  listenCurrent(listener: Listener) {
+    this.currentListeners.push(listener);
+  }
+
+  removeListeners() {
+    this.currentListeners = [];
   }
 }
 

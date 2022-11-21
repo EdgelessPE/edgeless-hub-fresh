@@ -4,8 +4,7 @@ import { TabRunning, TabRunningProps } from "@/pages/Tasks/TabRunning";
 import { TabUpgradable, TabUpgradableProps } from "@/pages/Tasks/TabUpgradable";
 import { TabInstalled, TabInstalledProps } from "@/pages/Tasks/TabInstalled";
 import React, { useState } from "react";
-import { addMultiSequence } from "@/services/sequence";
-import { SEQUENCE_MULTI_KEYS } from "../../../electron/main/sequences/constants";
+import { addMultiSequence, SEQUENCE_MULTI_KEYS } from "@/services/sequence";
 
 export const Tasks = () => {
   const [p, setP] = useState(0);

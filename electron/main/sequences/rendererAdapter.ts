@@ -36,11 +36,13 @@ function adapter(
     return {
       id: entry.id,
       stepNames: entry.params.seq.map((seq) => seq.name),
-      current: {
-        name: current.name,
-        state: current.state,
-        allowedCommands: current.allowedCommands,
-      },
+      current: current
+        ? {
+            name: current.name,
+            state: current.state,
+            allowedCommands: current.allowedCommands,
+          }
+        : null,
     };
   } else {
     const { cache, current } = patch;
@@ -169,9 +171,15 @@ function viewMultiSequences(key: string): Observable<RendererSequence[]> {
  */
 function addMultiSequence(key: string, userInput?: unknown) {
   const entry = addMultiSequencePoolEntry(key, userInput);
+
+  const pool = getMSCache(key);
+  pool.push(adapter(entry));
+  setMSCache(key, pool);
+
   entry.sequence.listenCurrent((current) => {
     patchMultiSequencesView(key, entry, current);
   });
+
   // 启动序列
   entry.sequence.start().then((res) => {
     if (res.err) {
@@ -182,10 +190,6 @@ function addMultiSequence(key: string, userInput?: unknown) {
       log(`Info:Sequence ${entry.id} at ${key} executed successfully`);
     }
   });
-
-  const pool = getMSCache(key);
-  pool.push(adapter(entry));
-  setMSCache(key, pool);
 }
 
 function removeMultiSequence(key: string, id: string) {

@@ -47,7 +47,11 @@ class Sequence {
   async start(): Promise<Res<unknown>> {
     // 计算开始时的序列断点
     let stepIndex = this.current?.stepIndex ?? 0;
-    log(`Info:Start sequence from seq index ${stepIndex}/${this.seq.length}`);
+    log(
+      `Info:Start sequence from seq index ${stepIndex}/${
+        this.seq.length
+      } with userInput : ${JSON.stringify(this.userInput)}`
+    );
 
     // 迭代序列节点
     for (; stepIndex < this.seq.length; stepIndex++) {
@@ -56,9 +60,9 @@ class Sequence {
       // 生成模块入参
       const inputParams = seqNode.inputAdapter(this.userInput, this.prevOutput);
       log(
-        `Debug:Prepare step ${
+        `Debug:Prepare step "${
           seqNode.name
-        } at index ${stepIndex} with input params = ${JSON.stringify(
+        }" at index ${stepIndex} with input params = ${JSON.stringify(
           inputParams
         )}`
       );
@@ -66,6 +70,9 @@ class Sequence {
       // 实例化模块
       const moduleInstance: Module = new seqNode.moduleConstructor(inputParams);
       this.moduleInstance = moduleInstance;
+
+      // 重置 current
+      this.current = null;
 
       // 监听模块状态变更
       moduleInstance.listen((type, payload, allowedCommands) => {
@@ -96,7 +103,24 @@ class Sequence {
       });
 
       // 开始执行模块
-      const outputRes = await moduleInstance.start();
+      let outputRes: any;
+      try {
+        outputRes = await moduleInstance.start();
+      } catch (e) {
+        const errMsg = JSON.stringify(e);
+        this.current = {
+          name: seqNode.name,
+          stepIndex,
+          state: {
+            type: "error",
+            payload: errMsg,
+          },
+          allowedCommands: [],
+        };
+        return new Err(
+          `Error:Module ${this.current.name} thrown with error : ${errMsg}`
+        );
+      }
 
       // 判断模块终态
       const finalType = this.current.state.type;
@@ -175,7 +199,7 @@ class Sequence {
     });
   }
 
-  getCurrent() {
+  getCurrent(): Current | null {
     return this.current;
   }
 

@@ -56,9 +56,8 @@ class InstallPackage extends Module {
     }
     const targetDir = path.dirname(targetFilePath);
     if (!fs.existsSync(targetDir)) {
-      const msg = `Error:Fatal:Target dir not exist : ${targetDir}`;
-      this.stateMachine.toError(msg);
-      return new Err(msg);
+      log(`Info:Target dir ${targetDir} not exist, mkdir`);
+      fs.mkdirSync(targetDir, { recursive: true });
     }
     // TODO:检查目标驱动器剩余空间
 

@@ -27,7 +27,7 @@ const Pool: IPool = {
 
 let multiSequenceCount = 0;
 
-function getSingleSequenceEntry(key: string): Option<IPoolNode> {
+function getSingleSequencePoolEntry(key: string): Option<IPoolNode> {
   const entry = Pool.single.get(key);
   if (entry != null) {
     return new Some(entry);
@@ -37,15 +37,15 @@ function getSingleSequenceEntry(key: string): Option<IPoolNode> {
 }
 
 /**
- * 使单一序列存在入口，返回现有入口或新建入口并返回
+ * 使单行序列存在入口，返回现有入口或新建入口并返回
  * @param key 单一序列键值
  * @param userInput 用户输入
  */
-function prepareSingleSequenceEntry(
+function prepareSingleSequencePoolEntry(
   key: string,
-  userInput: unknown
+  userInput?: unknown
 ): IPoolNode {
-  const entryOpt = getSingleSequenceEntry(key);
+  const entryOpt = getSingleSequencePoolEntry(key);
   if (entryOpt.some) {
     return entryOpt.unwrap();
   } else {
@@ -71,13 +71,13 @@ function prepareSingleSequenceEntry(
   }
 }
 
-async function resetSingleSequenceEntry(
+async function resetSingleSequencePoolEntry(
   key: string,
   userInput?: unknown
 ): Promise<IPoolNode> {
   let finalUserInput: unknown = userInput;
 
-  const oldEntryOpt = getSingleSequenceEntry(key);
+  const oldEntryOpt = getSingleSequencePoolEntry(key);
   if (oldEntryOpt.some) {
     const entry = oldEntryOpt.unwrap();
 
@@ -95,10 +95,10 @@ async function resetSingleSequenceEntry(
 
   // 重置序列
   Pool.single.set(key, null);
-  return prepareSingleSequenceEntry(key, finalUserInput);
+  return prepareSingleSequencePoolEntry(key, finalUserInput);
 }
 
-function getMultiSequencesEntries(key: string): IPoolNode[] {
+function getMultiSequencesPoolEntries(key: string): IPoolNode[] {
   const entry = Pool.multi.get(key);
   if (entry != null) {
     return entry;
@@ -109,8 +109,8 @@ function getMultiSequencesEntries(key: string): IPoolNode[] {
   }
 }
 
-function getMultiSequenceEntry(key: string, id: string): Option<IPoolNode> {
-  const entryFindRes = getMultiSequencesEntries(key).find(
+function getMultiSequencePoolEntry(key: string, id: string): Option<IPoolNode> {
+  const entryFindRes = getMultiSequencesPoolEntries(key).find(
     (value) => value.id == id
   );
 
@@ -122,15 +122,15 @@ function getMultiSequenceEntry(key: string, id: string): Option<IPoolNode> {
 }
 
 /**
- * 添加多条序列
+ * 添加一条并行序列
  * @param key 序列所在集合键值
  * @param userInput 用户输入
  * @param replaceId 如果是重置序列则传入将被复用的 id
  * @return 序列id
  */
-function addMultiSequence(
+function addMultiSequencePoolEntry(
   key: string,
-  userInput: unknown,
+  userInput?: unknown,
   replaceId?: string
 ): IPoolNode {
   const sequenceConstitutor = SEQUENCE_MULTI_SEQUENCE_CONSTITUTOR_MAP[key];
@@ -151,15 +151,23 @@ function addMultiSequence(
     sequence,
   };
 
-  getMultiSequencesEntries(key).push(entry);
+  getMultiSequencesPoolEntries(key).push(entry);
 
   return entry;
 }
 
-function removeMultiSequence(key: string, id: string) {
-  const entries = getMultiSequencesEntries(key);
+function removeMultiSequencePoolEntry(key: string, id: string) {
+  const entries = getMultiSequencesPoolEntries(key);
   const findRes = entries.find((value, index) => {
     if (value.id == id) {
+      value.sequence.removeListeners();
+      value.sequence.cancel().then((res) => {
+        if (res.err) {
+          log(
+            `Warning:Can't cancel sequence ${id} at ${key} before remove : ${res.val}`
+          );
+        }
+      });
       entries.splice(index, 1);
       return true;
     }
@@ -171,36 +179,39 @@ function removeMultiSequence(key: string, id: string) {
   }
 }
 
-async function resetMultiSequence(
+async function resetMultiSequencePoolEntry(
   key: string,
   id: string,
   userInput?: unknown
 ): Promise<IPoolNode> {
   let finalUserInput: unknown = userInput;
 
-  const entryOpt = getMultiSequenceEntry(key, id);
+  const entryOpt = getMultiSequencePoolEntry(key, id);
   if (entryOpt.some) {
     const entry = entryOpt.unwrap();
     const cRes = await entry.sequence.cancel();
     if (cRes.err) {
-      log(`Warning:Can't cancel sequence ${key} before reset : ${cRes.val}`);
+      log(
+        `Warning:Can't cancel sequence ${id} at ${key} before reset : ${cRes.val}`
+      );
     }
-    removeMultiSequence(key, id);
+    removeMultiSequencePoolEntry(key, id);
     if (finalUserInput === undefined) {
       finalUserInput = entry.params.userInput;
     }
   }
 
-  return addMultiSequence(key, finalUserInput, id);
+  return addMultiSequencePoolEntry(key, finalUserInput, id);
 }
 
 export {
-  getSingleSequenceEntry,
-  prepareSingleSequenceEntry,
-  resetSingleSequenceEntry,
-  getMultiSequencesEntries,
-  getMultiSequenceEntry,
-  addMultiSequence,
-  removeMultiSequence,
-  resetMultiSequence,
+  getSingleSequencePoolEntry,
+  prepareSingleSequencePoolEntry,
+  resetSingleSequencePoolEntry,
+  getMultiSequencesPoolEntries,
+  getMultiSequencePoolEntry,
+  addMultiSequencePoolEntry,
+  removeMultiSequencePoolEntry,
+  resetMultiSequencePoolEntry,
+  IPoolNode,
 };

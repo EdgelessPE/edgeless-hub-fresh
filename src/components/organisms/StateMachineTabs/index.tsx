@@ -16,15 +16,17 @@ function getNextState<State extends string>(
     if (!allowBranch && node.isBranch) continue;
     if (node.state == current.state) {
       const nextNode = states[i + 1];
-      if (nextNode.isBranch) return getNextState(states, nextNode, true);
-      else
+      if (nextNode.isBranch) {
+        return getNextState(states, nextNode, true);
+      } else {
         return {
           state: nextNode.state,
           step: nextNode.step,
         };
+      }
     }
   }
-  console.error(`Fatal:Shouldn't receive state ${current.state}`);
+  log(`Error:Fatal:Shouldn't receive state ${current.state}`);
   return { state: current.state, step: current.step };
 }
 
@@ -83,7 +85,7 @@ export function StateMachineTabs<State extends string>({
       {alertContent ?? <></>}
       {showTabsHeader && (
         <Steps current={currentState.step} className="smt__steps">
-          {steps.map((title, index) => {
+          {steps.map((title) => {
             const stepStatue =
               thrown || currentState.step == 0 ? "wait" : undefined;
             return <Steps.Step key={title} title={title} status={stepStatue} />;

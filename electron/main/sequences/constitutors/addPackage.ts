@@ -19,11 +19,18 @@ function addPackage(): SeqNode[] {
     },
     {
       name: "install",
-      inputAdapter: (userInput, prevReturned: string): InstallPackageParams => {
+      inputAdapter: (
+        userInput,
+        downloadedFilePath: string
+      ): InstallPackageParams => {
         const cfg = getTempConfig();
-        const targetFilePath = path.join(cfg.flashDisk, FLASH_DISK_PACKAGE);
+        const targetFilePath = path.join(
+          cfg.flashDisk,
+          FLASH_DISK_PACKAGE,
+          path.basename(downloadedFilePath)
+        );
         return {
-          sourceFilePath: prevReturned,
+          sourceFilePath: downloadedFilePath,
           targetFilePath,
         };
       },

@@ -11,6 +11,14 @@ import {
 import { Err, Ok, Result } from "ts-results";
 import { InitError } from "../../../../types";
 import { closeWindow, restartWindow, toggleDevTool } from "../../index";
+import {
+  addMultiSequence,
+  hasActiveSingleSequence,
+  removeMultiSequence,
+  resetMultiSequence,
+  startSingleSequence,
+  viewMultiSequences,
+} from "../../sequences/rendererAdapter";
 
 function getMethodRegister(): Record<string, (...args: unknown[]) => unknown> {
   return {
@@ -19,10 +27,18 @@ function getMethodRegister(): Record<string, (...args: unknown[]) => unknown> {
     toggleDevTool,
     innerLog,
     getLocalImageSrc,
+
     setObservableConfig,
     patchObservableConfig,
     modifyObservableConfig,
     resetObservableConfig,
+
+    hasActiveSingleSequence,
+    startSingleSequence,
+    viewMultiSequences,
+    addMultiSequence,
+    removeMultiSequence,
+    resetMultiSequence,
   };
 }
 

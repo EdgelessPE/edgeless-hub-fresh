@@ -1,4 +1,3 @@
-import { Observable, Subject } from "rxjs";
 import { Err, Ok } from "ts-results";
 import { Res } from "../type";
 import { Module } from "../modules/Module";
@@ -22,11 +21,13 @@ interface State {
   payload: unknown;
 }
 
+type Listener = (cur: Current) => void;
+
 class Sequence {
   private readonly seq: SeqNode[]; // 序列构造输入
   private readonly userInput: unknown; // 用户输入
   private current: Current | null; // 当前状态信息
-  private currentSubject: Subject<Current | null>; // 用于通知上层当前状态信息
+  private currentListeners: Listener[]; // 当前状态信息的上层监听器
   private moduleInstance: Module | null; // 当前步骤所使用的模块实例
   private prevOutput: unknown; // 存放上一模块输出
 
@@ -34,7 +35,7 @@ class Sequence {
     this.seq = seq;
     this.userInput = userInput;
     this.current = null;
-    this.currentSubject = new Subject<Current | null>();
+    this.currentListeners = [];
     this.moduleInstance = null;
     this.prevOutput = null;
   }
@@ -46,7 +47,11 @@ class Sequence {
   async start(): Promise<Res<unknown>> {
     // 计算开始时的序列断点
     let stepIndex = this.current?.stepIndex ?? 0;
-    log(`Info:Start sequence from seq index ${stepIndex}/${this.seq.length}`);
+    log(
+      `Info:Start sequence from seq index ${stepIndex}/${
+        this.seq.length
+      } with userInput : ${JSON.stringify(this.userInput)}`
+    );
 
     // 迭代序列节点
     for (; stepIndex < this.seq.length; stepIndex++) {
@@ -55,9 +60,9 @@ class Sequence {
       // 生成模块入参
       const inputParams = seqNode.inputAdapter(this.userInput, this.prevOutput);
       log(
-        `Debug:Prepare step ${
+        `Debug:Prepare step "${
           seqNode.name
-        } at index ${stepIndex} with input params = ${JSON.stringify(
+        }" at index ${stepIndex} with input params = ${JSON.stringify(
           inputParams
         )}`
       );
@@ -65,6 +70,9 @@ class Sequence {
       // 实例化模块
       const moduleInstance: Module = new seqNode.moduleConstructor(inputParams);
       this.moduleInstance = moduleInstance;
+
+      // 不通知监听器地重置 current
+      this.current = null;
 
       // 监听模块状态变更
       moduleInstance.listen((type, payload, allowedCommands) => {
@@ -90,13 +98,29 @@ class Sequence {
           },
           allowedCommands,
         };
-        this.current = current;
-        this.currentSubject.next(current);
+        this.updateCurrent(current);
         log(`Debug:Update sequence current state : ${JSON.stringify(current)}`);
       });
 
       // 开始执行模块
-      const outputRes = await moduleInstance.start();
+      let outputRes: any;
+      try {
+        outputRes = await moduleInstance.start();
+      } catch (e) {
+        const errMsg = JSON.stringify(e);
+        this.updateCurrent({
+          name: seqNode.name,
+          stepIndex,
+          state: {
+            type: "error",
+            payload: errMsg,
+          },
+          allowedCommands: [],
+        });
+        return new Err(
+          `Error:Module ${this.current.name} thrown with error : ${errMsg}`
+        );
+      }
 
       // 判断模块终态
       const finalType = this.current.state.type;
@@ -168,15 +192,23 @@ class Sequence {
     return this.start();
   }
 
-  getCurrent() {
+  private updateCurrent(cur: Current) {
+    this.current = cur;
+    this.currentListeners.forEach((listener) => {
+      listener(cur);
+    });
+  }
+
+  getCurrent(): Current | null {
     return this.current;
   }
 
-  getCurrentObservable(): Observable<Current | null> {
-    this.currentSubject.unsubscribe();
-    return new Observable<Current | null>((subscriber) => {
-      this.currentSubject.subscribe(subscriber);
-    });
+  listenCurrent(listener: Listener) {
+    this.currentListeners.push(listener);
+  }
+
+  removeListeners() {
+    this.currentListeners = [];
   }
 }
 

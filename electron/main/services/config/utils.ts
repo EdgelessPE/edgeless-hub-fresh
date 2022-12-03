@@ -42,6 +42,7 @@ async function read(): Promise<Result<Config, string>> {
 }
 
 function valid(dirty: unknown) {
+  //TODO:校验无法使用 schema 的逻辑
   return validate(dirty, validator, `Error:Can't validate config : {}`);
 }
 

@@ -12,7 +12,6 @@ module.exports = {
   overrides: [
     {
       files: ["electron/**/*.ts", "src/**/*.tsx"],
-      excludedFiles: ["./*.js", "./scripts/*.ts"],
     },
   ],
   parser: "@typescript-eslint/parser",
@@ -22,4 +21,5 @@ module.exports = {
   },
   plugins: ["react", "@typescript-eslint"],
   rules: {},
+  ignorePatterns: ["*.js", "/scripts"]
 };

@@ -18,4 +18,11 @@ interface RendererViewTask {
   integrity?: Integrity;
 }
 
-export { DownloadProviderInfo, RendererViewTask };
+interface DownloadParams {
+  url: string;
+  fileName: string;
+  totalSize: number;
+  integrity?: Integrity;
+}
+
+export { DownloadProviderInfo, RendererViewTask, DownloadParams };

@@ -7,13 +7,14 @@ import {
 import { getTempConfig } from "../../services/config";
 import * as path from "path";
 import { FLASH_DISK_PACKAGE } from "../../constants";
+import { AddPackageUserInput } from "../../../../types/sequencesUserInput";
 
-function addPackage(): SeqNode[] {
+function addPackage(): SeqNode<AddPackageUserInput>[] {
   return [
     {
       name: "download",
-      inputAdapter: (userInput: DownloadParams): DownloadParams => {
-        return userInput;
+      inputAdapter: (userInput): DownloadParams => {
+        return userInput.downloadParams;
       },
       moduleConstructor: Download,
     },

@@ -1,11 +1,13 @@
-import { Err, Ok } from "ts-results";
-import { Res } from "../type";
-import { Module } from "../modules/Module";
-import { log } from "../log";
+import {Err, Ok} from "ts-results";
+import {Res} from "../type";
+import {Module} from "../modules/Module";
+import {log} from "../log";
 
-interface SeqNode {
+// TODO:为每一个步骤增加一个可选的 UserInput Validator
+interface SeqNode<U> {
   name: string;
-  inputAdapter: (userInput: unknown, prevReturned: unknown) => unknown;
+  inputAdapter: (userInput: U, prevReturned: unknown) => unknown;
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   moduleConstructor: any;
 }
 
@@ -23,15 +25,15 @@ interface State {
 
 type Listener = (cur: Current) => void;
 
-class Sequence {
-  private readonly seq: SeqNode[]; // 序列构造输入
-  private readonly userInput: unknown; // 用户输入
+class Sequence<U> {
+  private readonly seq: SeqNode<U>[]; // 序列构造输入
+  private readonly userInput: U; // 用户输入
   private current: Current | null; // 当前状态信息
   private currentListeners: Listener[]; // 当前状态信息的上层监听器
   private moduleInstance: Module | null; // 当前步骤所使用的模块实例
   private prevOutput: unknown; // 存放上一模块输出
 
-  constructor(seq: SeqNode[], userInput: unknown) {
+  constructor(seq: SeqNode<U>[], userInput: U) {
     this.seq = seq;
     this.userInput = userInput;
     this.current = null;
@@ -103,6 +105,7 @@ class Sequence {
       });
 
       // 开始执行模块
+      // eslint-disable-next-line @typescript-eslint/no-explicit-any
       let outputRes: any;
       try {
         outputRes = await moduleInstance.start();

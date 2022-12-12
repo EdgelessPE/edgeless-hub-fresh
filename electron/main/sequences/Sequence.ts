@@ -1,12 +1,12 @@
-import {Err, Ok} from "ts-results";
-import {Res} from "../type";
-import {Module} from "../modules/Module";
-import {log} from "../log";
+import { Err, Ok, Result } from "ts-results";
+import { Res } from "../type";
+import { Module } from "../modules/Module";
+import { log } from "../log";
 
-// TODO:为每一个步骤增加一个可选的 UserInput Validator
 interface SeqNode<U> {
   name: string;
   inputAdapter: (userInput: U, prevReturned: unknown) => unknown;
+  inputValidator?: (userInput: U) => Result<U | undefined, string>;
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   moduleConstructor: any;
 }
@@ -27,7 +27,7 @@ type Listener = (cur: Current) => void;
 
 class Sequence<U> {
   private readonly seq: SeqNode<U>[]; // 序列构造输入
-  private readonly userInput: U; // 用户输入
+  private userInput: U; // 用户输入
   private current: Current | null; // 当前状态信息
   private currentListeners: Listener[]; // 当前状态信息的上层监听器
   private moduleInstance: Module | null; // 当前步骤所使用的模块实例
@@ -47,6 +47,21 @@ class Sequence<U> {
    * @return 最后一个模块的输出
    */
   async start(): Promise<Res<unknown>> {
+    // 执行步骤校验器
+    for (const seqNode of this.seq) {
+      if (seqNode.inputValidator) {
+        const vRes = seqNode.inputValidator(this.userInput);
+        if (vRes.err) {
+          const msg = `Error:Fatal:User input validation failed at step ${seqNode.name} : ${vRes.val}`;
+          log(msg);
+          return new Err(msg);
+        }
+        const r = vRes.unwrap();
+        if (r != null) {
+          this.userInput = r;
+        }
+      }
+    }
     // 计算开始时的序列断点
     let stepIndex = this.current?.stepIndex ?? 0;
     log(
@@ -60,7 +75,16 @@ class Sequence<U> {
       const seqNode = this.seq[stepIndex];
 
       // 生成模块入参
-      const inputParams = seqNode.inputAdapter(this.userInput, this.prevOutput);
+      let inputParams;
+      try {
+        inputParams = seqNode.inputAdapter(this.userInput, this.prevOutput);
+      } catch (e) {
+        return new Err(
+          `Error:Fatal:Can't apply input adapter for step ${
+            seqNode.name
+          } : ${JSON.stringify(e)}`
+        );
+      }
       log(
         `Debug:Prepare step "${
           seqNode.name

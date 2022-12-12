@@ -5,8 +5,8 @@ import { log } from "../log";
 
 interface SeqNode<U> {
   name: string;
-  inputAdapter: (userInput: U, prevReturned: unknown) => unknown;
-  inputValidator?: (userInput: U) => Result<U | undefined, string>;
+  userInputValidator?: (userInput: U) => Result<U | null, string>; // 用户输入校验器和适配器，可以拒绝用户输入或对用户输入进行修改
+  moduleInputAdapter: (userInput: U, prevReturned: unknown) => unknown; // 模块输入适配器，输入用户输入和上一模块的返回内容，输出当前模块需要的入参
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   moduleConstructor: any;
 }
@@ -49,8 +49,8 @@ class Sequence<U> {
   async start(): Promise<Res<unknown>> {
     // 执行步骤校验器
     for (const seqNode of this.seq) {
-      if (seqNode.inputValidator) {
-        const vRes = seqNode.inputValidator(this.userInput);
+      if (seqNode.userInputValidator) {
+        const vRes = seqNode.userInputValidator(this.userInput);
         if (vRes.err) {
           const msg = `Error:Fatal:User input validation failed at step ${seqNode.name} : ${vRes.val}`;
           log(msg);
@@ -77,7 +77,10 @@ class Sequence<U> {
       // 生成模块入参
       let inputParams;
       try {
-        inputParams = seqNode.inputAdapter(this.userInput, this.prevOutput);
+        inputParams = seqNode.moduleInputAdapter(
+          this.userInput,
+          this.prevOutput
+        );
       } catch (e) {
         return new Err(
           `Error:Fatal:Can't apply input adapter for step ${

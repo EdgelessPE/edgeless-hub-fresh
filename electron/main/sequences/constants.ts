@@ -17,12 +17,14 @@ const SEQUENCE_MULTI_KEYS = {
 
 const SEQUENCE_SINGLE_SEQUENCE_CONSTITUTOR_MAP: Record<
   string,
-  () => SeqNode[]
+  () => SeqNode<unknown>[]
 > = {};
-const SEQUENCE_MULTI_SEQUENCE_CONSTITUTOR_MAP: Record<string, () => SeqNode[]> =
-  {
-    _seq_multi_ept_addPackage: addPackage,
-  };
+const SEQUENCE_MULTI_SEQUENCE_CONSTITUTOR_MAP: Record<
+  string,
+  () => SeqNode<unknown>[]
+> = {
+  _seq_multi_ept_addPackage: addPackage,
+};
 
 export {
   SEQUENCE_SINGLE_KEYS,

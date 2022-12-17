@@ -1,8 +1,8 @@
 import { log } from "../log";
 
-import shell from "shelljs";
+import * as shell from "shelljs";
 import * as fs from "fs";
-import path from "path";
+import * as path from "path";
 import { Res } from "../type";
 import { Err, Ok } from "ts-results";
 
@@ -46,6 +46,9 @@ function mkdir(p: string): boolean {
 function move(from: string, to: string): Res<string> {
   if (!fs.existsSync(from)) {
     return new Err(`Error:Can't move ${from} to ${to} : source not exist`);
+  }
+  if (fs.existsSync(to)) {
+    log(`Warning:Move would cover target ${to}`);
   }
   if (isFolderPath(to)) {
     // 自动填充末尾的文件名

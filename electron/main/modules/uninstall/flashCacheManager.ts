@@ -1,17 +1,10 @@
 import * as path from "path";
 import * as fs from "fs";
 import { log } from "../../log";
+import { generateTimestamp } from "./utils";
 
 const regex = /^\.7zf_\d+$/;
 let maintained = false;
-
-/**
- * 生成到 UNIX 纪元开始时间的整数天数
- */
-function generateTimestamp() {
-  const n = Date.now();
-  return Math.floor(n / (1000 * 60 * 60 * 24));
-}
 
 function getOutdatedList(ls: string[], expiryDays: number) {
   const freshTimestamp = generateTimestamp();

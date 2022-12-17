@@ -5,7 +5,8 @@ import * as fs from "fs";
 import { shell } from "electron";
 import { del, mkdir, move } from "../../utils/shell";
 import { maintainFlashCache } from "./flashCacheManager";
-import { parseFlashCacheLocation } from "./utils";
+import { getDisabledFileName, parseFlashCacheLocation } from "./utils";
+import * as path from "path";
 
 interface UninstallPackageParams {
   targetFilePath: string;
@@ -48,7 +49,10 @@ class UninstallPackage extends Module {
         if (!mkdir(flashCacheDir)) {
           return new Err(`Error:Can't mkdir flash cache dir ${flashCacheDir}`);
         }
-        const mRes = move(target, flashCacheDir);
+        const mRes = move(
+          target,
+          path.join(flashCacheDir, getDisabledFileName(path.basename(target)))
+        );
         if (mRes.err) {
           return new Err(
             `Error:Can't move package to flash cache : ${mRes.val}`
@@ -71,7 +75,7 @@ class UninstallPackage extends Module {
           await shell.trashItem(target);
         } catch (e) {
           return new Err(
-            `Error:Can't move package ${target} to system trash : ${JSON.stringify(
+            `Error:Can't move package ${target} to system recycle : ${JSON.stringify(
               e
             )}`
           );
@@ -106,7 +110,7 @@ class UninstallPackage extends Module {
   }
 
   private switchState(state: State, payload: string | null = null) {
-    if (this.listen) {
+    if (this.listener != null) {
       this.listener(state, payload, []);
     }
   }

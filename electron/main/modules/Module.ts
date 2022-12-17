@@ -1,14 +1,14 @@
 import { ARes } from "../type";
 
+type ModuleListener = (
+  type: string,
+  payload: unknown,
+  allowedCommands: string[]
+) => void;
+
 abstract class Module {
   // 接收上层传入的监听器
-  abstract listen(
-    listener: (
-      type: string,
-      payload: unknown,
-      allowedCommands: string[]
-    ) => void
-  ): void;
+  abstract listen(listener: ModuleListener): void;
 
   // 开始执行模块
   abstract start(): ARes<unknown>;
@@ -20,4 +20,4 @@ abstract class Module {
   abstract cancel(): ARes<null>;
 }
 
-export { Module };
+export { Module, ModuleListener };

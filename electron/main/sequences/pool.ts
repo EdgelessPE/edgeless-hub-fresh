@@ -9,10 +9,10 @@ import { log } from "../log";
 interface IPoolNode {
   id: string;
   params: {
-    seq: SeqNode[];
+    seq: SeqNode<unknown>[];
     userInput: unknown;
   };
-  sequence: Sequence;
+  sequence: Sequence<unknown>;
 }
 
 interface IPool {

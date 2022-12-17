@@ -1,11 +1,13 @@
-import { Err, Ok } from "ts-results";
+import { Err, Ok, Result } from "ts-results";
 import { Res } from "../type";
 import { Module } from "../modules/Module";
 import { log } from "../log";
 
-interface SeqNode {
+interface SeqNode<U> {
   name: string;
-  inputAdapter: (userInput: unknown, prevReturned: unknown) => unknown;
+  userInputValidator?: (userInput: U) => Result<U | null, string>; // 用户输入校验器和适配器，可以拒绝用户输入或对用户输入进行修改
+  moduleInputAdapter: (userInput: U, prevReturned: unknown) => unknown; // 模块输入适配器，输入用户输入和上一模块的返回内容，输出当前模块需要的入参
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   moduleConstructor: any;
 }
 
@@ -23,15 +25,15 @@ interface State {
 
 type Listener = (cur: Current) => void;
 
-class Sequence {
-  private readonly seq: SeqNode[]; // 序列构造输入
-  private readonly userInput: unknown; // 用户输入
+class Sequence<U> {
+  private readonly seq: SeqNode<U>[]; // 序列构造输入
+  private userInput: U; // 用户输入
   private current: Current | null; // 当前状态信息
   private currentListeners: Listener[]; // 当前状态信息的上层监听器
   private moduleInstance: Module | null; // 当前步骤所使用的模块实例
   private prevOutput: unknown; // 存放上一模块输出
 
-  constructor(seq: SeqNode[], userInput: unknown) {
+  constructor(seq: SeqNode<U>[], userInput: U) {
     this.seq = seq;
     this.userInput = userInput;
     this.current = null;
@@ -45,6 +47,21 @@ class Sequence {
    * @return 最后一个模块的输出
    */
   async start(): Promise<Res<unknown>> {
+    // 执行步骤校验器
+    for (const seqNode of this.seq) {
+      if (seqNode.userInputValidator) {
+        const vRes = seqNode.userInputValidator(this.userInput);
+        if (vRes.err) {
+          const msg = `Error:Fatal:User input validation failed at step ${seqNode.name} : ${vRes.val}`;
+          log(msg);
+          return new Err(msg);
+        }
+        const r = vRes.unwrap();
+        if (r != null) {
+          this.userInput = r;
+        }
+      }
+    }
     // 计算开始时的序列断点
     let stepIndex = this.current?.stepIndex ?? 0;
     log(
@@ -58,7 +75,19 @@ class Sequence {
       const seqNode = this.seq[stepIndex];
 
       // 生成模块入参
-      const inputParams = seqNode.inputAdapter(this.userInput, this.prevOutput);
+      let inputParams;
+      try {
+        inputParams = seqNode.moduleInputAdapter(
+          this.userInput,
+          this.prevOutput
+        );
+      } catch (e) {
+        return new Err(
+          `Error:Fatal:Can't apply input adapter for step ${
+            seqNode.name
+          } : ${JSON.stringify(e)}`
+        );
+      }
       log(
         `Debug:Prepare step "${
           seqNode.name
@@ -103,6 +132,7 @@ class Sequence {
       });
 
       // 开始执行模块
+      // eslint-disable-next-line @typescript-eslint/no-explicit-any
       let outputRes: any;
       try {
         outputRes = await moduleInstance.start();

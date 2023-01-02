@@ -7,6 +7,9 @@ export interface Config {
       current: string | null;
       pool: Record<string, MirrorLocal>;
     };
+    preferences: {
+      deleteStrategy: "FlashRecycle" | "ForceDelete";
+    };
   };
   theme: Theme;
   download: {

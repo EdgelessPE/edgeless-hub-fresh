@@ -6,6 +6,9 @@ export const initial: Config = {
       current: null,
       pool: {},
     },
+    preferences: {
+      deleteStrategy: "FlashRecycle",
+    },
   },
   theme: "light",
   download: {

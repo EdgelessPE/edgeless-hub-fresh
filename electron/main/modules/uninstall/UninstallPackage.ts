@@ -10,7 +10,7 @@ import * as path from "path";
 
 interface UninstallPackageParams {
   targetFilePath: string;
-  strategy: "FlashRecycle" | "SystemRecycle" | "ForceDelete";
+  strategy: "FlashRecycle" | "ForceDelete" | "SystemRecycle";
 }
 
 type State = "running" | "completed" | "error";

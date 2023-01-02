@@ -5,4 +5,8 @@ interface AddPackageUserInput {
   targetPath?: string; // 支持 目标目录绝对路径 或 目标文件绝对路径
 }
 
-export { AddPackageUserInput };
+interface RemovePackageUserInput {
+  targetPath: string;
+}
+
+export { AddPackageUserInput, RemovePackageUserInput };

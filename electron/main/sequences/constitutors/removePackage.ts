@@ -4,18 +4,17 @@ import {
   UninstallPackage,
   UninstallPackageParams,
 } from "../../modules/uninstall/UninstallPackage";
-import { getTempConfig } from "../../services/config";
 
 function removePackage(): SeqNode<RemovePackageUserInput>[] {
   return [
     {
       name: "uninstall",
-      moduleInputAdapter: (userInput): UninstallPackageParams => {
-        // 从配置中读取移除策略
-        const { deleteStrategy: strategy } = getTempConfig().ept.preferences;
-
+      moduleInputAdapter: ({
+        targetPath: targetFilePath,
+        strategy,
+      }): UninstallPackageParams => {
         return {
-          targetFilePath: userInput.targetPath,
+          targetFilePath,
           strategy,
         };
       },

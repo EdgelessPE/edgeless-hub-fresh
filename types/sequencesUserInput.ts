@@ -7,6 +7,7 @@ interface AddPackageUserInput {
 
 interface RemovePackageUserInput {
   targetPath: string;
+  strategy: "FlashRecycle" | "ForceDelete";
 }
 
 interface UpdatePackageUserInput {

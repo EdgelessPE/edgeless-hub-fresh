@@ -26,7 +26,6 @@ function updatePackage(): SeqNode<UpdatePackageUserInput>[] {
       moduleInputAdapter: (userInput): UninstallPackageParams => {
         // 从配置中读取移除策略
         const { deleteStrategy: strategy } = getTempConfig().ept.preferences;
-
         return {
           targetFilePath: userInput.targetPath,
           strategy,

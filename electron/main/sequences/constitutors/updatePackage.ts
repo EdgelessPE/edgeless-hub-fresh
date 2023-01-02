@@ -15,6 +15,13 @@ import { Download } from "../../modules/download";
 function updatePackage(): SeqNode<UpdatePackageUserInput>[] {
   return [
     {
+      name: "download",
+      moduleInputAdapter: (userInput): DownloadParams => {
+        return userInput.downloadParams;
+      },
+      moduleConstructor: Download,
+    },
+    {
       name: "uninstall",
       moduleInputAdapter: (userInput): UninstallPackageParams => {
         // 从配置中读取移除策略
@@ -28,20 +35,13 @@ function updatePackage(): SeqNode<UpdatePackageUserInput>[] {
       moduleConstructor: UninstallPackage,
     },
     {
-      name: "download",
-      moduleInputAdapter: (userInput): DownloadParams => {
-        return userInput.downloadParams;
-      },
-      moduleConstructor: Download,
-    },
-    {
       name: "install",
       moduleInputAdapter: (
         userInput,
-        prevReturned: string
+        prevReturned: string[]
       ): InstallPackageParams => {
         return {
-          sourceFilePath: prevReturned,
+          sourceFilePath: prevReturned[0],
           targetFilePath: userInput.targetPath,
         };
       },

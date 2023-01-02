@@ -36,8 +36,9 @@ function addPackage(): SeqNode<AddPackageUserInput>[] {
       },
       moduleInputAdapter: (
         userInput,
-        downloadedFilePath: string
+        prevReturned: string[]
       ): InstallPackageParams => {
+        const downloadedFilePath = prevReturned[0];
         const targetFilePath =
           userInput.targetPath ??
           path.join(

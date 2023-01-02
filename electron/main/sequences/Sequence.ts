@@ -6,7 +6,7 @@ import { log } from "../log";
 interface SeqNode<U> {
   name: string;
   userInputValidator?: (userInput: U) => Result<U | null, string>; // 用户输入校验器和适配器，可以拒绝用户输入或对用户输入进行修改
-  moduleInputAdapter: (userInput: U, prevReturned: unknown) => unknown; // 模块输入适配器，输入用户输入和上一模块的返回内容，输出当前模块需要的入参
+  moduleInputAdapter: (userInput: U, prevReturned: unknown[]) => unknown; // 模块输入适配器，输入用户输入和上一模块的返回内容，输出当前模块需要的入参
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   moduleConstructor: any;
 }
@@ -31,7 +31,7 @@ class Sequence<U> {
   private current: Current | null; // 当前状态信息
   private currentListeners: Listener[]; // 当前状态信息的上层监听器
   private moduleInstance: Module | null; // 当前步骤所使用的模块实例
-  private prevOutput: unknown; // 存放上一模块输出
+  private readonly prevOutput: unknown[]; // 存放上一模块输出
 
   constructor(seq: SeqNode<U>[], userInput: U) {
     this.seq = seq;
@@ -39,14 +39,14 @@ class Sequence<U> {
     this.current = null;
     this.currentListeners = [];
     this.moduleInstance = null;
-    this.prevOutput = null;
+    this.prevOutput = [];
   }
 
   /**
    * 开始执行序列
    * @return 最后一个模块的输出
    */
-  async start(): Promise<Res<unknown>> {
+  async start(): Promise<Res<unknown[]>> {
     // 执行步骤校验器
     for (const seqNode of this.seq) {
       if (seqNode.userInputValidator) {
@@ -165,10 +165,11 @@ class Sequence<U> {
         );
       } else if (finalType == "completed") {
         // 继续下一个步骤循环
-        this.prevOutput = outputRes.unwrap();
+        const output = outputRes.unwrap();
+        this.prevOutput.push(output);
         log(
           `Debug:Go to next seq node with previous output = ${JSON.stringify(
-            this.prevOutput
+            output
           )}`
         );
       } else {

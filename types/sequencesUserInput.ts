@@ -9,4 +9,9 @@ interface RemovePackageUserInput {
   targetPath: string;
 }
 
-export { AddPackageUserInput, RemovePackageUserInput };
+interface UpdatePackageUserInput {
+  downloadParams: DownloadParams;
+  targetPath: string;
+}
+
+export { AddPackageUserInput, RemovePackageUserInput, UpdatePackageUserInput };

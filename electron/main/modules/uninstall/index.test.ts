@@ -34,6 +34,7 @@ test("uninstallModule", async () => {
     const ext = path.extname(fileName);
     const base = fileName.substring(0, fileName.length - ext.length);
 
+    // eslint-disable-next-line @typescript-eslint/ban-ts-comment
     // @ts-ignore
     if (strategy == "FlashRecycle") {
       expect(

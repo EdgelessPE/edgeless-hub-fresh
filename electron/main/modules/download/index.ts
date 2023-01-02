@@ -15,7 +15,7 @@ import { Res } from "../../type";
 import { getAllowedCommands, isAllowedCommand } from "./commands";
 import { log } from "../../log";
 import { del } from "../../utils/shell";
-import { DownloadParams } from "../../../../types/download";
+import type { DownloadParams } from "../../../../types/download";
 
 type Listener = (
   type: string,

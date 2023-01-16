@@ -28,6 +28,7 @@ async function bridge<T>(functionName: string, ...args: unknown[]): Promise<T> {
               return this.val;
             } else {
               log(this.val);
+              throw `Bridge_CanBeUnwrapped_Throw`;
             }
           };
           resolve(r as T);

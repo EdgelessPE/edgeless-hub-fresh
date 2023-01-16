@@ -8,32 +8,27 @@ import {
   Tag,
 } from "@arco-design/web-react";
 import { PluginSmartButton } from "@/components/organisms/PluginSmartButton";
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { Webview } from "@/components/organisms/Webview";
 import { SizeAlert } from "@/components/molecules/SizeAlert";
 import { FileNodePackageOnline } from "types/online";
 import { parsePackageName } from "@/utils/parser";
 import { formatSize, formatTimestamp } from "@/utils/formatter";
-
-function getPluginData(
-  category: string,
-  fullName: string
-): FileNodePackageOnline {
-  return {
-    name: fullName,
-    size: 1782050,
-    timestamp: 1658958154,
-  };
-}
+import { getPluginData } from "@/pages/Detail/getPluginData";
 
 export const Detail = () => {
   const { category, fullName } = useParams() as {
     category: string;
     fullName: string;
   };
-  const data = getPluginData(category, fullName);
-  const parsedRes = parsePackageName(data.name);
-  if (parsedRes.err) {
+  const [data, setData] = useState<FileNodePackageOnline | null>(null);
+
+  useEffect(() => {
+    getPluginData(category, fullName).then(setData);
+  }, [category, fullName]);
+
+  const parsedRes = parsePackageName(fullName);
+  if (parsedRes.err || data == null) {
     return <></>;
   }
   const parsed = parsedRes.val;

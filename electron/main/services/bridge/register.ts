@@ -19,6 +19,15 @@ import {
   startSingleSequence,
   viewMultiSequences,
 } from "../../sequences/rendererAdapter";
+import { getAlpha, getHello } from "../ept/cache";
+import { eptInstall } from "../ept";
+import {
+  addMirror,
+  infoMirror,
+  listMirror,
+  removeMirror,
+  setMirror,
+} from "../ept/mirror";
 
 function getMethodRegister(): Record<string, (...args: unknown[]) => unknown> {
   return {
@@ -39,6 +48,15 @@ function getMethodRegister(): Record<string, (...args: unknown[]) => unknown> {
     addMultiSequence,
     removeMultiSequence,
     resetMultiSequence,
+
+    getHello,
+    getAlpha,
+    eptInstall,
+    addMirror,
+    setMirror,
+    removeMirror,
+    infoMirror,
+    listMirror,
   };
 }
 

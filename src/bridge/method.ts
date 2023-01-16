@@ -1,6 +1,8 @@
 import { ipcRenderer } from "electron";
 import { BridgeReply, BridgeRequest } from "../../types/bridge";
 import { createBridgeObservable } from "@/bridge/observable";
+import { canBeUnwrapped } from "@/utils/results";
+import { log } from "@/utils/log";
 
 let taskCount = 0;
 
@@ -18,6 +20,17 @@ async function bridge<T>(functionName: string, ...args: unknown[]): Promise<T> {
           reply.payload.startsWith("_ORV_")
         ) {
           resolve(createBridgeObservable(reply.payload) as unknown as T);
+        } else if (canBeUnwrapped(reply.payload)) {
+          // eslint-disable-next-line @typescript-eslint/no-explicit-any
+          const r = reply.payload as any;
+          r["unwrap"] = function () {
+            if (this.ok) {
+              return this.val;
+            } else {
+              log(this.val);
+            }
+          };
+          resolve(r as T);
         } else {
           resolve(reply.payload as T);
         }

@@ -11,13 +11,13 @@ function initObservableBridge() {
   ipcRenderer.on(
     "_bridge_observable-update",
     (event, value: ObservableBridgeUpdate) => {
-      if (!listenerMap.has(value.key)) {
+      const callback = listenerMap.get(value.key);
+      if (callback == null) {
         // log(
         //   `Warning:Receive unknown observable update : ${JSON.stringify(value)}`
         // );
         return;
       }
-      const callback = listenerMap.get(value.key)!;
       callback(value);
     }
   );

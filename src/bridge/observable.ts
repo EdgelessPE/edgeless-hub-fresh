@@ -12,9 +12,9 @@ function initObservableBridge() {
     "_bridge_observable-update",
     (event, value: ObservableBridgeUpdate) => {
       if (!listenerMap.has(value.key)) {
-        log(
-          `Warning:Receive unknown observable update : ${JSON.stringify(value)}`
-        );
+        // log(
+        //   `Warning:Receive unknown observable update : ${JSON.stringify(value)}`
+        // );
         return;
       }
       const callback = listenerMap.get(value.key)!;

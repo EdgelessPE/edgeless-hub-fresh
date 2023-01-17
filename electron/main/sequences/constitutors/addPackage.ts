@@ -8,8 +8,9 @@ import { getTempConfig } from "../../services/config";
 import * as path from "path";
 import { FLASH_DISK_PACKAGE } from "../../constants";
 import { AddPackageUserInput } from "../../../../types/sequencesUserInput";
-import { Ok } from "ts-results";
+import { Err, Ok } from "ts-results";
 import { installPackageUserInputValidator } from "../../modules/install/userInputValidator";
+import * as fs from "fs";
 
 function addPackage(): SeqNode<AddPackageUserInput>[] {
   return [
@@ -23,12 +24,19 @@ function addPackage(): SeqNode<AddPackageUserInput>[] {
     {
       name: "install",
       userInputValidator: (userInput) => {
+        // 检查 u盘 是否存在
+        const { flashDisk } = getTempConfig();
+        if (flashDisk == null || !fs.existsSync(flashDisk)) {
+          return new Err(`Error:Flash disk(${flashDisk}) not exist`);
+        }
+
         if (userInput.targetPath == null) return new Ok(null);
         const vRes = installPackageUserInputValidator(
           userInput.targetPath,
           userInput.downloadParams.fileName
         );
         if (vRes.err) return vRes;
+
         return new Ok({
           ...userInput,
           targetPath: vRes.unwrap(),

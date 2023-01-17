@@ -9,6 +9,8 @@ import {
   LoadingOutlined,
 } from "@ant-design/icons";
 import { Progress } from "@arco-design/web-react";
+import { eptInstall } from "@/services/ept";
+import { viewMultiSequences } from "@/services/sequence";
 
 function getDownloadingText(percentage: number) {
   return `下载中 ${percentage}%`;
@@ -40,22 +42,28 @@ function renderProgress(
 //TODO:无法下载的情况：
 // 1、fs为只读，在启动盘嗅探时进行读写测试
 // 2、超过3天没有检测到启动盘
-function renderButton(status: TaskStatus, key: string): React.ReactElement {
-  const disabledButtonProps = { disabled: true };
-  const disabledButtonStyle = { color: "gray", cursor: "initial" };
+function renderButton(status: TaskStatus, packageName: string): React.ReactElement {
+  const disabledButtonProps = {disabled: true};
+  const disabledButtonStyle = {color: "gray", cursor: "initial"};
   switch (status.state) {
     case "Available":
       return (
         <ButtonWithIcon
-          key={key}
-          icon={<CloudDownloadOutlined />}
+          key={packageName}
+          icon={<CloudDownloadOutlined/>}
           text="获取"
+          onClick={async () => {
+            const res = await eptInstall(packageName)
+            const key = res.unwrap()
+            const o = await viewMultiSequences(key)
+            o.subscribe(console.log)
+          }}
         />
       );
     case "Pending":
       return (
         <ButtonWithIcon
-          key={key}
+          key={packageName}
           icon={<LoadingOutlined />}
           text="等待中"
           buttonProps={disabledButtonProps}
@@ -64,14 +72,14 @@ function renderButton(status: TaskStatus, key: string): React.ReactElement {
       );
     case "Downloading":
       return renderProgress(
-        key,
+        packageName,
         "normal",
         status.percentage!,
         getDownloadingText
       );
     case "Installing":
       return renderProgress(
-        key,
+        packageName,
         "error",
         status.percentage!,
         getInstallingText
@@ -79,7 +87,7 @@ function renderButton(status: TaskStatus, key: string): React.ReactElement {
     case "Installed":
       return (
         <ButtonWithIcon
-          key={key}
+          key={packageName}
           icon={<CheckOutlined />}
           text="已安装"
           buttonProps={disabledButtonProps}
@@ -88,7 +96,11 @@ function renderButton(status: TaskStatus, key: string): React.ReactElement {
       );
     case "Upgradable":
       return (
-        <ButtonWithIcon key={key} icon={<ArrowUpOutlined />} text="更新" />
+        <ButtonWithIcon
+          key={packageName}
+          icon={<ArrowUpOutlined />}
+          text="更新"
+        />
       );
     default:
       return <></>;
@@ -137,5 +149,5 @@ export const PluginSmartButton = ({
   category: string;
 }) => {
   const status = getPluginTaskStatus(info, category);
-  return renderButton(status, info.name + "_button");
+  return renderButton(status, info.name);
 };

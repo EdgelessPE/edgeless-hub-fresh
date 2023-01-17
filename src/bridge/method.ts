@@ -3,6 +3,7 @@ import { BridgeReply, BridgeRequest } from "../../types/bridge";
 import { createBridgeObservable } from "@/bridge/observable";
 import { canBeUnwrapped } from "@/utils/results";
 import { log } from "@/utils/log";
+import { Message } from "@arco-design/web-react";
 
 let taskCount = 0;
 
@@ -28,6 +29,7 @@ async function bridge<T>(functionName: string, ...args: unknown[]): Promise<T> {
               return this.val;
             } else {
               log(this.val);
+              Message.error(this.val);
               throw `Bridge_CanBeUnwrapped_Throw`;
             }
           };

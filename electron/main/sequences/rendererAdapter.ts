@@ -145,7 +145,7 @@ function viewMultiSequences(key: string): Observable<RendererSequence[]> {
   setMSCache(key, cache);
 
   // 订阅子序列现状更新
-  globalMultiSequencesView.subject.unsubscribe();
+  // globalMultiSequencesView.subject.unsubscribe();
   entries.forEach((entry) => {
     entry.sequence.removeListeners();
     entry.sequence.listenCurrent((cur) => {
@@ -168,6 +168,7 @@ function viewMultiSequences(key: string): Observable<RendererSequence[]> {
  * 新增并行序列
  * @param key 并行序列 key
  * @param userInput 用户输入
+ * @return 并行序列 id
  */
 function addMultiSequence(key: string, userInput?: unknown) {
   const entry = addMultiSequencePoolEntry(key, userInput);
@@ -190,6 +191,8 @@ function addMultiSequence(key: string, userInput?: unknown) {
       log(`Info:Sequence ${entry.id} at ${key} executed successfully`);
     }
   });
+
+  return entry.id;
 }
 
 function removeMultiSequence(key: string, id: string) {

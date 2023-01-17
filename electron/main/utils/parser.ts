@@ -1,6 +1,6 @@
 import { Err, Ok, Result } from "ts-results";
-import { log } from "@/utils/log";
-import { PluginParsedFullName } from "../../types/parsed";
+import { PluginParsedFullName } from "../../../types/parsed";
+import { log } from "../log";
 
 function parsePackageName(
   fullName: string
@@ -36,8 +36,4 @@ function parsePackageName(
   }
 }
 
-function parsePackageUrl(urlRoot: string, category: string, name: string) {
-  return `${urlRoot}/${category}/${name}`;
-}
-
-export { parsePackageUrl, parsePackageName };
+export { parsePackageName };

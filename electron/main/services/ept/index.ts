@@ -3,23 +3,25 @@ import { DownloadParams } from "../../../../types/download";
 import { getHello } from "./cache";
 import { Err, Ok } from "ts-results";
 import * as path from "path";
-import { addMultiSequencePoolEntry, IPoolNode } from "../../sequences/pool";
 import { AddPackageUserInput } from "../../../../types/sequencesUserInput";
+import { log } from "../../log";
+import { parsePackageName } from "../../utils/parser";
+import { addMultiSequence } from "../../sequences/rendererAdapter";
 
 async function eptInstall(
   name: string,
   options?: {
     load?: boolean; // 是否在安装之后加载
   }
-): Promise<Res<IPoolNode>> {
+): Promise<Res<string>> {
   const infoRes = await eptInfo(name);
   if (infoRes.err) return infoRes;
   const userInput: AddPackageUserInput = {
     downloadParams: infoRes.unwrap(),
   };
 
-  const seqInfo = addMultiSequencePoolEntry("addPackage", userInput);
-  return new Ok(seqInfo);
+  const id = addMultiSequence("addPackage", userInput);
+  return new Ok(id);
 }
 
 async function eptInfo(name: string): Promise<Res<DownloadParams>> {
@@ -33,7 +35,14 @@ async function eptInfo(name: string): Promise<Res<DownloadParams>> {
   for (const cate in tree) {
     const list = tree[cate];
     for (const node of list) {
-      if (node.name == name) {
+      const infoRes = parsePackageName(node.name)
+      if (infoRes.err) {
+        log(`Warning:Can't parse ${node.name} for package info`)
+        continue
+      }
+      const info = infoRes.unwrap()
+
+      if (info.name == name) {
         return new Ok({
           fileName: node.name,
           url: path.join(root, cate, node.name),

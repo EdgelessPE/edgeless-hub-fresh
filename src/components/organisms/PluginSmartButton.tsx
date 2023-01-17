@@ -55,8 +55,11 @@ function renderButton(status: TaskStatus, packageName: string): React.ReactEleme
           onClick={async () => {
             const res = await eptInstall(packageName)
             const key = res.unwrap()
-            const o = await viewMultiSequences(key)
-            o.subscribe(console.log)
+            const o = await viewMultiSequences("addPackage")
+            o.subscribe({
+              next: console.log,
+              complete: console.log
+            })
           }}
         />
       );

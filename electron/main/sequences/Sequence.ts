@@ -27,6 +27,7 @@ type Listener = (cur: Current) => void;
 
 class Sequence<U> {
   private readonly seq: SeqNode<U>[]; // 序列构造输入
+  public state: "Pending" | "Running" | "Error" | "Completed"; // 序列状态
   private userInput: U; // 用户输入
   private current: Current | null; // 当前状态信息
   private currentListeners: Listener[]; // 当前状态信息的上层监听器
@@ -35,6 +36,7 @@ class Sequence<U> {
 
   constructor(seq: SeqNode<U>[], userInput: U) {
     this.seq = seq;
+    this.state = "Pending";
     this.userInput = userInput;
     this.current = null;
     this.currentListeners = [];
@@ -54,6 +56,7 @@ class Sequence<U> {
         if (vRes.err) {
           const msg = `Error:Fatal:User input validation failed at step ${seqNode.name} : ${vRes.val}`;
           log(msg);
+          this.state = "Error";
           return new Err(msg);
         }
         const r = vRes.unwrap();
@@ -69,6 +72,7 @@ class Sequence<U> {
         this.seq.length
       } with userInput : ${JSON.stringify(this.userInput)}`
     );
+    this.state = "Running";
 
     // 迭代序列节点
     for (; stepIndex < this.seq.length; stepIndex++) {
@@ -82,6 +86,7 @@ class Sequence<U> {
           this.prevOutput
         );
       } catch (e) {
+        this.state = "Error";
         return new Err(
           `Error:Fatal:Can't apply input adapter for step ${
             seqNode.name
@@ -117,6 +122,11 @@ class Sequence<U> {
           return;
         }
 
+        // 检查是否需要配置序列状态为 Error
+        if (type == "error") {
+          this.state = "Error";
+        }
+
         // 更新 current
         const current = {
           name: seqNode.name,
@@ -138,6 +148,7 @@ class Sequence<U> {
         outputRes = await moduleInstance.start();
       } catch (e) {
         const errMsg = JSON.stringify(e);
+        this.state = "Error";
         this.updateCurrent({
           name: seqNode.name,
           stepIndex,
@@ -156,6 +167,7 @@ class Sequence<U> {
       const finalType = this.current.state.type;
       if (finalType == "error" || outputRes.err) {
         // 立即返回错误
+        this.state = "Error";
         return new Err(
           `Error:Sequence stopped at step ${
             this.current.name
@@ -173,6 +185,7 @@ class Sequence<U> {
           )}`
         );
       } else {
+        this.state = "Error";
         return new Err(
           `Error:Sequence abnormal : module ${
             this.current.name
@@ -181,6 +194,8 @@ class Sequence<U> {
       }
     }
 
+    this.state = "Completed";
+    this.updateCurrent(null);
     return new Ok(this.prevOutput);
   }
 
@@ -223,7 +238,7 @@ class Sequence<U> {
     return this.start();
   }
 
-  private updateCurrent(cur: Current) {
+  private updateCurrent(cur: Current | null) {
     this.current = cur;
     this.currentListeners.forEach((listener) => {
       listener(cur);

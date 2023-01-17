@@ -6,7 +6,7 @@ import {
 } from "./constants";
 import { log } from "../log";
 
-interface IPoolNode {
+export interface IPoolNode {
   id: string;
   params: {
     seq: SeqNode<unknown>[];
@@ -204,7 +204,7 @@ async function resetMultiSequencePoolEntry(
   return addMultiSequencePoolEntry(key, finalUserInput, id);
 }
 
-export {
+export default {
   getSingleSequencePoolEntry,
   prepareSingleSequencePoolEntry,
   resetSingleSequencePoolEntry,
@@ -213,5 +213,4 @@ export {
   addMultiSequencePoolEntry,
   removeMultiSequencePoolEntry,
   resetMultiSequencePoolEntry,
-  IPoolNode,
 };

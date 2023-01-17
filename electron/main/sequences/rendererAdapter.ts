@@ -1,17 +1,19 @@
 import { RendererSequence } from "../../../types/sequence";
-import {
+import type { IPoolNode } from "./pool";
+import Pool from "./pool";
+import { Observable, Subject } from "rxjs";
+import { Current } from "./Sequence";
+import { log } from "../log";
+
+const {
   addMultiSequencePoolEntry,
   getMultiSequencesPoolEntries,
   getSingleSequencePoolEntry,
-  IPoolNode,
   prepareSingleSequencePoolEntry,
   removeMultiSequencePoolEntry,
   resetMultiSequencePoolEntry,
   resetSingleSequencePoolEntry,
-} from "./pool";
-import { Observable, Subject } from "rxjs";
-import { Current } from "./Sequence";
-import { log } from "../log";
+} = Pool;
 
 const globalMultiSequencesView: {
   cache: Record<string, RendererSequence[]>;
@@ -35,6 +37,7 @@ function adapter(
     const current = entry.sequence.getCurrent();
     return {
       id: entry.id,
+      state: entry.sequence.state,
       stepNames: entry.params.seq.map((seq) => seq.name),
       current: current
         ? {
@@ -50,6 +53,7 @@ function adapter(
       id: cache.id,
       stepNames: cache.stepNames,
       current,
+      state: entry.sequence.state,
     };
   }
 }
@@ -105,6 +109,7 @@ function getMSCache(key: string): RendererSequence[] {
 }
 
 function setMSCache(key: string, cache: RendererSequence[]) {
+  // console.log("setMSCache",key,JSON.stringify(cache,null,2))
   globalMultiSequencesView.cache[key] = cache;
   globalMultiSequencesView.subject.next(key);
 }
@@ -155,10 +160,13 @@ function viewMultiSequences(key: string): Observable<RendererSequence[]> {
 
   // 新建一个 Observable
   return new Observable<RendererSequence[]>((subscriber) => {
-    subscriber.next(getMSCache(key));
+    const data = getMSCache(key);
+    subscriber.next(data);
+
     globalMultiSequencesView.subject.subscribe((updated) => {
       if (updated == key) {
-        subscriber.next(getMSCache(key));
+        const data = getMSCache(key);
+        subscriber.next(data);
       }
     });
   });

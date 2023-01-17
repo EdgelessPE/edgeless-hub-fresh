@@ -1,3 +1,5 @@
+import { Sequence } from "../electron/main/sequences/Sequence";
+
 interface RendererSequence {
   id: string;
   stepNames: string[];
@@ -9,6 +11,7 @@ interface RendererSequence {
     };
     allowedCommands: string[];
   };
+  state: Sequence<unknown>["state"];
 }
 
 export { RendererSequence };

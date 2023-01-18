@@ -1,11 +1,8 @@
 import { Menu } from "@arco-design/web-react";
 import React, { useEffect, useState } from "react";
 import { BrowserHistory } from "history";
-import { siderNodes } from "@/constants";
 import { getRouterPath } from "@/router/utils";
-
-const MenuItem = Menu.Item;
-const SubMenu = Menu.SubMenu;
+import { useSiderNodes } from "@/components/layout/useSiderNodes";
 
 interface Prop {
   history: BrowserHistory;
@@ -17,37 +14,6 @@ export interface SiderNode {
   icon?: JSX.Element;
   children?: SiderNode[];
   hide?: boolean;
-}
-
-function renderSiderMenu(input: SiderNode[]): JSX.Element[] {
-  const result: JSX.Element[] = [];
-  for (const node of input) {
-    if (node.hide) continue;
-    if (node.children != null) {
-      const children = renderSiderMenu(node.children);
-      result.push(
-        <SubMenu
-          key={node.path}
-          title={
-            <span className="sider__title">
-              {node.icon}
-              {node.title}
-            </span>
-          }
-        >
-          {children}
-        </SubMenu>
-      );
-    } else {
-      result.push(
-        <MenuItem key={node.path}>
-          {node.icon}
-          {node.title}
-        </MenuItem>
-      );
-    }
-  }
-  return result;
 }
 
 function getCurrentOpenStatus() {
@@ -100,7 +66,7 @@ export const SiderMenu = ({ history }: Prop) => {
         setOpenKeys(openKeys);
       }}
     >
-      {renderSiderMenu(siderNodes)}
+      {useSiderNodes()}
     </Menu>
   );
 };

@@ -5,6 +5,7 @@ import { FileNodePackageOnline } from "types/online";
 import { useParams } from "react-router-dom";
 import { getHello } from "@/services/ept";
 import { log } from "@/utils/log";
+import { SkeletonCard } from "@/pages/Category/SkeletonCard";
 
 function renderPluginCards(
   plugins: FileNodePackageOnline[],
@@ -23,6 +24,14 @@ function renderPluginCards(
     );
   }
   return result;
+}
+
+function renderSkeletonCards(num: number) {
+  const arr: React.ReactNode[] = [];
+  for (let i = 0; i < num; i++) {
+    arr.push(<SkeletonCard key={i} />);
+  }
+  return arr;
 }
 
 function useCategory(category: string): FileNodePackageOnline[] {
@@ -54,6 +63,7 @@ export const Category = () => {
 
   return (
     <div className="category__container">
+      {list.length === 0 && renderSkeletonCards(16)}
       {renderPluginCards(list, params.category)}
     </div>
   );

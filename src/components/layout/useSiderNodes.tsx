@@ -75,7 +75,7 @@ function useSiderNodes() {
           for (const n of siderNodes) {
             if (n.path == "pluginEmpty") {
               n.children = siderNode;
-              n.path = "plugins";
+              n.path = "plugin";
               break;
             }
           }

@@ -18,8 +18,8 @@ export interface SiderNode {
 
 function getCurrentOpenStatus() {
   const s = getRouterPath();
-  if (s.length == 4) {
-    //说明是detail页面，定位至分类
+  if (s.length >= 3) {
+    //说明是category或detail页面，定位至分类
     return {
       sub: ["plugin"],
       keys: [`plugin/category/${s[2]}`],

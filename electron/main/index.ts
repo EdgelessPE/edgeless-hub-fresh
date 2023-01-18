@@ -5,6 +5,7 @@ import installExtension, {
   REACT_DEVELOPER_TOOLS,
 } from "electron-devtools-installer";
 import init from "./init";
+import { log } from "./log";
 
 if (release().startsWith("6.1")) app.disableHardwareAcceleration();
 
@@ -68,9 +69,12 @@ app.whenReady().then(async () => {
 
   // 当渲染进程就绪时进行初始化
   ipcMain.on("_init", async (event) => {
-    const initRes = await init(win!.webContents);
+    const initRes = await init(win?.webContents);
     if (initRes.err) {
+      log(`Error:Main process init failed : ${initRes.val}`);
       event.reply("_init-error", initRes.val);
+    } else {
+      event.reply("_init-success");
     }
   });
 });

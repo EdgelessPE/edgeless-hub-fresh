@@ -46,7 +46,6 @@ function useSiderNodes() {
 
   // 异步地对插件包分类打补丁
   useEffect(() => {
-    setTimeout(() => {
       getHello().then((hello) => {
         // 生成分类数组
         const categories: string[] = [];
@@ -82,7 +81,6 @@ function useSiderNodes() {
           return renderSiderMenu(siderNodes);
         });
       });
-    }, 1000);
   }, []);
 
   return node;

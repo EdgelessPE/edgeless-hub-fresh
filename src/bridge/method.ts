@@ -5,9 +5,30 @@ import { canBeUnwrapped } from "@/utils/results";
 import { log } from "@/utils/log";
 import { Message } from "@arco-design/web-react";
 
-let taskCount = 0;
+let taskCount = 0,
+  initFinished = false;
+const waitCallbacks: (() => void)[] = [];
+
+ipcRenderer.on("_init-success", () => {
+  initFinished = true;
+  waitCallbacks.forEach((callback) => {
+    callback();
+  });
+});
+
+// 初始化未完成时 bridge 不可用，因此需要等待主线程通知初始化完成
+async function waitInit(): Promise<void> {
+  if (initFinished) return;
+  else
+    return new Promise((resolve) => {
+      waitCallbacks.push(resolve);
+    });
+}
 
 async function bridge<T>(functionName: string, ...args: unknown[]): Promise<T> {
+  if (!initFinished) {
+    await waitInit();
+  }
   return new Promise((resolve) => {
     // 获取任务id
     const id = taskCount++;

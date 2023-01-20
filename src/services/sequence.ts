@@ -1,20 +1,7 @@
 import bridge from "@/bridge/method";
 import { Observable } from "rxjs";
 import { RendererSequence } from "../../types/sequence";
-
-const SEQUENCE_SINGLE_KEYS = {
-  produce: {
-    burn: "_seq_single_produce_burn",
-    update: "_seq_single_produce_update",
-    alpha: "_seq_single_produce_alpha",
-  },
-};
-
-const SEQUENCE_MULTI_KEYS = {
-  ept: {
-    addPackage: "_seq_multi_ept_addPackage",
-  },
-};
+import { TaskStatus } from "../../types";
 
 async function hasActiveSingleSequence(key: string) {
   return bridge<boolean>("hasActiveSingleSequence", key);
@@ -53,13 +40,19 @@ async function resetMultiSequence(
   return bridge<void>("resetMultiSequence", key, id, userInput);
 }
 
+async function genTaskStatus(
+  msPoolKey: string,
+  cur: RendererSequence["current"]
+): Promise<TaskStatus> {
+  return bridge("genTaskStatus", msPoolKey, cur);
+}
+
 export {
-  SEQUENCE_SINGLE_KEYS,
-  SEQUENCE_MULTI_KEYS,
   hasActiveSingleSequence,
   startSingleSequence,
   viewMultiSequences,
   addMultiSequence,
   removeMultiSequence,
   resetMultiSequence,
+  genTaskStatus,
 };

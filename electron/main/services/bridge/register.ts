@@ -28,6 +28,7 @@ import {
   removeMirror,
   setMirror,
 } from "../ept/mirror";
+import { genTaskStatus } from "../../sequences/adapter";
 
 function getMethodRegister(): Record<string, (...args: unknown[]) => unknown> {
   return {
@@ -48,6 +49,7 @@ function getMethodRegister(): Record<string, (...args: unknown[]) => unknown> {
     addMultiSequence,
     removeMultiSequence,
     resetMultiSequence,
+    genTaskStatus,
 
     getHello,
     getAlpha,

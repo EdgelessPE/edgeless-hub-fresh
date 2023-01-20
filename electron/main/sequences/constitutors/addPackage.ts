@@ -11,6 +11,9 @@ import { AddPackageUserInput } from "../../../../types/sequencesUserInput";
 import { Err, Ok } from "ts-results";
 import { installPackageUserInputValidator } from "../../modules/install/userInputValidator";
 import * as fs from "fs";
+import { RendererSequence } from "../../../../types/sequence";
+import { TaskStatus } from "../../../../types";
+import { TaskProgressNotification } from "../../../../types/module";
 
 function addPackage(): SeqNode<AddPackageUserInput>[] {
   return [
@@ -64,4 +67,22 @@ function addPackage(): SeqNode<AddPackageUserInput>[] {
   ];
 }
 
-export { addPackage };
+function addPackageTaskStatusAdapter(
+  cur: RendererSequence["current"]
+): TaskStatus {
+  const progress = cur.state.payload as TaskProgressNotification;
+  switch (cur.name) {
+    case "download":
+      return {
+        state: "Downloading",
+        percentage: progress.percent,
+      };
+    case "install":
+      return {
+        state: "Installing",
+        percentage: progress.percent,
+      };
+  }
+}
+
+export { addPackage, addPackageTaskStatusAdapter };

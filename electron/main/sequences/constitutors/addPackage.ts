@@ -70,17 +70,27 @@ function addPackage(): SeqNode<AddPackageUserInput>[] {
 function addPackageTaskStatusAdapter(
   cur: RendererSequence["current"]
 ): TaskStatus {
-  const progress = cur.state.payload as TaskProgressNotification;
+  if (cur.state.type == "error") {
+    return {
+      state: "Error",
+    };
+  }
+  const progress = cur.state.payload as TaskProgressNotification | null;
   switch (cur.name) {
     case "download":
+      if (cur.state.type == "queuing") {
+        return {
+          state: "Pending",
+        };
+      }
       return {
         state: "Downloading",
-        percentage: progress.percent,
+        percentage: progress?.percent ?? 100,
       };
     case "install":
       return {
         state: "Installing",
-        percentage: progress.percent,
+        percentage: progress?.percent ?? 100,
       };
   }
 }

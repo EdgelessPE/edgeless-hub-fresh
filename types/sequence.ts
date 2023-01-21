@@ -10,7 +10,7 @@ interface RendererSequence {
       payload: unknown;
     };
     allowedCommands: string[];
-  };
+  } | null;
   state: Sequence<unknown>["state"];
 }
 

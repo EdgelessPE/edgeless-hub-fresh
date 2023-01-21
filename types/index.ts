@@ -10,7 +10,8 @@ type TaskStatus = {
     | "Pending"
     | "Installing"
     | "Installed"
-    | "Upgradable";
+    | "Upgradable"
+    | "Error";
   percentage?: number; // 0-100
 };
 

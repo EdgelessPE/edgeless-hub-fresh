@@ -20,6 +20,9 @@ function getLocationKey(location: PoolLocation) {
 
 // 由操作触发者对任务进行绑定更新
 function bindTask(pluginKey: string, location: PoolLocation) {
+  log(
+    `Info:bind location key:${getLocationKey(location)},plugin key:${pluginKey}`
+  );
   bindMap.set(getLocationKey(location), pluginKey);
 }
 
@@ -58,9 +61,7 @@ async function launchDistributor(msPoolKey: string) {
       });
       const pluginKey = bindMap.get(locationKey);
       if (pluginKey == null) {
-        log(
-          `Error:Fatal:Location key not registered in bind map : ${locationKey}`
-        );
+        log(`Warning:Location key not registered in bind map : ${locationKey}`);
         return;
       }
       const listeners = listenersMap.get(pluginKey);
@@ -68,7 +69,7 @@ async function launchDistributor(msPoolKey: string) {
         // 此时没有渲染监听了此任务的智能按钮，任务在后台运行即可
         return;
       } else {
-        const ts = await genTaskStatus(msPoolKey, node.current);
+        const ts = await genTaskStatus(msPoolKey, node);
         listeners.forEach((listener) => {
           listener(ts);
         });

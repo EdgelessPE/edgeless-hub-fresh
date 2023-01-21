@@ -40,4 +40,8 @@ function parsePackageUrl(urlRoot: string, category: string, name: string) {
   return `${urlRoot}/${category}/${name}`;
 }
 
-export { parsePackageUrl, parsePackageName };
+function getPluginKey(category: string, fullName: string) {
+  return `${category}_${fullName}`;
+}
+
+export { parsePackageUrl, parsePackageName, getPluginKey };

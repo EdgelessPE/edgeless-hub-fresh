@@ -83,7 +83,12 @@ const PluginCard = ({ data, category, showCategory = false }: Prop) => {
       style={showCategory ? { height: "180px" } : { height: "160px" }}
       title={renderTitle(nameInfo.name, nameInfo.isBot, category, data.name)}
       extra={[
-        <PluginSmartButton key="action" info={nameInfo} category={category} />,
+        <PluginSmartButton
+          key="action"
+          info={nameInfo}
+          category={category}
+          fullName={data.name}
+        />,
       ]}
       hoverable
     >

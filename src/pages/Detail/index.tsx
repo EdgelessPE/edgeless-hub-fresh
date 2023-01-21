@@ -39,7 +39,13 @@ export const Detail = () => {
         className="detail__header"
         title={parsed.name}
         subTitle={parsed.isBot && <Tag color="green">自动构建</Tag>}
-        extra={<PluginSmartButton info={parsed} category={category} />}
+        extra={
+          <PluginSmartButton
+            info={parsed}
+            category={category}
+            fullName={data.name}
+          />
+        }
       />
       <div className="detail__divider">
         <Divider style={{ margin: "0" }} />

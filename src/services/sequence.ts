@@ -42,9 +42,9 @@ async function resetMultiSequence(
 
 async function genTaskStatus(
   msPoolKey: string,
-  cur: RendererSequence["current"]
+  seq: RendererSequence
 ): Promise<TaskStatus> {
-  return bridge("genTaskStatus", msPoolKey, cur);
+  return bridge("genTaskStatus", msPoolKey, seq);
 }
 
 export {

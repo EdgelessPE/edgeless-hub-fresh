@@ -61,7 +61,9 @@ async function launchDistributor(msPoolKey: string) {
       });
       const pluginKey = bindMap.get(locationKey);
       if (pluginKey == null) {
-        log(`Warning:Location key not registered in bind map : ${locationKey}`);
+        log(
+          `Warning:Can't distribute sequence node status : location key ${locationKey} not registered in bind map`
+        );
         return;
       }
       const listeners = listenersMap.get(pluginKey);

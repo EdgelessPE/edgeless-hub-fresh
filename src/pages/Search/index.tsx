@@ -6,13 +6,19 @@ import {
 } from "@/pages/Search/searchHandler";
 import PluginCard from "@/pages/Category/PluginCard";
 import { Empty } from "@arco-design/web-react";
+import { updateSubTitle } from "@/services/subTitle";
 
 export const Search = () => {
   const { query } = useParams() as { query: string };
   const [data, setData] = useState<FileNodePackageOnlineWithCategory[]>([]);
 
   useEffect(() => {
-    searchHandler(query).then(setData);
+    searchHandler(query).then((data) => {
+      setData(data);
+      if (data.length > 0) {
+        updateSubTitle(`找到${data.length}个结果`);
+      }
+    });
   }, [query]);
 
   return (

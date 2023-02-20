@@ -6,6 +6,7 @@ import { useParams } from "react-router-dom";
 import { getHello } from "@/services/ept";
 import { log } from "@/utils/log";
 import { renderSkeletonCards } from "@/pages/Category/SkeletonCard";
+import { updateSubTitle } from "@/services/subTitle";
 
 function renderPluginCards(
   plugins: FileNodePackageOnline[],
@@ -52,6 +53,10 @@ function useCategory(category: string): FileNodePackageOnline[] {
 export const Category = () => {
   const params = useParams() as { category: string };
   const list = useCategory(params.category);
+
+  useEffect(() => {
+    updateSubTitle(`${list.length} 个插件包`);
+  }, [list]);
 
   return (
     <div className="category__container">

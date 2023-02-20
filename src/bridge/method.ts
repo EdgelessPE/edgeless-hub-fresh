@@ -15,6 +15,12 @@ ipcRenderer.on("_init-success", () => {
     callback();
   });
 });
+ipcRenderer.on("_init-error", () => {
+  initFinished = true;
+  waitCallbacks.forEach((callback) => {
+    callback();
+  });
+});
 
 // 初始化未完成时 bridge 不可用，因此需要等待主线程通知初始化完成
 async function waitInit(): Promise<void> {

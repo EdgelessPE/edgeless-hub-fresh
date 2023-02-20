@@ -71,7 +71,7 @@ app.whenReady().then(async () => {
   ipcMain.on("_init", async (event) => {
     const initRes = await init(win?.webContents);
     if (initRes.err) {
-      log(`Error:Main process init failed : ${initRes.val}`);
+      log(`Error:Main process init failed : ${JSON.stringify(initRes.val)}`);
       event.reply("_init-error", initRes.val);
     } else {
       event.reply("_init-success");

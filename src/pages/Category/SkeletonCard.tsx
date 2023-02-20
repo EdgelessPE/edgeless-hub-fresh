@@ -9,4 +9,12 @@ const SkeletonCard = () => {
   );
 };
 
-export { SkeletonCard };
+function renderSkeletonCards(num: number) {
+  const arr: React.ReactNode[] = [];
+  for (let i = 0; i < num; i++) {
+    arr.push(<SkeletonCard key={i} />);
+  }
+  return arr;
+}
+
+export { renderSkeletonCards };

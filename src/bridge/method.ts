@@ -8,19 +8,14 @@ import { Message } from "@arco-design/web-react";
 let taskCount = 0,
   initFinished = false;
 const waitCallbacks: (() => void)[] = [];
-
-ipcRenderer.on("_init-success", () => {
+const finishInit = () => {
   initFinished = true;
   waitCallbacks.forEach((callback) => {
     callback();
   });
-});
-ipcRenderer.on("_init-error", () => {
-  initFinished = true;
-  waitCallbacks.forEach((callback) => {
-    callback();
-  });
-});
+};
+ipcRenderer.on("_init-success", finishInit);
+ipcRenderer.on("_init-error", finishInit);
 
 // 初始化未完成时 bridge 不可用，因此需要等待主线程通知初始化完成
 async function waitInit(): Promise<void> {

@@ -1,5 +1,5 @@
 import "./index.scss";
-import { SmileTwoTone } from "@ant-design/icons";
+import { CiCircleOutlined, SmileTwoTone } from "@ant-design/icons";
 import {
   Alert,
   Avatar,
@@ -8,23 +8,69 @@ import {
   List,
   Space,
   Tag,
+  Tooltip,
 } from "@arco-design/web-react";
 import { IconRefresh } from "@arco-design/web-react/icon";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { myHistory } from "@/router/history";
 import { useConfig } from "@/services/config";
 import { getGreeting } from "@/pages/Home/greeting";
+import { getRecommends } from "@/pages/Home/recommends";
+import { parsePackageName } from "@/utils/parser";
 
-const pluginsRecommendation = new Array(5).fill({
-  title: "腾讯会议",
-  description: "1.1.4.0 By Cno（Bot）",
-  link: "/settings",
-});
+interface RecommendationNode {
+  title: React.ReactNode;
+  description: React.ReactNode;
+  link: string;
+}
 
 export const Home = () => {
   const [displayNotice, setDisplayNotice] = useState(false);
   const config = useConfig();
-  console.log(config);
+  const [pluginsRecommendation, setPluginsRecommendation] = useState<
+    RecommendationNode[]
+  >([]);
+
+  const refreshRecommends = () => {
+    getRecommends(5).then((data) => {
+      setPluginsRecommendation(
+        data.map((node) => {
+          const parsed = parsePackageName(node.name).unwrap();
+          return {
+            title: (
+              <Space style={{ width: "100%" }}>
+                {parsed.name}
+                {parsed.isBot && (
+                  <Tooltip
+                    content={
+                      <>
+                        此插件包由{" "}
+                        <a className="category__card__title__bot-link">
+                          Edgeless Bot
+                        </a>{" "}
+                        自动构建
+                      </>
+                    }
+                  >
+                    <CiCircleOutlined className="category__card__tip__ci" />
+                  </Tooltip>
+                )}
+              </Space>
+            ),
+            description: (
+              <Space style={{ width: "100%" }}>
+                <Tag>{node.category}</Tag>
+                <Tag color="gray">{parsed.version}</Tag>
+              </Space>
+            ),
+            link: `/plugin/detail/${node.category}/${node.name}`,
+          };
+        })
+      );
+    });
+  };
+
+  useEffect(refreshRecommends, []);
 
   return (
     <div className="home">
@@ -89,21 +135,23 @@ export const Home = () => {
               return (
                 <List.Item
                   key={index}
-                  actions={[
-                    <Button key="btn" onClick={() => myHistory.push(item.link)}>
-                      查看
-                    </Button>,
-                  ]}
+                  onClick={() => myHistory.push(item.link)}
+                  // actions={[
+                  //   <Button key="btn" onClick={() => myHistory.push(item.link)}>
+                  //     查看
+                  //   </Button>,
+                  // ]}
                 >
                   <List.Item.Meta
                     title={item.title}
                     description={item.description}
+                    style={{ cursor: "pointer" }}
                   />
                 </List.Item>
               );
             }}
           />
-          <Button type="text">
+          <Button type="text" onClick={refreshRecommends}>
             <IconRefresh />
             换一批
           </Button>

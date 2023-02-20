@@ -1,9 +1,5 @@
 import { getHello } from "@/services/ept";
-import { FileNodePackageOnline } from "../../../types/online";
-
-export type FileNodePackageOnlineWithCategory = FileNodePackageOnline & {
-  category: string;
-};
+import { FileNodePackageOnlineWithCategory } from "../../../types/online";
 
 async function searchHandler(
   searchText: string

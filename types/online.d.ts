@@ -7,6 +7,10 @@ interface FileNodePackageOnline {
   integrity?: Integrity;
 }
 
+export type FileNodePackageOnlineWithCategory = FileNodePackageOnline & {
+  category: string;
+};
+
 interface FileNodeOnline {
   name: string;
   version: string;

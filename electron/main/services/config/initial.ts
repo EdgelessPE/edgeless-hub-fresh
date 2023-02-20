@@ -17,4 +17,7 @@ export const initial: Config = {
     maxDownloadingTasks: 3,
   },
   flashDisk: null,
+  preference: {
+    userNick: "User",
+  },
 };

@@ -1,7 +1,6 @@
 import { Result } from "ts-results";
 import { AlphaResponse, HelloResponse } from "../../types/online";
 import bridge from "@/bridge/method";
-import { Res } from "../../electron/main/type";
 
 async function getHello(): Promise<Result<HelloResponse, string>> {
   return bridge("getHello");
@@ -16,7 +15,7 @@ async function eptInstall(
   options?: {
     load?: boolean; // 是否在安装之后加载
   }
-): Promise<Res<string>> {
+): Promise<Result<string, string>> {
   return bridge("eptInstall", name, options);
 }
 

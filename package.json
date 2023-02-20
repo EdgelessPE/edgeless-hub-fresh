@@ -8,7 +8,7 @@
   "scripts": {
     "dev": "vite",
     "prebuild": "yarn gen",
-    "build": "yarn prebuild && tsc && vite build && electron-builder -w",
+    "build": "tsc && vite build && electron-builder -w",
     "build:linux": "yarn prebuild && tsc && vite build && electron-builder -l",
     "fmt": "prettier --write .",
     "gen": "ts-node scripts/genSchema.ts",

@@ -18,4 +18,7 @@ export interface Config {
     maxDownloadingTasks: number;
   };
   flashDisk: string | null;
+  preference: {
+    userNick: string;
+  };
 }

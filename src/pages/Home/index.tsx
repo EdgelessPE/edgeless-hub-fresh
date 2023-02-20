@@ -13,6 +13,7 @@ import { IconRefresh } from "@arco-design/web-react/icon";
 import React, { useState } from "react";
 import { myHistory } from "@/router/history";
 import { useConfig } from "@/services/config";
+import { getGreeting } from "@/pages/Home/greeting";
 
 const pluginsRecommendation = new Array(5).fill({
   title: "腾讯会议",
@@ -51,7 +52,9 @@ export const Home = () => {
           height: displayNotice ? "80%" : "100%",
         }}
       >
-        <h2 className="home__welcome">🛏️夜深了，卡诺记得早睡早起哦！</h2>
+        <h2 className="home__welcome">
+          {config && getGreeting(config.preference.userNick)}
+        </h2>
         <div className="home__status">
           <Avatar size={180} className="home__status__avatar">
             <SmileTwoTone />

@@ -125,8 +125,18 @@ const schema = {
         flashDisk: {
           type: ["string", "null"],
         },
+        preference: {
+          type: "object",
+          properties: {
+            userNick: {
+              type: "string",
+            },
+          },
+          required: ["userNick"],
+          additionalProperties: false,
+        },
       },
-      required: ["ept", "theme", "download", "flashDisk"],
+      required: ["ept", "theme", "download", "flashDisk", "preference"],
       additionalProperties: false,
     },
   },

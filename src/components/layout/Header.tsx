@@ -27,12 +27,6 @@ function renderHeader(
     ) {
       return <DownloadSpeedBadge />;
     }
-    // if (title == "配置") {
-    //   return `当前参考版本：Beta 4.1.0`;
-    // }
-    // if (title == "搜索") {
-    //   return `找到14个相关内容`;
-    // }
 
     return subTitle;
   };

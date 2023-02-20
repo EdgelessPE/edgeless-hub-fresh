@@ -10,7 +10,12 @@ import {
 } from "../config";
 import { Err, Ok, Result } from "ts-results";
 import { InitError } from "../../../../types";
-import { closeWindow, restartWindow, toggleDevTool } from "../../index";
+import {
+  closeWindow,
+  getVersion,
+  restartWindow,
+  toggleDevTool,
+} from "../../index";
 import {
   addMultiSequence,
   hasActiveSingleSequence,
@@ -37,6 +42,7 @@ function getMethodRegister(): Record<string, (...args: unknown[]) => unknown> {
     toggleDevTool,
     innerLog,
     getLocalImageSrc,
+    getVersion,
 
     setObservableConfig,
     patchObservableConfig,

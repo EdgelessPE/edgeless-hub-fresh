@@ -118,3 +118,7 @@ export function restartWindow() {
 export function toggleDevTool() {
   win.webContents.openDevTools();
 }
+
+export function getVersion() {
+  return app.getVersion();
+}

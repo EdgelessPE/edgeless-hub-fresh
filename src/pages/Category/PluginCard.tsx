@@ -1,4 +1,4 @@
-import { Card, Space, Tooltip } from "@arco-design/web-react";
+import { Card, Space, Tooltip, Typography } from "@arco-design/web-react";
 import { CiCircleOutlined } from "@ant-design/icons";
 import { NaiveDescription } from "@/components/molecules/NaiveDescription";
 import React from "react";
@@ -21,7 +21,7 @@ function renderTitle(
   fullName: string
 ): React.ReactElement {
   return (
-    <>
+    <div className="category__title-container">
       <Tooltip
         key={title + "_tooltip-title"}
         content={
@@ -31,14 +31,17 @@ function renderTitle(
           </Space>
         }
       >
-        <b
-          style={{ cursor: "pointer" }}
+        <Typography.Paragraph
+          style={{ cursor: "pointer", marginBottom: "auto" }}
+          ellipsis={{
+            wrapper: "b",
+          }}
           onClick={() =>
             myHistory.push(`/plugin/detail/${category}/${fullName}`)
           }
         >
           {title + " "}
-        </b>
+        </Typography.Paragraph>
       </Tooltip>
       {ci && (
         <Tooltip
@@ -54,7 +57,7 @@ function renderTitle(
           <CiCircleOutlined className="category__card__title__ci" />
         </Tooltip>
       )}
-    </>
+    </div>
   );
 }
 

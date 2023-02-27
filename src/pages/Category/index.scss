@@ -12,6 +12,12 @@ $cardWidth: 250px;
     justify-content: center;
   }
 
+  &title-container {
+    display: flex;
+    align-items: center;
+    gap: 4px;
+  }
+
   &card {
     width: $cardWidth;
     text-align: start;

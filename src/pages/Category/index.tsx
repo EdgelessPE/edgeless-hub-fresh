@@ -7,6 +7,7 @@ import { getHello } from "@/services/ept";
 import { log } from "@/utils/log";
 import { renderSkeletonCards } from "@/pages/Category/SkeletonCard";
 import { updateSubTitle } from "@/services/subTitle";
+import { cmpPinYin } from "@/utils/sort";
 
 function renderPluginCards(
   plugins: FileNodePackageOnline[],
@@ -14,7 +15,7 @@ function renderPluginCards(
   showCategory = false
 ) {
   const result: React.ReactElement[] = [];
-  for (const plugin of plugins) {
+  for (const plugin of plugins.sort((a, b) => cmpPinYin(a.name, b.name))) {
     result.push(
       <PluginCard
         key={plugin.name}

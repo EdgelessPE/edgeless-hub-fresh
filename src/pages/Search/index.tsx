@@ -6,12 +6,15 @@ import { Empty } from "@arco-design/web-react";
 import { updateSubTitle } from "@/services/subTitle";
 import { FileNodePackageOnlineWithCategory } from "../../../types/online";
 import { cmpPinYin } from "@/utils/sort";
+import { scrollTop } from "@/utils/scroll";
 
 export const Search = () => {
   const { query } = useParams() as { query: string };
   const [data, setData] = useState<FileNodePackageOnlineWithCategory[]>([]);
 
   useEffect(() => {
+    scrollTop();
+    setData([]);
     searchHandler(query).then((data) => {
       setData(data);
       if (data.length > 0) {

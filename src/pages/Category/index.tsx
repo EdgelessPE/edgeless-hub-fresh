@@ -8,6 +8,8 @@ import { log } from "@/utils/log";
 import { renderSkeletonCards } from "@/pages/Category/SkeletonCard";
 import { updateSubTitle } from "@/services/subTitle";
 import { cmpPinYin } from "@/utils/sort";
+import { BackTop } from "@arco-design/web-react";
+import { scrollTop } from "@/utils/scroll";
 
 function renderPluginCards(
   plugins: FileNodePackageOnline[],
@@ -32,6 +34,8 @@ function useCategory(category: string): FileNodePackageOnline[] {
   const [packages, setPackages] = useState<FileNodePackageOnline[]>([]);
 
   useEffect(() => {
+    scrollTop();
+    setPackages([]);
     getHello().then((helloRes) => {
       const tree = helloRes.unwrap().plugins?.tree;
       if (tree == null) {
@@ -61,6 +65,13 @@ export const Category = () => {
 
   return (
     <div className="category__container">
+      {/* eslint-disable-next-line @typescript-eslint/ban-ts-comment */}
+      {/*@ts-ignore*/}
+      <BackTop
+        target={() =>
+          document.getElementsByClassName("category__container").item(0)
+        }
+      />
       {list.length === 0 && renderSkeletonCards(16)}
       {renderPluginCards(list, params.category)}
     </div>

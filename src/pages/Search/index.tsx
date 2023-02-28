@@ -7,6 +7,7 @@ import { updateSubTitle } from "@/services/subTitle";
 import { FileNodePackageOnlineWithCategory } from "../../../types/online";
 import { cmpPinYin } from "@/utils/sort";
 import { scrollTop } from "@/utils/scroll";
+import { BackToTop } from "@/pages/Category/BackToTop";
 
 export const Search = () => {
   const { query } = useParams() as { query: string };
@@ -30,6 +31,7 @@ export const Search = () => {
       )}
       {data.length > 0 && (
         <div className="category__container">
+          <BackToTop />
           {data
             .sort((a, b) => cmpPinYin(a.name, b.name))
             .map((info) => (

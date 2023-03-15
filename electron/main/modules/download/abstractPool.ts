@@ -3,6 +3,7 @@ import { log } from "../../log";
 import { MAX_DOWNLOADING_TASKS } from "../../constants";
 import { getTempConfig } from "../../services/config";
 import { AbstractPoolNode, TaskMeta } from "../../../../types/download";
+import { Subject } from "rxjs";
 
 interface QueueNode {
   id: string;
@@ -12,6 +13,8 @@ interface QueueNode {
 const abstractPool: AbstractPoolNode[] = [],
   runningQueue: QueueNode[] = [],
   suspendedQueue: QueueNode[] = [];
+
+const subject = new Subject<AbstractPoolNode[]>();
 
 type TaskType = TaskState["type"];
 
@@ -32,6 +35,8 @@ function updateGlobalTaskState(next?: TaskType, prev?: TaskType) {
   if (prev) {
     globalTaskState[prev] = globalTaskState[prev] - 1;
   }
+
+  // 执行排队调度
   scheduleQueue();
 }
 
@@ -128,6 +133,9 @@ function add(id: string, state: TaskState, meta: TaskMeta) {
     state: state,
     meta,
   });
+
+  // 更新 Observable
+  subject.next(abstractPool);
   updateGlobalTaskState(state.type);
 }
 
@@ -140,6 +148,9 @@ function update(id: string, nextState: TaskState) {
         updateGlobalTaskState(nextType, prevType);
       }
       node.state = nextState;
+
+      // 更新 Observable
+      subject.next(abstractPool);
       return;
     }
   }
@@ -154,6 +165,9 @@ function remove(id: string) {
     if (node.id == id) {
       updateGlobalTaskState(undefined, node.state.type);
       abstractPool.splice(i, 1);
+
+      // 更新 Observable
+      subject.next(abstractPool);
       return;
     }
   }
@@ -162,8 +176,9 @@ function remove(id: string) {
   );
 }
 
-function list() {
-  return abstractPool;
+// 抽象池的可观测对象
+function getAbstractPoolSubject() {
+  return subject;
 }
 
 export default {
@@ -176,4 +191,4 @@ export default {
   cancelQueue,
 };
 
-export { list };
+export { getAbstractPoolSubject };

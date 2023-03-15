@@ -1,8 +1,8 @@
-import bridge from "@/bridge/method";
 import { AbstractPoolNode } from "../../types/download";
+import { useObservable } from "@/bridge/useObservable";
 
-async function listDownloadPool() {
-  return bridge<AbstractPoolNode[]>("listDownloadPool");
+function useAbstractPool() {
+  return useObservable<AbstractPoolNode[]>("downloadAbstractPool", []);
 }
 
-export { listDownloadPool };
+export { useAbstractPool };

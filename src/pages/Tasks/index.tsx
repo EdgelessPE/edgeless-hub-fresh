@@ -5,7 +5,7 @@ import { TabUpgradable, TabUpgradableProps } from "@/pages/Tasks/TabUpgradable";
 import { TabInstalled, TabInstalledProps } from "@/pages/Tasks/TabInstalled";
 import React, { useState } from "react";
 import { addMultiSequence } from "@/services/sequence";
-import { listDownloadPool } from "@/services/downloadPool";
+import { useAbstractPool } from "@/services/downloadPool";
 
 export const Tasks = () => {
   const [p, setP] = useState(0);
@@ -29,9 +29,7 @@ export const Tasks = () => {
     });
   };
 
-  const list = () => {
-    listDownloadPool().then(console.log);
-  };
+  const list = useAbstractPool();
 
   const running: TabRunningProps["array"] = [
       {
@@ -178,7 +176,8 @@ export const Tasks = () => {
 
   return (
     <div className="tasks__container">
-      <Button onClick={list}>下载</Button>
+      <Button onClick={down}>下载</Button>
+      <div>{JSON.stringify(list, null, 2)}</div>
       <Tabs defaultActiveTab="1" className="tasks__tabs">
         <Tabs.TabPane key="1" title={`进行中（${running.length}）`}>
           <TabRunning array={running} />

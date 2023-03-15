@@ -34,7 +34,7 @@ import {
   setMirror,
 } from "../ept/mirror";
 import { genTaskStatus } from "../../sequences/adapter";
-import { list } from "../../modules/download/abstractPool";
+import { getAbstractPoolSubject } from "../../modules/download/abstractPool";
 
 function getMethodRegister(): Record<string, (...args: unknown[]) => unknown> {
   return {
@@ -57,8 +57,6 @@ function getMethodRegister(): Record<string, (...args: unknown[]) => unknown> {
     removeMultiSequence,
     resetMultiSequence,
     genTaskStatus,
-
-    listDownloadPool: list,
 
     getHello,
     getAlpha,
@@ -84,6 +82,9 @@ async function getObservableRegistry(): Promise<
       msg: configRes.val,
     });
   register.config = configRes.unwrap();
+
+  // download abstract pool
+  register.downloadAbstractPool = getAbstractPoolSubject();
 
   return new Ok(register);
 }

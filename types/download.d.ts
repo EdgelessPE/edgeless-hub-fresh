@@ -42,10 +42,15 @@ interface AbstractPoolNode {
   meta: TaskMeta;
 }
 
+interface AbstractPoolStatus {
+  speed: number;
+}
+
 export {
   DownloadProviderInfo,
   RendererViewTask,
   DownloadParams,
   AbstractPoolNode,
   TaskMeta,
+  AbstractPoolStatus,
 };

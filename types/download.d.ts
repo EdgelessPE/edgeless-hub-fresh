@@ -25,4 +25,27 @@ interface DownloadParams {
   integrity?: Integrity;
 }
 
-export { DownloadProviderInfo, RendererViewTask, DownloadParams };
+interface TaskMeta {
+  provider: string;
+  params: {
+    url: string;
+    fileName: string;
+    dir: string;
+    totalSize: number;
+    integrity?: Integrity;
+  };
+}
+
+interface AbstractPoolNode {
+  id: string;
+  state: TaskState;
+  meta: TaskMeta;
+}
+
+export {
+  DownloadProviderInfo,
+  RendererViewTask,
+  DownloadParams,
+  AbstractPoolNode,
+  TaskMeta,
+};

@@ -34,6 +34,7 @@ import {
   setMirror,
 } from "../ept/mirror";
 import { genTaskStatus } from "../../sequences/adapter";
+import { list } from "../../modules/download/abstractPool";
 
 function getMethodRegister(): Record<string, (...args: unknown[]) => unknown> {
   return {
@@ -56,6 +57,8 @@ function getMethodRegister(): Record<string, (...args: unknown[]) => unknown> {
     removeMultiSequence,
     resetMultiSequence,
     genTaskStatus,
+
+    listDownloadPool: list,
 
     getHello,
     getAlpha,

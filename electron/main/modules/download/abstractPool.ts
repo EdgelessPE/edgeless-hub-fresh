@@ -1,7 +1,8 @@
-import { AbstractPoolNode, TaskMeta, TaskState } from "./type";
+import { TaskState } from "./type";
 import { log } from "../../log";
 import { MAX_DOWNLOADING_TASKS } from "../../constants";
 import { getTempConfig } from "../../services/config";
+import { AbstractPoolNode, TaskMeta } from "../../../../types/download";
 
 interface QueueNode {
   id: string;
@@ -169,9 +170,10 @@ export default {
   add,
   update,
   remove,
-  list,
   queue,
   suspendQueue,
   resumeQueue,
   cancelQueue,
 };
+
+export { list };

@@ -34,6 +34,7 @@ import {
   setMirror,
 } from "../ept/mirror";
 import { genTaskStatus } from "../../sequences/adapter";
+import { getAbstractPoolStatusSubject } from "../../modules/download/abstractPool";
 
 function getMethodRegister(): Record<string, (...args: unknown[]) => unknown> {
   return {
@@ -81,6 +82,9 @@ async function getObservableRegistry(): Promise<
       msg: configRes.val,
     });
   register.config = configRes.unwrap();
+
+  // download abstract pool
+  register.downloadAbstractPoolStatus = getAbstractPoolStatusSubject();
 
   return new Ok(register);
 }

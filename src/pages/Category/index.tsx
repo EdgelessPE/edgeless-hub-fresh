@@ -7,6 +7,9 @@ import { getHello } from "@/services/ept";
 import { log } from "@/utils/log";
 import { renderSkeletonCards } from "@/pages/Category/SkeletonCard";
 import { updateSubTitle } from "@/services/subTitle";
+import { cmpPinYin } from "@/utils/sort";
+import { scrollTop } from "@/utils/scroll";
+import { BackToTop } from "@/pages/Category/BackToTop";
 
 function renderPluginCards(
   plugins: FileNodePackageOnline[],
@@ -14,7 +17,7 @@ function renderPluginCards(
   showCategory = false
 ) {
   const result: React.ReactElement[] = [];
-  for (const plugin of plugins) {
+  for (const plugin of plugins.sort((a, b) => cmpPinYin(a.name, b.name))) {
     result.push(
       <PluginCard
         key={plugin.name}
@@ -31,6 +34,8 @@ function useCategory(category: string): FileNodePackageOnline[] {
   const [packages, setPackages] = useState<FileNodePackageOnline[]>([]);
 
   useEffect(() => {
+    scrollTop();
+    setPackages([]);
     getHello().then((helloRes) => {
       const tree = helloRes.unwrap().plugins?.tree;
       if (tree == null) {
@@ -60,6 +65,7 @@ export const Category = () => {
 
   return (
     <div className="category__container">
+      <BackToTop />
       {list.length === 0 && renderSkeletonCards(16)}
       {renderPluginCards(list, params.category)}
     </div>

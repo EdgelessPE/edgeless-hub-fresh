@@ -22,6 +22,7 @@
     "@arco-design/web-react": "^2.37.2",
     "ajv": "^8.11.0",
     "axios": "^0.27.2",
+    "b-tween": "^0.3.3",
     "blake3": "^3.0.0",
     "cp-file": "^10.0.0",
     "electron-log": "^4.4.8",

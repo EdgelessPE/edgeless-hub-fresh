@@ -1,6 +1,7 @@
 interface ObservableBridgeUpdate {
   key: string;
   type: "next" | "error" | "complete";
+  //eslint-disable-next-line @typescript-eslint/no-explicit-any
   value: any;
 }
 

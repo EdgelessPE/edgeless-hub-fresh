@@ -14,6 +14,7 @@ import "./index.scss";
 import { IconEyeInvisible, IconInfoCircle } from "@arco-design/web-react/icon";
 import bridge from "@/bridge/method";
 import { Result } from "ts-results";
+import { updateSubTitle } from "@/services/subTitle";
 
 interface ConfigItem {
   title: string;
@@ -122,8 +123,8 @@ export const Config = () => {
     },
   ];
 
-  //获取当前壁纸url
   useEffect(() => {
+    // 获取当前壁纸url
     bridge<Result<string, string>>(
       "getLocalImageSrc",
       "D:\\360Downloads\\2056038.jpg"
@@ -137,6 +138,8 @@ export const Config = () => {
           />
         );
     });
+    // 配置当前参考版本
+    updateSubTitle(`当前参考版本：Beta 4.1.0`);
   }, []);
 
   return (

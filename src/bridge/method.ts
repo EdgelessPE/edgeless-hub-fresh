@@ -1,10 +1,35 @@
 import { ipcRenderer } from "electron";
 import { BridgeReply, BridgeRequest } from "../../types/bridge";
 import { createBridgeObservable } from "@/bridge/observable";
+import { canBeUnwrapped } from "@/utils/results";
+import { log } from "@/utils/log";
+import { Message } from "@arco-design/web-react";
 
-let taskCount = 0;
+let taskCount = 0,
+  initFinished = false;
+const waitCallbacks: (() => void)[] = [];
+const finishInit = () => {
+  initFinished = true;
+  waitCallbacks.forEach((callback) => {
+    callback();
+  });
+};
+ipcRenderer.on("_init-success", finishInit);
+ipcRenderer.on("_init-error", finishInit);
+
+// 初始化未完成时 bridge 不可用，因此需要等待主线程通知初始化完成
+async function waitInit(): Promise<void> {
+  if (initFinished) return;
+  else
+    return new Promise((resolve) => {
+      waitCallbacks.push(resolve);
+    });
+}
 
 async function bridge<T>(functionName: string, ...args: unknown[]): Promise<T> {
+  if (!initFinished) {
+    await waitInit();
+  }
   return new Promise((resolve) => {
     // 获取任务id
     const id = taskCount++;
@@ -18,6 +43,19 @@ async function bridge<T>(functionName: string, ...args: unknown[]): Promise<T> {
           reply.payload.startsWith("_ORV_")
         ) {
           resolve(createBridgeObservable(reply.payload) as unknown as T);
+        } else if (canBeUnwrapped(reply.payload)) {
+          // eslint-disable-next-line @typescript-eslint/no-explicit-any
+          const r = reply.payload as any;
+          r["unwrap"] = function () {
+            if (this.ok) {
+              return this.val;
+            } else {
+              log(this.val);
+              Message.error(this.val);
+              throw `Bridge_CanBeUnwrapped_Throw`;
+            }
+          };
+          resolve(r as T);
         } else {
           resolve(reply.payload as T);
         }

@@ -1,6 +1,5 @@
 import { Module } from "../Module";
 import { Err, Ok } from "ts-results";
-import { Integrity } from "../../../../types";
 import { StateMachine } from "./StateMachine";
 import { getTaskId } from "./utils";
 import { getTempConfig } from "../../services/config";
@@ -16,19 +15,13 @@ import { Res } from "../../type";
 import { getAllowedCommands, isAllowedCommand } from "./commands";
 import { log } from "../../log";
 import { del } from "../../utils/shell";
+import type { DownloadParams } from "../../../../types/download";
 
 type Listener = (
   type: string,
   payload: unknown,
   allowedCommands: string[]
 ) => void;
-
-interface DownloadParams {
-  url: string;
-  fileName: string;
-  totalSize: number;
-  integrity?: Integrity;
-}
 
 class Download extends Module {
   // 构造时直接赋值

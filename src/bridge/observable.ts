@@ -11,13 +11,13 @@ function initObservableBridge() {
   ipcRenderer.on(
     "_bridge_observable-update",
     (event, value: ObservableBridgeUpdate) => {
-      if (!listenerMap.has(value.key)) {
-        log(
-          `Error:Fatal:Receive unknown observable update, key : ${value.key}`
-        );
+      const callback = listenerMap.get(value.key);
+      if (callback == null) {
+        // log(
+        //   `Warning:Receive unknown observable update : ${JSON.stringify(value)}`
+        // );
         return;
       }
-      const callback = listenerMap.get(value.key)!;
       callback(value);
     }
   );
@@ -31,7 +31,6 @@ function addListener(key: string, listener: Listener) {
 }
 
 function createBridgeObservable<T>(key: string): Observable<T> {
-  ipcRenderer.send("_bridge_observable-subscribe", key);
   return new Observable<T>((subscriber) => {
     const listener: Listener = (update) => {
       switch (update.type) {
@@ -47,11 +46,11 @@ function createBridgeObservable<T>(key: string): Observable<T> {
       }
     };
     addListener(key, listener);
+    ipcRenderer.send("_bridge_observable-subscribe", key);
   });
 }
 
 function createBridgeSubject<T>(key: string): Subject<T | null> {
-  ipcRenderer.send("_bridge_observable-subscribe", key);
   const subject = new BehaviorSubject<T | null>(null);
   const listener: Listener = (update) => {
     switch (update.type) {
@@ -67,6 +66,7 @@ function createBridgeSubject<T>(key: string): Subject<T | null> {
     }
   };
   addListener(key, listener);
+  ipcRenderer.send("_bridge_observable-subscribe", key);
   return subject;
 }
 

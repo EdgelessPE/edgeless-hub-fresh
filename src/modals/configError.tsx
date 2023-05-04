@@ -7,7 +7,7 @@ import React from "react";
 export const configError = (msg: string): ConfirmProps => {
   return {
     title: "Hub 配置文件已损坏",
-    content: msg,
+    content: <p style={{ wordWrap: "break-word" }}>{msg}</p>,
     okText: "重置",
     okButtonProps: {
       type: "primary",

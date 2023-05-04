@@ -1,11 +1,12 @@
-import { initObservableBridge } from "@/bridge/observable";
-import { initConfig } from "@/services/config";
-import { ipcRenderer } from "electron";
-import { Message } from "@arco-design/web-react";
-import { InitError } from "../types";
-import { log } from "@/utils/log";
-import { configError } from "@/modals/configError";
+import {initObservableBridge} from "@/bridge/observable";
+import {initConfig} from "@/services/config";
+import {ipcRenderer} from "electron";
+import {Message} from "@arco-design/web-react";
+import {InitError} from "../types";
+import {log} from "@/utils/log";
+import {configError} from "@/modals/configError";
 
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
 export default async function (modal: any) {
   // 向主进程通知进行初始化并监听是否初始化失败
   ipcRenderer.on("_init-error", (event, err: InitError) => {

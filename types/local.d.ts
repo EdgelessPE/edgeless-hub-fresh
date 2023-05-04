@@ -23,14 +23,22 @@ interface VentoyLocal {
   secureBoot: boolean;
 }
 
-interface UDisk {
+interface FlashInfo {
   letter: string;
   rw: boolean;
   kernel?: FileNodeLocal;
   alpha?: FileNodeLocal;
   ventoy?: VentoyLocal;
   plugins?: FileNodePackageLocal;
-  configs?: string[];
+  configs?: {
+    common?: string[];
+    wallPaper?: string; // 壁纸路径
+    resolution?: {
+      method: "auto" | "none" | "custom";
+      custom?: string;
+    };
+    homePage?: string;
+  };
 }
 
-export { FileNodePackageLocal, FileNodeLocal, VentoyLocal, UDisk };
+export { FileNodePackageLocal, FileNodeLocal, VentoyLocal, FlashInfo };

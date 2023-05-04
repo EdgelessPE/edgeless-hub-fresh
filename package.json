@@ -8,7 +8,7 @@
   "scripts": {
     "dev": "vite",
     "prebuild": "yarn gen",
-    "build": "yarn prebuild && tsc && vite build && electron-builder -w",
+    "build": "tsc && vite build && electron-builder -w",
     "build:linux": "yarn prebuild && tsc && vite build && electron-builder -l",
     "fmt": "prettier --write .",
     "gen": "ts-node scripts/genSchema.ts",
@@ -22,6 +22,7 @@
     "@arco-design/web-react": "^2.37.2",
     "ajv": "^8.11.0",
     "axios": "^0.27.2",
+    "b-tween": "^0.3.3",
     "blake3": "^3.0.0",
     "cp-file": "^10.0.0",
     "electron-log": "^4.4.8",
@@ -33,6 +34,7 @@
     "rxjs": "^7.5.6",
     "sha256-file": "^1.0.0",
     "shelljs": "^0.8.5",
+    "systeminformation": "^5.17.3",
     "ts-node": "^10.9.1",
     "ts-results": "^3.3.0"
   },
@@ -46,7 +48,7 @@
     "@typescript-eslint/eslint-plugin": "^5.41.0",
     "@typescript-eslint/parser": "^5.41.0",
     "@vitejs/plugin-react": "^2.0.0",
-    "electron": "^22.0.0",
+    "electron": "^22.0.3",
     "electron-builder": "^23.1.0",
     "electron-devtools-installer": "^3.2.0",
     "eslint": "^8.26.0",

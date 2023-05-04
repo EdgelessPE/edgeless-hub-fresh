@@ -1,14 +1,18 @@
 import { TaskStatus } from "types";
 import { PluginParsedFullName } from "types/parsed";
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { ButtonWithIcon } from "@/components/atoms/ButtonWithIcon";
 import {
   ArrowUpOutlined,
   CheckOutlined,
   CloudDownloadOutlined,
   LoadingOutlined,
+  WarningOutlined,
 } from "@ant-design/icons";
 import { Progress } from "@arco-design/web-react";
+import { eptInstall } from "@/services/ept";
+import { bindTask, listenTask, unListenTask } from "@/services/taskBinder";
+import { getPluginKey } from "@/utils/parser";
 
 function getDownloadingText(percentage: number) {
   return `下载中 ${percentage}%`;
@@ -40,22 +44,31 @@ function renderProgress(
 //TODO:无法下载的情况：
 // 1、fs为只读，在启动盘嗅探时进行读写测试
 // 2、超过3天没有检测到启动盘
-function renderButton(status: TaskStatus, key: string): React.ReactElement {
-  const disabledButtonProps = { disabled: true };
-  const disabledButtonStyle = { color: "gray", cursor: "initial" };
+function renderButton(status: TaskStatus, packageName: string, pluginKey: string): React.ReactElement {
+  const disabledButtonProps = {disabled: true};
+  const disabledButtonStyle = {color: "gray", cursor: "initial"};
+  // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
+  const percentage = status.percentage!
   switch (status.state) {
     case "Available":
       return (
         <ButtonWithIcon
-          key={key}
+          key={packageName}
           icon={<CloudDownloadOutlined />}
           text="获取"
+          onClick={async () => {
+            const res = await eptInstall(packageName);
+            bindTask(pluginKey, {
+              pool: "addPackage",
+              id: res.unwrap(),
+            });
+          }}
         />
       );
     case "Pending":
       return (
         <ButtonWithIcon
-          key={key}
+          key={packageName}
           icon={<LoadingOutlined />}
           text="等待中"
           buttonProps={disabledButtonProps}
@@ -64,22 +77,22 @@ function renderButton(status: TaskStatus, key: string): React.ReactElement {
       );
     case "Downloading":
       return renderProgress(
-        key,
+        packageName,
         "normal",
-        status.percentage!,
+        percentage,
         getDownloadingText
       );
     case "Installing":
       return renderProgress(
-        key,
+        packageName,
         "error",
-        status.percentage!,
+        percentage,
         getInstallingText
       );
     case "Installed":
       return (
         <ButtonWithIcon
-          key={key}
+          key={packageName}
           icon={<CheckOutlined />}
           text="已安装"
           buttonProps={disabledButtonProps}
@@ -88,54 +101,45 @@ function renderButton(status: TaskStatus, key: string): React.ReactElement {
       );
     case "Upgradable":
       return (
-        <ButtonWithIcon key={key} icon={<ArrowUpOutlined />} text="更新" />
+        <ButtonWithIcon
+          key={packageName}
+          icon={<ArrowUpOutlined />}
+          text="更新"
+        />
+      );
+    case "Error":
+      return (
+        <ButtonWithIcon
+          key={packageName}
+          icon={<WarningOutlined />}
+          text="错误"
+        />
       );
     default:
       return <></>;
   }
 }
 
-let count = 0;
-
-function getPluginTaskStatus(
-  info: PluginParsedFullName,
-  category: string
-): TaskStatus {
-  let state: TaskStatus["state"];
-  switch (count % 6) {
-    case 0:
-      state = "Upgradable";
-      break;
-    case 1:
-      state = "Pending";
-      break;
-    case 2:
-      state = "Downloading";
-      break;
-    case 3:
-      state = "Installing";
-      break;
-    case 4:
-      state = "Installed";
-      break;
-    default:
-      state = "Available";
-      break;
-  }
-  count++;
-  return {
-    state: "Available",
-    percentage: parseFloat((Math.random() * 100).toFixed(2)),
-  };
-}
 
 export const PluginSmartButton = ({
   info,
+  fullName,
   category,
 }: {
   info: PluginParsedFullName;
+  fullName: string;
   category: string;
 }) => {
-  const status = getPluginTaskStatus(info, category);
-  return renderButton(status, info.name + "_button");
+  const key = getPluginKey(category, fullName);
+  const [status, setStatus] = useState<TaskStatus>({
+    state: "Available",
+  });
+  useEffect(() => {
+    listenTask(key, setStatus);
+    return () => {
+      unListenTask(key, setStatus);
+    };
+  }, []);
+
+  return renderButton(status, info.name, key);
 };

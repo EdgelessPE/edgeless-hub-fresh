@@ -43,9 +43,15 @@ async function get<T>(
 async function getHello(): Promise<Result<HelloResponse, string>> {
   // 获取当前 mirror base
   const cfg = getTempConfig();
-  const baseUrl = cfg.ept.mirror.current;
-  if (baseUrl == null) {
+  const curMirrorName = cfg.ept.mirror.current;
+  if (curMirrorName == null) {
     return new Err(`Error:Current ept mirror not set properly`);
+  }
+  const baseUrl = cfg.ept.mirror.pool[curMirrorName]?.baseUrl;
+  if (baseUrl == null) {
+    return new Err(
+      `Error:Can't find mirror named '${curMirrorName}' in config pool`
+    );
   }
 
   // 构造通用获取闭包

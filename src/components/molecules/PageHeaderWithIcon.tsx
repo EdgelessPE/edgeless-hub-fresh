@@ -4,7 +4,7 @@ import { PageHeader } from "@arco-design/web-react";
 interface Props {
   title: string;
   icon?: React.ReactElement;
-  subTitle?: React.ReactElement | string;
+  subTitle?: React.ReactElement | string | null;
 }
 
 export const PageHeaderWithIcon = ({ title, icon, subTitle }: Props) => {

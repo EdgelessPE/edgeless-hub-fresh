@@ -10,7 +10,12 @@ import {
 } from "../config";
 import { Err, Ok, Result } from "ts-results";
 import { InitError } from "../../../../types";
-import { closeWindow, restartWindow, toggleDevTool } from "../../index";
+import {
+  closeWindow,
+  getVersion,
+  restartWindow,
+  toggleDevTool,
+} from "../../index";
 import {
   addMultiSequence,
   hasActiveSingleSequence,
@@ -19,6 +24,17 @@ import {
   startSingleSequence,
   viewMultiSequences,
 } from "../../sequences/rendererAdapter";
+import { getAlpha, getHello } from "../ept/cache";
+import { eptInstall } from "../ept";
+import {
+  addMirror,
+  infoMirror,
+  listMirror,
+  removeMirror,
+  setMirror,
+} from "../ept/mirror";
+import { genTaskStatus } from "../../sequences/adapter";
+import { getAbstractPoolStatusSubject } from "../../modules/download/abstractPool";
 
 function getMethodRegister(): Record<string, (...args: unknown[]) => unknown> {
   return {
@@ -27,6 +43,7 @@ function getMethodRegister(): Record<string, (...args: unknown[]) => unknown> {
     toggleDevTool,
     innerLog,
     getLocalImageSrc,
+    getVersion,
 
     setObservableConfig,
     patchObservableConfig,
@@ -39,6 +56,16 @@ function getMethodRegister(): Record<string, (...args: unknown[]) => unknown> {
     addMultiSequence,
     removeMultiSequence,
     resetMultiSequence,
+    genTaskStatus,
+
+    getHello,
+    getAlpha,
+    eptInstall,
+    addMirror,
+    setMirror,
+    removeMirror,
+    infoMirror,
+    listMirror,
   };
 }
 
@@ -55,6 +82,9 @@ async function getObservableRegistry(): Promise<
       msg: configRes.val,
     });
   register.config = configRes.unwrap();
+
+  // download abstract pool
+  register.downloadAbstractPoolStatus = getAbstractPoolStatusSubject();
 
   return new Ok(register);
 }

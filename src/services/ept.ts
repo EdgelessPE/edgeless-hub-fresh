@@ -1,17 +1,22 @@
-function setCurrentMirror() {}
+import { Result } from "ts-results";
+import { AlphaResponse, HelloResponse } from "../../types/online";
+import bridge from "@/bridge/method";
 
-function getCurrentMirror() {}
+async function getHello(): Promise<Result<HelloResponse, string>> {
+  return bridge("getHello");
+}
 
-function addCurrentMirror() {}
+async function getAlpha(token: string): Promise<Result<AlphaResponse, string>> {
+  return bridge("getAlpha", token);
+}
 
-function fetchHello() {}
+async function eptInstall(
+  name: string,
+  options?: {
+    load?: boolean; // 是否在安装之后加载
+  }
+): Promise<Result<string, string>> {
+  return bridge("eptInstall", name, options);
+}
 
-function fetchAlpha() {}
-
-export {
-  setCurrentMirror,
-  getCurrentMirror,
-  addCurrentMirror,
-  fetchAlpha,
-  fetchHello,
-};
+export { getHello, getAlpha, eptInstall };

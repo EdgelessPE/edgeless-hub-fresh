@@ -67,25 +67,9 @@ const siderNodes: SiderNode[] = [
     ],
   },
   {
-    path: "plugin",
+    path: "pluginEmpty",
     title: "插件",
     icon: <IconApps />,
-    children: [
-      {
-        path: "plugin/category/浏览器",
-        title: "浏览器",
-        icon: <ChromeOutlined />,
-      },
-      {
-        path: "plugin/category/安全急救",
-        title: "安全急救",
-        icon: <SafetyCertificateOutlined />,
-      },
-      {
-        path: "plugin/detail/安全急救/Smap_0.1.11.0_undefined（bot）.7z",
-        title: "详情",
-      },
-    ],
   },
   {
     path: "config",

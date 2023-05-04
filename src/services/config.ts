@@ -10,6 +10,7 @@ let cfg: Config | null = null;
 let subject: Subject<Result<Config, string> | null> | null = null;
 const listeners: Array<(cfg: Config | null) => void> = [];
 
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
 async function initConfig(modal: any) {
   subject = await createBridgeSubject<Result<Config, string>>("config");
   subject.subscribe((result) => {
@@ -42,6 +43,7 @@ async function patchConfig<K extends keyof Config>(patchJson: {
 }
 
 async function modifyConfig(modifier: (rawConfig: Config) => Config) {
+  // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
   const resultJson = modifier(cfg!);
   return setConfig(resultJson);
 }

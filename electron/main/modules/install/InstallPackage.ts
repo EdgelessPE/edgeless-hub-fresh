@@ -1,4 +1,4 @@
-import { Module } from "../Module";
+import { Module, ModuleListener } from "../Module";
 import { Res } from "../../type";
 import { copyFile, ProgressData } from "cp-file";
 import { StateMachine } from "./StateMachine";
@@ -18,12 +18,6 @@ interface ProgressUpdate {
   writtenSize: number;
 }
 
-type Listener = (
-  type: string,
-  payload: unknown,
-  allowedCommands: string[]
-) => void;
-
 class InstallPackage extends Module {
   private readonly params: InstallPackageParams;
   private stateMachine: StateMachine;
@@ -39,7 +33,7 @@ class InstallPackage extends Module {
     };
   }
 
-  listen(listener: Listener) {
+  listen(listener: ModuleListener) {
     // 直接构造适配器函数添加到状态机的监听器数组中
     this.stateMachine.listen((state) => {
       listener(state.type, state.payload, []);

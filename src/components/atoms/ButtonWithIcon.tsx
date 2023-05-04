@@ -6,6 +6,7 @@ interface Props {
   text: string;
   buttonProps?: ButtonProps;
   style?: React.CSSProperties;
+  onClick?: () => void;
 }
 
 export const ButtonWithIcon = ({
@@ -13,10 +14,17 @@ export const ButtonWithIcon = ({
   text,
   buttonProps,
   style,
+  onClick,
 }: Props): React.ReactElement => {
   const type = buttonProps?.type ?? "text";
   return (
-    <Button className="icon-button" type={type} {...buttonProps} style={style}>
+    <Button
+      className="icon-button"
+      type={type}
+      onClick={onClick}
+      {...buttonProps}
+      style={style}
+    >
       {icon}
       {text}
     </Button>

@@ -5,8 +5,10 @@ import {
   SearchOutlined,
   SkinOutlined,
 } from "@ant-design/icons";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { getCurrentTheme, setCurrentTheme } from "@/services/theme";
+import { updateSubTitle } from "@/services/subTitle";
+import { getVersion } from "@/services/misc";
 
 interface SettingItem {
   avatar: React.ReactElement;
@@ -35,6 +37,14 @@ function renderSettingItems(items: SettingItem[]): React.ReactElement[] {
 
 export const Settings = () => {
   const [theme, setTheme] = useState(getCurrentTheme);
+  const [searchEngine, setSearchEngine] = useState("bing");
+
+  useEffect(() => {
+    getVersion().then((version) => {
+      updateSubTitle(`v${version}`);
+    });
+  });
+
   const toggleTheme = (val: boolean) => {
     if (val) {
       document.body.removeAttribute("arco-theme");
@@ -44,8 +54,6 @@ export const Settings = () => {
     setCurrentTheme(val);
     setTheme(val);
   };
-
-  const [searchEngine, setSearchEngine] = useState("bing");
 
   const settingItems: SettingItem[] = [
     {

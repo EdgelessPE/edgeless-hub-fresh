@@ -1,14 +1,17 @@
+import { Sequence } from "../electron/main/sequences/Sequence";
+
 interface RendererSequence {
   id: string;
   stepNames: string[];
   current: {
-    name: string;
+    name: string; // 序列构造函数提供的 name
     state: {
       type: string;
       payload: unknown;
     };
     allowedCommands: string[];
-  };
+  } | null;
+  state: Sequence<unknown>["state"];
 }
 
 export { RendererSequence };

@@ -7,13 +7,15 @@ import { iconMapCategory, iconTitleMapSider } from "@/constants";
 import { DownloadSpeedBadge } from "@/components/organisms/DownloadSpeedBadge";
 import { PageHeaderWithIcon } from "@/components/molecules/PageHeaderWithIcon";
 import { getRouterPath } from "@/router/utils";
+import { listenSubTitleChange } from "@/services/subTitle";
 
 interface Prop {
   history: BrowserHistory;
 }
 
 function renderHeader(
-  setTitle: React.Dispatch<React.SetStateAction<string | JSX.Element | null>>
+  setTitle: React.Dispatch<React.SetStateAction<string | JSX.Element | null>>,
+  subTitle: string | JSX.Element | null
 ) {
   const s = getRouterPath();
   const renderSubTitle = (title: string) => {
@@ -25,14 +27,8 @@ function renderHeader(
     ) {
       return <DownloadSpeedBadge />;
     }
-    if (title == "配置") {
-      return `当前参考版本：Beta 4.1.0`;
-    }
-    if (title == "搜索") {
-      return `找到14个相关内容`;
-    }
 
-    return undefined;
+    return subTitle;
   };
   // 渲染
   if (s[0] == "plugin") {
@@ -42,7 +38,7 @@ function renderHeader(
         <PageHeaderWithIcon
           title={category}
           icon={iconMapCategory[category]}
-          subTitle={`共9个插件包`}
+          subTitle={subTitle}
         />
       );
     } else if (s[1] == "detail")
@@ -52,7 +48,7 @@ function renderHeader(
       <PageHeaderWithIcon
         title="搜索"
         icon={<IconSearch />}
-        subTitle={`找到14个相关结果`}
+        subTitle={subTitle}
       />
     );
   } else {
@@ -76,7 +72,8 @@ export const Header = ({ history }: Prop) => {
   const [showSearch, setShowSearch] = useState(false);
   const [searchText, setSearchText] = useState("");
   const [title, setTitle] = useState<JSX.Element | string | null>(null);
-  const [displayBack, setDisplayBack] = useState(false);
+  const [routerKey, setRouterKey] = useState(0);
+  const [subTitle, setSubTitle] = useState<JSX.Element | string | null>(null);
 
   const toggleInput = () => setShowSearch((prev) => !prev);
   const onInput = (v: string) => setSearchText(v);
@@ -88,15 +85,20 @@ export const Header = ({ history }: Prop) => {
   };
 
   useEffect(() => {
-    //路由发生变化时配置Header
+    // 路由发生变化时配置Header
     history.listen(() => {
-      setDisplayBack(true);
-      renderHeader(setTitle);
+      setRouterKey((raw) => raw + 1);
+      setSubTitle(null);
     });
-    //首屏渲染一次
-    renderHeader(setTitle);
+    // 监听副标题变化
+    listenSubTitleChange(setSubTitle);
   }, []);
 
+  useEffect(() => {
+    renderHeader(setTitle, subTitle);
+  }, [routerKey, subTitle]);
+
+  const displayBack = routerKey > 0;
   return (
     <Layout.Header className="header">
       <div

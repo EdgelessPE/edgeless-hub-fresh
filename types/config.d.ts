@@ -7,6 +7,9 @@ export interface Config {
       current: string | null;
       pool: Record<string, MirrorLocal>;
     };
+    preferences: {
+      deleteStrategy: "FlashRecycle" | "ForceDelete";
+    };
   };
   theme: Theme;
   download: {
@@ -15,4 +18,7 @@ export interface Config {
     maxDownloadingTasks: number;
   };
   flashDisk: string | null;
+  preference: {
+    userNick: string;
+  };
 }

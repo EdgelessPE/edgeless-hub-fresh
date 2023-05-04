@@ -22,6 +22,9 @@ const schema = {
                       name: {
                         type: "string",
                       },
+                      baseUrl: {
+                        type: "string",
+                      },
                       description: {
                         type: "string",
                       },
@@ -71,6 +74,7 @@ const schema = {
                     },
                     required: [
                       "name",
+                      "baseUrl",
                       "description",
                       "protocol",
                       "property",
@@ -83,8 +87,19 @@ const schema = {
               required: ["current", "pool"],
               additionalProperties: false,
             },
+            preferences: {
+              type: "object",
+              properties: {
+                deleteStrategy: {
+                  type: "string",
+                  enum: ["FlashRecycle", "ForceDelete"],
+                },
+              },
+              required: ["deleteStrategy"],
+              additionalProperties: false,
+            },
           },
-          required: ["mirror"],
+          required: ["mirror", "preferences"],
           additionalProperties: false,
         },
         theme: {
@@ -110,8 +125,18 @@ const schema = {
         flashDisk: {
           type: ["string", "null"],
         },
+        preference: {
+          type: "object",
+          properties: {
+            userNick: {
+              type: "string",
+            },
+          },
+          required: ["userNick"],
+          additionalProperties: false,
+        },
       },
-      required: ["ept", "theme", "download", "flashDisk"],
+      required: ["ept", "theme", "download", "flashDisk", "preference"],
       additionalProperties: false,
     },
   },

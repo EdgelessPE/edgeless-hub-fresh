@@ -34,7 +34,7 @@
     "rxjs": "^7.5.6",
     "sha256-file": "^1.0.0",
     "shelljs": "^0.8.5",
-    "systeminformation": "^5.17.3",
+    "systeminformation": "5.22.6",
     "ts-node": "^10.9.1",
     "ts-results": "^3.3.0"
   },
@@ -48,7 +48,7 @@
     "@typescript-eslint/eslint-plugin": "^5.41.0",
     "@typescript-eslint/parser": "^5.41.0",
     "@vitejs/plugin-react": "^2.0.0",
-    "electron": "^22.0.3",
+    "electron": "29.1.6",
     "electron-builder": "^23.1.0",
     "electron-devtools-installer": "^3.2.0",
     "eslint": "^8.26.0",
@@ -61,8 +61,13 @@
     "ts-jest": "^29.0.1",
     "ts-json-schema-generator": "^1.0.0",
     "typescript": "^4.9.3",
-    "vite": "^3.0.2",
+    "vite": "5.2.7",
     "vite-plugin-electron": "^0.8.1"
+  },
+  "resolutions": {
+    "@c4312/blake3-internal": "3.0.0",
+    "blake3-wasm": "3.0.0",
+    "@c4312/blake3-native": "3.0.0"
   },
   "env": {
     "VITE_DEV_SERVER_HOST": "127.0.0.1",

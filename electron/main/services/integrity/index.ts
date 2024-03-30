@@ -6,7 +6,7 @@ import { Err, Ok, Result } from "ts-results";
 // 返回 ErrImpl(string) 时表示哈希计算失败
 async function validateIntegrity(
   filePath: string,
-  integrity: Integrity
+  integrity: Integrity,
 ): Promise<Result<null, string>> {
   // 获取哈希计算器
   const getCalcRes = getIntegrityCalculator(integrity.method);
@@ -23,7 +23,7 @@ async function validateIntegrity(
     expected = integrity.value.toLowerCase();
   if (expected != got) {
     return new Err(
-      `Error:Integrity validation using ${integrity.method} method failed, expected ${expected},got ${got}`
+      `Error:Integrity validation using ${integrity.method} method failed, expected ${expected},got ${got}`,
     );
   }
 

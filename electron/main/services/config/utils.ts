@@ -48,7 +48,7 @@ function valid(dirty: unknown) {
 
 function patch<T extends object, K extends keyof T>(
   rawJson: T,
-  patchJson: { [P in K]: T[P] }
+  patchJson: { [P in K]: T[P] },
 ): T {
   for (const key in patchJson) {
     if (!rawJson[key]) {

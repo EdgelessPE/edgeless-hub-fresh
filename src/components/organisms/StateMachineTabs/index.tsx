@@ -9,7 +9,7 @@ export const sharedState = new Map<string, unknown>(); //TODO:检查是否存在
 function getNextState<State extends string>(
   states: StateInfo<State>[],
   current: StateMachineNode<State>,
-  allowBranch = false
+  allowBranch = false,
 ): StateMachineNode<State> {
   for (let i = 0; i < states.length - 2; i++) {
     const node = states[i];

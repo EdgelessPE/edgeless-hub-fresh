@@ -8,7 +8,7 @@ test("fetchMirror", async () => {
   const alphaRes = await fetchAlpha(
     "3.1.0",
     "https://pineapple.edgeless.top/api/v3",
-    "ALPHA"
+    "ALPHA",
   );
   expect(alphaRes.ok).toBe(true);
   const alpha = alphaRes.unwrap();
@@ -17,7 +17,7 @@ test("fetchMirror", async () => {
   const failedRes = await fetchAlpha(
     "3.1.0",
     "https://pineapple.edgeless.top/api/v3",
-    "WRONG_TOKEN"
+    "WRONG_TOKEN",
   );
   expect(failedRes.val).toBe(`Error:Invalid alpha token`);
 });

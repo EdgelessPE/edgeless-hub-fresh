@@ -18,7 +18,7 @@ function renderTitle(
   title: string,
   ci: boolean,
   category: string,
-  fullName: string
+  fullName: string,
 ): React.ReactElement {
   return (
     <div className="category__title-container">

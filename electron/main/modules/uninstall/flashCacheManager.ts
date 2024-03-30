@@ -33,10 +33,10 @@ function maintainFlashCache(flashCacheDirPath: string, expiryDays = 30) {
     (node) => {
       const p = path.join(flashCacheDirPath, node.name);
       log(
-        `Log:Remove flash cache outdated file ${p} (${node.daysPassed} days ago)`
+        `Log:Remove flash cache outdated file ${p} (${node.daysPassed} days ago)`,
       );
       fs.unlinkSync(p);
-    }
+    },
   );
 }
 

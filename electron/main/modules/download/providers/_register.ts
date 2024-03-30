@@ -23,7 +23,7 @@ const register: ProviderRegisterNode[] = [
 ];
 
 function getProviderConstructor(
-  id: string
+  id: string,
 ): Result<ProviderConstructor, string> {
   const p = register.find((provider) => provider.info.id == id);
   if (p != null) {

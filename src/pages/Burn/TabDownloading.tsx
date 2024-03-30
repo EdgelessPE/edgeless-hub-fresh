@@ -30,7 +30,7 @@ export const TabDownloading = ({ next, sharedState }: BurnTabProps) => {
       fileName: "ventoy_wimboot.img",
     });
   const totalSize = formatSize(
-    taskImage.totalSize + taskVentoy.totalSize + taskVentoyPlugin.totalSize
+    taskImage.totalSize + taskVentoy.totalSize + taskVentoyPlugin.totalSize,
   );
 
   return (

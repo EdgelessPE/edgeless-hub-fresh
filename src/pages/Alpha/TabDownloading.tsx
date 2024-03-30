@@ -34,7 +34,7 @@ export const TabDownloading = ({ next, sharedState }: AlphaTabProps) => {
     [taskImage, taskCover].reduce((prev, cur) => {
       if (cur.enable) return cur.totalSize + prev;
       else return prev;
-    }, 0)
+    }, 0),
   );
   return (
     <div className="smt__container">

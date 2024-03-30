@@ -41,7 +41,7 @@ async function getObservableConfig(): Promise<
       debounce(async () => {
         log(`Info:Config file change watched`);
         update(await read());
-      }, 50)
+      }, 50),
     );
   });
 
@@ -62,7 +62,7 @@ async function patchObservableConfig<K extends keyof Config>(patchJson: {
 }
 
 async function modifyObservableConfig(
-  modifier: (rawConfig: Config) => Config
+  modifier: (rawConfig: Config) => Config,
 ): Promise<Result<null, string>> {
   const resultJson = modifier(cfg);
 
@@ -75,7 +75,7 @@ async function modifyObservableConfig(
 }
 
 async function setObservableConfig(
-  resultConfig: Config
+  resultConfig: Config,
 ): Promise<Result<null, string>> {
   const vRes = valid(resultConfig);
   if (vRes.err) {

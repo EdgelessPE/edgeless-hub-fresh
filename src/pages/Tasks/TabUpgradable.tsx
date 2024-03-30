@@ -17,7 +17,7 @@ export interface TabUpgradableProps {
     arr: {
       online: FileNodePackageOnline;
       local: FileNodePackageLocal;
-    }[]
+    }[],
   ) => void;
 }
 
@@ -37,7 +37,7 @@ export const TabUpgradable = ({ array, onUpgradeAll }: TabUpgradableProps) => {
           key={node.local.name}
           online={node.online}
           local={node.local}
-        />
+        />,
       );
   }
 
@@ -45,7 +45,7 @@ export const TabUpgradable = ({ array, onUpgradeAll }: TabUpgradableProps) => {
     onUpgradeAll(
       array.filter((node) => {
         return !ignoreDisabled || !isDisabled(node.local);
-      })
+      }),
     );
   };
 

@@ -10,13 +10,13 @@ async function hasActiveSingleSequence(key: string) {
 async function startSingleSequence(
   key: string,
   userInput?: unknown,
-  reset = false
+  reset = false,
 ) {
   return bridge<Observable<RendererSequence>>(
     "startSingleSequence",
     key,
     userInput,
-    reset
+    reset,
   );
 }
 
@@ -35,14 +35,14 @@ async function removeMultiSequence(key: string, id: string) {
 async function resetMultiSequence(
   key: string,
   id: string,
-  userInput?: unknown
+  userInput?: unknown,
 ) {
   return bridge<void>("resetMultiSequence", key, id, userInput);
 }
 
 async function genTaskStatus(
   msPoolKey: string,
-  seq: RendererSequence
+  seq: RendererSequence,
 ): Promise<TaskStatus> {
   return bridge("genTaskStatus", msPoolKey, seq);
 }

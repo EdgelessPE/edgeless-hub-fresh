@@ -14,7 +14,7 @@ async function eptInstall(
   name: string,
   options?: {
     load?: boolean; // 是否在安装之后加载
-  }
+  },
 ): Promise<Result<string, string>> {
   return bridge("eptInstall", name, options);
 }

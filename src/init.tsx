@@ -1,10 +1,10 @@
-import {initObservableBridge} from "@/bridge/observable";
-import {initConfig} from "@/services/config";
-import {ipcRenderer} from "electron";
-import {Message} from "@arco-design/web-react";
-import {InitError} from "../types";
-import {log} from "@/utils/log";
-import {configError} from "@/modals/configError";
+import { initObservableBridge } from "@/bridge/observable";
+import { initConfig } from "@/services/config";
+import { ipcRenderer } from "electron";
+import { Message } from "@arco-design/web-react";
+import { InitError } from "../types";
+import { log } from "@/utils/log";
+import { configError } from "@/modals/configError";
 
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
 export default async function (modal: any) {

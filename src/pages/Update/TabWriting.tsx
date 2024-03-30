@@ -24,7 +24,7 @@ export const TabWriting = ({ next, sharedState }: UpdateTabProps) => {
         width="80%"
         formatText={(percent) => {
           return `${formatSize(copyStatus.writtenSize)} / ${formatSize(
-            copyStatus.totalSize
+            copyStatus.totalSize,
           )} - ${percent.toFixed(2)}%`;
         }}
       />

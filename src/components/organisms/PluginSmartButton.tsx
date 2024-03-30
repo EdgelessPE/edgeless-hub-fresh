@@ -26,7 +26,7 @@ function renderProgress(
   key: string,
   status: "normal" | "error",
   percentage: number,
-  formatText: (p: number) => string
+  formatText: (p: number) => string,
 ): React.ReactElement {
   return (
     <div key={key} className="plugin-button__progress-container">
@@ -44,11 +44,15 @@ function renderProgress(
 //TODO:无法下载的情况：
 // 1、fs为只读，在启动盘嗅探时进行读写测试
 // 2、超过3天没有检测到启动盘
-function renderButton(status: TaskStatus, packageName: string, pluginKey: string): React.ReactElement {
-  const disabledButtonProps = {disabled: true};
-  const disabledButtonStyle = {color: "gray", cursor: "initial"};
+function renderButton(
+  status: TaskStatus,
+  packageName: string,
+  pluginKey: string,
+): React.ReactElement {
+  const disabledButtonProps = { disabled: true };
+  const disabledButtonStyle = { color: "gray", cursor: "initial" };
   // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
-  const percentage = status.percentage!
+  const percentage = status.percentage!;
   switch (status.state) {
     case "Available":
       return (
@@ -80,14 +84,14 @@ function renderButton(status: TaskStatus, packageName: string, pluginKey: string
         packageName,
         "normal",
         percentage,
-        getDownloadingText
+        getDownloadingText,
       );
     case "Installing":
       return renderProgress(
         packageName,
         "error",
         percentage,
-        getInstallingText
+        getInstallingText,
       );
     case "Installed":
       return (
@@ -119,7 +123,6 @@ function renderButton(status: TaskStatus, packageName: string, pluginKey: string
       return <></>;
   }
 }
-
 
 export const PluginSmartButton = ({
   info,

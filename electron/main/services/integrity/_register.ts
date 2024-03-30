@@ -21,7 +21,7 @@ const registerMap: {
 ];
 
 export function getIntegrityCalculator(
-  method: IntegrityMethod
+  method: IntegrityMethod,
 ): Result<IntegrityValidator, string> {
   for (const node of registerMap) {
     if (node.method == method) {

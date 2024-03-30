@@ -15,7 +15,7 @@ interface Prop {
 
 function renderHeader(
   setTitle: React.Dispatch<React.SetStateAction<string | JSX.Element | null>>,
-  subTitle: string | JSX.Element | null
+  subTitle: string | JSX.Element | null,
 ) {
   const s = getRouterPath();
   const renderSubTitle = (title: string) => {
@@ -39,7 +39,7 @@ function renderHeader(
           title={category}
           icon={iconMapCategory[category]}
           subTitle={subTitle}
-        />
+        />,
       );
     } else if (s[1] == "detail")
       setTitle(<PageHeaderWithIcon title="插件详情" />);
@@ -49,7 +49,7 @@ function renderHeader(
         title="搜索"
         icon={<IconSearch />}
         subTitle={subTitle}
-      />
+      />,
     );
   } else {
     //尝试匹配为侧边栏标题
@@ -60,7 +60,7 @@ function renderHeader(
           title={m.title}
           icon={m.icon}
           subTitle={renderSubTitle(m.title)}
-        />
+        />,
       );
     } else {
       setTitle(null);

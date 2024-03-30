@@ -70,7 +70,7 @@ class Sequence<U> {
     log(
       `Info:Start sequence from seq index ${stepIndex}/${
         this.seq.length
-      } with userInput : ${JSON.stringify(this.userInput)}`
+      } with userInput : ${JSON.stringify(this.userInput)}`,
     );
     this.state = "Running";
 
@@ -83,22 +83,22 @@ class Sequence<U> {
       try {
         inputParams = seqNode.moduleInputAdapter(
           this.userInput,
-          this.prevOutput
+          this.prevOutput,
         );
       } catch (e) {
         this.state = "Error";
         return new Err(
           `Error:Fatal:Can't apply input adapter for step ${
             seqNode.name
-          } : ${JSON.stringify(e)}`
+          } : ${JSON.stringify(e)}`,
         );
       }
       log(
         `Debug:Prepare step "${
           seqNode.name
         }" at index ${stepIndex} with input params = ${JSON.stringify(
-          inputParams
-        )}`
+          inputParams,
+        )}`,
       );
 
       // 实例化模块
@@ -117,7 +117,7 @@ class Sequence<U> {
               this.current.name
             }, seq name = ${
               seqNode.name
-            }; Received type = ${type}, payload = ${JSON.stringify(payload)}`
+            }; Received type = ${type}, payload = ${JSON.stringify(payload)}`,
           );
           return;
         }
@@ -159,7 +159,7 @@ class Sequence<U> {
           allowedCommands: [],
         });
         return new Err(
-          `Error:Module ${this.current.name} thrown with error : ${errMsg}`
+          `Error:Module ${this.current.name} thrown with error : ${errMsg}`,
         );
       }
 
@@ -173,7 +173,7 @@ class Sequence<U> {
             this.current.name
           } with state ${finalType}, payload : ${
             this.current.state.payload
-          }, resolved value : ${JSON.stringify(outputRes)}`
+          }, resolved value : ${JSON.stringify(outputRes)}`,
         );
       } else if (finalType == "completed") {
         // 继续下一个步骤循环
@@ -181,15 +181,15 @@ class Sequence<U> {
         this.prevOutput.push(output);
         log(
           `Debug:Go to next seq node with previous output = ${JSON.stringify(
-            output
-          )}`
+            output,
+          )}`,
         );
       } else {
         this.state = "Error";
         return new Err(
           `Error:Sequence abnormal : module ${
             this.current.name
-          } didn't stop at final state, current=${JSON.stringify(this.current)}`
+          } didn't stop at final state, current=${JSON.stringify(this.current)}`,
         );
       }
     }
@@ -203,14 +203,14 @@ class Sequence<U> {
     // 检查命令是否被允许
     if (!this.current.allowedCommands.includes(cmd)) {
       return new Err(
-        `Error:Command ${cmd} is not allowed at step ${this.current.name}`
+        `Error:Command ${cmd} is not allowed at step ${this.current.name}`,
       );
     }
 
     log(
       `Info:Response to command ${cmd} with payload : ${JSON.stringify(
-        payload
-      )}`
+        payload,
+      )}`,
     );
 
     // 转发模块命令至模块实例
@@ -229,7 +229,7 @@ class Sequence<U> {
     const mcRes = await this.moduleInstance.cancel();
     if (mcRes.err) {
       log(
-        `Warning:Cancel step ${this.current.name} before retry error : ${mcRes.val}`
+        `Warning:Cancel step ${this.current.name} before retry error : ${mcRes.val}`,
       );
     }
 

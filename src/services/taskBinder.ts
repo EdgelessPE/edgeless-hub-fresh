@@ -21,7 +21,7 @@ function getLocationKey(location: PoolLocation) {
 // 由操作触发者对任务进行绑定更新
 function bindTask(pluginKey: string, location: PoolLocation) {
   log(
-    `Info:bind location key:${getLocationKey(location)},plugin key:${pluginKey}`
+    `Info:bind location key:${getLocationKey(location)},plugin key:${pluginKey}`,
   );
   bindMap.set(getLocationKey(location), pluginKey);
 }
@@ -37,7 +37,7 @@ function unListenTask(pluginKey: string, listener: Listener) {
   const listeners = listenersMap.get(pluginKey);
   if (listeners == null) {
     log(
-      `Warning:Trying to unListen a not exist task for plugin : ${pluginKey}`
+      `Warning:Trying to unListen a not exist task for plugin : ${pluginKey}`,
     );
     return;
   }
@@ -62,7 +62,7 @@ async function launchDistributor(msPoolKey: string) {
       const pluginKey = bindMap.get(locationKey);
       if (pluginKey == null) {
         log(
-          `Warning:Can't distribute sequence node status : location key ${locationKey} not registered in bind map`
+          `Warning:Can't distribute sequence node status : location key ${locationKey} not registered in bind map`,
         );
         return;
       }

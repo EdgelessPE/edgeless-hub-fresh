@@ -7,7 +7,7 @@ function randomNum(minNum: number, maxNum: number) {
 }
 
 async function getRecommends(
-  count: number
+  count: number,
 ): Promise<FileNodePackageOnlineWithCategory[]> {
   const hello = await getHello();
   if (hello.err) {

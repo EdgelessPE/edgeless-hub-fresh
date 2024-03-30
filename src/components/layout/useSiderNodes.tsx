@@ -27,14 +27,14 @@ function renderSiderMenu(input: SiderNode[]): JSX.Element[] {
           }
         >
           {children}
-        </SubMenu>
+        </SubMenu>,
       );
     } else {
       result.push(
         <MenuItem key={node.path}>
           {node.icon}
           {node.title}
-        </MenuItem>
+        </MenuItem>,
       );
     }
   }
@@ -46,41 +46,39 @@ function useSiderNodes() {
 
   // 异步地对插件包分类打补丁
   useEffect(() => {
-      getHello().then((hello) => {
-        // 生成分类数组
-        const categories: string[] = [];
-        const tree = hello.unwrap().plugins?.tree;
-        if (tree == null) {
-          log(`Error:Current mirror doesn't provide plugins`);
-          return;
-        }
-        for (const key in tree) {
-          categories.push(key);
-        }
+    getHello().then((hello) => {
+      // 生成分类数组
+      const categories: string[] = [];
+      const tree = hello.unwrap().plugins?.tree;
+      if (tree == null) {
+        log(`Error:Current mirror doesn't provide plugins`);
+        return;
+      }
+      for (const key in tree) {
+        categories.push(key);
+      }
 
-        // 生成侧边栏节点
-        const siderNode: SiderNode[] = categories
-          .sort(cmpPinYin)
-          .map((cate) => {
-            return {
-              path: `plugin/category/${cate}`,
-              title: cate,
-              icon: iconMapCategory[cate] ?? <QuestionCircleOutlined />,
-            };
-          });
-
-        // 补充到插件节点
-        setNode(() => {
-          for (const n of siderNodes) {
-            if (n.path == "pluginEmpty") {
-              n.children = siderNode;
-              n.path = "plugin";
-              break;
-            }
-          }
-          return renderSiderMenu(siderNodes);
-        });
+      // 生成侧边栏节点
+      const siderNode: SiderNode[] = categories.sort(cmpPinYin).map((cate) => {
+        return {
+          path: `plugin/category/${cate}`,
+          title: cate,
+          icon: iconMapCategory[cate] ?? <QuestionCircleOutlined />,
+        };
       });
+
+      // 补充到插件节点
+      setNode(() => {
+        for (const n of siderNodes) {
+          if (n.path == "pluginEmpty") {
+            n.children = siderNode;
+            n.path = "plugin";
+            break;
+          }
+        }
+        return renderSiderMenu(siderNodes);
+      });
+    });
   }, []);
 
   return node;

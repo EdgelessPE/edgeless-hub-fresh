@@ -65,7 +65,7 @@ export const Home = () => {
             ),
             link: `/plugin/detail/${node.category}/${node.name}`,
           };
-        })
+        }),
       );
     });
   };

@@ -28,7 +28,7 @@ function formatTimestamp(timestamp: number): string {
   };
   const cur = new Date();
   const sinceDays = Math.round(
-    (cur.getTime() - date.getTime()) / (1000 * 3600 * 24)
+    (cur.getTime() - date.getTime()) / (1000 * 3600 * 24),
   );
 
   if (sinceDays <= 30) {

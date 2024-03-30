@@ -21,7 +21,7 @@ abstract class Provider {
   // 类构造器
   protected constructor(
     params: ProviderParams,
-    listener: TaskProgressListener
+    listener: TaskProgressListener,
   ) {
     this.params = params;
     this.allowPause = false;
@@ -42,7 +42,7 @@ abstract class InterruptableProvider extends Provider {
   // 类构造器
   protected constructor(
     params: ProviderParams,
-    listener: TaskProgressListener
+    listener: TaskProgressListener,
   ) {
     super(params, listener);
     this.allowPause = true;

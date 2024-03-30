@@ -3,7 +3,7 @@ import { ARes } from "../type";
 type ModuleListener = (
   type: string,
   payload: unknown,
-  allowedCommands: string[]
+  allowedCommands: string[],
 ) => void;
 
 abstract class Module {

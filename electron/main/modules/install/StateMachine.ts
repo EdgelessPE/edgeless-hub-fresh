@@ -49,8 +49,8 @@ class StateMachine {
     if (this.state.type != "running") {
       log(
         `Warning:Illegal state switch to ${JSON.stringify(
-          next
-        )} : current state is ${this.state.type}`
+          next,
+        )} : current state is ${this.state.type}`,
       );
       return;
     }

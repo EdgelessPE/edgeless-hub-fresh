@@ -20,7 +20,7 @@ import type { DownloadParams, TaskMeta } from "../../../../types/download";
 type Listener = (
   type: string,
   payload: unknown,
-  allowedCommands: string[]
+  allowedCommands: string[],
 ) => void;
 
 class Download extends Module {
@@ -76,7 +76,7 @@ class Download extends Module {
     const cacheRes = await existUsableFile(
       targetPosition,
       totalSize,
-      integrity
+      integrity,
     );
     if (cacheRes) {
       // 提前开始监听状态机事件
@@ -105,7 +105,7 @@ class Download extends Module {
       },
       (notification: TaskProgressNotification) => {
         this.stateMachine.toDownloading(notification);
-      }
+      },
     );
     this.provider = provider;
 
@@ -148,7 +148,7 @@ class Download extends Module {
     const actualSize = getFileSize(targetPosition);
     if (this.params.totalSize != actualSize) {
       return new Err(
-        `Error:Downloaded file size not match : expected ${this.params.totalSize}, got ${actualSize}`
+        `Error:Downloaded file size not match : expected ${this.params.totalSize}, got ${actualSize}`,
       );
     }
     if (integrity != null) {
@@ -170,7 +170,7 @@ class Download extends Module {
     // 检查命令是否合法
     if (!isAllowedCommand(type, this.provider?.allowPause, cmd)) {
       return new Err(
-        `Error:Fatal:Illegal command received : ${cmd}, payload : ${payload}`
+        `Error:Fatal:Illegal command received : ${cmd}, payload : ${payload}`,
       );
     }
     // 命令处理分支
@@ -181,7 +181,7 @@ class Download extends Module {
         return this.continue();
       default:
         return new Err(
-          `Error:Fatal:Unknown command received : ${cmd}, payload : ${payload}`
+          `Error:Fatal:Unknown command received : ${cmd}, payload : ${payload}`,
         );
     }
   }
@@ -208,7 +208,7 @@ class Download extends Module {
       const pRes = await this.pause();
       if (pRes.err) {
         log(
-          `Warning:Can't pause task ${this.stateMachine.id} before cancel : ${pRes.val}`
+          `Warning:Can't pause task ${this.stateMachine.id} before cancel : ${pRes.val}`,
         );
       }
     }
@@ -221,18 +221,18 @@ class Download extends Module {
     const rRes = await this.provider?.remove();
     if (rRes.err) {
       log(
-        `Warning:Can't remove task ${this.stateMachine.id} through provider ${this.meta?.provider} before cancel : ${rRes.val}`
+        `Warning:Can't remove task ${this.stateMachine.id} through provider ${this.meta?.provider} before cancel : ${rRes.val}`,
       );
     }
 
     // 尝试删除已下载的文件
     const targetPosition = path.join(
       this.meta?.params.dir,
-      this.meta?.params.fileName
+      this.meta?.params.fileName,
     );
     if (!del(targetPosition)) {
       log(
-        `Warning:Can't delete downloaded file before cancel task ${this.stateMachine.id}`
+        `Warning:Can't delete downloaded file before cancel task ${this.stateMachine.id}`,
       );
     }
 
@@ -252,7 +252,7 @@ class Download extends Module {
       // 检查 provider 是否支持暂停
       if (!this.provider?.allowPause) {
         return new Err(
-          `Error:Fatal:Task ${this.stateMachine.id}'s provider ${this.meta?.provider} doesn't support pause`
+          `Error:Fatal:Task ${this.stateMachine.id}'s provider ${this.meta?.provider} doesn't support pause`,
         );
       }
 
@@ -277,7 +277,7 @@ class Download extends Module {
     }
 
     return new Err(
-      `Error:Can't pause download at state ${this.stateMachine.state.type}`
+      `Error:Can't pause download at state ${this.stateMachine.state.type}`,
     );
   }
 
@@ -290,7 +290,7 @@ class Download extends Module {
       // 检查 provider 是否支持暂停
       if (!this.provider?.allowPause) {
         return new Err(
-          `Error:Fatal:Task ${this.stateMachine.id}'s provider ${this.meta?.provider} doesn't support pause`
+          `Error:Fatal:Task ${this.stateMachine.id}'s provider ${this.meta?.provider} doesn't support pause`,
         );
       }
 
@@ -327,7 +327,7 @@ class Download extends Module {
     }
 
     return new Err(
-      `Error:Fatal:Can't continue download at state ${this.stateMachine.state.type}`
+      `Error:Fatal:Can't continue download at state ${this.stateMachine.state.type}`,
     );
   }
 }

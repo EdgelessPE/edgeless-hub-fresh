@@ -28,7 +28,7 @@ function renderSettingItems(items: SettingItem[]): React.ReactElement[] {
           description={item.description}
           className="settings__meta"
         />
-      </List.Item>
+      </List.Item>,
     );
   }
 

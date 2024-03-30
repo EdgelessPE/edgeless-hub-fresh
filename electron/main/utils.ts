@@ -15,7 +15,7 @@ function getLocalImageSrc(fsPath: string): Result<string, string> {
 function validate<T>(
   data: T,
   validator: ValidateFunction,
-  errorTip?: string
+  errorTip?: string,
 ): Result<T, string> {
   validator.errors = undefined;
   const res = validator(data);
@@ -33,7 +33,7 @@ function validate<T>(
 type ErrHandler = (err: AxiosError) => string;
 async function fetch<T>(
   url: string,
-  errTip?: string | ErrHandler
+  errTip?: string | ErrHandler,
 ): Promise<Result<T, string>> {
   try {
     const res = await axios.get(url);

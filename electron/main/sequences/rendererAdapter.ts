@@ -31,7 +31,7 @@ const globalMultiSequencesView: {
  */
 function adapter(
   entry: IPoolNode,
-  patch?: { cache: RendererSequence; current: Current }
+  patch?: { cache: RendererSequence; current: Current },
 ): RendererSequence {
   if (patch == null) {
     const current = entry.sequence.getCurrent();
@@ -75,7 +75,7 @@ function hasActiveSingleSequence(key: string): boolean {
 async function startSingleSequence(
   key: string,
   userInput?: unknown,
-  reset = false
+  reset = false,
 ): Promise<Observable<RendererSequence>> {
   const callFn = reset
     ? resetSingleSequencePoolEntry
@@ -123,7 +123,7 @@ function setMSCache(key: string, cache: RendererSequence[]) {
 function patchMultiSequencesView(
   key: string,
   entry: IPoolNode,
-  current: Current
+  current: Current,
 ) {
   const cache = getMSCache(key);
   for (let i = 0; i < cache.length; i++) {
@@ -135,7 +135,7 @@ function patchMultiSequencesView(
     }
   }
   log(
-    `Error:Fatal:Can't patch ms view ${key} with id ${entry.id} : sequence not found`
+    `Error:Fatal:Can't patch ms view ${key} with id ${entry.id} : sequence not found`,
   );
 }
 
@@ -193,7 +193,7 @@ function addMultiSequence(key: string, userInput?: unknown) {
   entry.sequence.start().then((res) => {
     if (res.err) {
       log(
-        `Error:Sequence ${entry.id} at ${key} returned with error : ${res.val}`
+        `Error:Sequence ${entry.id} at ${key} returned with error : ${res.val}`,
       );
     } else {
       log(`Info:Sequence ${entry.id} at ${key} executed successfully`);
@@ -220,7 +220,7 @@ function removeMultiSequence(key: string, id: string) {
 async function resetMultiSequence(
   key: string,
   id: string,
-  userInput?: unknown
+  userInput?: unknown,
 ) {
   const entry = await resetMultiSequencePoolEntry(key, id, userInput);
   entry.sequence.listenCurrent((current) => {
@@ -230,7 +230,7 @@ async function resetMultiSequence(
   entry.sequence.start().then((res) => {
     if (res.err) {
       log(
-        `Error:Sequence ${entry.id} at ${key} returned with error : ${res.val}`
+        `Error:Sequence ${entry.id} at ${key} returned with error : ${res.val}`,
       );
     } else {
       log(`Info:Sequence ${entry.id} at ${key} executed successfully`);

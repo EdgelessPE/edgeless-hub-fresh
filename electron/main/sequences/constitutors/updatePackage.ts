@@ -37,7 +37,7 @@ function updatePackage(): SeqNode<UpdatePackageUserInput>[] {
       name: "install",
       moduleInputAdapter: (
         userInput,
-        prevReturned: string[]
+        prevReturned: string[],
       ): InstallPackageParams => {
         return {
           sourceFilePath: prevReturned[0],

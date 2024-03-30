@@ -19,7 +19,7 @@ function initObservableBridge() {
         return;
       }
       callback(value);
-    }
+    },
   );
 }
 

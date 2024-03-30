@@ -8,7 +8,7 @@ export const DownloadSpeedBadge = () => {
   const status = useAbstractPoolStatus();
   return (
     <Tag icon={<ArrowDownOutlined />}>{`${formatSize(
-      status?.speed ?? 0
+      status?.speed ?? 0,
     )}/s`}</Tag>
   );
 };

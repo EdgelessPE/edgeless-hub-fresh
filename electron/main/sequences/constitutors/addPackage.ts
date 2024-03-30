@@ -36,7 +36,7 @@ function addPackage(): SeqNode<AddPackageUserInput>[] {
         if (userInput.targetPath == null) return new Ok(null);
         const vRes = installPackageUserInputValidator(
           userInput.targetPath,
-          userInput.downloadParams.fileName
+          userInput.downloadParams.fileName,
         );
         if (vRes.err) return vRes;
 
@@ -47,7 +47,7 @@ function addPackage(): SeqNode<AddPackageUserInput>[] {
       },
       moduleInputAdapter: (
         userInput,
-        prevReturned: string[]
+        prevReturned: string[],
       ): InstallPackageParams => {
         const downloadedFilePath = prevReturned[0];
         const targetFilePath =
@@ -55,7 +55,7 @@ function addPackage(): SeqNode<AddPackageUserInput>[] {
           path.join(
             getTempConfig().flashDisk,
             FLASH_DISK_PACKAGE,
-            path.basename(downloadedFilePath)
+            path.basename(downloadedFilePath),
           );
         return {
           sourceFilePath: downloadedFilePath,
@@ -68,7 +68,7 @@ function addPackage(): SeqNode<AddPackageUserInput>[] {
 }
 
 function addPackageTaskStatusAdapter(
-  cur: RendererSequence["current"]
+  cur: RendererSequence["current"],
 ): TaskStatus {
   if (cur.state.type == "error") {
     return {

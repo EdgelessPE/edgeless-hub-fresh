@@ -59,7 +59,7 @@ function move(from: string, to: string): Res<string> {
     const parentDir = path.dirname(to);
     if (!mkdir(parentDir)) {
       return new Err(
-        `Error:Can't move ${from} to ${to} : can't mkdir parent dir at ${parentDir}`
+        `Error:Can't move ${from} to ${to} : can't mkdir parent dir at ${parentDir}`,
       );
     }
   }
@@ -68,13 +68,13 @@ function move(from: string, to: string): Res<string> {
   } catch (e) {
     return new Err(
       `Error:Can't move ${from} to ${to} : api call failed : ${JSON.stringify(
-        e
-      )}`
+        e,
+      )}`,
     );
   }
   if (!fs.existsSync(to)) {
     return new Err(
-      `Error:Can't move ${from} to ${to} : target not exist after api call`
+      `Error:Can't move ${from} to ${to} : target not exist after api call`,
     );
   }
   return new Ok(to);

@@ -1,11 +1,11 @@
-import type {WebContents} from "electron";
-import {ipcMain} from "electron";
-import {log} from "../../log";
-import {Ok, Result} from "ts-results";
-import {ObservableBridgeUpdate} from "../../../../types/bridge";
-import {getObservableRegistry} from "./register";
-import {InitError} from "../../../../types";
-import {Observable} from "rxjs";
+import type { WebContents } from "electron";
+import { ipcMain } from "electron";
+import { log } from "../../log";
+import { Ok, Result } from "ts-results";
+import { ObservableBridgeUpdate } from "../../../../types/bridge";
+import { getObservableRegistry } from "./register";
+import { InitError } from "../../../../types";
+import { Observable } from "rxjs";
 
 // 创建用于保存最后一次发送响应对象的 map
 // 此 bridge 的行为接近 BehaviorObservable
@@ -21,7 +21,7 @@ let webContentsGlobal: WebContents | null = null;
 function update(
   key: string,
   type: ObservableBridgeUpdate["type"],
-  value: unknown
+  value: unknown,
 ) {
   const res: ObservableBridgeUpdate = {
     key,
@@ -33,7 +33,7 @@ function update(
 }
 
 async function initObservableBridge(
-  webContents: WebContents
+  webContents: WebContents,
 ): Promise<Result<null, InitError>> {
   // 存放全局 web contents
   webContentsGlobal = webContents;

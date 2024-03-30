@@ -42,7 +42,7 @@ export class NfdProvider extends Provider {
     const onProgress = (
       percentage: string,
       chunk: object,
-      remainingSize: number
+      remainingSize: number,
     ) => {
       const current: ProgressUpdate = {
         time: Date.now(),
@@ -73,8 +73,8 @@ export class NfdProvider extends Provider {
         .catch((e: unknown) => {
           resolve(
             new Err(
-              `Error:Nfd provider can't download file : ${JSON.stringify(e)}`
-            )
+              `Error:Nfd provider can't download file : ${JSON.stringify(e)}`,
+            ),
           );
         });
     });

@@ -41,7 +41,7 @@ function renderConfigItems(items: ConfigItem[]): React.ReactElement[] {
           description={item.description}
           className="config__meta"
         />
-      </List.Item>
+      </List.Item>,
     );
   }
 
@@ -66,7 +66,7 @@ function renderPreferenceItems(): React.ReactElement[] {
           description={item.description}
           className="config__meta"
         />
-      </List.Item>
+      </List.Item>,
     );
   }
 
@@ -80,7 +80,7 @@ function renderResolutionOptions(): React.ReactElement[] {
     result.push(
       <Select.Option key={val} value={val}>
         {`${item.width} x ${item.height}`}
-      </Select.Option>
+      </Select.Option>,
     );
   }
 
@@ -90,7 +90,7 @@ function renderResolutionOptions(): React.ReactElement[] {
 export const Config = () => {
   const [resolution, setResolution] = useState("auto");
   const [wallpaperPreview, setWallpaperPreview] = useState(
-    <Empty description="无法预览壁纸" icon={<IconEyeInvisible />} />
+    <Empty description="无法预览壁纸" icon={<IconEyeInvisible />} />,
   );
   const configItems: ConfigItem[] = [
     {
@@ -127,7 +127,7 @@ export const Config = () => {
     // 获取当前壁纸url
     bridge<Result<string, string>>(
       "getLocalImageSrc",
-      "D:\\360Downloads\\2056038.jpg"
+      "D:\\360Downloads\\2056038.jpg",
     ).then((wallPaperUrlRes) => {
       if (wallPaperUrlRes.ok)
         setWallpaperPreview(
@@ -135,7 +135,7 @@ export const Config = () => {
             src={wallPaperUrlRes.val}
             alt="wallpaper"
             className="config__wallpaper-preview"
-          />
+          />,
         );
     });
     // 配置当前参考版本

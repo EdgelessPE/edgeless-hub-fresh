@@ -2,7 +2,7 @@ import { getHello } from "@/services/ept";
 import { FileNodePackageOnlineWithCategory } from "../../../types/online";
 
 async function searchHandler(
-  searchText: string
+  searchText: string,
 ): Promise<FileNodePackageOnlineWithCategory[]> {
   const helloRes = await getHello();
   if (helloRes.err) {
@@ -19,12 +19,12 @@ async function searchHandler(
     res = res.concat(
       list
         .filter((cur) =>
-          cur.name.toLowerCase().includes(searchText.toLowerCase())
+          cur.name.toLowerCase().includes(searchText.toLowerCase()),
         )
         .map((node) => ({
           ...node,
           category: cate,
-        }))
+        })),
     );
   }
 

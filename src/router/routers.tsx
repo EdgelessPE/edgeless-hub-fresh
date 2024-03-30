@@ -30,7 +30,7 @@ export function getRouterNodes() {
   const nodes: JSX.Element[] = [];
   for (const path in routerList) {
     nodes.push(
-      <Route key={path} path={"/" + path} element={routerList[path]} />
+      <Route key={path} path={"/" + path} element={routerList[path]} />,
     );
   }
   return nodes;

@@ -22,7 +22,7 @@ function isOutdated(cur: number, prev: number) {
  */
 async function get<T>(
   key: string,
-  fetchFn: () => Promise<Result<T, string>>
+  fetchFn: () => Promise<Result<T, string>>,
 ): Promise<Result<T, string>> {
   // 检查缓存是否有效
   const entry = cachePool.get(key);
@@ -50,7 +50,7 @@ async function getHello(): Promise<Result<HelloResponse, string>> {
   const baseUrl = cfg.ept.mirror.pool[curMirrorName]?.baseUrl;
   if (baseUrl == null) {
     return new Err(
-      `Error:Can't find mirror named '${curMirrorName}' in config pool`
+      `Error:Can't find mirror named '${curMirrorName}' in config pool`,
     );
   }
 

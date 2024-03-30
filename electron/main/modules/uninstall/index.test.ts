@@ -39,8 +39,8 @@ test("uninstallModule", async () => {
     if (strategy == "FlashRecycle") {
       expect(
         fs.existsSync(
-          path.join(parentDir, "过期插件包", `${base}.7zf_${curTimestamp}`)
-        )
+          path.join(parentDir, "过期插件包", `${base}.7zf_${curTimestamp}`),
+        ),
       ).toBe(true);
     } else {
       expect(fs.existsSync(target)).toBe(false);

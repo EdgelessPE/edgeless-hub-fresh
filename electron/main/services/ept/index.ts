@@ -12,7 +12,7 @@ async function eptInstall(
   name: string,
   options?: {
     load?: boolean; // 是否在安装之后加载
-  }
+  },
 ): Promise<Res<string>> {
   const infoRes = await eptInfo(name);
   if (infoRes.err) return infoRes;
@@ -35,12 +35,12 @@ async function eptInfo(name: string): Promise<Res<DownloadParams>> {
   for (const cate in tree) {
     const list = tree[cate];
     for (const node of list) {
-      const infoRes = parsePackageName(node.name)
+      const infoRes = parsePackageName(node.name);
       if (infoRes.err) {
-        log(`Warning:Can't parse ${node.name} for package info`)
-        continue
+        log(`Warning:Can't parse ${node.name} for package info`);
+        continue;
       }
-      const info = infoRes.unwrap()
+      const info = infoRes.unwrap();
 
       if (info.name == name) {
         return new Ok({

@@ -85,7 +85,7 @@ class InstallPackage extends Module {
 
   async command(cmd: string, payload: unknown): Promise<Res<null>> {
     return new Err(
-      `Error:Fatal:No commands allowed in Install Package module : received ${cmd} with payload ${payload}`
+      `Error:Fatal:No commands allowed in Install Package module : received ${cmd} with payload ${payload}`,
     );
   }
 
@@ -93,13 +93,13 @@ class InstallPackage extends Module {
     // 如果任务正在进行中则拒绝取消
     if (this.stateMachine.state.type == "running") {
       return new Err(
-        `Error:Can't cancel Install Package module now : copying file is running and please wait until copying finished, otherwise your drive may be damaged!`
+        `Error:Can't cancel Install Package module now : copying file is running and please wait until copying finished, otherwise your drive may be damaged!`,
       );
     }
     // 删除已拷贝的文件
     if (!del(this.params.targetFilePath)) {
       log(
-        `Warning:Can't delete target file before cancel Install Package module : ${this.params.targetFilePath}`
+        `Warning:Can't delete target file before cancel Install Package module : ${this.params.targetFilePath}`,
       );
     }
 

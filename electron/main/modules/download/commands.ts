@@ -13,7 +13,7 @@ const allowedCommandsMap: Record<TaskStateType, Set<string>> = {
 
 function getAllowedCommands(
   type: TaskStateType,
-  allowPause: boolean
+  allowPause: boolean,
 ): string[] {
   const set = allowedCommandsMap[type];
   const cmd = Array.from(set);
@@ -26,7 +26,7 @@ function getAllowedCommands(
 function isAllowedCommand(
   type: TaskStateType,
   allowPause: boolean,
-  command: string
+  command: string,
 ) {
   if (allowPause && type == "downloading" && command == "pause") {
     return true;

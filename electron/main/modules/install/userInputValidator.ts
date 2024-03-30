@@ -4,7 +4,7 @@ import path from "path";
 
 function installPackageUserInputValidator(
   targetPath: string,
-  fileName: string
+  fileName: string,
 ): Result<string, string> {
   if (isFolderPath(targetPath)) {
     // 处理文件夹路径
@@ -20,7 +20,7 @@ function installPackageUserInputValidator(
       return new Ok(targetPath);
     } else {
       return new Err(
-        `Error:Can't mkdir parent folder ${parentDir} for ${targetPath}`
+        `Error:Can't mkdir parent folder ${parentDir} for ${targetPath}`,
       );
     }
   }

@@ -14,7 +14,7 @@ import { BackToTop } from "@/pages/Category/BackToTop";
 function renderPluginCards(
   plugins: FileNodePackageOnline[],
   category: string,
-  showCategory = false
+  showCategory = false,
 ) {
   const result: React.ReactElement[] = [];
   for (const plugin of plugins.sort((a, b) => cmpPinYin(a.name, b.name))) {
@@ -24,7 +24,7 @@ function renderPluginCards(
         data={plugin}
         category={category}
         showCategory={showCategory}
-      />
+      />,
     );
   }
   return result;
@@ -44,7 +44,7 @@ function useCategory(category: string): FileNodePackageOnline[] {
       }
       if (!(category in tree)) {
         log(
-          `Error:Fatal:Category ${category} not exist in current plugins tree`
+          `Error:Fatal:Category ${category} not exist in current plugins tree`,
         );
         return;
       }

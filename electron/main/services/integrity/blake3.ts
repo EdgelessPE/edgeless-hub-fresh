@@ -18,9 +18,9 @@ async function getHash(filePath: string): Promise<Result<string, string>> {
           resolve(
             new Err(
               `Error:Can't calculate hash for ${filePath} : ${JSON.stringify(
-                err
-              )}`
-            )
+                err,
+              )}`,
+            ),
           );
           return;
         });

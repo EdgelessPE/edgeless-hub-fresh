@@ -7,7 +7,7 @@ const dataCacheMap: Map<string, FileNodePackageOnline> = new Map();
 
 async function getPluginData(
   category: string,
-  fullName: string
+  fullName: string,
 ): Promise<FileNodePackageOnline | null> {
   // 加载树缓存
   if (treeCache == null) {
@@ -40,7 +40,7 @@ async function getPluginData(
   }
 
   log(
-    `Error:Fatal:Can't get plugin data for ${fullName} in ${category} : not found in tree`
+    `Error:Fatal:Can't get plugin data for ${fullName} in ${category} : not found in tree`,
   );
   return null;
 }

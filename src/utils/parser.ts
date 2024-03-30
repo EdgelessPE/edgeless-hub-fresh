@@ -3,7 +3,7 @@ import { log } from "@/utils/log";
 import { PluginParsedFullName } from "../../types/parsed";
 
 function parsePackageName(
-  fullName: string
+  fullName: string,
 ): Result<PluginParsedFullName, string> {
   try {
     const indexOfDot = fullName.lastIndexOf(".");

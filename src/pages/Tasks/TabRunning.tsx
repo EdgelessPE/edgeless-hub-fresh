@@ -18,7 +18,7 @@ export const TabRunning = ({ array }: TabRunningProps) => {
         key={node.data.name}
         data={node.data}
         status={node.status}
-      />
+      />,
     );
   }
   return <div className="tasks__tab-content">{result}</div>;

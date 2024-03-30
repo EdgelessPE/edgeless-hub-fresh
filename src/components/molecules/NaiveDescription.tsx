@@ -28,7 +28,7 @@ export const NaiveDescription = ({
             {addColon && "："}
           </td>
           <td key={tdCount++}>{content}</td>
-        </tr>
+        </tr>,
       );
     }
     setReactiveItems(elements);

@@ -13,7 +13,7 @@ export const Webview = ({ url, style, className }: Props) => {
     webview.addEventListener("did-stop-loading", () => {
       webview
         .executeJavaScript(
-          "document.addEventListener('click', e => {e.preventDefault()})"
+          "document.addEventListener('click', e => {e.preventDefault()})",
         )
         .catch(() => {
           log(`Warning:Can't prevent click default event on Webview component`);

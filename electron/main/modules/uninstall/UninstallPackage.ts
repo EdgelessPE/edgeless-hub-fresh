@@ -51,11 +51,11 @@ class UninstallPackage extends Module {
         }
         const mRes = move(
           target,
-          path.join(flashCacheDir, getDisabledFileName(path.basename(target)))
+          path.join(flashCacheDir, getDisabledFileName(path.basename(target))),
         );
         if (mRes.err) {
           return new Err(
-            `Error:Can't move package to flash cache : ${mRes.val}`
+            `Error:Can't move package to flash cache : ${mRes.val}`,
           );
         }
 
@@ -66,7 +66,7 @@ class UninstallPackage extends Module {
           return new Ok(null);
         } else {
           return new Err(
-            `Error:Can't delete package ${target} from file system`
+            `Error:Can't delete package ${target} from file system`,
           );
         }
       },
@@ -76,8 +76,8 @@ class UninstallPackage extends Module {
         } catch (e) {
           return new Err(
             `Error:Can't move package ${target} to system recycle : ${JSON.stringify(
-              e
-            )}`
+              e,
+            )}`,
           );
         }
         return new Ok(null);
@@ -101,7 +101,7 @@ class UninstallPackage extends Module {
 
   async command(cmd: string, payload: unknown): Promise<Res<null>> {
     return new Err(
-      `Error:Fatal:No commands allowed in Uninstall Package module : received ${cmd} with payload ${payload}`
+      `Error:Fatal:No commands allowed in Uninstall Package module : received ${cmd} with payload ${payload}`,
     );
   }
 

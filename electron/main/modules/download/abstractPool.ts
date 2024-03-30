@@ -67,7 +67,7 @@ function suspendQueue(taskId: string) {
     }
   }
   log(
-    `Error:Fatal:Can't suspend queue node ${taskId} : not found in running queue`
+    `Error:Fatal:Can't suspend queue node ${taskId} : not found in running queue`,
   );
 }
 
@@ -82,7 +82,7 @@ function resumeQueue(taskId: string) {
     }
   }
   log(
-    `Error:Fatal:Can't resume queue node ${taskId} : not found in suspended queue`
+    `Error:Fatal:Can't resume queue node ${taskId} : not found in suspended queue`,
   );
 }
 
@@ -114,7 +114,7 @@ function scheduleQueue() {
   // 计算空闲位置
   const maxSeats = Math.min(
     MAX_DOWNLOADING_TASKS,
-    cfg.download.maxDownloadingTasks
+    cfg.download.maxDownloadingTasks,
   );
   const availableSeats = maxSeats - globalTaskState.downloading;
 
@@ -160,7 +160,7 @@ function update(id: string, nextState: TaskState) {
     }
   }
   log(
-    `Error:Fatal:Can't update abstract download pool node : Task ${id} not found`
+    `Error:Fatal:Can't update abstract download pool node : Task ${id} not found`,
   );
 }
 
@@ -177,7 +177,7 @@ function remove(id: string) {
     }
   }
   log(
-    `Error:Fatal:Can't remove abstract download pool node : Task ${id} not found`
+    `Error:Fatal:Can't remove abstract download pool node : Task ${id} not found`,
   );
 }
 

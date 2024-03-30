@@ -5,7 +5,7 @@ import { log } from "../../log";
 import { MirrorLocal } from "../../../../types/ept";
 
 async function infoMirrorOnline(
-  baseUrl: string
+  baseUrl: string,
 ): Promise<Result<MirrorLocal, string>> {
   const fRes = await fetchHello(baseUrl);
   if (fRes.err) {
@@ -27,7 +27,7 @@ async function infoMirrorOnline(
 async function setMirror(
   name: string,
   baseUrl: string,
-  shouldExist = true
+  shouldExist = true,
 ): Promise<Result<null, string>> {
   // 检查是否存在
   const { pool } = getTempConfig().ept.mirror;
@@ -35,11 +35,11 @@ async function setMirror(
   if (exist != shouldExist) {
     if (shouldExist) {
       return new Err(
-        `Error:Fatal:Can't set mirror ${name} : expect mirror to be existed but not`
+        `Error:Fatal:Can't set mirror ${name} : expect mirror to be existed but not`,
       );
     } else {
       return new Err(
-        `Error:Fatal:Can't set mirror ${name} : expect mirror to be not existed but got ${pool[name]}`
+        `Error:Fatal:Can't set mirror ${name} : expect mirror to be not existed but got ${pool[name]}`,
       );
     }
   }
@@ -58,7 +58,7 @@ async function setMirror(
     log(`Info:Set mirror ${name} with baseUrl = ${baseUrl}`);
   } else {
     log(
-      `Error:Can't set mirror ${name} due to modify config failed : ${mRes.val}`
+      `Error:Can't set mirror ${name} due to modify config failed : ${mRes.val}`,
     );
   }
   return mRes;
@@ -66,7 +66,7 @@ async function setMirror(
 
 async function addMirror(
   name: string,
-  baseUrl: string
+  baseUrl: string,
 ): Promise<Result<null, string>> {
   return setMirror(name, baseUrl, false);
 }
@@ -89,7 +89,7 @@ async function removeMirror(name: string): Promise<Result<null, string>> {
     log(`Info:Removed mirror ${name}`);
   } else {
     log(
-      `Error:Can't remove mirror ${name} due to modify config failed : ${mRes.val}`
+      `Error:Can't remove mirror ${name} due to modify config failed : ${mRes.val}`,
     );
   }
   return mRes;
@@ -97,7 +97,7 @@ async function removeMirror(name: string): Promise<Result<null, string>> {
 
 async function infoMirror(
   name: string,
-  fresh = false
+  fresh = false,
 ): Promise<Result<MirrorLocal, string>> {
   const { pool } = getTempConfig().ept.mirror;
   const node = pool[name];
@@ -119,7 +119,7 @@ async function infoMirror(
     }).then((mRes) => {
       if (mRes.err) {
         log(
-          `Warning:Failed to save fresh mirror info for ${name} : ${mRes.val}`
+          `Warning:Failed to save fresh mirror info for ${name} : ${mRes.val}`,
         );
       }
     });

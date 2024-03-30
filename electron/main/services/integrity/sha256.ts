@@ -15,9 +15,9 @@ async function getHash(filePath: string): Promise<Result<string, string>> {
         resolve(
           new Err(
             `Error:Can't calculate sha256 digest for ${filePath} : ${JSON.stringify(
-              err
-            )}`
-          )
+              err,
+            )}`,
+          ),
         );
         return;
       }
@@ -27,8 +27,8 @@ async function getHash(filePath: string): Promise<Result<string, string>> {
       } else {
         resolve(
           new Err(
-            `Error:Can't calculate sha256 digest for ${filePath} : received null result`
-          )
+            `Error:Can't calculate sha256 digest for ${filePath} : received null result`,
+          ),
         );
       }
     });

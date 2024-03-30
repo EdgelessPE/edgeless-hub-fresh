@@ -43,7 +43,7 @@ function getSingleSequencePoolEntry(key: string): Option<IPoolNode> {
  */
 function prepareSingleSequencePoolEntry(
   key: string,
-  userInput?: unknown
+  userInput?: unknown,
 ): IPoolNode {
   const entryOpt = getSingleSequencePoolEntry(key);
   if (entryOpt.some) {
@@ -73,7 +73,7 @@ function prepareSingleSequencePoolEntry(
 
 async function resetSingleSequencePoolEntry(
   key: string,
-  userInput?: unknown
+  userInput?: unknown,
 ): Promise<IPoolNode> {
   let finalUserInput: unknown = userInput;
 
@@ -111,7 +111,7 @@ function getMultiSequencesPoolEntries(key: string): IPoolNode[] {
 
 function getMultiSequencePoolEntry(key: string, id: string): Option<IPoolNode> {
   const entryFindRes = getMultiSequencesPoolEntries(key).find(
-    (value) => value.id == id
+    (value) => value.id == id,
   );
 
   if (entryFindRes == null) {
@@ -131,7 +131,7 @@ function getMultiSequencePoolEntry(key: string, id: string): Option<IPoolNode> {
 function addMultiSequencePoolEntry(
   key: string,
   userInput?: unknown,
-  replaceId?: string
+  replaceId?: string,
 ): IPoolNode {
   const sequenceConstitutor = SEQUENCE_MULTI_SEQUENCE_CONSTITUTOR_MAP[key];
   if (sequenceConstitutor == null) {
@@ -164,7 +164,7 @@ function removeMultiSequencePoolEntry(key: string, id: string) {
       value.sequence.cancel().then((res) => {
         if (res.err) {
           log(
-            `Warning:Can't cancel sequence ${id} at ${key} before remove : ${res.val}`
+            `Warning:Can't cancel sequence ${id} at ${key} before remove : ${res.val}`,
           );
         }
       });
@@ -174,7 +174,7 @@ function removeMultiSequencePoolEntry(key: string, id: string) {
   });
   if (findRes == null) {
     log(
-      `Warning:Trying to delete a unknown multi sequence ${id} from ${key} set `
+      `Warning:Trying to delete a unknown multi sequence ${id} from ${key} set `,
     );
   }
 }
@@ -182,7 +182,7 @@ function removeMultiSequencePoolEntry(key: string, id: string) {
 async function resetMultiSequencePoolEntry(
   key: string,
   id: string,
-  userInput?: unknown
+  userInput?: unknown,
 ): Promise<IPoolNode> {
   let finalUserInput: unknown = userInput;
 
@@ -192,7 +192,7 @@ async function resetMultiSequencePoolEntry(
     const cRes = await entry.sequence.cancel();
     if (cRes.err) {
       log(
-        `Warning:Can't cancel sequence ${id} at ${key} before reset : ${cRes.val}`
+        `Warning:Can't cancel sequence ${id} at ${key} before reset : ${cRes.val}`,
       );
     }
     removeMultiSequencePoolEntry(key, id);

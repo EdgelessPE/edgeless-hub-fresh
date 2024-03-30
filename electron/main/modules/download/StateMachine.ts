@@ -73,14 +73,14 @@ class StateMachine {
     if (type == "completed" || type == "error") {
       log(
         `Warning:Illegal state switch to ${JSON.stringify(
-          next
-        )} : current state is ${type}`
+          next,
+        )} : current state is ${type}`,
       );
       return;
     }
 
     log(
-      `Debug:Switch download task ${this.id} state from ${type} to ${next.type}`
+      `Debug:Switch download task ${this.id} state from ${type} to ${next.type}`,
     );
     this.state = next;
     this.listeners.forEach((listener) => {

@@ -9,7 +9,7 @@ electronLog.transports.file.resolvePath = () =>
   path.join(
     process.cwd(),
     "log",
-    `${date.getFullYear()}_${date.getMonth()}_${date.getDate()}.txt`
+    `${date.getFullYear()}_${date.getMonth()}_${date.getDate()}.txt`,
   );
 
 const map: Record<LogLevel, any> = {

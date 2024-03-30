@@ -12,7 +12,7 @@ function getFileSize(filePath: string): number {
 async function existUsableFile(
   filePath: string,
   totalSize: number,
-  integrity?: Integrity
+  integrity?: Integrity,
 ): Promise<boolean> {
   // 判断文件是否存在
   if (!fs.existsSync(filePath)) {
@@ -22,7 +22,7 @@ async function existUsableFile(
   const actualSize = getFileSize(filePath);
   if (totalSize != actualSize) {
     log(
-      `Debug:Cache file size not match, expect ${totalSize}, got ${actualSize}`
+      `Debug:Cache file size not match, expect ${totalSize}, got ${actualSize}`,
     );
     if (!del(filePath)) {
       log(`Warning:Can't delete broken cache file : ${filePath}`);

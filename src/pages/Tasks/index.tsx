@@ -22,9 +22,11 @@ export const Tasks = () => {
     // );
     // console.log(idRes);
     await addMultiSequence("addPackage", {
-      url: "https://pineapple.edgeless.top/disk/插件包/实用工具/禁用小键盘_1.0.0.0_Cno.7z",
-      fileName: "禁用小键盘_1.0.0.0_Cno.7z",
-      totalSize: 140,
+      downloadParams: {
+        url: "https://pineapple.edgeless.top/disk/插件包/实用工具/禁用小键盘_1.0.0.0_Cno.7z",
+        fileName: "禁用小键盘_1.0.0.0_Cno.7z",
+        totalSize: 140,
+      },
     });
   };
 

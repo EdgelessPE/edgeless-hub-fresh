@@ -5,7 +5,7 @@ import { getTaskId } from "./utils";
 import { getTempConfig } from "../../services/config";
 import * as path from "path";
 import { existUsableFile, getFileSize } from "./cache";
-import { TaskMeta, TaskProgressNotification } from "./type";
+import { TaskProgressNotification } from "./type";
 import { getProviderConstructor } from "./providers/_register";
 import { DOWNLOAD_SUB_DIR_PACKAGES } from "../../constants";
 import { InterruptableProvider } from "./providers/Provider";
@@ -15,7 +15,7 @@ import { Res } from "../../type";
 import { getAllowedCommands, isAllowedCommand } from "./commands";
 import { log } from "../../log";
 import { del } from "../../utils/shell";
-import type { DownloadParams } from "../../../../types/download";
+import type { DownloadParams, TaskMeta } from "../../../../types/download";
 
 type Listener = (
   type: string,

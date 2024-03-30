@@ -99,7 +99,8 @@ export const Home = () => {
         }}
       >
         <h2 className="home__welcome">
-          {config && getGreeting(config.preference.userNick)}
+          {config &&
+            getGreeting(config.preference?.userNick ?? "Edgeless 用户")}
         </h2>
         <div className="home__status">
           <Avatar size={180} className="home__status__avatar">

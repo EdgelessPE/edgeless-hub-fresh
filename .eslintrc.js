@@ -2,7 +2,7 @@
 module.exports = {
   env: {
     browser: true,
-    es2021: true,
+    es2021: true
   },
   extends: [
     "eslint:recommended",
@@ -12,15 +12,23 @@ module.exports = {
   ],
   overrides: [
     {
-      files: ["electron/**/*.ts", "src/**/*.tsx"],
-    },
+      files: ["electron/**/*.ts", "src/**/*.tsx"]
+    }
   ],
   parser: "@typescript-eslint/parser",
   parserOptions: {
     ecmaVersion: "latest",
-    sourceType: "module",
+    sourceType: "module"
   },
   plugins: ["react", "@typescript-eslint"],
-  rules: {},
-  ignorePatterns: ["*.js", "/scripts"]
+  rules: {
+    "@typescript-eslint/no-explicit-any": "warn",
+    "@typescript-eslint/no-unused-vars": "warn"
+  },
+  ignorePatterns: ["*.js", "/scripts"],
+  settings: {
+    react: {
+      version: "detect"
+    }
+  }
 };

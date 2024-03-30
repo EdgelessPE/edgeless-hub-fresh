@@ -60,7 +60,7 @@ function withDebug(config: UserConfig): UserConfig {
       configResolved(config) {
         // TODO: when the next version of `vite-plugin-electron` is released, use the config hook.
         const index = config.plugins.findIndex(
-          (p) => p.name === "electron-main-watcher"
+          (p) => p.name === "electron-main-watcher",
         );
         (config.plugins as Plugin[]).splice(index, 1);
         rmSync(debugFile);

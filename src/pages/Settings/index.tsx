@@ -9,6 +9,7 @@ import React, { useEffect, useState } from "react";
 import { getCurrentTheme, setCurrentTheme } from "@/services/theme";
 import { updateSubTitle } from "@/services/subTitle";
 import { getVersion } from "@/services/misc";
+import { genFlashInfo } from "@/services/flashManager";
 
 interface SettingItem {
   avatar: React.ReactElement;
@@ -104,6 +105,14 @@ export const Settings = () => {
 
   return (
     <div className="settings__container">
+      <Button
+        onClick={async () => {
+          const res = await genFlashInfo();
+          console.log("kernels: ", res);
+        }}
+      >
+        扫描
+      </Button>
       <List wrapperStyle={{ width: "100%" }}>
         {/*TODO:设置壁纸*/}
         {renderSettingItems(settingItems)}

@@ -47,3 +47,8 @@ interface FlashInfo {
 }
 
 export { FileNodePackageLocal, FileNodeLocal, VentoyLocal, FlashInfo };
+
+export interface PossibleMount {
+  name: string;
+  mount: string;
+}

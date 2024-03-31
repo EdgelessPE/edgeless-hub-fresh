@@ -9,7 +9,7 @@ import React, { useEffect, useState } from "react";
 import { getCurrentTheme, setCurrentTheme } from "@/services/theme";
 import { updateSubTitle } from "@/services/subTitle";
 import { getVersion } from "@/services/misc";
-import { genFlashInfo } from "@/services/flashManager";
+import { genFlashInfo, getPossibleMounts } from "@/services/flashManager";
 
 interface SettingItem {
   avatar: React.ReactElement;
@@ -107,11 +107,19 @@ export const Settings = () => {
     <div className="settings__container">
       <Button
         onClick={async () => {
-          const res = await genFlashInfo();
-          console.log("kernels: ", res);
+          const res = await getPossibleMounts();
+          console.log("getPossibleMounts: ", res);
         }}
       >
         扫描
+      </Button>
+      <Button
+        onClick={async () => {
+          const res = await genFlashInfo("D:/");
+          console.log("genFlashInfo: ", res);
+        }}
+      >
+        读取
       </Button>
       <List wrapperStyle={{ width: "100%" }}>
         {/*TODO:设置壁纸*/}

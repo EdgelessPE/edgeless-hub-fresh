@@ -3,7 +3,7 @@ import { FlashInfo } from "../../../../types/local";
 import path from "path";
 import fs from "fs";
 import { Res } from "../../type";
-import { scanKernels, scanPlugins } from "./scanners";
+import { scanConfig, scanKernels, scanPlugins } from "./scanners";
 import { Ok } from "ts-results";
 
 async function genFlashInfo(): Promise<Res<FlashInfo>> {
@@ -29,12 +29,17 @@ async function genFlashInfo(): Promise<Res<FlashInfo>> {
   if (pluginsRes.err) {
     return pluginsRes;
   }
+  const configRes = await scanConfig(path.join(selectedDisk.mount, "Edgeless"));
+  if (configRes.err) {
+    return configRes;
+  }
 
   return new Ok({
     letter: selectedDisk.mount,
     rw: true,
     kernels: kernelsRes.unwrap(),
     plugins: pluginsRes.unwrap(),
+    configs: configRes.unwrap(),
   });
 }
 

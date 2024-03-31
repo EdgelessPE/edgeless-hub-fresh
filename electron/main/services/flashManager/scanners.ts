@@ -1,9 +1,15 @@
 import { Ok } from "ts-results";
-import { FileNodePackageLocal, KernelLocal } from "../../../../types/local";
+import {
+  FileNodePackageLocal,
+  FlashInfo,
+  KernelLocal,
+} from "../../../../types/local";
 import { Res } from "../../type";
 import { readDir } from "../../utils/fs";
 import { log } from "../../log";
 import path from "path";
+import fs from "fs";
+import { readdir, readFile } from "fs/promises";
 
 const KERNEL_REGEX = /^Edgeless_(Alpha|Beta)_[0-9]+\.[0-9]+\.[0-9]+\.wim$/;
 const VERSION_REGEX = /^[0-9]+\.[0-9]+(\.[0-9]+)?$/;
@@ -61,4 +67,57 @@ export async function scanPlugins(
     }
   }
   return new Ok(res);
+}
+
+export async function scanConfig(
+  edgelessRoot: string,
+): Promise<Res<FlashInfo["configs"]>> {
+  const p = path.join(edgelessRoot, "Config");
+  const cfg: FlashInfo["configs"] = {};
+
+  // 壁纸
+  const wallpaperFilePath = path.join(edgelessRoot, "wp.jpg");
+  if (fs.existsSync(wallpaperFilePath)) {
+    cfg.wallPaper = wallpaperFilePath;
+  }
+
+  // 分辨率
+  const resolutionFilePath = path.join(p, "分辨率.txt");
+  if (fs.existsSync(resolutionFilePath)) {
+    const content = fs.readFileSync(resolutionFilePath).toString();
+    if (content === "DisableAutoSuit") {
+      cfg.resolution = {
+        method: "none",
+      };
+    } else {
+      cfg.resolution = {
+        method: "custom",
+        custom: content,
+      };
+    }
+  } else {
+    cfg.resolution = {
+      method: "auto",
+    };
+  }
+
+  // 主页
+  const homePageFilePath = path.join(p, "HomePage.txt");
+  if (fs.existsSync(homePageFilePath)) {
+    const content = (await readFile(homePageFilePath)).toString();
+    if (content === "Disable") {
+      cfg.homePage = "Disable";
+    } else {
+      cfg.homePage = content;
+    }
+  } else {
+    cfg.homePage = "https://www.baidu.com";
+  }
+
+  // flags
+  if (fs.existsSync(p)) {
+    cfg.common = (await readdir(p)).filter((name) => /[a-z][A-Z]+/.test(name));
+  }
+
+  return new Ok(cfg);
 }

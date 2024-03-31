@@ -42,7 +42,7 @@ interface FlashInfo {
       method: "auto" | "none" | "custom";
       custom?: string;
     };
-    homePage?: string;
+    homePage?: string | "Disable";
   };
 }
 

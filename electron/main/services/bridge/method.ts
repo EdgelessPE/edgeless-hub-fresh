@@ -3,6 +3,7 @@ import { BridgeReply, BridgeRequest } from "../../../../types/bridge";
 import { getMethodRegister } from "./register";
 import { isObservable } from "rxjs";
 import { addObservableToBridge } from "./observable";
+import { Err } from "ts-results";
 
 let observableTempMapKeyCount = 0;
 
@@ -19,18 +20,28 @@ export default function () {
   ipcMain.on("_bridge", async (event, req: BridgeRequest) => {
     const entry = callMap.get(req.functionName);
     if (entry == null) {
-      const reply = `Error:Fatal:Function "${req.functionName}" unregistered!`;
+      const reply = new Err(
+        `Error:Fatal:Function "${req.functionName}" unregistered!`,
+      );
       // console.log(reply);
       event.reply("_bridge-reply", {
         id: req.id,
         payload: reply,
       });
     } else {
-      const payload = await entry(...req.args),
-        reply: BridgeReply = {
-          id: req.id,
-          payload,
-        };
+      let payload: unknown;
+      try {
+        payload = await entry(...req.args);
+      } catch (e) {
+        payload = new Err(
+          `Error:Error occurred during executing of ${req.functionName} : ${e}`,
+        );
+      }
+
+      const reply: BridgeReply = {
+        id: req.id,
+        payload,
+      };
 
       // 对返回 Observable 的特殊处理
       if (isObservable(payload)) {

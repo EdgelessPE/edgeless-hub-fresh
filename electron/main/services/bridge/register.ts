@@ -35,7 +35,7 @@ import {
 } from "../ept/mirror";
 import { genTaskStatus } from "../../sequences/adapter";
 import { getAbstractPoolStatusSubject } from "../../modules/download/abstractPool";
-import { getPossibleMounts } from "../flashManager";
+import { getPossibleMounts, getObservableFlashInfo } from "../flashManager";
 
 function getMethodRegister(): Record<string, (...args: unknown[]) => unknown> {
   return {
@@ -69,6 +69,7 @@ function getMethodRegister(): Record<string, (...args: unknown[]) => unknown> {
     listMirror,
 
     getPossibleMounts,
+    getObservableFlashInfo,
   };
 }
 

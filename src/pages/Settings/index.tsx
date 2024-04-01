@@ -9,7 +9,10 @@ import React, { useEffect, useState } from "react";
 import { getCurrentTheme, setCurrentTheme } from "@/services/theme";
 import { updateSubTitle } from "@/services/subTitle";
 import { getVersion } from "@/services/misc";
-import { genFlashInfo, getPossibleMounts } from "@/services/flashManager";
+import {
+  getObservableFlashInfo,
+  getPossibleMounts,
+} from "@/services/flashManager";
 
 interface SettingItem {
   avatar: React.ReactElement;
@@ -115,8 +118,11 @@ export const Settings = () => {
       </Button>
       <Button
         onClick={async () => {
-          const res = await genFlashInfo("D:/");
-          console.log("genFlashInfo: ", res);
+          const res = await getObservableFlashInfo("E:/");
+          console.log("res", res);
+          res.subscribe((val) => {
+            console.log("getObservableFlashInfo: ", val);
+          });
         }}
       >
         读取

@@ -3,7 +3,8 @@ import { BridgeReply, BridgeRequest } from "../../../../types/bridge";
 import { getMethodRegister } from "./register";
 import { isObservable } from "rxjs";
 import { addObservableToBridge } from "./observable";
-import { Err } from "ts-results";
+import { Err, Result } from "ts-results";
+import isResult = Result.isResult;
 
 let observableTempMapKeyCount = 0;
 
@@ -47,6 +48,11 @@ export default function () {
       if (isObservable(payload)) {
         const key = `_ORV_${observableTempMapKeyCount++}`;
         addObservableToBridge(key, payload);
+        reply.payload = key;
+      }
+      if (isResult(payload) && isObservable(payload.val)) {
+        const key = `_ORV_${observableTempMapKeyCount++}`;
+        addObservableToBridge(key, payload.val);
         reply.payload = key;
       }
 

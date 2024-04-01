@@ -1,10 +1,13 @@
 import { blockDevices } from "systeminformation";
 import { FlashInfo, PossibleMount } from "../../../../types/local";
 import path from "path";
-import fs from "fs";
+import fs, { watch } from "fs";
 import { Res } from "../../type";
 import { scanConfig, scanKernels, scanPlugins } from "./scanners";
-import { Ok } from "ts-results";
+import { Ok, Result } from "ts-results";
+import { Observable } from "rxjs";
+import { log } from "../../log";
+import { debounce } from "lodash";
 
 const _FLAG_ALLOW_LOCAL_DISK = true;
 
@@ -50,4 +53,31 @@ async function genFlashInfo(mount: string): Promise<Res<FlashInfo>> {
   });
 }
 
-export { genFlashInfo };
+export async function getObservableFlashInfo(
+  mount: string,
+): Promise<Res<Observable<Res<FlashInfo>>>> {
+  const res = await genFlashInfo(mount);
+  if (res.err) {
+    log(res.val);
+    return res;
+  }
+  const observable = new Observable<Res<FlashInfo>>((subscriber) => {
+    const update = (result: Result<FlashInfo, string>) => {
+      subscriber.next(result);
+      if (result.err) {
+        log(`Error:Can't update flash info at '${mount}' : ${res.val}`);
+      }
+    };
+    update(res);
+    watch(
+      mount,
+      { recursive: true },
+      debounce(async () => {
+        log(`Info:Flash change at '${mount}' watched`);
+        update(await genFlashInfo(mount));
+      }, 50),
+    );
+  });
+
+  return new Ok(observable);
+}

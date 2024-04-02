@@ -120,9 +120,10 @@ export const Settings = () => {
         onClick={async () => {
           const res = await getObservableFlashInfo("E:/");
           console.log("res", res);
-          res.subscribe((val) => {
-            console.log("getObservableFlashInfo: ", val);
-          });
+          if (res.ok)
+            res.val.subscribe((val) => {
+              console.log("getObservableFlashInfo: ", val);
+            });
         }}
       >
         读取

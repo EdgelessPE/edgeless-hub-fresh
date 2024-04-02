@@ -9,6 +9,6 @@ export async function getPossibleMounts(): Promise<Res<KernelLocal[]>> {
 }
 export async function getObservableFlashInfo(
   mount: string,
-): Promise<Observable<Res<FlashInfo>>> {
+): Promise<Res<Observable<Res<FlashInfo>>>> {
   return bridge("getObservableFlashInfo", mount);
 }

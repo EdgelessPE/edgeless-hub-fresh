@@ -51,7 +51,7 @@ export default function () {
         reply.payload = key;
       }
       if (isResult(payload) && isObservable(payload.val)) {
-        const key = `_ORV_${observableTempMapKeyCount++}`;
+        const key = `_ORV_RES_${observableTempMapKeyCount++}`;
         addObservableToBridge(key, payload.val);
         reply.payload = key;
       }

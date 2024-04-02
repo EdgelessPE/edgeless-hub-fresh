@@ -4,6 +4,7 @@ import { createBridgeObservable } from "@/bridge/observable";
 import { canBeUnwrapped } from "@/utils/results";
 import { log } from "@/utils/log";
 import { Message } from "@arco-design/web-react";
+import { Ok } from "ts-results";
 
 let taskCount = 0,
   initFinished = false;
@@ -42,7 +43,13 @@ async function bridge<T>(functionName: string, ...args: unknown[]): Promise<T> {
           typeof reply.payload == "string" &&
           reply.payload.startsWith("_ORV_")
         ) {
-          resolve(createBridgeObservable(reply.payload) as unknown as T);
+          if (reply.payload.startsWith("_ORV_RES_")) {
+            resolve(
+              new Ok(createBridgeObservable(reply.payload)) as unknown as T,
+            );
+          } else {
+            resolve(createBridgeObservable(reply.payload) as unknown as T);
+          }
         } else if (canBeUnwrapped(reply.payload)) {
           // eslint-disable-next-line @typescript-eslint/no-explicit-any
           const r = reply.payload as any;

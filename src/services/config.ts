@@ -12,7 +12,7 @@ const listeners: Array<(cfg: Config | null) => void> = [];
 
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
 async function initConfig(modal: any) {
-  subject = await createBridgeSubject<Result<Config, string>>("config");
+  subject = createBridgeSubject<Result<Config, string>>("config");
   subject.subscribe((result) => {
     if (result?.ok) {
       cfg = result.val;

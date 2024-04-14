@@ -35,7 +35,12 @@ import {
 } from "../ept/mirror";
 import { genTaskStatus } from "../../sequences/adapter";
 import { getAbstractPoolStatusSubject } from "../../modules/download/abstractPool";
-import { getPossibleMounts, getObservableFlashInfo } from "../flashManager";
+import { getPossibleMounts } from "../flashManager";
+import {
+  changeFlashGlobal,
+  flashGlobalSubject,
+  initFlashGlobal,
+} from "../flashManager/global";
 
 function getMethodRegister(): Record<string, (...args: unknown[]) => unknown> {
   return {
@@ -69,7 +74,7 @@ function getMethodRegister(): Record<string, (...args: unknown[]) => unknown> {
     listMirror,
 
     getPossibleMounts,
-    getObservableFlashInfo,
+    changeFlashGlobal,
   };
 }
 
@@ -89,6 +94,10 @@ async function getObservableRegistry(): Promise<
 
   // download abstract pool
   register.downloadAbstractPoolStatus = getAbstractPoolStatusSubject();
+
+  // global flash subject
+  await initFlashGlobal();
+  register.flashGlobalSubject = flashGlobalSubject;
 
   return new Ok(register);
 }

@@ -10,7 +10,8 @@ import { getCurrentTheme, setCurrentTheme } from "@/services/theme";
 import { updateSubTitle } from "@/services/subTitle";
 import { getVersion } from "@/services/misc";
 import {
-  getObservableFlashInfo,
+  changeFlashGlobal,
+  getFlashGlobalSubject,
   getPossibleMounts,
 } from "@/services/flashManager";
 
@@ -42,6 +43,7 @@ function renderSettingItems(items: SettingItem[]): React.ReactElement[] {
 export const Settings = () => {
   const [theme, setTheme] = useState(getCurrentTheme);
   const [searchEngine, setSearchEngine] = useState("bing");
+  const flash = getFlashGlobalSubject();
 
   useEffect(() => {
     getVersion().then((version) => {
@@ -118,12 +120,15 @@ export const Settings = () => {
       </Button>
       <Button
         onClick={async () => {
-          const res = await getObservableFlashInfo("E:/");
+          const res = await changeFlashGlobal("D:");
           console.log("res", res);
-          if (res.ok)
-            res.val.subscribe((val) => {
-              console.log("getObservableFlashInfo: ", val);
-            });
+        }}
+      >
+        更改
+      </Button>
+      <Button
+        onClick={() => {
+          console.log("flash", flash);
         }}
       >
         读取

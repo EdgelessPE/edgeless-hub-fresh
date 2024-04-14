@@ -3,7 +3,7 @@ import { Integrity } from "./index";
 export interface FileNodeBasic {
   name: string;
   size: number;
-  timestamp: string;
+  timestamp: string | number;
 }
 interface FileNodePackageLocal extends FileNodeBasic {
   integrity?: Integrity;

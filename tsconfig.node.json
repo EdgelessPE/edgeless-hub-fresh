@@ -15,5 +15,6 @@
     "electron/main/services/ept/parsers/**/schema/*.json",
     "electron/main/**/*.ts",
     "types/*.ts"
-  ]
+  ],
+  "exclude": ["node_modules"]
 }

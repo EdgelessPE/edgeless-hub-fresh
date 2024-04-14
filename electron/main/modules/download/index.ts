@@ -11,11 +11,11 @@ import { DOWNLOAD_SUB_DIR_PACKAGES } from "../../constants";
 import { InterruptableProvider } from "./providers/Provider";
 import AbstractPool from "./abstractPool";
 import { validateIntegrity } from "../../services/integrity";
-import { Res } from "../../type";
 import { getAllowedCommands, isAllowedCommand } from "./commands";
 import { log } from "../../log";
 import { del } from "../../utils/shell";
 import type { DownloadParams, TaskMeta } from "../../../../types/download";
+import { Res } from "../../../../types/res";
 
 type Listener = (
   type: string,

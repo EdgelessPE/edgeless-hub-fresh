@@ -1,12 +1,12 @@
 import { Module, ModuleListener } from "../Module";
 import { Err, Ok } from "ts-results";
-import { Res } from "../../type";
 import * as fs from "fs";
 import { shell } from "electron";
 import { del, mkdir, move } from "../../utils/shell";
 import { maintainFlashCache } from "./flashCacheManager";
 import { getDisabledFileName, parseFlashCacheLocation } from "./utils";
 import * as path from "path";
+import { Res } from "../../../../types/res";
 
 interface UninstallPackageParams {
   targetFilePath: string;

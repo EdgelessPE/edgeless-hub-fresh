@@ -1,6 +1,6 @@
-import { Res } from "../../type";
 import { Err, Ok } from "ts-results";
 import * as path from "path";
+import { Res } from "../../../../types/res";
 
 const packagePathWindowsRegex = /^([A-Z]):\/Edgeless\/Resource\/\S+/;
 

@@ -1,4 +1,4 @@
-import { ARes } from "../type";
+import { ARes } from "../../../types/res";
 
 type ModuleListener = (
   type: string,

@@ -1,5 +1,4 @@
 import { Module, ModuleListener } from "../Module";
-import { Res } from "../../type";
 import { copyFile, ProgressData } from "cp-file";
 import { StateMachine } from "./StateMachine";
 import { log } from "../../log";
@@ -7,6 +6,7 @@ import { Err, Ok } from "ts-results";
 import * as fs from "fs";
 import * as path from "path";
 import { del } from "../../utils/shell";
+import { Res } from "../../../../types/res";
 
 interface InstallPackageParams {
   sourceFilePath: string;

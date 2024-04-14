@@ -1,8 +1,8 @@
 import bridge from "@/bridge/method";
-import { Res } from "../../electron/main/type";
 import { KernelLocal } from "../../types";
 import { FlashInfo } from "../../types/local";
 import { useObservable } from "@/bridge/useObservable";
+import { Res } from "../../types/res";
 
 export async function getPossibleMounts(): Promise<Res<KernelLocal[]>> {
   return bridge("getPossibleMounts");

@@ -1,6 +1,6 @@
 import { Provider, ProviderParams, TaskProgressListener } from "./Provider";
-import { Res } from "../../../type";
 import { Err, Ok } from "ts-results";
+import { Res } from "../../../../../types/res";
 
 // eslint-disable-next-line @typescript-eslint/no-var-requires
 const Downloader = require("nodejs-file-downloader");

@@ -2,12 +2,12 @@ import { blockDevices } from "systeminformation";
 import { FlashInfo, PossibleMount } from "../../../../types/local";
 import path from "path";
 import fs, { watch } from "fs";
-import { Res } from "../../type";
 import { scanConfig, scanKernels, scanPlugins } from "./scanners";
 import { Ok, Result } from "ts-results";
 import { Observable } from "rxjs";
 import { log } from "../../log";
 import { debounce } from "lodash";
+import { Res } from "../../../../types/res";
 
 const _FLAG_ALLOW_LOCAL_DISK = true;
 

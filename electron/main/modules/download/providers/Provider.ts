@@ -1,5 +1,5 @@
-import { ARes } from "../../../type";
 import { TaskProgressNotification } from "../type";
+import { ARes } from "../../../../../types/res";
 
 interface ProviderParams {
   url: string;

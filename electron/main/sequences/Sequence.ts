@@ -1,7 +1,7 @@
 import { Err, Ok, Result } from "ts-results";
-import { Res } from "../type";
 import { Module } from "../modules/Module";
 import { log } from "../log";
+import { Res } from "../../../types/res";
 
 interface SeqNode<U> {
   name: string;

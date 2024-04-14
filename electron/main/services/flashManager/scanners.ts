@@ -4,12 +4,12 @@ import {
   FlashInfo,
   KernelLocal,
 } from "../../../../types/local";
-import { Res } from "../../type";
 import { readDir } from "../../utils/fs";
 import { log } from "../../log";
 import path from "path";
 import fs from "fs";
 import { readdir, readFile } from "fs/promises";
+import { Res } from "../../../../types/res";
 
 const KERNEL_REGEX = /^Edgeless_(Alpha|Beta)_[0-9]+\.[0-9]+\.[0-9]+\.wim$/;
 const VERSION_REGEX = /^[0-9]+\.[0-9]+(\.[0-9]+)?$/;

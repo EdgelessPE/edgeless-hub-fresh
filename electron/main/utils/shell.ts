@@ -3,8 +3,8 @@ import { log } from "../log";
 import * as shell from "shelljs";
 import * as fs from "fs";
 import * as path from "path";
-import { Res } from "../type";
 import { Err, Ok } from "ts-results";
+import { Res } from "../../../types/res";
 
 function del(p: string): boolean {
   if (!fs.existsSync(p)) {

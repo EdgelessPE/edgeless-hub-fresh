@@ -80,8 +80,5 @@
   },
   "simple-git-hooks": {
     "pre-commit": "npx lint-staged"
-  },
-  "lint-staged": {
-    "*.{ts,tsx}": "eslint --fix"
   }
 }

@@ -1,9 +1,9 @@
 import { BehaviorSubject } from "rxjs";
-import { Res } from "../../type";
 import { FlashInfo } from "../../../../types/local";
 import { getObservableFlashInfo, getPossibleMounts } from "./index";
 import { log } from "../../log";
 import { Err, Ok } from "ts-results";
+import { Res } from "../../../../types/res";
 
 export const flashGlobalSubject = new BehaviorSubject<Res<FlashInfo>>(
   new Err("Error:No available Edgeless mounts"),

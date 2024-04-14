@@ -1,4 +1,3 @@
-import { Res } from "../../type";
 import { DownloadParams } from "../../../../types/download";
 import { getHello } from "./cache";
 import { Err, Ok } from "ts-results";
@@ -7,6 +6,7 @@ import { AddPackageUserInput } from "../../../../types/sequencesUserInput";
 import { log } from "../../log";
 import { parsePackageName } from "../../utils/parser";
 import { addMultiSequence } from "../../sequences/rendererAdapter";
+import { Res } from "../../../../types/res";
 
 async function eptInstall(
   name: string,

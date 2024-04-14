@@ -1,8 +1,8 @@
-import { Res } from "../type";
 import { stat, readdir } from "fs/promises";
 import { Ok } from "ts-results";
 import path from "path";
 import { FileNodeBasic } from "../../../types/local";
+import { Res } from "../../../types/res";
 
 export async function readDir(p: string): Promise<Res<FileNodeBasic[]>> {
   const files = await readdir(p);

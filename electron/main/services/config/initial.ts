@@ -51,7 +51,6 @@ export const initial: Config = {
     cacheDir: "./cache",
     maxDownloadingTasks: 3,
   },
-  flashDisk: null,
   preference: {
     userNick: "User",
   },

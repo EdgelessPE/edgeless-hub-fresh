@@ -14,6 +14,7 @@ import * as fs from "fs";
 import { RendererSequence } from "../../../../types/sequence";
 import { TaskStatus } from "../../../../types";
 import { TaskProgressNotification } from "../../../../types/module";
+import { getCurrentFlashMount } from "../../services/flashManager/global";
 
 function addPackage(): SeqNode<AddPackageUserInput>[] {
   return [
@@ -28,8 +29,8 @@ function addPackage(): SeqNode<AddPackageUserInput>[] {
       name: "install",
       userInputValidator: (userInput) => {
         // 检查 u盘 是否存在
-        const { flashDisk } = getTempConfig();
-        if (flashDisk == null || !fs.existsSync(flashDisk)) {
+        const flashDisk = getCurrentFlashMount();
+        if (!flashDisk || !fs.existsSync(flashDisk)) {
           return new Err(`Error:Flash disk(${flashDisk}) not exist`);
         }
 
@@ -50,10 +51,11 @@ function addPackage(): SeqNode<AddPackageUserInput>[] {
         prevReturned: string[],
       ): InstallPackageParams => {
         const downloadedFilePath = prevReturned[0];
+        const flashDisk = getCurrentFlashMount();
         const targetFilePath =
           userInput.targetPath ??
           path.join(
-            getTempConfig().flashDisk,
+            flashDisk,
             FLASH_DISK_PACKAGE,
             path.basename(downloadedFilePath),
           );

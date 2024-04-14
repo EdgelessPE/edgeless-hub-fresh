@@ -116,7 +116,7 @@ export function restartWindow() {
 }
 
 export function toggleDevTool() {
-  win.webContents.openDevTools();
+  win?.webContents.openDevTools();
 }
 
 export function getVersion() {

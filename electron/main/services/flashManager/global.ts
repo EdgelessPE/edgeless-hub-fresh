@@ -47,7 +47,7 @@ export async function changeFlashGlobal(mount: string): Promise<Res<void>> {
   if (obsRes.err) {
     return obsRes;
   }
-  currentCtx.cancelWatchCallback();
+  currentCtx.cancelWatchCallback?.();
   const { observable, cancelWatchCallback } = obsRes.unwrap();
   observable.subscribe(flashGlobalSubject);
   currentCtx.cancelWatchCallback = cancelWatchCallback;

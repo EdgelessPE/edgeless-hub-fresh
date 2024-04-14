@@ -95,7 +95,7 @@ async function startSingleSequence(
 
   return new Observable<RendererSequence>((subscriber) => {
     seq.sequence.listenCurrent((current) => {
-      cache = adapter(seq, { cache, current });
+      if (current) cache = adapter(seq, { cache, current });
       subscriber.next(cache);
     });
   });
@@ -123,12 +123,12 @@ function setMSCache(key: string, cache: RendererSequence[]) {
 function patchMultiSequencesView(
   key: string,
   entry: IPoolNode,
-  current: Current,
+  current: Current | null,
 ) {
   const cache = getMSCache(key);
   for (let i = 0; i < cache.length; i++) {
     const node = cache[i];
-    if (node.id == entry.id) {
+    if (node.id == entry.id && current) {
       cache[i] = adapter(entry, { cache: node, current });
       setMSCache(key, cache);
       return;
@@ -146,14 +146,14 @@ function patchMultiSequencesView(
 function viewMultiSequences(key: string): Observable<RendererSequence[]> {
   // 初始化视图缓存
   const entries = getMultiSequencesPoolEntries(key);
-  const cache = entries.map((entry) => adapter(entry));
+  const cache = entries.map((entry) => entry && adapter(entry));
   setMSCache(key, cache);
 
   // 订阅子序列现状更新
   // globalMultiSequencesView.subject.unsubscribe();
   entries.forEach((entry) => {
-    entry.sequence.removeListeners();
-    entry.sequence.listenCurrent((cur) => {
+    entry?.sequence.removeListeners();
+    entry?.sequence.listenCurrent((cur) => {
       patchMultiSequencesView(key, entry, cur);
     });
   });

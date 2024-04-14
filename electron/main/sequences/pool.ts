@@ -16,8 +16,8 @@ export interface IPoolNode {
 }
 
 interface IPool {
-  single: Map<string, IPoolNode>;
-  multi: Map<string, IPoolNode[]>;
+  single: Map<string, IPoolNode | null>;
+  multi: Map<string, (IPoolNode | null)[]>;
 }
 
 const Pool: IPool = {
@@ -101,9 +101,9 @@ async function resetSingleSequencePoolEntry(
 function getMultiSequencesPoolEntries(key: string): IPoolNode[] {
   const entry = Pool.multi.get(key);
   if (entry != null) {
-    return entry;
+    return entry.filter((n) => !!n) as IPoolNode[];
   } else {
-    const emptyEntry = [];
+    const emptyEntry: IPoolNode[] = [];
     Pool.multi.set(key, emptyEntry);
     return emptyEntry;
   }
@@ -111,7 +111,7 @@ function getMultiSequencesPoolEntries(key: string): IPoolNode[] {
 
 function getMultiSequencePoolEntry(key: string, id: string): Option<IPoolNode> {
   const entryFindRes = getMultiSequencesPoolEntries(key).find(
-    (value) => value.id == id,
+    (value) => value?.id == id,
   );
 
   if (entryFindRes == null) {
@@ -159,7 +159,7 @@ function addMultiSequencePoolEntry(
 function removeMultiSequencePoolEntry(key: string, id: string) {
   const entries = getMultiSequencesPoolEntries(key);
   const findRes = entries.find((value, index) => {
-    if (value.id == id) {
+    if (value?.id == id) {
       value.sequence.removeListeners();
       value.sequence.cancel().then((res) => {
         if (res.err) {

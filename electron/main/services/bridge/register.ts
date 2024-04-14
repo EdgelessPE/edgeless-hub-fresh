@@ -42,7 +42,7 @@ import {
   initFlashGlobal,
 } from "../flashManager/global";
 
-function getMethodRegister(): Record<string, (...args: unknown[]) => unknown> {
+function getMethodRegister(): Record<string, (...args: any[]) => any> {
   return {
     closeWindow,
     restartWindow,

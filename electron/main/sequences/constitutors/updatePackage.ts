@@ -25,10 +25,10 @@ function updatePackage(): SeqNode<UpdatePackageUserInput>[] {
       name: "uninstall",
       moduleInputAdapter: (userInput): UninstallPackageParams => {
         // 从配置中读取移除策略
-        const { deleteStrategy: strategy } = getTempConfig().ept.preferences;
+        const { deleteStrategy } = getTempConfig().ept.preferences ?? {};
         return {
           targetFilePath: userInput.targetPath,
-          strategy,
+          strategy: deleteStrategy ?? "FlashRecycle",
         };
       },
       moduleConstructor: UninstallPackage,

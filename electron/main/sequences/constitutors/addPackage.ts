@@ -55,7 +55,7 @@ function addPackage(): SeqNode<AddPackageUserInput>[] {
         const targetFilePath =
           userInput.targetPath ??
           path.join(
-            flashDisk,
+            flashDisk ?? "",
             FLASH_DISK_PACKAGE,
             path.basename(downloadedFilePath),
           );
@@ -72,13 +72,13 @@ function addPackage(): SeqNode<AddPackageUserInput>[] {
 function addPackageTaskStatusAdapter(
   cur: RendererSequence["current"],
 ): TaskStatus {
-  if (cur.state.type == "error") {
+  if (cur?.state.type == "error") {
     return {
       state: "Error",
     };
   }
-  const progress = cur.state.payload as TaskProgressNotification | null;
-  switch (cur.name) {
+  const progress = cur?.state.payload as TaskProgressNotification | null;
+  switch (cur?.name) {
     case "download":
       if (cur.state.type == "queuing") {
         return {
@@ -95,6 +95,9 @@ function addPackageTaskStatusAdapter(
         percentage: progress?.percent ?? 100,
       };
   }
+  return {
+    state: "Pending",
+  };
 }
 
 export { addPackage, addPackageTaskStatusAdapter };

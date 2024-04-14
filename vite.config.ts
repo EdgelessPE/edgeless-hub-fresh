@@ -54,7 +54,7 @@ function withDebug(config: UserConfig): UserConfig {
   const isDebug = existsSync(debugFile);
 
   if (isDebug) {
-    config.build.sourcemap = true;
+    if (config.build) config.build.sourcemap = true;
     config.plugins = (config.plugins || []).concat({
       name: "electron-vite-debug",
       configResolved(config) {

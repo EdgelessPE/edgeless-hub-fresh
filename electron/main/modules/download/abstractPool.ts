@@ -114,7 +114,7 @@ function scheduleQueue() {
   // 计算空闲位置
   const maxSeats = Math.min(
     MAX_DOWNLOADING_TASKS,
-    cfg.download.maxDownloadingTasks,
+    cfg?.download?.maxDownloadingTasks ?? 0,
   );
   const availableSeats = maxSeats - globalTaskState.downloading;
 

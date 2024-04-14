@@ -20,5 +20,7 @@ export async function readDir(p: string): Promise<Res<FileNodeBasic[]>> {
       }
     }),
   );
-  return new Ok(detailedList.filter((list) => list !== undefined));
+  return new Ok(
+    detailedList.filter((list) => list !== undefined) as FileNodeBasic[],
+  );
 }

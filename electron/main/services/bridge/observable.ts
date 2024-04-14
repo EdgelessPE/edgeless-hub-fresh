@@ -33,10 +33,10 @@ function update(
 }
 
 async function initObservableBridge(
-  webContents: WebContents,
+  webContents?: WebContents,
 ): Promise<Result<null, InitError>> {
   // 存放全局 web contents
-  webContentsGlobal = webContents;
+  webContentsGlobal = webContents ?? null;
 
   // 初始化需要异步获取的 register keys
   const initRes = await getObservableRegistry();

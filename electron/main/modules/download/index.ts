@@ -55,7 +55,13 @@ class Download extends Module {
     // 解构下载参数和配置参数
     const { url, fileName, totalSize, integrity } = this.params;
     const cfg = getTempConfig();
-    const { provider: providerId, cacheDir } = cfg.download;
+    const { provider: providerId, cacheDir } = cfg.download ?? {};
+    if (!cacheDir) {
+      return new Err("Error:Cache dir is undefined");
+    }
+    if (!providerId) {
+      return new Err("Error:Provider id is undefined");
+    }
     const dir = path.join(cacheDir, DOWNLOAD_SUB_DIR_PACKAGES);
     const targetPosition = path.join(dir, fileName);
     this.meta = {
@@ -168,7 +174,7 @@ class Download extends Module {
   async command(cmd: string, payload: unknown): Promise<Res<null>> {
     const { type } = this.stateMachine.state;
     // 检查命令是否合法
-    if (!isAllowedCommand(type, this.provider?.allowPause, cmd)) {
+    if (!isAllowedCommand(type, this.provider?.allowPause ?? false, cmd)) {
       return new Err(
         `Error:Fatal:Illegal command received : ${cmd}, payload : ${payload}`,
       );
@@ -219,7 +225,7 @@ class Download extends Module {
 
     // 尝试调用 provider 进行移除
     const rRes = await this.provider?.remove();
-    if (rRes.err) {
+    if (rRes?.err) {
       log(
         `Warning:Can't remove task ${this.stateMachine.id} through provider ${this.meta?.provider} before cancel : ${rRes.val}`,
       );
@@ -227,8 +233,8 @@ class Download extends Module {
 
     // 尝试删除已下载的文件
     const targetPosition = path.join(
-      this.meta?.params.dir,
-      this.meta?.params.fileName,
+      this.meta?.params.dir ?? "",
+      this.meta?.params.fileName ?? "",
     );
     if (!del(targetPosition)) {
       log(
@@ -312,7 +318,7 @@ class Download extends Module {
         const cRes = await this.provider?.continue();
 
         // 处理继续出错
-        if (cRes.err) {
+        if (cRes?.err) {
           this.stateMachine.toError(cRes.val);
         }
 

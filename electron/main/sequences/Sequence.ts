@@ -6,7 +6,7 @@ import { Res } from "../../../types/res";
 interface SeqNode<U> {
   name: string;
   userInputValidator?: (userInput: U) => Result<U | null, string>; // 用户输入校验器和适配器，可以拒绝用户输入或对用户输入进行修改
-  moduleInputAdapter: (userInput: U, prevReturned: unknown[]) => unknown; // 模块输入适配器，输入用户输入和上一模块的返回内容，输出当前模块需要的入参
+  moduleInputAdapter: (userInput: U, prevReturned: any[]) => any; // 模块输入适配器，输入用户输入和上一模块的返回内容，输出当前模块需要的入参
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   moduleConstructor: any;
 }
@@ -23,7 +23,7 @@ interface State {
   payload: unknown;
 }
 
-type Listener = (cur: Current) => void;
+type Listener = (cur: Current | null) => void;
 
 class Sequence<U> {
   private readonly seq: SeqNode<U>[]; // 序列构造输入
@@ -106,7 +106,7 @@ class Sequence<U> {
       this.moduleInstance = moduleInstance;
 
       // 不通知监听器地重置 current
-      this.current = null;
+      this.current = null as Current | null;
 
       // 监听模块状态变更
       moduleInstance.listen((type, payload, allowedCommands) => {
@@ -159,20 +159,20 @@ class Sequence<U> {
           allowedCommands: [],
         });
         return new Err(
-          `Error:Module ${this.current.name} thrown with error : ${errMsg}`,
+          `Error:Module ${this.current?.name} thrown with error : ${errMsg}`,
         );
       }
 
       // 判断模块终态
-      const finalType = this.current.state.type;
+      const finalType = this.current?.state.type;
       if (finalType == "error" || outputRes.err) {
         // 立即返回错误
         this.state = "Error";
         return new Err(
           `Error:Sequence stopped at step ${
-            this.current.name
+            this.current?.name
           } with state ${finalType}, payload : ${
-            this.current.state.payload
+            this.current?.state.payload
           }, resolved value : ${JSON.stringify(outputRes)}`,
         );
       } else if (finalType == "completed") {
@@ -188,7 +188,7 @@ class Sequence<U> {
         this.state = "Error";
         return new Err(
           `Error:Sequence abnormal : module ${
-            this.current.name
+            this.current?.name
           } didn't stop at final state, current=${JSON.stringify(this.current)}`,
         );
       }
@@ -201,9 +201,9 @@ class Sequence<U> {
 
   async command(cmd: string, payload: unknown): Promise<Res<unknown>> {
     // 检查命令是否被允许
-    if (!this.current.allowedCommands.includes(cmd)) {
+    if (!this.current?.allowedCommands.includes(cmd)) {
       return new Err(
-        `Error:Command ${cmd} is not allowed at step ${this.current.name}`,
+        `Error:Command ${cmd} is not allowed at step ${this.current?.name}`,
       );
     }
 
@@ -214,27 +214,30 @@ class Sequence<U> {
     );
 
     // 转发模块命令至模块实例
-    return this.moduleInstance.command(cmd, payload);
+    return (
+      this.moduleInstance?.command(cmd, payload) ??
+      new Err("Error:'moduleInstance' is undefined")
+    );
   }
 
   async cancel(): Promise<Res<null>> {
-    log(`Info:Cancel step ${this.current.name}`);
-    return this.moduleInstance.cancel();
+    log(`Info:Cancel step ${this.current?.name}`);
+    return this.moduleInstance?.cancel() ?? new Ok(null);
   }
 
   // 重试当前步骤并返回一个新的 start() 调用
   // 另外在序列管理器层级提供另一个 retry 方法用于重试整条序列
   async retryCurrentStep(): Promise<Res<unknown>> {
     // 取消当前步骤执行
-    const mcRes = await this.moduleInstance.cancel();
-    if (mcRes.err) {
+    const mcRes = await this.moduleInstance?.cancel();
+    if (mcRes?.err) {
       log(
-        `Warning:Cancel step ${this.current.name} before retry error : ${mcRes.val}`,
+        `Warning:Cancel step ${this.current?.name} before retry error : ${mcRes.val}`,
       );
     }
 
     // 重新开始（从断点恢复）
-    log(`Info:Restart current step : ${this.current.name}`);
+    log(`Info:Restart current step : ${this.current?.name}`);
     return this.start();
   }
 

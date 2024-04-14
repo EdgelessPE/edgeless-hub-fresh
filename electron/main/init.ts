@@ -7,7 +7,7 @@ import type { WebContents } from "electron";
 let needInit = true;
 
 async function init(
-  webContents: WebContents,
+  webContents?: WebContents,
 ): Promise<Result<null, InitError>> {
   if (!needInit) {
     return new Ok(null);

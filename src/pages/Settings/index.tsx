@@ -11,7 +11,7 @@ import { updateSubTitle } from "@/services/subTitle";
 import { getVersion } from "@/services/misc";
 import {
   changeFlashGlobal,
-  getFlashGlobalSubject,
+  useFlashGlobalSubject,
   getPossibleMounts,
 } from "@/services/flashManager";
 
@@ -43,7 +43,7 @@ function renderSettingItems(items: SettingItem[]): React.ReactElement[] {
 export const Settings = () => {
   const [theme, setTheme] = useState(getCurrentTheme);
   const [searchEngine, setSearchEngine] = useState("bing");
-  const flash = getFlashGlobalSubject();
+  const flash = useFlashGlobalSubject();
 
   useEffect(() => {
     getVersion().then((version) => {

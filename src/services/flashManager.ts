@@ -10,6 +10,6 @@ export async function getPossibleMounts(): Promise<Res<KernelLocal[]>> {
 export async function changeFlashGlobal(mount: string) {
   return bridge("changeFlashGlobal", mount);
 }
-export function getFlashGlobalSubject() {
+export function useFlashGlobalSubject() {
   return useObservable<Res<FlashInfo>>("flashGlobalSubject");
 }

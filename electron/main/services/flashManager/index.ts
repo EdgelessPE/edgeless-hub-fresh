@@ -53,14 +53,18 @@ async function genFlashInfo(mount: string): Promise<Res<FlashInfo>> {
   });
 }
 
-export async function getObservableFlashInfo(
-  mount: string,
-): Promise<Res<Observable<Res<FlashInfo>>>> {
+export async function getObservableFlashInfo(mount: string): Promise<
+  Res<{
+    observable: Observable<Res<FlashInfo>>;
+    cancelWatchCallback: () => void;
+  }>
+> {
   const res = await genFlashInfo(mount);
   if (res.err) {
     log(res.val);
     return res;
   }
+  let handler: fs.FSWatcher | undefined = undefined;
   const observable = new Observable<Res<FlashInfo>>((subscriber) => {
     const update = (result: Result<FlashInfo, string>) => {
       subscriber.next(result);
@@ -69,7 +73,7 @@ export async function getObservableFlashInfo(
       }
     };
     update(res);
-    watch(
+    handler = watch(
       mount,
       { recursive: true },
       debounce(async () => {
@@ -78,6 +82,9 @@ export async function getObservableFlashInfo(
       }, 50),
     );
   });
+  const cancelWatchCallback = () => {
+    handler?.close();
+  };
 
-  return new Ok(observable);
+  return new Ok({ observable, cancelWatchCallback });
 }

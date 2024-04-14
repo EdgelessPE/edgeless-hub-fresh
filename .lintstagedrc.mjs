@@ -1,3 +1,3 @@
 export default {
-  "*.{ts,tsx}": ["eslint --fix",()=>"tsc --noEmit"]
+  "*.{ts,tsx}": ["eslint --fix",()=>"yarn check:type",]
 }

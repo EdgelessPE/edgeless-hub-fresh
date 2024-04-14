@@ -28,3 +28,4 @@ pnpm-lock.yaml
 /config.json
 /test
 /cache
+*.tsbuildinfo
